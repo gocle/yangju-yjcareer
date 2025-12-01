@@ -1,0 +1,232 @@
+@charset "UTF-8";
+
+/* 게시판 */
+button, input, optgroup, select, textarea{border-width: 1px; border-color: #e9e9e9;}
+select#mvmnBbsNo,
+.delete_area select,
+select.select{height:34px; padding:0 30px 1px 12px;  border:1px solid #e9e9e9; background-repeat:no-repeat; background-position:right center; background-image:url(../../../common/images/template/select_bg.png); -webkit-appearance:none; -moz-appearance:none; color:#515151; font-size:18px; line-height:24px;}
+.bbs_btn_wrap{margin-top: 20px;}
+.bbs_left,
+.bbs_right{margin-top: 10px;}
+.delete_area{margin-top: 5px;}
+.move_post input[type="submit"].btn.small{margin: 0; padding: 6px 20px;}
+.bbs_view_move li strong{font-size: 20px;}
+
+.temp_checkbox{display: inline-block; position: relative;}
+.temp_checkbox input[type="checkbox"], .temp_checkbox input[type="radio"]{position:absolute; top:7px; left:2px; margin:0; z-index:1;}
+.temp_checkbox label{position:relative; display:inline-block; padding-left:27px; font-size:18px; line-height:23px; z-index:2;}
+.temp_checkbox label:before{position:absolute; top:2px; left:0; display:block; width:19px; height:19px; box-sizing:border-box; content:'';}
+.temp_checkbox input[type="checkbox"] + label:before{background-repeat:no-repeat; background-position:center top; background-image:url(../../../common/images/template/checkbox.gif); transition:background-position 250ms ease-in-out;}
+.temp_checkbox input[type="checkbox"]:checked + label:before{background-position:center bottom;}
+.temp_checkbox input[type="radio"] + label:before{border:#a1a1a1 solid 1px; border-radius:19px; overflow:hidden; background-color:#f7f8fb; transition-property:border, background-color; transition-duration:250ms; transition-timing-function:ease-in-out;}
+.temp_checkbox input[type="radio"]:checked + label:before{border:#0053a0 solid 7px; background-color:#FFF;}
+.temp_checkbox label:after{position:absolute; top:2px; left:0; display:block; width:19px; height:19px; box-sizing:border-box; border-color:transparent; border-style:dashed; border-width:1px; content:''; z-index:3; transition:border-color 250ms ease-in-out;}
+.temp_checkbox input[type="checkbox"]:focus + label:after, .temp_checkbox input[type="radio"]:focus + label:after{border-color:#000;}
+
+.bbs_btn_wrap .bbs_btn.write{height: 42px;}
+.bbs_btn_wrap .bbs_btn{font-size:18px; line-height: 40px;}
+.bbs_btn_wrap .bbs_btn.write{border-color:#4c65d9; background:#4c65d9; color:#fff;}
+.bbs_btn_wrap .bbs_btn.write:hover{background:#0a1e7a; border-color:#0a1e7a;}
+
+table.bbs_default.write td label,
+table.bbs_default.write .attach_alt .alt_input input,
+table.bbs_default.write .attach_file .file_input input{font-size: 18px;}
+table.bbs_default.write .attach_alt .alt_input input{padding-left: 10px;}
+
+.bbs_search select{height: 40px; padding: 0 20px 0 10px; border: 1px solid #e9e9e9; font-size: 20px;}
+.bbs_search .input_text{width:300px; height: 40px; padding-left: 10px; border: 1px solid #e9e9e9; font-size: 20px;}
+.bbs_search .submit{height: 40px; font-size: 20px;}
+select.select + .btn.small{margin-top: 0;}
+
+table.bbs_default.view .bbs_content .photo_view img{width: 100%; height: 100%;}
+table.bbs_default.view .bbs_content .photo_zoom{bottom:6px; right: 6px; width: 35px; height: 35px;}
+table.bbs_default.view .file_view,
+table.bbs_default.view .file_down{height:22px; font-size: 16px;}
+
+@media all and (max-width: 1000px) {
+    table.bbs_default.list th,
+    table.bbs_default.list td{font-size: 18px;}
+}
+@media all and (max-width: 640px) {
+    table.bbs_default.list th,
+    table.bbs_default.list td{font-size: 16px;}
+
+    .bbs_search select{font-size: 16px;}
+    .bbs_search .input_text{width:100%; font-size: 16px;}
+    .bbs_search .submit{font-size: 16px;}
+    .bbs_btn_wrap .bbs_btn{font-size: 16px; line-height: 36px;}
+    .bbs_view_move li strong{font-size: 16px;}
+    select.select{font-size: 16px;}
+    .bbs_btn_wrap .bbs_btn.write{height: auto;}
+}
+
+
+/* 진학 프로그램 신청 리스트*/
+.education_list .bbs_search .listbox.con02 .label,
+.education_list .bbs_search .listbox ul li label{font-size: 20px;}
+.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{height: 40px; padding-left: 10px; border-color: #e9e9e9; font-size: 18px;}
+.education_list .bbs_search .listbox.con02 input[type="submit"]{width:70px; height: 40px; font-size: 18px;}
+.education_list .bbs_search select{padding-right: 30px;}
+
+.education_list .bbs_search .date_wrap{height: 40px;}
+.education_list .bbs_search input.date{width:100px; height: 38px; font-size: 18px;}
+.bbs_search .date_wrap .ico_calenedar{margin-right:10px; background:none; line-height: 0;}
+.education_list .education_text{padding-top: 0;}
+.education_text ul li{font-size: 20px;}
+.education_text ul li:before{top:10px;}
+
+.bbs_right,
+.bbs_count.bbs_left{font-size: 18px;}
+.education_list table{margin-top: 5px;}
+.education_list table.table.list_table th,
+.education_list table.table.list_table td{font-size: 20px; text-align: center;}
+.education_list table.table.list_table a.subject{font-size: 20px; color: #4a4f66;}
+.education_list table.table.list_table a.btn.small{padding:9px 15px 10px; font-size: 20px; line-height: 24px;}
+
+@media all and (max-width: 1240px) {
+    .education_list .bbs_search .listbox.con02 ul li.list02,
+    .education_list .bbs_search .listbox.con02 ul li.list01{width: 50%;}
+    .education_list .bbs_search .date_wrap{width: auto;}
+}
+@media all and (max-width: 1000px) {
+    .education_list .bbs_search .listbox.con01 select.select{width: calc(100% - 60px);}
+    .education_list .bbs_search .listbox.con02 .label,
+    .education_list .bbs_search .listbox.con01 label {margin-right:0;}
+    .education_list .bbs_search .listbox.con02 .label,
+    .education_list .bbs_search .listbox ul li label{font-size: 18px;}
+}
+@media all and (max-width: 800px) {
+    .education_list .bbs_search .listbox.con02 ul li.list02,
+    .education_list .bbs_search .listbox.con02 ul li.list01{width: 100%;}
+
+
+    .education_list table.table.list_table.responsive tbody td{padding:6px; }
+}
+@media all and (max-width: 640px) {
+    .education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox,
+    .education_list .bbs_search input.date,
+    .education_list .bbs_search .listbox.con02 .label,
+    .education_list .bbs_search .listbox ul li label{font-size: 16px;}
+    .education_list .bbs_search input.date{width: 94px;}
+
+    .education_text ul li{font-size: 16px; word-break: keep-all;}
+    .education_text ul li:before{top: 7px;}
+
+    .bbs_right,
+    .bbs_count.bbs_left,
+    .education_list table.table.list_table th,
+    .education_list table.table.list_table td,
+    .education_list table.table.list_table a.subject,
+    .education_list table.table.list_table a.btn.small{font-size: 16px;}
+
+}
+@media all and (max-width: 400px) {
+    .education_list .bbs_search .date_wrap{width: calc((100% - 20px) / 2);}
+    .education_list .bbs_search input.date{width: calc(100% - 40px);}
+}
+
+/* 진학 프로그램 신청 기본정보*/
+.education_viewtable .titlebox .state{font-size: 20px;}
+.education_viewtable .conbox ul li em{display:inline-block; width: auto; font-size: 22px; line-height: 26px; color: #26293d; font-weight:600;}
+.education_viewtable .conbox ul li:before{display:block; position:absolute; top:12px; left:0; width:5px; height:5px; border-radius:50px; background:#757b8e;}
+.education_viewtable .conbox ul li p{display: inline-block; float: none; width:auto; margin-left: 12px; font-size: 22px; line-height: 26px; vertical-align: top;}
+@media all and (max-width: 640px) {
+    .education_viewtable .titlebox .state{font-size: 18px;}
+    .education_viewtable .conbox ul li{padding-left: 12px;}
+    .education_viewtable .conbox ul li p,
+    .education_viewtable .conbox ul li em{font-size: 16px; line-height: 20px;}
+    .education_viewtable .conbox ul li:before{top:7px; width: 4px; height: 4px;}
+}
+
+/* 진학 프로그램 신청 개인정보수집동의 */
+.stepbox ol li .roundbox .tablebox .cellbox .step{font-family:'Freesentation'; font-size: 18px;}
+.stepbox ol li .roundbox .tablebox .cellbox p{font-size: 22px;}
+
+@media all and (max-width: 1000px) {
+    .stepbox ol li .roundbox .tablebox .cellbox .step{font-size: 16px;}
+    .stepbox ol li .roundbox .tablebox .cellbox p{font-size: 20px;}
+}
+@media all and (max-width: 640px) {
+    .stepbox ol li .roundbox .tablebox .cellbox .step{font-size: 15px;}
+    .stepbox ol li .roundbox .tablebox .cellbox p{font-size: 18px;}
+}
+@media all and (max-width: 480px) {
+    .stepbox ol li .roundbox .tablebox .cellbox .step,
+    .stepbox ol li .roundbox .tablebox .cellbox p{font-size: 14px;}
+}
+
+/* 진학 프로그램 신청 정보입력 */
+table.bbs_default.write th{background-color: #f4f4f9; font-size: 20px; font-weight: 600; color: #26293d;}
+table.bbs_default.write tr:first-child th,
+table.bbs_default.write tr:first-child td{border-top: 1px solid #757b8e;}
+table.bbs_default.write td{border-color: #e3e5e8;}
+
+.education_formbox table.bbs_default.write.basic_table td{font-size: 18px; line-height: 24px; color: #4a4f66;}
+.education_formbox table.bbs_default.write.basic_table .birthbox select.select{width:auto !important;  margin-bottom: 5px; font-size: 18px !important; color: #4a4f66 !important;}
+.education_formbox table.bbs_default.write.basic_table input[type="text"].temp_textbox{height: 34px; font-size: 18px; vertical-align: top;}
+.education_formbox table.bbs_default.write.basic_table input[type="text"].temp_textbox,
+.education_formbox table.bbs_default.write.basic_table .address input[type="text"].temp_textbox.full_size{padding-left: 10px;}
+.education_formbox table.bbs_default.write.basic_table .smsbox .label{font-size: 16px; line-height: 30px; vertical-align: middle;}
+
+@media all and (max-width: 800px) {
+    .education_formbox table.bbs_default.write th{padding:8px 0; font-size: 18px;}
+    .education_formbox table.bbs_default.write td{font-size: 18px;}
+    .education_formbox table.bbs_default.write.basic_table .birthbox select.select{height:34px !important; padding-left: 10px; padding-right: 30px; background-position: 103% center;}
+    .education_formbox table.bbs_default.write.basic_table input[type="text"].temp_textbox#moblphon3,
+    .education_formbox table.bbs_default.write.basic_table input[type="text"].temp_textbox#moblphon2{margin-top: 5px;}
+    .education_formbox table p.point{font-size: 18px; line-height: 22px;}
+}
+@media all and (max-width: 640px) {
+    table.bbs_default.write{border-top: 1px solid #757b8e;}
+    table.bbs_default.write th{background-color: inherit;}
+    table.bbs_default.write tr:first-child th,
+    table.bbs_default.write tr:first-child td{border-top: none;}
+    .education_formbox table.bbs_default.write.basic_table td{padding: 8px 0;}
+}
+/* 사이트맵 */
+.sitemap_wrap{position: relative; font-size: 0; line-height: 0;}
+.sitemap_wrap .type1{padding-bottom:10px; border-bottom: 2px solid #26293d;}
+.sitemap_wrap .type1:not(:first-child){padding-top: 60px;}
+.sitemap_wrap h3{display: inline-block; width: 280px; margin-top: 12px; vertical-align: top;}
+.sitemap_wrap .sitemap_row{display: inline-block; width: calc(100% - 280px);}
+.sitemap_wrap .sitemap_item{display: inline-block; position: relative; width: calc((100% - 90px) / 4); margin-right: 30px; margin-bottom: 30px; vertical-align: top;}
+.sitemap_wrap .sitemap_item:nth-child(4n){margin-right: 0;}
+.sitemap_wrap .sitemap_item h4{display:block; border: 1px solid #d5d7dd; border-radius: 10px; margin:0; font-size: 21px; font-weight: 500; text-align: center; transition: all 0.2s ease-in-out;}
+.sitemap_wrap .sitemap_item h4 a{display: block; width: 100%; height: 100%; padding: 17px 0 16px; color: #1a1a1a; transition: all 0.2s ease-in-out;}
+.sitemap_wrap .sitemap_item .bu{margin-top: 26px; margin-left: 19px;}
+.sitemap_wrap .sitemap_item .bu > li+li{margin-top:11px;}
+.sitemap_wrap .sitemap_item .bu li:before{top: 9px; transition: all 0.2s ease-in-out;}
+.sitemap_wrap .sitemap_item ul li a{color: #4a4f66; transition: all 0.2s ease-in-out;}
+
+.sitemap_wrap .sitemap_item h4:hover{border-color: #4c65d9;}
+.sitemap_wrap .sitemap_item ul li:hover a,
+.sitemap_wrap .sitemap_item h4:hover a{color: #4c65d9;}
+.sitemap_wrap .sitemap_item ul li:hover:before{background-color:#4c65d9;}
+
+@media all and (max-width: 1300px) {
+    .sitemap_wrap .sitemap_item{width: calc((100% - 40px) / 3); margin-right: 20px; margin-bottom: 20px;}
+    .sitemap_wrap .sitemap_item:nth-child(4n){margin-right: 20px;}
+    .sitemap_wrap .sitemap_item:nth-child(3n){margin-right: 0;}
+    .sitemap_wrap .sitemap_item .bu{margin-left: 5px;}
+}
+@media all and (max-width: 1000px) {
+    .sitemap_wrap .type1:not(:first-child){padding-top: 50px;}
+    .sitemap_wrap h3{display: block; width:100%; margin-top: 0;}
+    .sitemap_wrap .sitemap_row{display: block; width: 100%;}
+}
+@media all and (max-width: 640px) {
+    .sitemap_wrap .type1{padding-bottom: 0;}
+    .sitemap_wrap .type1:not(:first-child){padding-top: 20px;}
+    .sitemap_wrap h3{margin-bottom: 20px;}
+    .sitemap_wrap .sitemap_item{width: calc((100% - 30px) / 3); margin-right: 15px; margin-bottom: 15px;}
+    .sitemap_wrap .sitemap_item:nth-child(4n){margin-right: 15px;}
+    .sitemap_wrap .sitemap_item h4{font-size: 18px;}
+    .sitemap_wrap .sitemap_item h4 a{padding: 12px 0 11px;}
+    .sitemap_wrap .sitemap_item .bu{margin-left: 0; margin-top: 15px;}
+    .sitemap_wrap .sitemap_item .bu > li+li{margin-top: 8px;}
+}
+@media all and (max-width: 480px) {
+    .sitemap_wrap .sitemap_item{width: calc((100% - 20px) / 2); margin-right: 20px; margin-bottom: 15px;}
+    .sitemap_wrap .sitemap_item:nth-child(2n){margin-right: 0;}
+    .sitemap_wrap .sitemap_item:nth-child(3n){margin-right: 20px;}
+}

@@ -1,0 +1,117 @@
+@charset "UTF-8";
+/* 본고딕 */
+@font-face{
+	font-family: 'NotoKr';
+	font-weight: 200;
+	src: url("../fonts/NotoSansCJKkr-Light.woff2") format('woff2'),
+	url("../fonts/NotoSansCJKkr-Light.woff") format('woff');
+}
+@font-face{
+	font-family: 'NotoKr';
+	font-weight: 300;
+	src: url("../fonts/NotoSansCJKkr-DemiLight.woff2") format('woff2'),
+	url("../fonts/NotoSansCJKkr-DemiLight.woff") format('woff');
+}
+@font-face{
+	font-family: 'NotoKr';
+	font-weight: 400;
+	src: url("../fonts/NotoSansCJKkr-Regular.woff2") format('woff2'),
+		url("../fonts/NotoSansCJKkr-Regular.woff") format('woff');
+}
+@font-face{
+	font-family: 'NotoKr';
+	font-weight: 500;
+	src: url("../fonts/NotoSansCJKkr-Medium.woff2") format('woff2'),
+	url("../fonts/NotoSansCJKkr-Medium.woff") format('woff');
+}
+@font-face{
+	font-family: 'NotoKr';
+	font-weight: 600;
+	src: url("../fonts/NotoSansCJKkr-Bold.woff2") format('woff2'),
+	url("../fonts/NotoSansCJKkr-Bold.woff") format('woff');
+}
+
+
+/* WAGURI */
+@font-face{
+    font-family: 'WAGURI';
+    font-weight: 400;
+    src: url("../fonts/WAGURI_TTF.woff2") format('woff2'),
+    url("../fonts/WAGURI_TTF.woff") format('woff');
+}
+
+/* cafe24Air */
+@font-face{
+    font-family: 'Cafe24Air';
+    font-weight: 400;
+    src: url("../fonts/Cafe24SsurroundAir.woff2") format('woff2'),
+    url("../fonts/Cafe24SsurroundAir.woff") format('woff');
+}
+
+
+/* cafe24surround */
+@font-face {
+	font-family: 'Cafe24Ssurround';
+	font-weight: 400;
+	src: url("../fonts/Cafe24Ssurround-v2.0.woff2") format('woff2'),
+		url("../fonts/Cafe24Ssurround-v2.0.woff") format('woff');
+}
+
+/* Tmoney */
+@font-face{
+    font-family: 'Tmoney';
+    font-weight: 400;
+    src: url("../fonts/TmoneyRoundWindRegular.woff2") format('woff2'),
+    url("../fonts/TmoneyRoundWindRegular.woff") format('woff');
+}
+
+@font-face{
+    font-family: 'Tmoney';
+    font-weight: 700;
+    src: url("../fonts/TmoneyRoundWindExtraBold.woff2") format('woff2'),
+    url("../fonts/TmoneyRoundWindExtraBold.woff") format('woff');
+}
+
+/* 티머니 둥근바람 */
+/* @font-face {
+    font-family: 'Tmoney';
+	font-weight: 300;
+    src: url('../fonts/TmoneyRoundWindExtraRegular.woff') format('woff');
+} */
+
+
+/* Freesentation */
+@font-face{
+    font-family: 'Freesentation';
+    font-weight: 300;
+    src: url("../fonts/Freesentation-3Light.woff2") format('woff2'),
+    url("../fonts/Freesentation-3Light.woff") format('woff');
+}
+
+@font-face{
+    font-family: 'Freesentation';
+    font-weight: 400;
+    src: url("../fonts/Freesentation-4Regular.woff2") format('woff2'),
+    url("../fonts/Freesentation-4Regular.woff") format('woff');
+}
+
+@font-face{
+    font-family: 'Freesentation';
+    font-weight: 500;
+    src: url("../fonts/Freesentation-5Medium.woff2") format('woff2'),
+    url("../fonts/Freesentation-5Medium.woff") format('woff');
+}
+
+@font-face{
+    font-family: 'Freesentation';
+    font-weight: 600;
+    src: url("../fonts/Freesentation-6SemiBold.woff2") format('woff2'),
+    url("../fonts/Freesentation-6SemiBold.woff") format('woff');
+}
+
+@font-face{
+    font-family: 'Freesentation';
+    font-weight: 700;
+    src: url("../fonts/Freesentation-7Bold.woff2") format('woff2'),
+    url("../fonts/Freesentation-7Bold.woff") format('woff');
+}

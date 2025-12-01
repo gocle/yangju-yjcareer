@@ -170,13 +170,13 @@
 			<i class="service_bg"></i>
 			<div class="img_box">
 				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img01.png" alt="학습지원 서비스 안내1">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/service_img01.png" alt="학습지원 서비스 안내1">
 				</div>
 				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img02.png" alt="학습지원 서비스 안내2">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/service_img02.png" alt="학습지원 서비스 안내2">
 				</div>
 				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img03.png" alt="학습지원 서비스 안내3">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/service_img03.png" alt="학습지원 서비스 안내3">
 				</div>
 			</div>
 		</div>

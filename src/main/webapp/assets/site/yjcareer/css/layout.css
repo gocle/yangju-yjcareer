@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+/* 초기화 */
+a:active,a:hover,a:link,a:visited{color:#26293d; text-decoration:none}
+a:focus{text-decoration:underline}
+button,input,optgroup,select,textarea{border-width:0}
+
+/* 레이아웃 공통 */
+body,html{position:relative; height:100%}
+body{overflow-x:hidden; background-color:#fff; color:#26293d; font-size:22px; line-height:30px; letter-spacing:0; font-weight:400; font-family:"Freesentation","NotoKr","Malgun Gothic","맑은 고딕","Dotum","돋움","Gulim","굴림",sans-serif; word-wrap:break-word; -webkit-text-size-adjust:none}
+@media all and (max-width:640px){
+    body{font-size:16px; line-height:22px}
+}
+#header{position:relative; z-index:30; width:100%; background-color:#fff}
+#container{position:relative; z-index:10; width:100%; background-color:#fff}
+#container:focus{border:1px solid #000}
+#footer{position:relative; z-index:20; width:100%; background-color:#fff}
+#screen{visibility:hidden; overflow:scroll; position:absolute; width:100px; height:100px}
+
+/* slick */
+.slick-slider{position:relative}
+.slick-list{overflow:hidden; position:relative}
+.slick-track{position:relative; top:0; left:0; margin-right:auto; margin-left:auto}
+.slick-track:after,.slick-track:before{display:table}
+.slick-track:after{clear:both}
+.slick-loading .slick-track{visibility:hidden}
+.slick-slide{display:none; float:left}
+.slick-slide.slick-loading img{display:none}
+.slick-initialized .slick-slide{display:block}
+.slick-loading .slick-slide{visibility:hidden}
+.slick-vertical .slick-slide{display:block}
+
+/* 본문바로가기  */
+.accessibility{overflow:hidden; position:absolute; top:0; left:0; z-index:3000; width:100%}
+.accessibility a{overflow:hidden; display:block; z-index:3000; width:1px; height:1px; margin:0 -1px -1px 0; text-align:center; font-size:0; line-height:0}
+#accessibility a:active,#accessibility a:hover,.accessibility a:focus{width:auto; height:30px; margin:0; padding:8px 0; background-color:#333; color:#fff; font-size:14px; line-height:16px}
+
+/* 담당자 */
+.satisfaction{margin:30px 0; padding:0; border:1px solid #e9e9e9}
+.satisfaction .kogl_open{padding:24px 3% 20px; min-height:75px}
+.satisfaction .kogl_open img{float:left; margin-top:-4px; margin-right:20px}
+.satisfaction .satisfaction_list{padding:20px 3%; background:#f7f7f7}
+.satisfaction .question{padding:2px 0 2px 36px; background:url(/common/images/program/comment_smile.png) left top no-repeat; color:#000}
+.satisfaction .satisfaction_list label{vertical-align:middle; display:inline-block; position:relative; margin-right:20px; white-space:nowrap}
+.satisfaction .satisfaction_list .input_radio{display:block; margin-top:8px}
+.satisfaction .satisfaction_list .input_radio input[type=radio]{width:16px; height:16px}
+.satisfaction .satisfaction_list .opinion{display:table; width:100%; margin-top:8px}
+.satisfaction .satisfaction_list .opinion_submit{display:table-cell; width:1%; vertical-align:middle}
+.satisfaction .satisfaction_list .opinion input[type=text]{display:block; width:100%; padding:4px 0 4px 10px; border:1px solid #e1e1e1; border-right:none}
+.satisfaction .satisfaction_list .opinion input[type=submit]{display:inline-block; padding:4px 20px; border:1px solid #757575; background-color:#202e70; color:#fff}
+.satisfaction .manager_info{position:relative; padding:0 3%}
+.satisfaction .manager_info ul{padding:15px 0}
+.satisfaction .manager_info ul li{float:left; margin-left:45px}
+.satisfaction .manager_info ul li:first-child{margin-left:0; padding-left:0}
+.satisfaction .manager_info ul li.date{float:right; margin-left:0; padding-left:0;}
+.satisfaction .manager_info ul li span{display:inline-block; color:#000}
+.satisfaction .manager_info ul li span:after{content:""; display:inline-block; width:1px; height:15px; margin:0 6px 2px 8px; background:#ccc; vertical-align:middle}
+@media all and (max-width:860px){
+    .satisfaction .kogl_open{padding-top:20px; line-height:1.3}
+    .satisfaction .kogl_open img{margin-top:4px}
+}
+@media all and (max-width:710px){
+    .satisfaction .manager_info ul li{width:50%; margin-left:0}
+}
+@media all and (max-width:500px){
+    .satisfaction .manager_info ul li{float:none; width:100%}
+    .satisfaction .satisfaction_list label{margin-right:40px}
+}
+
+/* 메뉴 */
+.menu.init,.menu.init .depth,.menu.init .depth:after,.menu.init .depth:before,.menu.init .depth_item,.menu.init .depth_item:after,.menu.init .depth_item:before,.menu.init .depth_list,.menu.init .depth_list:after,.menu.init .depth_list:before,.menu.init .depth_text,.menu.init .depth_text:after,.menu.init .depth_text:before,.menu.init .depth_title,.menu.init .depth_title:after,.menu.init .depth_title:before,.menu.init:after,.menu.init:before{transition-property:all; transition-duration:0.25s; transition-timing-function:linear}
+.menu,.menu .depth,.menu .depth_item,.menu .depth_list,.menu .depth_text{position:relative}
+.menu{font-size:0; line-height:0}
+.menu .depth:not(.depth1){visibility:hidden; opacity:0; overflow:hidden}
+.menu .depth1{z-index:30}
+.menu .depth_list{z-index:10}
+.menu .depth_text{display:inline-block}
+
+/* 1, 2차 메뉴 배경 */
+.menu.after:after,.menu.before:before{display:block; position:absolute}
+.menu.before:before{z-index:10}
+.menu.after:after{z-index:20}
+
+/* 제목 상자 */
+.menu .depth_title{overflow:hidden; position:absolute; z-index:20}
+
+/* 옵션 */
+.menu .depth1.clearfix .depth1_list{float:right}
+.menu .depth_list.clearfix>.depth_item{float:left}
+.menu .depth_list.cut>.depth_item{display:inline-block; vertical-align:top}
+
+/* 풀 다운 */
+.menu.pulldown .depth1{height:inherit}
+.menu.pulldown .depth1_item,.menu.pulldown .depth1_list{height:inherit}
+.menu.pulldown .depth2{position:absolute; bottom:0; left:0; width:100%}
+
+/* 이치 다운 */
+.menu.eachdown .depth1{height:inherit}
+.menu.eachdown .depth1_item,.menu.eachdown .depth1_list{position:static; height:inherit}
+.menu.eachdown .depth2{position:absolute; bottom:0; left:0; width:100%}
+
+/* 드롭 다운 */
+.menu.dropdown .depth2{position:absolute; top:100%; left:0; width:100%; transform-origin:center top; transform:scaleY(0)}
+
+/* 주메뉴 */
+.lnb{font-size:0; line-height:0}
+@media all and (min-width:1001px){
+
+    /* 메뉴 열기, 메뉴 닫기 */
+    .lnb .menu_hide,.lnb .menu_show{display:none}
+
+    /* 메뉴 넓이 */
+    .lnb.length3 .menu .depth1_item{width:33.33%}
+    .lnb.length4 .menu .depth1_item{width:25%}
+    .lnb.length5 .menu .depth1_item{width:20%}
+    .lnb.length6 .menu .depth1_item{width:16.66%}
+    .lnb.length7 .menu .depth1_item{width:14.28%}
+    .lnb.length8 .menu .depth1_item{width:12.5%}
+}
+@media all and (max-width:1000px){
+
+    /* 1, 2차 메뉴 배경 */
+    .menu.after:after,.menu.before:before{display:none}
+
+    /* 제목 상자 */
+    .menu .depth_title{display:none}
+
+    /* 옵션 */
+    .menu .depth1.clearfix .depth1_list{float:none}
+    .menu .depth_list.clearfix>.depth_item{float:none}
+    .menu .depth_list.cut>.depth_item{display:block}
+
+    /* 풀 다운 */
+    .menu.pulldown .depth1,.menu.pulldown .depth1_item,.menu.pulldown .depth1_list{height:auto}
+    .menu.pulldown .depth2{position:relative; bottom:auto; left:auto}
+
+    /* 이치 다운 */
+    .menu.eachdown .depth1{height:auto}
+    .menu.eachdown .depth1_item,.menu.eachdown .depth1_list{position:relative; height:auto}
+    .menu.eachdown .depth2{position:relative; bottom:auto; left:auto}
+
+    /* 드롭 다운 */
+    .menu.dropdown .depth2{position:relative; top:auto; left:auto; transform:scaleY(1)}
+
+    /* 메뉴 영역 */
+    .lnb:before{display:block; visibility:hidden; opacity:0; position:fixed; top:0; left:0; z-index:40; width:100%; height:100%; background-color:rgba(0, 0, 0, 0.7); transition-property:visibility,opacity; transition-duration:0.25s; transition-timing-function:linear}
+    .lnb .menu{visibility:hidden; overflow-x:hidden; overflow-y:auto; position:fixed; top:0; right:-302px; z-index:50; width:302px; height:100%; transition-property:visibility,right; transition-duration:0.25s; transition-timing-function:linear}
+    .lnb .wrap{padding-right:0; padding-left:0}
+
+    /* 메뉴 열었을 때 */
+    .lnb_show,.lnb_show body{overflow:hidden}
+    .lnb_show .lnb .menu{visibility:visible; right:0}
+    .lnb_show .lnb:before{visibility:visible; opacity:1}
+
+    /* 1차 메뉴 */
+    .lnb .menu .depth1{z-index:10}
+
+    /* 열기 버튼 */
+    .lnb .menu_show{position:absolute; z-index:30}
+
+    /* 닫기 버튼 */
+    .lnb .menu_hide{position:absolute; z-index:30}
+}
