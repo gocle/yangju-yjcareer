@@ -42,37 +42,7 @@ public class MyPageCotroller {
 	 */
 	@RequestMapping("myReservation.do")
 	public String myReservation(HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
-		String diKey = (String) session.getAttribute(Globals.DI_KEY);
-		String retMsg = "";
-		if(diKey == null) {
-			retMsg = "로그인이 필요한 서비스입니다.";
-			redirectAttributes.addFlashAttribute("retMsg", retMsg);
-			return "redirect:/usr/main.do";
-		}
-		UserReservationVO urVO = new UserReservationVO();
-		urVO.setDiKey(diKey);
-		List<UserReservationVO> resultList = myPageService.myReservationList(urVO);
 		
-		int totalCnt = 0;
-		Integer pageSize = urVO.getPageSize();
-		Integer pageIndex =	urVO.getPageIndex();
-		
-		if(0 < resultList.size() ){
-			totalCnt = Integer.parseInt( resultList.get(0).getTotalCount() );
-		}
-		
-		PaginationInfo paginationInfo = new PaginationInfo();
-	    paginationInfo.setCurrentPageNo(pageIndex);
-        paginationInfo.setRecordCountPerPage(pageSize);
-        paginationInfo.setPageSize(urVO.getPageUnit());
-        paginationInfo.setTotalRecordCount(totalCnt);
-        
-        model.addAttribute("resultList", resultList);
-        model.addAttribute("pageSize", pageSize);
-	    model.addAttribute("totalCount", totalCnt);
-	    model.addAttribute("pageIndex", pageIndex);
-	    model.addAttribute("paginationInfo", paginationInfo);
-	    
 	    return "/usr/mypage/myReservation";
 	}
 	

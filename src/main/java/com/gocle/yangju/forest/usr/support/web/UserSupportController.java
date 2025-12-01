@@ -25,8 +25,20 @@ public class UserSupportController {
 	private UserSupportService userSupportService;
 	
 	@RequestMapping("intro.do")
-	public String list4(ModelMap model) throws Exception {
+	public String intro(ModelMap model) throws Exception {
 		
 		return "/usr/support/intro";
+	}
+	
+	@RequestMapping("list.do")
+	public String list(ModelMap model) throws Exception {
+		
+		return "/usr/support/list";
+	}
+	
+	@RequestMapping("form.do")
+	public String form(ModelMap model) throws Exception {
+		
+		return "/usr/support/form";
 	}
 }

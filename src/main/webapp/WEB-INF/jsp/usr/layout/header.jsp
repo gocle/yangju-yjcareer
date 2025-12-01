@@ -16,7 +16,7 @@
 
 							<!--<li class="link_item login"><a href="/loginForm.do?siteId=yjcareer&amp;TARGET=/yjcareer/index.do" class="link_anchor" title="로그인">로그인</a></li>-->
 							<li class="link_item logout"><a href="/logout.do?siteId=yjcareer" class="link_anchor" title="로그아웃">로그아웃</a></li>
-                            <li class="link_item mypage"><a href="selectEduApplcntResveWebList.html" class="link_anchor">나의예약</a></li>
+                            <li class="link_item mypage"><a href="/yjcareer/usr/mypage/myReservation.do" class="link_anchor">나의예약</a></li>
 
 
 						</ul>
@@ -116,18 +116,18 @@
 										</div>
 									</li>
 									<li class="depth_item depth1_item n1">
-										<a href="contents_4135.html" target="_self" class="depth_text depth1_text"><span>학습지원서비스</span></a>
+										<a href="/yjcareer/usr/support/intro.do" target="_self" class="depth_text depth1_text"><span>학습지원서비스</span></a>
 										<div class="depth depth2">
 											<div class="depth2_content">
 												<ul class="depth_list depth2_list cut">
 													<li class="depth_item depth2_item">
-														<a href="contents_4135.html" target="_self" class="depth_text depth2_text"><span>학습지원서비스안내</span></a>
+														<a href="/yjcareer/usr/support/intro.do" target="_self" class="depth_text depth2_text"><span>학습지원서비스안내</span></a>
 													</li>
 													<li class="depth_item depth2_item">
 														<a href="https://study4way.com/intro" target="_blank" title="새창" class="depth_text depth2_text"><span>학습유형 검사</span></a>
 													</li>
 													<li class="depth_item depth2_item">
-														<a href="selectBbsNttList.html" target="_self" class="depth_text depth2_text"><span>학습 상담</span></a>
+														<a href="/yjcareer/usr/support/list.do" target="_self" class="depth_text depth2_text"><span>학습 상담</span></a>
 													</li>
 												</ul>
 											</div>

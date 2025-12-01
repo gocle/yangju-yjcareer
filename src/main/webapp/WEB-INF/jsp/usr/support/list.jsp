@@ -20,7 +20,7 @@
                             <p class="first_title">학습지원서비스</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>학습지원서비스안내</h2>
+                            <h2>학습 상담</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -49,12 +49,12 @@
 				
 				
 					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile">학습지원서비스안내</a>
-						<button type="button" class="breadcrumbs_select" title="목록열기">학습지원서비스안내</button>
+						<a href="" class="breadcrumbs_anchor mobile">학습 상담</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">학습 상담</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" class="active">학습지원서비스안내</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스안내</a>	</li>
 									<li class="tab_item"><a href="https://study4way.com/intro" title="새창" target="_blank" >학습유형 검사</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&key=4139"  target="_self" >학습 상담</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&key=4139"  target="_self" class="active">학습 상담</a>	</li>
 						</ul>
 					</li>
 				
@@ -156,32 +156,128 @@
                     </header>
                     
                     
-                    <div id="contents" class="cts4135">
-						<div class="service">
-	<div class="title_box n2">
-		<div class="box_wrap">
-			<h3 class="box_title">학습지원 서비스 안내</h3>
-			<p>학습코치 양성 프로그램을 국내 우수한 대학생들에게 교육하고 학습코치로 양성하여 도움이 필요한 청소년과 연결하여 체계적인 학습 코칭을 지원하겠습니다.</p>
-		</div>
-	</div>
+                    <div id="contents" class="cts4139">
+						<script>
+//<![CDATA[
+function fn_recovryBbsNtt( url ) {
+	if( confirm("복원하시겠습니까?") ) {
+		window.location = url;
+	}
+}
+
+
+//]]>
+</script>
+
 	
-	<div class="box">
-		<div class="box_inner">
-			<i class="service_bg"></i>
-			<div class="img_box">
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img01.png" alt="학습지원 서비스 안내1">
-				</div>
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img02.png" alt="학습지원 서비스 안내2">
-				</div>
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img03.png" alt="학습지원 서비스 안내3">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+	
+    <div class="bbs_search">
+        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./selectBbsNttList.do" method="get" class="boardSearchForm">
+            <fieldset>
+            <legend>게시물 검색</legend>
+            <input type="hidden" name="key" value="4139"/>
+            <input type="hidden" name="bbsNo" value="531"/>
+            <input type="hidden" name="integrDeptCode" value=""/>
+			
+			<label for="searchCnd" class="skip">검색 영역 선택</label>
+            <select name="searchCnd" id="searchCnd" title="검색 영역 선택">
+				<option value="SJ" >제목</option>
+				<option value="CN" >내용</option>
+            </select>
+            <label for="searchKrwd" class="skip">검색어 입력</label>
+            <input name="searchKrwd" id="searchKrwd" type="text" class="input_text" title="검색어 입력" placeholder="검색어 입력" value="" />
+			<input value="검색" type="submit" class="submit" />
+            </fieldset>
+        </form>
+    </div>
+
+
+    <div class="bbs_info clearfix">
+        <div class="bbs_left bbs_count">
+            <span>총 게시물  <strong>0</strong> 개</span>,
+            <span class="division_line">페이지 <strong>1</strong> / 1</span>
+        </div>
+    </div>
+
+	<table class="bbs_default list" data-rwdb="yes">
+        <caption>학습상담 목록 - 번호, 제목, 작성자, 파일, 조회수, 작성일정보 제공</caption>
+        <colgroup>
+        
+                <col style="width:50px" />
+                <col  />
+                <col style="width:120px" />
+                <col style="width:60px" />
+                <col style="width:70px" />
+                <col style="width:80px" />
+        </colgroup>
+        <thead>
+        <tr>
+        
+			<th scope="col" >번호</th>
+			<th scope="col" >제목</th>
+			<th scope="col" >작성자</th>
+			<th scope="col" >파일</th>
+			<th scope="col" >조회수</th>
+			<th scope="col" class="last">작성일</th>
+        </tr>
+        </thead>
+        <tbody>
+
+		
+		
+		
+			<tr>
+			
+				 
+				
+					<td colspan="6" class="empty">등록된 게시물이 없습니다.</td>
+				
+			
+			</tr>
+		
+        </tbody>
+    </table>
+
+	<div class="pagination">
+        <span class="page_btn prev_group">
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
+</span>
+<span class="page">
+<span class="page_wrap">
+<strong title="현재 1페이지">1</strong>
+</span>
+</span>
+<span class="page_btn next_group">
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_one">다음 페이지<i></i></a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next">다음 10페이지 이동</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_end">끝 페이지로</a>
+</span>
+
+
+    </div>
+
+	<div class="bbs_btn_wrap clearfix">
+        <div class="bbs_left">
+        	
+            
+        </div>
+        <div class="bbs_right">
+			
+				
+					
+					
+					
+					
+					
+					
+						<a href="/yjcareer/usr/support/form.do" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
+					
+				
+        	
+        </div>
+    </div>
                     </div>
 					
 					

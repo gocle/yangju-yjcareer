@@ -7,7 +7,7 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
-      
+    
     <div id="container">
         <div class="wrap clearfix">
             <main class="colgroup">
@@ -20,7 +20,7 @@
                             <p class="first_title">프로그램 신청</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>프로그램 신청 안내</h2>
+                            <h2>진로진학 컨설팅 신청</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -48,11 +48,11 @@
 				
 				
 					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile"></a>
-						<button type="button" class="breadcrumbs_select" title="목록열기"></button>
+						<a href="" class="breadcrumbs_anchor mobile">프로그램 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">프로그램 신청</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/usr/reservation/intro.do"  target="_self" >프로그램 신청 안내</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/usr/reservation/list1.do"  target="_self" >프로그램 신청</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청 안내</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" class="active">프로그램 신청</a>	</li>
 						</ul>
 					</li>
 				
@@ -61,6 +61,17 @@
 				
 				
 
+				
+					<li class="breadcrumbs_item">
+						<a href="" class="breadcrumbs_anchor mobile">진로진학 컨설팅 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">진로진학 컨설팅 신청</button>
+						<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" class="active">진로진학 컨설팅 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4131"  target="_self" >진로 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4132"  target="_self" >진학 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4133"  target="_self" >특별 교육 프로그램 신청</a></li>
+						</ul>
+					</li>
 				
 	</ol>
 </div>
@@ -156,71 +167,276 @@
                     </header>
                     
                     
-                    <div id="contents" class="cts4128">
-						<div class="application">
-	<div class="title_box">
-		<div class="box_wrap">
-			<h3 class="box_title">프로그램신청 안내</h3>
-			<p>우리시는 미래 사회에 살아갈 청소년이 세계 속에서 경쟁력을 갖출 수 있도록 다양한 프로그램을 지원하고 있습니다. 많은 관심과 참여 부탁드립니다. </p>
-		</div>
-	</div>
-	<h3>인터넷 접수</h3>
-	<p>인터넷 수강신청은 아래와 같은 절차로 이용하시면 빠르고 편리하게 이용하실 수 있습니다.</p>
-	<div class="box color">
-		<div class="box_inner">
-			<ol class="num">
-				<li>
-					<span class="list">1</span>
-					<P class="num_title">본인인증</P>
-					<p class="sub_title">(우측상단)</p>
-				</li>
-				<li>
-					<span class="list">2</span>
-					<P class="num_title">수강신청</P>
-				</li>
-				<li>
-					<span class="list">3</span>
-					<P class="num_title">강좌선택 <br> 수강신청 버튼클릭</P>
-				</li>
-				<li>
-					<span class="list">4</span>
-					<ul>
-						<li>
-							<P class="num_title">1.선착순 수강신청</P>
-							<p class="sub_title">예약확인 클릭 후 전자결제</p>
+                    <div id="contents" class="cts4130">
+						<div class="education_list">
+ 
+
+
+
+
+
+	<div class="bbs_search">
+		<form name="bbsNttSearchForm" id="bbsNttSearch" action="./selectEduLctreWebList.do" method="get" class="boardSearchForm">
+		<input type="hidden" name="key" id="key" value="4130"/>	
+			<fieldset>
+				<legend>교육강좌 검색</legend>
+                
+				<div class="listbox con01">
+					<ul class="clearfix">
+						<li class="list01">
+							<label for="searchEduInsttNo">교육기관</label>
+							<select name="searchEduInsttNo" id="searchEduInsttNo" class="select" title="교육기관" onchange="fn_changeEduPlace(this.value)">
+								<option value="">교육기관선택</option>
+								
+									<option value="2" >양주시평생학습관</option>
+								
+									<option value="3" >양주시청소년수련원</option>
+								
+									<option value="1" >여성일생활균형지원센터</option>
+								
+									<option value="4" >양주청소년문화의집</option>
+								
+									<option value="5" >양주시립장욱진미술관</option>
+								
+									<option value="8" >양주시립회암사지박물관</option>
+								
+									<option value="9" >혁신교육지구</option>
+								
+									<option value="10" >백석읍주민자치센터</option>
+								
+									<option value="11" >은현면주민자치센터</option>
+								
+									<option value="12" >남면주민자치센터</option>
+								
+									<option value="13" >광적면주민자치센터</option>
+								
+									<option value="14" >장흥면주민자치센터</option>
+								
+									<option value="15" >양주1동주민자치센터</option>
+								
+									<option value="16" >양주2동삼숭주민자치센터</option>
+								
+									<option value="17" >양주2동고읍주민자치센터</option>
+								
+									<option value="18" >회천1동주민자치센터</option>
+								
+									<option value="19" >회천2동주민자치센터</option>
+								
+									<option value="20" >회천3동주민자치센터</option>
+								
+									<option value="21" >옥정1동주민자치센터</option>
+								
+									<option value="22" >양주시청년센터</option>
+								
+									<option value="23" >양주시사회적경제지원센터</option>
+								
+									<option value="24" >건강생활지원센터</option>
+								
+									<option value="27" >양주시립민복진미술관</option>
+								
+									<option value="28" >양주생활문화센터</option>
+								
+									<option value="29" >양주시농업기술센터</option>
+								
+									<option value="30" >도시환경사업소</option>
+								
+									<option value="32" >양주진로진학지원센터</option>
+								
+									<option value="34" >자족도시조성과</option>
+								
+									<option value="35" >드론봇인재교육센터</option>
+								
+									<option value="36" >양주시보건소</option>
+								
+									<option value="37" >옥정2동주민자치센터</option>
+								
+									<option value="38" >양주시립미술창작스튜디오</option>
+								
+							</select>
 						</li>
-						<li>
-							<P class="num_title">2.승인 수강신청</P>
-							<p class="sub_title">나의예약 클릭 후 전자결제 <span>(신용카드/실시간계좌이체/가상계좌 결제가능) </span></p>
+						<li class="list02">
+							<label for="searchEduPlaceNo">교육장소</label>
+							<select name="searchEduPlaceNo" id="searchEduPlaceNo" class="select" title="교육장소">
+								<option value="">교육장소선택</option>
+											
+							</select>
+						</li>
+						<li class="list03">
+							<label for="searchEduSttus">접수상태</label>
+							<select name="searchEduSttus" id="searchEduSttus" class="select" title="접수상태">
+								<option value="">접수상태선택</option>
+								<option value="rceptPrearnge" >접수대기</option>
+								<option value="rceptProgrs" >접수중</option>
+								<option value="rceptClos" >접수종료</option>
+								<option value="eduProgrs" >교육중</option>
+								<option value="eduClos" >교육종료</option>
+							</select>
 						</li>
 					</ul>
-				</li>
-				<li>
-					<span class="list">5</span>
-					<P class="num_title">완료</P>
-				</li>
-			</ol>
+				</div>
+				<div class="listbox con02">
+					<ul class="clearfix">
+						<li class="list01">
+							<span class="label">접수기간</span>
+							<span class="date_wrap">
+								<input type="text" name="searchRceptBgnde" id="searchRceptBgnde" class="date" title="접수기간 시작 입력" value="" placeholder="시작 선택" readonly="readonly"  />
+								<span class="ico_calenedar"><button type="button" onclick="getCalendar(document.bbsNttSearchForm.searchRceptBgnde);">시작 선택</button></span>
+							</span>
+							<span class="gap">~</span>
+                            <span class="date_wrap">
+								<input type="text" name="searchRceptEndde" id="searchRceptEndde" class="date" title="접수기간 종료 입력" value="" placeholder="종료 선택" readonly="readonly"  />
+								<span class="ico_calenedar"><button type="button" onclick="getCalendar(document.bbsNttSearchForm.searchRceptEndde);">종료 선택</button></span>
+							</span>
+						</li>
+						<li class="list02">
+							<select name="searchCnd" id="searchCnd" class="select" title="검색범위선택">
+								<option value="all">전체</option>
+								<option value="eduLctreSj" >교육명</option>
+							</select>
+							<span class="submitbox">
+								<input name="searchKrwd" id="searchKrwd" type="text" class="temp_textbox" title="검색" placeholder="검색어 입력" value="" />
+								<input type="submit" value="검색" />
+							</span>
+						</li>
+					</ul>
+				</div>
+                
+								
+                
+                
+                
+			</fieldset>
+		</form>
+	</div>
+
+
+	
+
+		
+
+	
+
+
+	<div class="bbs_info clearfix">
+		<div class="bbs_left bbs_count">
+			<span>총 <strong>56</strong> 건</span>,
+			<span class="division_line">[<strong>1</strong> / 3 페이지]</span>
 		</div>
+		<div class="bbs_right">TODAY : 2025-11-27</div>
 	</div>
 	
-	<h3>수강신청시 유의사항</h3>
-	<ul class="bu bottom_bu">
-		<li>학부모가 청소년을 대신해서 신청 시에는 반드시 학생의 정보를 기재해 주시기 바랍니다.</li>
-                <li>프로그램 신청은 한 번에 1명만 가능합니다. (메모란에 자녀 2명 이상 기재하여도 1명의 자녀만 신청이 된 것으로 봅니다.)</li>
-		<li>프로그램별 등록 정원의 60% 미만으로 모집된 경우 폐강될 수 있습니다.</li>
-		<li>수업 방해 및 다른 학습자에게 피해를 주는 경우 수강이 제한될 수 있습니다.</li>
-		<li>프로그램 신청 시 프로그램 운영에 참여를 위한 개인정보를 기재하는 경우 「개인정보보호법」 제15조, 제17조 및 제22조에 따라 본인의 개인 정보의 처리(수집·이용·제공) 및 초상권 사용에 관한 사항을<br>아래와 같이 동의하는 것으로 간주합니다.<br>※ 만14세 미만은 법정대리인의 동의가 필요합니다.<br>
-- 수집‧이용 항목(기재한 내용 및 초상권이 인정되는 사진)<br>
-- 수집‧이용 목적(진로진학지원센터 프로그램 운영‧참여, 초상권: 사업 결과 공유와 사업홍보를 위한 보도자료 및 양주시 공식 SNS 등 온라인 매체 게재)<br>
-- 이용‧보유기간: 서비스 종료 후 1년 동안 보관하고 이후에는 폐기합니다. <br>※ 초상권의 경우 언론 매체 및 온라인매체 등에 보도/게재되는 경우 즉각 폐기되지 않습니다.<br>
-- 제3자제공(진로진학지원센터 프로그램 위탁운영기관, 초상권: 보도자료 활용기관 신문사 등, 양주시 공식 SNS 계정)<br>
-※ 위의 개인정보, 초상권 수집‧이용에 대한 동의를 거부할 권리가 있습니다. 그러나 동의를 거부할 경우 프로그램 운영(신청자 연락 및 여행자보험가입 등)에 제한을 받을 수가 있습니다.<br>
-※ 수집한 개인정보는 정보주체의 동의 없이 수집한 목적 외로 사용하거나 사업운영관련 외 제3자에게 제공되지 않습니다.<br>
-※ 정보주체는 개인정보 열람 및 정정요구, 초상권 사용 중지 요구 등을 할 수 있습니다.  
-</li>
+	<!-- 20210617 디자인수정 -->
+	
+		
+	
+		
+		<div class="table_scroll scroll both">
+		<table class="table tr_over type2 list_table responsive">
+			<caption>교육강좌 리스트이며, No., 강좌명, 모집방법, 접수기간 교육기간, 교육일시/시간, 정원/대기, 수강료, 접수상태, 수강신청 항목에 대한 정보를 제공</caption>
+			<colgroup>
+				<col style="width:6%;" />
+				<col />
+				<col style="width:9%;" />
+				<col style="width:18%;" />
+				<col style="width:12%;" />
+				<col style="width:10%;" />
+				<col style="width:9%;" />
+				<col style="width:9%;" />
+				<col style="width:10%;" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th scope="col">No.</th>
+				<th scope="col">강좌명</th>
+				<th scope="col">모집방법</th>
+				<th scope="col"><em class="em_blue">접수기간</em><br />교육기간</th>
+				<th scope="col"><em class="em_blue">교육일시</em><br />시간</th>
+				<th scope="col">정원/대기</th>
+				<th scope="col">수강료</th>
+				<th scope="col">접수상태</th>
+				<th scope="col">수강신청</th>
+			</tr>
+			</thead>
+			<tbody class="text_center">
+				<tr>
+					<td>56</td>
+					<td>
+						<a href="/yjcareer/usr/reservation/view1.do" class="subject">[진로진학컨설팅]1.13.(화) 16시 </a> 
+					</td>
+					<td>선착순</td>
+					<td>
+						<p><em class="em_blue">접수 : 25.12.02~26.01.05</em></p>
+						<p>교육 : 26.01.13~26.01.13</p>
+					</td>
+					<td>
+						<em class="em_blue">화</em>
+						<br />(16:00 ~ 16:50)
+						
+	                </td>
+					<td>정원 : 0/1<br />대기 : (0/0)</td>
+					<td>무료	</td>
+					<td>접수대기</td>
+					<td data-content="수강신청">
+						<a href="/yjcareer/usr/reservation/privacyPolicy.do" class="request btn type2 small">수강신청</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		
+	
 
-	</ul>
+	<div class="pagination">
+		<span class="page_btn prev_group">
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
+</span>
+<span class="page">
+<span class="page_wrap">
+<strong title="현재 1페이지">1</strong>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=2" title="2페이지 이동">2</a>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" title="3페이지 이동">3</a>
+</span>
+</span>
+<span class="page_btn next_group">
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=2" class="next_one">다음 페이지<i></i></a>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next">다음 10페이지 이동</a>
+<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next_end">끝 페이지로</a>
+</span>
+
+
+	</div>
+	
 </div>
+
+<script>
+//<![CDATA[
+	function fn_changeEduPlace( val ) {
+		if (!val) {
+			val = -1;
+		}
+
+		val = 'key=4130&eduInsttNo='+val;
+		$.ajax({
+			type: 'POST',  
+			url: './selectEduPlaceJsonWebList.do',   
+			data: val,
+			success: changeEduPlace,
+			error: function(xhr, txtStatus, errorThrown){
+				 alert(xhr.status + " : "+ txtStatus +" : "+errorThrown);
+
+			}
+		});
+	}
+
+	function changeEduPlace(HTMLSource){
+		$("#searchEduPlaceNo").html(HTMLSource);
+	} 
+
+//]]>
+</script>
+
                     </div>
 					
 					

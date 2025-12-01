@@ -7,7 +7,7 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
-      
+    
     <div id="container">
         <div class="wrap clearfix">
             <main class="colgroup">
@@ -17,10 +17,10 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">학습지원서비스</p>
+                            <p class="first_title">프로그램 신청</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>학습지원서비스안내</h2>
+                            <h2>특별 교육 프로그램 신청</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -32,12 +32,12 @@
 	<a href="./index.do" class="home">홈</a>
 	<ol class="breadcrumbs_list">
 		<li class="breadcrumbs_item">
-			<a href="" class="breadcrumbs_anchor mobile">학습지원서비스</a>
-			<button type="button" class="breadcrumbs_select" title="목록열기">학습지원서비스</button>
+			<a href="" class="breadcrumbs_anchor mobile">프로그램 신청</a>
+			<button type="button" class="breadcrumbs_select" title="목록열기">프로그램 신청</button>
 			<ul class="breadcrumbs_panel">
 									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" class="active">학습지원서비스</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" class="active">프로그램 신청</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" >교육 네트워크</a></li>
 					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" >알림마당</a></li>
@@ -47,21 +47,32 @@
 
 				
 				
-				
 					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile">학습지원서비스안내</a>
-						<button type="button" class="breadcrumbs_select" title="목록열기">학습지원서비스안내</button>
+						<a href="" class="breadcrumbs_anchor mobile">프로그램 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">프로그램 신청</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" class="active">학습지원서비스안내</a>	</li>
-									<li class="tab_item"><a href="https://study4way.com/intro" title="새창" target="_blank" >학습유형 검사</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&key=4139"  target="_self" >학습 상담</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청 안내</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" class="active">프로그램 신청</a>	</li>
 						</ul>
 					</li>
 				
 				
 				
 				
+				
 
+				
+					<li class="breadcrumbs_item">
+						<a href="" class="breadcrumbs_anchor mobile">특별 교육 프로그램 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">특별 교육 프로그램 신청</button>
+						<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" >진로진학 컨설팅 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4131"  target="_self" >진로 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4132"  target="_self" >진학 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4133"  target="_self" class="active">특별 교육 프로그램 신청</a></li>
+						</ul>
+					</li>
+				
 	</ol>
 </div>
             
@@ -156,29 +167,200 @@
                     </header>
                     
                     
-                    <div id="contents" class="cts4135">
-						<div class="service">
-	<div class="title_box n2">
-		<div class="box_wrap">
-			<h3 class="box_title">학습지원 서비스 안내</h3>
-			<p>학습코치 양성 프로그램을 국내 우수한 대학생들에게 교육하고 학습코치로 양성하여 도움이 필요한 청소년과 연결하여 체계적인 학습 코칭을 지원하겠습니다.</p>
+                    <div id="contents" class="cts4133">
+						<div class="education_request">
+	<h3> 특별 교육 프로그램 신청 기본정보</h3>  
+	<div class="education_viewtable">
+		<div class="titlebox">
+			
+			
+			
+			
+			
+				
+				
+				
+					
+						
+													
+							
+							 
+							
+							
+								
+											
+									
+									
+									
+								
+								
+									
+						
+						
+						
+				
+			
+			<span class="state receiving">대기접수중</span>
+			<span class="title">[12월 학부모아카데미]겨울방학 대비 내 자녀 진로와 학습설계</span>
+		</div>
+		<div class="conbox">
+			<ul class="clearfix">
+				<li class="clearfix">
+					<em>교육기관</em>
+					<p>양주진로진학지원센터</p>
+				</li>
+				<li class="clearfix">
+					<em>교육장소</em>
+					<p>양주진로진학지원센터</p>
+				</li>
+				<li class="clearfix">
+					<em>강의실</em>
+					<p>옥정동로 7나길 18, 211호</p>
+				</li>
+				<li class="clearfix">
+					<em>모집구분</em>
+					<p>일반모집</p>
+				</li>
+				<li class="clearfix">
+					<em>강사명</em>
+					<p>진로진학전문가</p>
+				</li>
+				<li class="clearfix">
+					<em>기수</em>
+					<p></p>
+				</li>
+				<li class="clearfix">
+					<em>분류</em>
+					<p>특별 교육 프로그램</p>
+				</li>
+				<li class="clearfix">
+					<em>수강대상</em>
+					<p>
+						
+						
+						
+						성인
+						
+						
+						
+						
+						
+						
+						
+						
+
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+					</p>
+				</li>
+				<li class="clearfix">
+					<em>접수방식</em>
+					<p>
+						인터넷접수
+						
+						
+					</p>
+				</li>
+				<li class="clearfix">
+					<em>모집방법</em>
+					<p>
+						
+						승인
+					</p>
+				</li>
+				<li class="clearfix">
+					<em>접수기간</em>
+					<p>25.11.20~25.12.17</p>
+				</li>
+				<li class="clearfix">
+					<em>모집인원</em>
+					<p>정원 : 60명 / 대기 : 0명</p>
+				</li>
+				<li class="clearfix">
+					<em>교육기간</em>
+					<p>25.12.18~25.12.18</p>
+				</li>
+				<li class="clearfix">
+					<em>교육요일</em>
+					<p>
+						
+						
+						
+						목
+						
+						
+						
+					</p>
+				</li>
+
+				
+				
+				
+				
+
+				<li class="clearfix">
+					<em>수강료</em>
+					<p>무료</p>
+				</li>
+				
+				
+				<li class="clearfix"> 
+					<em>교재 및 참고자료</em>     
+					<p style="color:red;">상세내용: 진로진학플랫폼&gt;알림마당&gt;공지사항 참조</p>     
+				</li>
+				<li class="clearfix">
+					<em>전화번호</em>
+					<p>031-8082-7954</p>
+				</li>
+				<li class="clearfix">
+					<em>팩스번호</em>
+					<p></p>
+				</li>
+				<li class="clearfix nonfloat">
+					<em>강의개요</em>
+					<p>12월18일(목) 오전10시~12시
+<br/>진로진학지원센터(옥정동로7나길 18, 2층)</p>
+				</li>
+				<li class="clearfix nonfloat">
+					<em>유의사항</em>
+					<p></p>
+				</li>
+				<li class="clearfix nonfloat">
+					<em>강의계획서</em>
+					<p>
+						
+					</p>
+				</li>
+
+			</ul>
 		</div>
 	</div>
-	
-	<div class="box">
-		<div class="box_inner">
-			<i class="service_bg"></i>
-			<div class="img_box">
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img01.png" alt="학습지원 서비스 안내1">
-				</div>
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img02.png" alt="학습지원 서비스 안내2">
-				</div>
-				<div class="img_item">
-					<img src="../site/yjcareer/images/contents/service_img03.png" alt="학습지원 서비스 안내3">
-				</div>
-			</div>
+	<div class="bbs_btn_wrap clearfix">
+		<div class="bbs_left">			
+			
+				
+				
+					<a href="/yjcareer/usr/reservation/list1.do" class="btn type1">목록</a>
+				
+			
+		</div>
+		<div class="bbs_right">
+			
+				
+					<a href="./selectEduApplcntAgreView.do?key=4133&amp;eduLctreNo=12437&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="btn type2">수강신청</a>
+				
+				
+			
 		</div>
 	</div>
 </div>

@@ -108,6 +108,24 @@ public class UserReservationController {
 		return "/usr/reservation/list4";
 	}
 	
+	@RequestMapping("privacyPolicy.do")
+	public String privacyPolicy(ModelMap model) throws Exception {
+		
+		return "/usr/reservation/privacyPolicy";
+	}
+	
+	@RequestMapping("form.do")
+	public String form(ModelMap model) throws Exception {
+		
+		return "/usr/reservation/form";
+	}
+	
+	@RequestMapping("view1.do")
+	public String view(ModelMap model) throws Exception {
+		
+		return "/usr/reservation/view1";
+	}	
+	
 	/**
 	 * 사용자 프로그램 목록
 	 * @param pgType

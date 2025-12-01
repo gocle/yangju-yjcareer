@@ -7,175 +7,296 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
+    
+    <div id="container">
+        <div class="wrap clearfix">
+            <main class="colgroup">
+                <article>
+    
+                    <header class="sub_head">
+    
+                        <div class="sub_title">
+                            <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
+                            <p class="first_title">홈페이지 가이드</p>
+                            
+                            <!-- 현재메뉴명 입력해주세요 -->
+                            <h2>나의 예약</h2>
+                        </div>
+                        
+                        <div class="sub_head_wrap">
+                            
 
-	<!-- 서브 배너 -->
-	<section class="sub-banner">
-		<div class="sub-banner-text">
-			<h1>나의 예약</h1>
-		</div>
-	</section>
 
-	<section class="breadcrumb">
-		<div class="hero-inner">
-			<ul>
-				<li><a href="#">홈</a></li>
-				<li><a href="#">나의 예약</a></li>
+
+<div class="breadcrumbs">
+	<a href="./index.do" class="home">홈</a>
+	<ol class="breadcrumbs_list">
+		<li class="breadcrumbs_item">
+			<a href="" class="breadcrumbs_anchor mobile">홈페이지 가이드</a>
+			<button type="button" class="breadcrumbs_select" title="목록열기">홈페이지 가이드</button>
+			<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" >교육 네트워크</a></li>
+					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" >알림마당</a></li>
+					<li class="tab_item"><a href="/yjcareer/sitemap.do?key=4151"  target="_self" class="active">홈페이지 가이드</a></li>
 			</ul>
-		</div>
-	</section>
+		</li>
 
-    <!-- 프로그램 리스트 -->
-	<section class="sub-section">
-		<div class="info-main-title flex section">
-			<h2>나의 예약</h2>
-		</div>
-		<div class="table-menu">
-			<ul>
-				<li class="on"><a href="#">신청내역</a></li>
-				<!-- <li><a href="#">지난예약</a></li> -->
-			</ul>
-		</div>
-		<div class="myReservation table-container">
-			<table class="table-0">
-				<colgroup>
-					<col width="5%">
-					<col width="10%">
-					<col width="15%">
-					<col width="10%">
-					<col width="*">
-					<col width="10%">
-					<col width="5%">
-					<col width="10%">
-				</colgroup>
-				<thead>
-					<tr>
-						<th>상태</th>
-						<th>예약번호</th>
-						<th>신청자</th>
-						<th>유형</th>
-						<th>프로그램명</th>
-						<th>장소/공예품명</th>
-						<th>금액</th>
-						<th>인원수</th>
-						<th>체험일</th>
-						<th>신청일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="reservationList" items="${resultList}" varStatus="status">
-				        <tr>
-				            
-				            <td class="my-status 
-				                <c:choose>
-				                    <c:when test="${reservationList.status eq 'WAIT'}">my-statusA">승인대기</c:when>
-				                    <c:when test="${reservationList.status eq 'CONFIRM'}">my-statusB">승인완료</c:when>
-				                    <c:when test="${reservationList.status eq 'CANCEL'}">my-statusC">예약취소</c:when>
-				                    <c:when test="${reservationList.status eq 'REJECT'}">my-statusC">승인반려</c:when>
-				                    <c:otherwise>">-</c:otherwise>
-				                </c:choose>
-				            </td>
-				            
-				            <td data-label="예약번호">
-				                <a href="<c:url value='/usr/mypage/myReservationView.do?resvId=${reservationList.resvId}'/>">${reservationList.resvId}</a>
-				            </td>
-				            <td data-label="신청자">${reservationList.name}</td>
-				            <td data-label="유형">
-							    <c:choose>
-							        <c:when test="${reservationList.pgType eq 'wood'}">목공체험</c:when>
-							        <c:when test="${reservationList.pgType eq 'forest'}">숲체험</c:when>
-							        <c:otherwise>-</c:otherwise>
-							    </c:choose>
-							</td>
-				            <td data-label=프로그램명 class="left">
-				                    ${reservationList.pgName} 
-				                    <c:if test="${reservationList.pgType eq 'wood'}">
-				                    	${reservationList.slotNo}부
-				                    </c:if>
-				            </td>
-				            <td data-label="장소/공예품명" class="left">
-				            	<c:choose>
-							        <c:when test="${reservationList.pgType eq 'wood'}">
-							        	${reservationList.productName}
-					                    <c:if test="${not empty reservation.optionName }">
-					                    	(${reservationList.optionName})
-					                    </c:if>
-				                    </c:when>
-							        <c:when test="${reservationList.pgType eq 'forest'}">
-							        	<c:choose>
-										    <c:when test="${reservationList.location eq 'TEMPLE'}">회암사지</c:when>
-										    <c:when test="${reservationList.location eq 'DOK'}">독바위</c:when>
-										    <c:when test="${reservationList.location eq 'SKY'}">하늘물</c:when>
-										    <c:when test="${reservationList.location eq 'DOTORI'}">도토리</c:when>
-										    <c:when test="${reservationList.location eq 'GOJANG'}">고장산</c:when>
-									        <c:when test="${reservationList.location eq 'BULGOK'}">불곡산</c:when>
-									        <c:when test="${reservationList.location eq 'OKJEONG'}">옥정숲</c:when>
-									        <c:when test="${reservationList.location eq 'CHEONBO'}">천보산</c:when>
-										    <c:otherwise>기타</c:otherwise>
-										</c:choose>
-							        </c:when>
-							    </c:choose>
-				                   
-				            </td>
-				            <td data-label="금액">
-				            	<c:choose>
-					                <c:when test="${not empty reservationList.price}">
-								        <c:choose>
-								            <c:when test="${not empty reservationList.optionName}">
-								                <fmt:formatNumber value="${reservationList.price + (reservationList.optionPrice != null ? reservationList.optionPrice : 0)}"  type="currency" currencySymbol="₩" />
-								            </c:when>
-								            <c:otherwise>
-								                <fmt:formatNumber value="${reservationList.price}" type="currency" currencySymbol="₩" />
-								            </c:otherwise>
-								        </c:choose>
-								    </c:when>
-								    <c:otherwise>
-								        ₩0
-								    </c:otherwise>
-							    </c:choose>
-				            </td>
-				            <td data-label="인원수">
-				               <c:choose>
-							        <c:when test="${reservationList.groupYn eq 'Y'}">
-							           ${reservationList.peopleCnt} 명
-							        </c:when>
-							        <c:otherwise>
-							            1 명
-							        </c:otherwise>
-							    </c:choose>
-				            </td>
-				            <td>
-				            	<c:choose>
-							        <c:when test="${reservationList.pgType eq 'wood'}">
-							        	${reservationList.slotDate}
-							        </c:when>
-							        <c:when test="${reservationList.pgType eq 'forest'}">
-							        	${fn:substringBefore(reservationList.programDt, ' ')}
-							        </c:when>
-							        <c:otherwise>-</c:otherwise>
-							    </c:choose>
-							</td>
-				            <td data-label="신청일">
-				            	${reservationList.applyDate}
-				            </td>
-				            <td class="mo-view">
-				                <a href="<c:url value='/usr/main/myReservationView.do?resvId=${reservationList.resvId}'/>">예약 상세 보기</a>
-				            </td>
-				        </tr>
-				    </c:forEach>
 				
-				    <c:if test="${empty resultList}">
-				        <tr>
-				            <td colspan="9" class="no-data">예약 내역이 없습니다.</td>
-				        </tr>
-				    </c:if>
-				</tbody>
-			</table>
+				
+				
+				
+				
+				
+
+	</ol>
+</div>
+            
+                            <div class="addons">
+                                <ul class="addons_list">
+                                    <li class="addons_item share">
+                                        <button type="button" class="addons_button share_show">공유하기</button>
+                                        <div class="share_panel">
+                                            <ul class="share_list clearfix">
+                                                <li class="share_item n1">
+                                                    <a href="javascript:openFacebook();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">페이스북</a>
+                                                </li>
+                                                <li class="share_item n2">
+                                                    <a href="javascript:openNaverbolg('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">블로그</a>
+                                                </li>
+                                                <li class="share_item n3">
+                                                    <a href="javascript:openKakaoStory();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">카카오</a>
+                                                </li>
+                                                <li class="share_item n4">
+                                                    <a href="javascript:openTwitter('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">트위터</a>
+                                                </li>
+                                                <li class="share_item n5">
+                                                    <a href="#n" onclick="copy()" title="새창" class="share_anchor copy_anchor">주소복사</a>
+                                                </li>
+                                                <script>
+													function openFacebook(){
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('http://www.facebook.com/sharer/sharer.php?u=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+														
+													}
+
+													function openNaverbolg(txt){
+														var _txt = encodeURIComponent(txt);
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://share.naver.com/web/shareView.nhn?url=' + _url + '&title=' + _txt, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+														
+													}
+
+													function openKakaoStory(){
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://story.kakao.com/s/share?url=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+													}
+
+													function openTwitter(txt){
+														var _txt = encodeURIComponent(txt);
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://twitter.com/intent/tweet?text='+_txt+'&url='+_url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+													}
+													
+													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
+														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
+															left = (window.screen.width - width ) / 2;
+															top  = (window.screen.height- height) / 2;
+														}
+
+														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
+														opening_window.focus();
+													}
+
+													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
+														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
+															left = (window.screen.width - width ) / 2;
+															top  = (window.screen.height- height) / 2;
+														}
+
+														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
+														opening_window.focus();
+													}
+
+                                                    function copy() {
+                                                        var url = '';
+                                                        var textarea = document.createElement("textarea");
+                                                        document.body.appendChild(textarea);
+                                                        url = window.document.location.href;
+                                                        textarea.value = url;
+                                                        textarea.select();
+                                                        document.execCommand("copy");
+                                                        document.body.removeChild(textarea);
+                                                        alert("URL이 복사되었습니다.")
+                                                    }
+                                                </script>
+                                            </ul>
+                                            <button type="button" class="share_hide">닫기</button>
+                                        </div>
+                                    </li>
+                                    <li class="addons_item print">
+                                        <button type="button" onclick="window.print();" class="addons_button">인쇄</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    
+                    <div id="contents" class="cts4157">
+						<div class="my_reservation">
+	<div class="cancel_layer"><!-- 예약취소하기레이어 -->
+		<div class="curtain"></div>
+		<div class="layerbox">
+			<div class="titlebox">
+				<div class="title">예약취소하기</div>
+				<button type="button" class="close">닫기</button>
+			</div>
+			<div class="conbox">
+				<form action="">
+					<fieldset>
+						<legend>예약취소사유</legend>
+						<div class="sub_title">예약취소사유 선택</div>
+						<ul>
+							<li>
+								<span class="temp_checkbox">
+									<input type="radio" name="" id="" />
+									<label for="">일정변경</label>
+								</span>
+							</li>
+							<li>
+								<span class="temp_checkbox">
+									<input type="radio" name="" id="" />
+									<label for="">중복신청</label>
+								</span>
+							</li>
+							<li>
+								<span class="temp_checkbox">
+									<input type="radio" name="" id="" />
+									<label for="">태풍, 지진 등 자연재해</label>
+								</span>
+							</li>
+							<li>
+								<span class="temp_checkbox">
+									<input type="radio" name="" id="" />
+									<label for="">자격 미충족</label>
+								</span>
+							</li>
+							<li>
+								<span class="temp_checkbox">
+									<input type="radio" name="" id="" />
+									<label for="">기타</label>
+								</span>
+								<label for="" class="skip">취소사유 직접입력</label>
+								<input type="text" class="temp_textbox" id="" />
+							</li>
+						</ul>
+						<div class="submitbox">
+							<input type="submit" value="예약취소" class="btn link2" />
+						</div>
+					</fieldset>
+				</form>
+			</div>
 		</div>
+	</div>
 
-		<ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
-	</section>
+	<div class="bbs_info clearfix">
+		<div class="bbs_left bbs_count">
+			<span>총 <strong>0</strong> 건</span>,
+			<span class="division_line">[<strong>1</strong> / 1 페이지]</span>
+		</div>
+		<div class="bbs_right"><em class="em_blue">예약번호를 클릭하시면 상세 내역을 확인할 수 있습니다.</em></div>
+	</div>
+	<div class="table_scroll scroll both">
+	<table class="table responsive check_reservation">
+		<caption>나의 예약현황(교육강좌)에 대한 표이며, No., 예약번호, 교육강좌명, 모집방법, 접수상태, 수료증, 감면대상, 결제금액, 예약상태, 결제상태 항목에 대한 정보를 제공</caption>
+		<colgroup>
+			<col width="8%" />
+			<col width="12%" />
+			<col width="20%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th scope="col">No.</th>
+				<th scope="col">예약번호</th>
+				<th scope="col">교육강좌명</th>
+				<th scope="col">모집방법</th>
+				<th scope="col">예약일</th>
+				<!-- <th scope="col">수료증</th> -->
+				<th scope="col">감면대상</th>
+				<th scope="col">결제금액</th>
+				<th scope="col">예약상태</th>
+				<th scope="col">결제상태</th>
+			</tr>
+		</thead>
+		<tbody class="text_center">
+			
+			
+			
+			<tr>
+				<td colspan="10" class="empty">등록된 교육프로그램 신청자가 없습니다.</td>
+			</tr>
+			
+		</tbody>
+	</table>
+	</div>
+	<div class="pagination">
+		<span class="page_btn prev_group">
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
+</span>
+<span class="page">
+<span class="page_wrap">
+<strong title="현재 1페이지">1</strong>
+</span>
+</span>
+<span class="page_btn next_group">
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="next_one">다음 페이지<i></i></a>
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="next">다음 10페이지 이동</a>
+<a href="./selectEduApplcntResveWebList.do?key=4157&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="next_end">끝 페이지로</a>
+</span>
 
-	<c:import url="/usr/layout/footer.do" />
-	
-</body>
-</html>
+
+	</div>
+</div>
+
+
+
+
+
+<script>
+//<![CDATA[
+	function fn_popWindow( url, name, style) {
+		window.open(url, name, style);
+	}
+//]]>
+</script>
+                    </div>
+					
+					
+
+
+
+
+
+
+
+
+                
+                </article>
+            </main>
+        
+        </div>
+    </div>
+    
+    <c:import url="/usr/layout/footer.do" />
