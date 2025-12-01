@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.time.service.impl.UserProgramTimeMapper">
+
+	<select id="selectTimeList" parameterType="ProgramVO" resultType="ProgramTimeVO">
+			SELECT
+				CPTS.SLOT_ID,
+				CPTS.PG_ID,
+				CPTS.SLOT_NO,
+				CPTS.SLOT_DATE,
+				CPTS.START_TIME,
+				CPTS.END_TIME,
+				CPTS.CAPACITY,
+				CPTS.RESV_CNT
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+			WHERE CPTS.DELETE_YN = 'N'
+			AND CPTS.PG_ID = #{pgId}
+	</select>
+	
+	<select id="selectTimeByDate" parameterType="ProgramVO" resultType="ProgramTimeVO">
+			SELECT
+				CPTS.SLOT_ID,
+				CPTS.PG_ID,
+				CPTS.SLOT_NO,
+				CPTS.SLOT_DATE,
+				CPTS.START_TIME,
+				CPTS.END_TIME,
+				CPTS.CAPACITY,
+				 (SELECT
+			            SUM(
+			                CASE
+			                    WHEN CR.GROUP_YN = 'Y' THEN CR.PEOPLE_CNT
+			                    ELSE 1
+			                END
+			            )
+			        FROM
+			            COM_RESERVATION CR
+			        WHERE
+			            CPTS.PG_ID = CR.PG_ID
+			            AND CPTS.SLOT_ID = CR.SLOT_ID
+			            AND (CR.STATUS = 'CONFIRM' OR CR.STATUS = 'WAIT')
+			            AND CR.DELETE_YN = 'N'
+			    ) AS RESV_CNT
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+			WHERE CPTS.DELETE_YN = 'N'
+			AND CPTS.PG_ID = #{pgId}
+			AND CPTS.SLOT_DATE = #{slotDate}
+	</select>
+	
+	<select id="selectTimeSlotBySlotId" parameterType="ProgramVO" resultType="UserProgramTimeVO">
+			SELECT
+				CPTS.SLOT_ID,
+				CPTS.PG_ID,
+				CPTS.SLOT_NO,
+				CPTS.SLOT_DATE,
+				CPTS.START_TIME,
+				CPTS.END_TIME,
+				CPTS.CAPACITY,
+				 (SELECT
+				 	COALESCE(
+				            SUM(
+				                CASE
+				                    WHEN CR.GROUP_YN = 'Y' THEN CR.PEOPLE_CNT
+				                    ELSE 1
+				                END
+				            ),
+			            0)
+			        FROM
+			            COM_RESERVATION CR
+			        WHERE
+			            CPTS.PG_ID = CR.PG_ID
+			            AND CPTS.SLOT_ID = CR.SLOT_ID
+			            AND (CR.STATUS = 'CONFIRM' OR CR.STATUS = 'WAIT')
+			            AND CR.DELETE_YN = 'N'
+			    ) AS RESV_CNT
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+			WHERE CPTS.DELETE_YN = 'N'
+			AND CPTS.SLOT_ID = #{slotId}
+			AND CPTS.PG_ID = #{pgId}
+	</select>
+
+</mapper>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.gocle.yangju.forest.adm.program.service.impl.AdminProgramMapper">
+
+	<select id="selectProgramList" resultType="ProgramVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CP.PG_ID,
+				CP.PG_TYPE,
+				CP.PG_NAME,
+				CP.PG_DESC,
+				CP.PG_TARGET,
+				<!-- FN_GET_CODE_NAME('AUDIENCE', CP.PG_TARGET) AS PG_TARGET_NM, -->
+				CP.DURATION,
+				CP.CAPACITY,
+				CP.LOCATION,
+				(LENGTH(CP.LOCATION) - LENGTH(REPLACE(CP.LOCATION, ',', '')) + 1) AS LOCATION_CNT,
+				(
+				  SELECT GROUP_CONCAT(
+				           FN_GET_CODE_NAME(
+				             CASE CP.PG_CODE
+				               WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				               WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				               ELSE CONCAT(SUBSTRING_INDEX(CP.PG_TARGET,'_',1), '_PLACE')
+				             END,
+				             TRIM(t.val)
+				           ) SEPARATOR ', '
+				         )
+				  FROM JSON_TABLE(
+				         CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+				         '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+				       ) t
+				) AS LOCATION_NM,
+				CP.INSTRUCTOR_NAME,
+				CP.CONTACT,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PG_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS PG_THUMBPATH,
+		        CP.REG_OPEN_DATE,
+		        CP.REG_CLOSE_DATE,
+		        CP.START_DATE,
+		        CP.END_DATE,
+		        CP.STATUS,
+		        (
+				    SELECT
+				        IFNULL(SUM(
+		                    CASE
+		                        WHEN CR.GROUP_YN = 'Y'
+		                        THEN CR.PEOPLE_CNT
+		                        ELSE 1
+		                    END
+		                ), 0)
+				    FROM COM_RESERVATION CR
+				    WHERE CP.PG_ID = CR.PG_ID
+				      AND CR.DELETE_YN = 'N'
+				      AND (CR.STATUS != 'CANCEL' and CR.STATUS != 'REJECT')
+				) AS APPLY_CNT,
+		        CP.CLASS_TYPE,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.PG_CODE,
+				FN_GET_CODE_NAME('FOREST_EDU_CATE', CP.PG_CODE) AS PG_CODE_NM
+			FROM COM_PROGRAM CP
+			WHERE DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			<if test="searchCondition != null and searchCondition != ''">
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND CP.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CP.PG_NAME     LIKE CONCAT('%', #{searchKeyword}, '%')
+			        OR CP.PG_DESC LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+
+	<insert id="insertProgram" parameterType="ProgramVO">
+		INSERT INTO COM_PROGRAM
+		(
+		    PG_ID
+		    ,PG_TYPE
+		    ,PG_NAME
+		    ,PG_DESC
+		    ,PG_TARGET
+		    ,PG_ITEM
+		    ,DURATION
+		    ,CAPACITY
+		    ,LOCATION
+		    ,INSTRUCTOR_NAME
+		    ,CONTACT
+		    ,START_DATE
+		    ,END_DATE
+		    ,REG_OPEN_DATE
+		    ,REG_CLOSE_DATE
+		    ,STATUS
+		    ,CLASS_TYPE
+		    ,REG_DT
+		    ,REG_ID
+		    ,PG_CODE
+		)
+		VALUES
+		(
+		    #{pgId}
+		    ,#{pgType}
+		    ,#{pgName}
+		    ,#{pgDesc}
+		    ,#{pgTarget}
+		    ,#{pgItem}
+		    ,#{duration}
+		    ,#{capacity}
+		    ,#{location}
+		    ,#{instructorName}
+		    ,#{contact}
+		    ,#{startDate}
+		    ,#{endDate}
+		    ,#{regOpenDate}
+		    ,#{regCloseDate}
+		    ,#{status}
+		    ,#{classType}
+		    ,NOW()
+		    ,#{regId}
+		    ,#{pgCode}
+		);
+	</insert>
+	
+	<select id="selectProgram" resultType="ProgramVO">
+			SELECT
+				CP.PG_ID,
+				CP.PG_TYPE,
+				CP.PG_NAME,
+				CP.PG_DESC,
+				CP.PG_TARGET,
+				<!-- FN_GET_CODE_NAME('AUDIENCE', CP.PG_TARGET) AS PG_TARGET_NM, -->
+				CP.DURATION,
+				CP.CAPACITY,
+				CP.LOCATION,
+				(
+				  SELECT GROUP_CONCAT(
+				           FN_GET_CODE_NAME(
+				             CASE CP.PG_CODE
+				               WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				               WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				               ELSE CONCAT(SUBSTRING_INDEX(CP.PG_TARGET,'_',1), '_PLACE')
+				             END,
+				             TRIM(t.val)
+				           ) SEPARATOR ', '
+				         )
+				  FROM JSON_TABLE(
+				         CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+				         '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+				       ) t
+				) AS LOCATION_NM,
+				CP.INSTRUCTOR_NAME,
+				CP.CONTACT,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PG_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS PG_THUMBPATH,
+		        CP.REG_OPEN_DATE,
+		        CP.REG_CLOSE_DATE,
+		        CP.START_DATE,
+		        CP.END_DATE,
+		        CP.STATUS,
+		        CP.CLASS_TYPE,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.PG_CODE,
+				FN_GET_CODE_NAME('FOREST_EDU_CATE', CP.PG_CODE) AS PG_CODE_NM
+			FROM COM_PROGRAM CP
+			WHERE DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			AND CP.PG_ID = #{pgId}
+	</select>
+	
+	<update id="updateProgram" parameterType="ProgramVO">
+		UPDATE COM_PROGRAM
+		SET PG_NAME = #{pgName}
+			,PG_DESC = #{pgDesc}
+			,PG_TARGET = #{pgTarget}
+			,DURATION = #{duration}
+			,CAPACITY = #{capacity}
+			,LOCATION = #{location}
+			,INSTRUCTOR_NAME = #{instructorName}
+			,CONTACT = #{contact}
+			,REG_OPEN_DATE = #{regOpenDate}
+	        ,REG_CLOSE_DATE = #{regCloseDate}
+	    	,START_DATE = #{startDate}
+	        ,END_DATE = #{endDate}
+	        ,STATUS = #{status}
+	        ,CLASS_TYPE = #{classType}
+			,UPD_DT = NOW()
+		 	,UPD_ID = #{sessionMemSeq}
+		 	,PG_CODE = #{pgCode}
+		WHERE PG_ID = #{pgId}
+		AND PG_TYPE = #{pgType}
+	</update>
+	
+	<update id="deleteProgram" parameterType="ProgramVO">
+		UPDATE COM_PROGRAM
+		SET DELETE_YN = 'Y'
+		,UPD_DT = NOW()
+		,UPD_ID = #{sessionMemSeq}
+		WHERE PG_ID = #{pgId}
+		AND PG_TYPE = #{pgType}
+	</update>
+	
+	<select id="locationList" resultType="ProgramVO">
+	    SELECT TRIM(loc) AS LOCATION
+	    FROM COM_PROGRAM CP,
+	         JSON_TABLE(CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+	                    '$[*]' COLUMNS(loc VARCHAR(50) PATH '$')) jt
+	    WHERE CP.DELETE_YN = 'N'
+	      AND CP.PG_ID = #{pgId}
+	</select>
+	
+	<select id="peopleCnt" resultType="int">
+			SELECT IFNULL((
+			    SELECT (CP.CAPACITY * 2)
+			           - IFNULL((
+			               SELECT SUM(CASE WHEN CR.GROUP_YN='Y' THEN CR.PEOPLE_CNT ELSE 1 END)
+			               FROM COM_RESERVATION CR
+			               WHERE CR.DELETE_YN='N'
+			                 AND CR.PG_ID = #{pgId}
+			                 AND (CR.STATUS != 'CANCEL' and CR.STATUS != 'REJECT')
+			             ), 0)
+			    FROM COM_PROGRAM CP
+			    WHERE CP.PG_ID = #{pgId}
+			  ), 0)
+	</select>
+	
+	<select id="selectProgramInfo" parameterType="ProgramVO" resultType="String">	      
+			   SELECT
+				CONCAT_WS(
+				    ' ',
+				    DATE_FORMAT(CP.START_DATE, '%Y-%m-%d'),
+				    FN_GET_CODE_NAME(
+				         CASE #{pgCode}
+				           WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				           WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				           ELSE ''
+				         END,
+				         #{location}
+				       )) as programDt
+				FROM COM_PROGRAM CP
+				WHERE CP.DELETE_YN = 'N'
+				  AND CP.PG_ID = #{pgId}
+	</select>
+</mapper>

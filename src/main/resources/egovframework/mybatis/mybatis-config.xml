@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    
+    <typeAliases>
+	    <typeAlias alias="MenuVO" type="com.gocle.yangju.forest.adm.menu.vo.MenuVO" />
+	    <typeAlias alias="MemberVO" type="com.gocle.yangju.forest.adm.member.vo.MemberVO" />
+	    <typeAlias alias="BoardConfigVO" type="com.gocle.yangju.forest.adm.board.vo.BoardConfigVO" />
+	    <typeAlias alias="BoardArticleVO" type="com.gocle.yangju.forest.adm.board.vo.BoardArticleVO" />
+	    <typeAlias alias="BoardReplyVO" type="com.gocle.yangju.forest.adm.board.vo.BoardReplyVO" />
+	    <typeAlias alias="CodeVO" type="com.gocle.yangju.forest.adm.code.vo.CodeVO" />
+	    <typeAlias alias="FileVO" type="com.gocle.yangju.forest.comm.file.vo.FileVO" />
+	    <typeAlias alias="LoginVO" type="com.gocle.yangju.forest.adm.login.vo.LoginVO" />
+	    <typeAlias alias="BannerVO" type="com.gocle.yangju.forest.adm.banner.vo.BannerVO" />
+	    <typeAlias alias="ProductVO" type="com.gocle.yangju.forest.adm.product.vo.ProductVO" />
+	    <typeAlias alias="ProgramVO" type="com.gocle.yangju.forest.adm.program.vo.ProgramVO" />
+	    <typeAlias alias="ReservationVO" type="com.gocle.yangju.forest.adm.reservation.vo.ReservationVO" />
+	    <typeAlias alias="IntroVO" type="com.gocle.yangju.forest.adm.intro.vo.IntroVO" />
+	    <typeAlias alias="PayVO" type="com.gocle.yangju.forest.adm.pay.vo.PayVO" />
+	    <typeAlias alias="ProgramTimeVO" type="com.gocle.yangju.forest.adm.time.vo.ProgramTimeVO" />
+	    <typeAlias alias="StatsVO" type="com.gocle.yangju.forest.adm.stats.vo.StatsVO" />
+	    <typeAlias alias="IpVO" type="com.gocle.yangju.forest.adm.ip.vo.IpVO" />
+	    <typeAlias alias="UserCodeVO" type="com.gocle.yangju.forest.usr.code.vo.CodeVO" />
+	    <typeAlias alias="UserBoardConfigVO" type="com.gocle.yangju.forest.usr.board.vo.BoardConfigVO" />
+	    <typeAlias alias="UserBoardArticleVO" type="com.gocle.yangju.forest.usr.board.vo.BoardArticleVO" />
+	    <typeAlias alias="UserBoardReplyVO" type="com.gocle.yangju.forest.usr.board.vo.BoardReplyVO" />
+	    <typeAlias alias="UserProgramVO" type="com.gocle.yangju.forest.usr.program.vo.UserProgramVO" />
+	    <typeAlias alias="UserReservationVO" type="com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO" />
+	    <typeAlias alias="UserIntroVO" type="com.gocle.yangju.forest.usr.intro.vo.UserIntroVO" />
+	    <typeAlias alias="UserProductVO" type="com.gocle.yangju.forest.usr.product.vo.UserProductVO" />
+	    <typeAlias alias="UserBannerVO" type="com.gocle.yangju.forest.usr.banner.vo.BannerVO" />
+	    <typeAlias alias="UserProgramTimeVO" type="com.gocle.yangju.forest.usr.time.vo.UserProgramTimeVO" />
+	</typeAliases>
+	
+</configuration>

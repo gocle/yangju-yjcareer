@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.pay.service.impl.AdminPayMapper">
+
+	<select id="selectProgramList" resultType="ProgramVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CP.PG_ID,
+				CP.PG_TYPE,
+				CP.PG_NAME,
+				CP.PG_DESC,
+				CP.CLASS_TYPE,
+				CP.DURATION,
+				CP.CAPACITY,
+				CP.LOCATION,
+				CP.INSTRUCTOR_NAME,
+				CP.CONTACT,
+		        CP.REG_OPEN_DATE,
+		        CP.REG_CLOSE_DATE,
+		        CP.START_DATE,
+		        CP.END_DATE,
+		        CP.STATUS,
+				CP.REG_DT,
+				CP.REG_ID,
+				(
+				    SELECT
+				        COALESCE(
+				            SUM(
+				                CASE
+				                    WHEN CR.GROUP_YN = 'Y' THEN CR.PEOPLE_CNT
+				                    ELSE 1
+				                END
+				            ), 0
+				        )
+				    FROM
+				        COM_RESERVATION CR
+				    WHERE
+				        CR.PG_ID = CP.PG_ID
+				        AND CR.STATUS = 'CONFIRM'
+				        AND CR.DELETE_YN = 'N'
+				) AS ATTEND_CNT,
+				IFNULL(SUM(CASE WHEN CPY.PAY_STATUS = 'PAY' THEN CPY.AMOUNT END), 0) AS TOTAL_AMOUNT
+			FROM COM_PROGRAM CP
+			LEFT JOIN COM_PAYMENT CPY ON CP.PG_ID = CPY.PG_ID
+			WHERE CP.DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			<if test="searchCondition != null and searchCondition != ''">
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND CP.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CP.PG_NAME     LIKE CONCAT('%', #{searchKeyword}, '%')
+			        OR CP.PG_DESC LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+			GROUP BY CP.PG_ID
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="getPayList" resultType="PayVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT  CR.RESV_ID,
+					CR.PG_ID,
+					CP.PG_NAME,
+					CR.PG_TYPE,
+					CR.NAME,
+					CR.APPLY_DATE ,
+					CR.GROUP_YN,
+					CR.PEOPLE_CNT,
+					CR.PRODUCT_ID,
+					CPD.PRODUCT_NAME,
+					CR.OPTION_NAME,
+					CPD.PRICE,
+					CPD.OPTION_PRICE,
+					CPY.PAY_ID,
+					CPY.PAY_STATUS,
+					CPY.PAY_METHOD,
+					CPY.PAY_NAME,
+					CPY.AMOUNT,
+					DATE_FORMAT(CPY.PAY_DT, '%Y-%m-%d') AS PAY_DT,
+					CPY.NOTE,
+					CPTS.SLOT_ID,
+					CPTS.SLOT_NO,
+					CPTS.SLOT_DATE,
+					CPTS.START_TIME ,
+					CPTS.END_TIME ,
+					CR.REG_DT,
+					CR.REG_ID
+			FROM COM_RESERVATION CR
+			LEFT JOIN COM_PROGRAM CP ON
+				CR.PG_ID = CP.PG_ID
+				AND CP.DELETE_YN = 'N'
+			LEFT JOIN COM_PROGRAM_TIME_SLOT CPTS ON 
+				CR.SLOT_ID = CPTS.SLOT_ID
+				AND CPTS.DELETE_YN = 'N'
+			LEFT JOIN COM_PRODUCT CPD ON
+				CR.PRODUCT_ID = CPD.PRODUCT_ID
+				AND CPD.DELETE_YN = 'N'
+			LEFT JOIN COM_PAYMENT CPY ON
+				CR.RESV_ID = CPY.RESV_ID
+				AND CPY.DELETE_YN = 'N'
+			WHERE CR.PG_ID = #{pgId}
+				AND CR.DELETE_YN = 'N'
+				AND CR.STATUS = 'CONFIRM'
+			<if test="searchKeyword != null and searchKeyword != ''">
+				<choose>
+					<when test="searchCondition == 'NAME'">
+						AND CR.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchCondition == 'PRODUCT_NAME'">
+						AND CPD.PRODUCT_NAME LIKE CONCAT('%', #{searchKeyword} , '%')
+					</when>
+					<otherwise>
+						AND (CR.NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+				        OR CPD.PRODUCT_NAME LIKE CONCAT('%', #{searchKeyword}, '%'))
+					</otherwise>
+				</choose>
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+		ORDER BY SLOT_DATE, SLOT_NO, NAME
+	</select>
+	
+	<select id="getPayInfo" resultType="PayVO">
+		SELECT
+			CR.PG_ID,
+			CP.PG_NAME,
+			CR.PG_TYPE,
+			CR.NAME,
+			CR.APPLY_DATE ,
+			CR.GROUP_YN,
+			CR.PEOPLE_CNT,
+			CR.PRODUCT_ID,
+			CPD.PRODUCT_NAME,
+			CR.OPTION_NAME,
+			CPD.PRICE,
+			CPD.OPTION_PRICE,
+			CPY.PAY_ID,
+			CPY.PAY_STATUS,
+			CPY.PAY_METHOD,
+			CPY.PAY_NAME,
+			DATE_FORMAT(CPY.PAY_DT, '%Y-%m-%d') AS PAY_DT,
+			CPY.AMOUNT,
+			CPY.NOTE,
+			CPTS.SLOT_ID,
+			CPTS.SLOT_NO,
+			CPTS.SLOT_DATE,
+			CPTS.START_TIME ,
+			CPTS.END_TIME ,
+			CR.REG_DT,
+			CR.REG_ID
+		FROM
+			COM_RESERVATION CR
+		LEFT JOIN COM_PROGRAM CP ON
+			CR.PG_ID = CP.PG_ID
+			AND CP.DELETE_YN = 'N'
+		LEFT JOIN COM_PROGRAM_TIME_SLOT CPTS ON CR.SLOT_ID = CPTS.SLOT_ID
+			AND CPTS.DELETE_YN = 'N'
+		LEFT JOIN COM_PRODUCT CPD ON
+			CR.PRODUCT_ID = CPD.PRODUCT_ID
+			AND CPD.DELETE_YN = 'N'
+		LEFT JOIN COM_PAYMENT CPY ON
+			CR.RESV_ID = CPY.RESV_ID
+			AND CPY.DELETE_YN = 'N'
+		WHERE
+			CPY.PAY_ID = #{payId}
+			AND CR.DELETE_YN = 'N'
+			AND CR.STATUS = 'CONFIRM'
+			AND CPY.PAY_STATUS = 'PAY'
+		ORDER BY CPTS.SLOT_DATE, CPTS.SLOT_NO 
+	</select>
+	
+	<insert id="insertPayInfo" parameterType="PayVO">
+		INSERT INTO COM_PAYMENT (
+				    PAY_ID,
+				    RESV_ID,
+				    PG_ID,
+				    PAY_STATUS,
+				    PAY_METHOD,
+				    PAY_NAME,
+				    AMOUNT,
+				    PAY_DT,
+				    NOTE,
+				    DELETE_YN,
+				    REG_DT,
+				    REG_ID
+				) VALUES (
+				    #{payId},
+				    #{resvId},
+				    #{pgId},
+				    #{payStatus},
+				    #{payMethod},
+				    #{payName},
+				    #{amount},
+				    #{payDt},
+				    #{note},
+				    'N',
+				    NOW(),
+				    #{sessionMemSeq}
+				)
+	</insert>
+	
+	<update id="updatePayInfo" parameterType="PayVO">
+		UPDATE COM_PAYMENT
+		SET 
+		    PAY_STATUS = #{payStatus},
+		    PAY_METHOD = #{payMethod},
+		    AMOUNT = #{amount},
+		    PAY_NAME = #{payName},
+		    PAY_DT = #{payDt},
+		    NOTE = #{note},
+		    UPD_DT = NOW(),
+		    UPD_ID = #{updId}
+		WHERE PAY_ID = #{payId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.member.service.impl.AdminMemberMapper">
+
+	<select id="getMemberList" resultType="MemberVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CM.MEM_SEQ,
+				CM.MEM_ID,
+				CM.MEM_NAME,
+				CM.DEPT_NO,
+				CM.MEM_TYPE,
+				CM.HP_NO,
+				CM.EMAIL,
+				CM.REG_DT
+			FROM COM_MEMBER CM
+			WHERE DELETE_YN = 'N'
+			 <if test="searchCondition != null and searchCondition != ''">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CM.${searchCondition} LIKE '%' || #{searchKeyword } || '%'
+					</if>
+			</if>	
+			
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND ( CM.MEM_NAME LIKE '%' || #{searchKeyword } || '%' OR CM.MEM_ID LIKE '%'|| #{searchKeyword } || '%' )
+			</if>
+			
+			ORDER BY CM.REG_DT ASC
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<insert id="memberInsert" parameterType="MemberVO">
+		INSERT INTO COM_MEMBER(
+			MEM_SEQ,
+			MEM_ID,
+			MEM_TYPE,
+			MEM_NAME,
+			MEM_PASSWORD,
+			EMAIL,
+			REG_ID,
+			REG_DT
+		)
+		VALUES(
+			#{memSeq},
+			#{memId},
+			#{memType},
+			#{memName},
+			#{encryptPassword},
+			#{encryptEmail},
+			#{sessionMemSeq},
+			NOW()
+		)
+	</insert>
+	
+	<select id="idDupCheck" parameterType="String" resultType="String">
+		SELECT
+		MEM_ID
+		FROM COM_MEMBER
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+	<select id="adminUpdateResult" parameterType="MemberVO" resultType="MemberVO">
+	    SELECT
+	        MEM_SEQ,
+	        MEM_ID,
+	        MEM_NAME,
+	        MEM_TYPE,
+	        HP_NO,
+	        EMAIL
+	    FROM COM_MEMBER
+	    WHERE MEM_SEQ = #{memSeq}
+	</select>
+	
+	<update id="memberUpdate" parameterType="MemberVO">
+		UPDATE COM_MEMBER
+		SET
+		<choose>
+			<when test="memType == 'ADM'">
+				<if test="memPassword != null and memPassword != '' ">
+					MEM_PASSWORD = #{encryptPassword},
+				</if>	
+				EMAIL = #{encryptEmail},
+				UPD_DT = NOW(),
+				UPD_ID = #{sessionMemSeq}
+			</when>
+		</choose>
+		WHERE MEM_ID = #{memId}
+	</update>
+	
+	<update id="memberDelete" parameterType="MemberVO">
+		UPDATE COM_MEMBER
+		SET
+		<choose>
+			<when test="memType == 'ADM'">
+				EMAIL = '',
+				UPD_DT = NOW(),
+				UPD_ID = #{sessionMemSeq},
+				DELETE_YN = 'Y',
+				SCSN_YN = 'Y'
+			</when>
+		</choose>
+		WHERE MEM_ID = #{memId}	
+	</update>
+	
+	<select id="getMember" parameterType="MemberVO" resultType="MemberVO">
+
+		SELECT
+			MEM_ID,
+			MEM_NAME,
+			EMAIL
+		FROM COM_MEMBER
+		WHERE	MEM_SEQ = #{memSeq}
+				AND MEM_ID = #{memId}
+				AND	EMAIL = #{encryptEmail}
+				AND DELETE_YN = 'N'
+	</select>
+	
+	<update id="resetPassword" parameterType="MemberVO">
+		UPDATE COM_MEMBER
+		SET 
+			MEM_PASSWORD = #{encryptPassword},
+			UPD_ID = #{sessionMemSeq},
+			UPD_DT = NOW()
+		WHERE MEM_SEQ = #{memSeq} 
+		AND MEM_ID = #{memId}
+		AND DELETE_YN = 'N'
+	</update>
+</mapper>

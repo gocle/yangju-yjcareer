@@ -1,0 +1,15 @@
+# Google 검색 허용
+User-agent: Googlebot
+Disallow: /forest/adm/
+Disallow: /forest/staff/
+Allow: /
+
+# Naver 검색 허용
+User-agent: Yeti
+Disallow: /forest/adm/
+Disallow: /forest/staff/
+Allow: /
+
+# 그 외 모든 봇 차단
+User-agent: *
+Disallow: /

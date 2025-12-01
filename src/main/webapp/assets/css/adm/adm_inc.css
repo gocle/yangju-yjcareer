@@ -1,0 +1,417 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: 'NanumBarunGothic';
+    src: url('./font/NanumBarunGothic.eot'); /* IE9 Compat Modes */
+    src: url('./font/NanumBarunGothic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    local(※), url('./font/NanumBarunGothic.woff') format('woff'), /* Modern Browsers */
+    url('./font/NanumBarunGothic.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('./font/NanumBarunGothic.svg#NanumBarunGothic') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+@font-face {
+    font-family: 'NanumBarunGothicBold';
+    src: url('./font/NanumBarunGothicBold.eot'); /* IE9 Compat Modes */
+    src: url('./font/NanumBarunGothicBold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    local(※), url('./font/NanumBarunGothicBold.woff') format('woff'), /* Modern Browsers */
+    url('./font/NanumBarunGothicBold.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('./font/NanumBarunGothicBold.svg#NanumBarunGothicBold') format('svg'); /* Legacy iOS */
+    font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'NanumBarunGothic', dotum, '돋움', sans-serif;
+    font-weight: normal;
+}
+
+header>a.logo:before,.wrapper>nav ul>li>a:before,.fa-arrow-circle-o-left:before,h1>button,.page-location,header>div>button:before,h3:before {
+	display: none;
+}
+
+.detail h3:before { 
+    display: none; 
+}
+
+td select {
+    min-width: 120px;
+}
+
+.top-list-1 {
+	margin-bottom: 2rem;
+}
+
+b {
+	font-family: 'NanumBarunGothicBold';
+	font-size: 13px;
+}
+
+header {
+	background: #182142;
+	box-shadow: inherit;
+}
+
+header>a.logo {
+	height: 86px;
+	background-color: #101731;
+	padding-left: 0;
+	display: flex;
+}
+
+.wrapper>nav {
+    padding-top: 86px;
+}
+
+header>a.logo img {
+	width : 80%;
+	margin: auto;
+}
+
+header>div>span {
+    height: 50px;
+    line-height: 50px;
+    font-size: 13px;
+    color: #fff;
+    padding-left: 20px;
+}
+
+header>div>button {
+	display: inline-block;
+    padding: 0 15px;
+    margin: 10px 9px 0 0;
+    float: right;
+    height: 30px;
+    line-height: 29px;
+    border: 1px solid #fff;
+    font-family: "NanumBarunGothicBold";
+    font-size: 13px;
+    color: #fff;
+    text-indent : inherit;
+    width : auto;
+}
+
+
+header>div>button:hover {
+    background-color: #00a651;
+    border-color : #00a651;
+}
+
+.wrapper>nav ul>li.tree>a,.wrapper>nav {
+    background-color: #eff0f5;
+    cursor: pointer;
+    font-family: "NanumBarunGothicBold";
+}
+
+.wrapper>nav ul>li {
+    border-bottom: 1px solid #d2d8e0;
+}
+
+.wrapper>nav ul>li>div>a.active {
+    color: #152a75;
+}
+
+.wrapper>nav ul> li > a {
+    color: #40505f;
+    padding: 0 0 0 20px;
+    height: 43px;
+    line-height: 45px;
+}
+
+
+.wrapper>nav ul>li>div {
+    background-color: #747a90;
+}
+
+.wrapper>nav ul>li>div>a.active {
+    color: #fff;
+}
+
+.wrapper>nav ul>li>div>a {
+    position: relative;
+    padding: 0 0 0 33px;
+    display: block;
+    width: auto;
+    height: 24px;
+    line-height: 24px;
+    font-family: "NanumBarunGothicBold";
+    font-size: 13px;
+    color: #b8bed7;
+}
+
+.wrapper>nav ul>li>div>a:before {
+    position: absolute;
+    left: 22px;
+    top: 10px;
+    width: 7px;
+    height: 1px;
+    content: "";
+    background: #b3b3b3;
+}
+
+.wrapper>nav ul>li>a:hover {
+    color: #182142;
+}
+
+h1 {
+	font-size: 24px;
+    color: #323940;
+    line-height: 44px;
+    padding: 27px 0 0 0;
+    font-weight: normal;
+}
+
+/* table */
+select {
+	position: relative;
+	font-family: "NanumBarunGothic";
+	padding-left: 10px;
+}
+
+.search-box {
+    border: 1px solid #d2d8e0;
+    padding: 0
+}
+
+.search-box button {
+    border-color: #182142;
+    background: #182142;
+    display: inline-block;
+    padding: 0 21px 0 22px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    font-family: "NanumBarunGothicBold";
+    font-weight: normal;
+}
+
+.search-box li label {
+    position: absolute;
+    top: 51%;
+    left: -1px;
+    font-size: 13px;
+    transform: translateY(-50%);
+    background: #f7f7f7;
+    width: 240px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    border-left : 1px solid #d2d8e0;
+    border-right : 1px solid #d2d8e0;
+}
+
+.search-box li {
+    padding: 5px 0 5px 250px;
+    border-top: 1px solid #d2d8e0;
+}
+
+.search-box li:first-child label {
+    border-top: none;
+}
+
+.search-box input, .search-box select {
+    height: 30px;
+}
+
+.search-box #searchCondition {
+	min-width: 115px;
+}
+
+.search-box select:not(#searchCondition) {
+	width : 20%;
+	font-size : 13px;
+}
+
+.fa-search,.fa-angle-right {
+	display: none;
+}
+
+.list-1 {
+	border-top: 3px solid #1d1d1d;
+}
+
+table.list-1 th {
+    font-size: 13px;
+    color: #333;
+    text-align: center;
+    background: #f7f7f7;
+    border-bottom: 1px solid #d2d8e0;
+    border-right: 1px solid #d2d8e0;
+    padding: 13px 0 11px;
+}
+
+table.list-1 tbody td {
+    height: 26px;
+    padding: 8px;
+    border-bottom: 1px solid #d2d8e0;
+    border-right: 1px solid #d2d8e0;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    overflow: hidden;
+}
+
+table.list-1 a {
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #333;
+}
+
+table.list-1 a:hover {
+	color: #00a651;
+    border-bottom: 1px solid #00a651;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    border-color: #00a651;
+    background-color: #00a651;
+}
+
+table.detail {
+	border-top: 3px solid #1d1d1d;
+}
+
+table.detail th {
+    border-bottom: 1px solid #d2d8e0;
+    border-right: 1px solid #d2d8e0;
+    border-left: 1px solid #d2d8e0;
+    background: #f7f7f7;
+    font-size: 13px;
+    color: #333;
+    text-align: center;
+    padding: 5px 0;
+}
+
+table.detail td {
+    padding: 6px 10px;
+    height: 28px;
+    line-height : 28px;
+    border-bottom: 1px solid #d2d8e0;
+    border-right: 1px solid #d2d8e0;
+    font-size: 13px;
+    color: #333;
+    
+}
+
+table.detail td.file a:before, table.detail td.link a:before {
+    top: 8px;
+}
+
+td input[type=file] {
+    border : 0;
+}
+
+td.file a {
+    color: #333;
+    padding-top: 2px;
+}
+
+td.file a:hover {
+	color : #00a651
+}
+
+td input, td select {
+    height: 30px;
+    font-size: 13px;
+    font-family: "NanumBarunGothic"
+}
+
+table.list-1 tr:hover {
+    background: none;
+}
+
+#applyFormBody td select,#applyFormBody td input {
+    min-width: 50px;
+    width: 95%;
+}
+
+.list-1 input, .list-1 select {
+	min-width: 50px;
+    width: 98%;
+}
+
+/* btn */
+button {
+	border-radius: 0!important;
+    font-weight: normal!important;
+    font-size: 13px!important;
+    font-family: "NanumBarunGothic"!important;
+}
+
+.btn-area>a.point, .btn-area>button.point {
+    color: #FFF;
+    background-color: #182142;
+    margin-left: 6px;
+    padding: 0 21px 0 22px;
+    line-height: 32px;
+}
+
+.btn-area button:not(.point) {
+	border: 1px solid #304151;
+	color : #333;
+	background: #fff;
+	padding: 0 21px 0 22px;
+	height: 34px;
+}
+
+.btn-area {
+	margin-top: 20px;
+}
+
+.btn-area a {
+    display: inline-block;
+    padding: 0 21px 0 22px;
+    height: 34px;
+    border: 1px solid #182142;
+    line-height: 34px;
+    text-align: center;
+    font-size: 13px;
+    color: #fff;
+    background: #182142;
+    border-radius: 0;
+    margin-left: 6px;
+}
+
+.btn-area a:not(:nth-child(1)) {
+	border: 1px solid #304151;
+	color : #333;
+	background: #fff;
+}
+
+.detail td.file span button {
+    color : #333;
+    border: 1px solid #304151;
+    background: #fff;
+    margin-left: 6px;
+}
+
+table.list-1 td button,table.detail td button {
+    display: inline-block;
+    padding: 0 13px 0 13px;
+    height: 26px;
+    border: 1px solid #304151;
+    line-height: 26px;
+    text-align: center;
+    font-size: 13px;
+    color: #333;
+    background: #fff;
+}
+
+h3 {
+	padding-left: 0;
+}
+
+#reservationFormArea,td textarea {
+	border: 1px solid #d2d8e0!important;
+}
+
+.promotion-list a:hover dt {
+    color: #00a651;
+}
+

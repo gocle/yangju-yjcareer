@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- SqlSessionFactory 생성 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="configLocation" value="classpath:egovframework/mybatis/mybatis-config.xml" />
+        <property name="mapperLocations" value="classpath:egovframework/mapper/**/*.xml" />
+    </bean>
+
+    <!-- SqlSessionTemplate (Spring에서 트랜잭션 제어와 함께 사용) -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg ref="sqlSessionFactory"/>
+    </bean>
+    
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	    <property name="basePackage" value="com.gocle.*.service.impl, com.gocle.*.*.service.impl, com.gocle.*.*.*.service.impl, com.gocle.*.*.*.*.service.impl"/>
+	</bean>
+
+</beans>

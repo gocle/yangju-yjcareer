@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.program.service.impl.UserProgramMapper">
+
+	<select id="selectProgramList" resultType="UserProgramVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CP.PG_ID,
+				CP.PG_TYPE,
+				CP.PG_NAME,
+				CP.PG_TARGET,
+				CP.DURATION,
+				CP.LOCATION,
+				(
+				  SELECT GROUP_CONCAT(
+				           FN_GET_CODE_NAME(
+				             CASE CP.PG_CODE
+				               WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				               WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				               ELSE CONCAT(SUBSTRING_INDEX(CP.PG_TARGET,'_',1), '_PLACE')
+				             END,
+				             TRIM(t.val)
+				           ) SEPARATOR ', '
+				         )
+				  FROM JSON_TABLE(
+				         CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+				         '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+				       ) t
+				) AS LOCATION_NM,
+				CP.INSTRUCTOR_NAME,
+				CP.CONTACT,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PG_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS PG_THUMBPATH,
+		        CP.REG_OPEN_DATE,
+		        CP.REG_CLOSE_DATE,
+		        CP.START_DATE,
+		        CP.END_DATE,
+		        CP.STATUS,
+		        (
+		         SELECT count(CR.RESV_ID)
+		         FROM COM_RESERVATION CR
+		         WHERE CP.PG_ID = CR.PG_ID
+		         AND CR.DELETE_YN = 'N'
+		        ) AS APPLY_CNT,
+		        CP.CLASS_TYPE,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.PG_CODE,
+				FN_GET_CODE_NAME('FOREST_EDU_CATE', CP.PG_CODE) AS PG_CODE_NM,
+				CP.CLASS_TYPE
+			FROM COM_PROGRAM CP
+			WHERE DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			<if test="searchCondition != null and searchCondition != ''">
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND CP.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+				</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CP.PG_NAME     LIKE CONCAT('%', #{searchKeyword}, '%')
+			        OR CP.PG_DESC LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="selectProgram" resultType="UserProgramVO">
+			SELECT
+				CP.PG_ID,
+				CP.PG_TYPE,
+				CP.PG_NAME,
+				CP.PG_DESC,
+				CP.PG_TARGET,
+				CP.DURATION,
+				(CP.CAPACITY * 2) as CAPACITY,
+				CP.LOCATION,
+				(
+				  SELECT GROUP_CONCAT(
+				           FN_GET_CODE_NAME(
+				             CASE CP.PG_CODE
+				               WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				               WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				               ELSE CONCAT(SUBSTRING_INDEX(CP.PG_TARGET,'_',1), '_PLACE')
+				             END,
+				             TRIM(t.val)
+				           ) SEPARATOR ', '
+				         )
+				  FROM JSON_TABLE(
+				         CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+				         '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+				       ) t
+				) AS LOCATION_NM,
+				CP.INSTRUCTOR_NAME,
+				CP.CONTACT,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PG_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS PG_THUMBPATH,
+		        CP.REG_OPEN_DATE,
+		        CP.REG_CLOSE_DATE,
+		        CP.START_DATE,
+		        CP.END_DATE,
+		        CP.STATUS,
+		        CP.CLASS_TYPE,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.PG_CODE,
+				FN_GET_CODE_NAME('FOREST_EDU_CATE', CP.PG_CODE) AS PG_CODE_NM,
+				(
+		         SELECT sum(CR.PEOPLE_CNT)
+		         FROM COM_RESERVATION CR
+		         WHERE CP.PG_ID = CR.PG_ID
+		         AND CR.DELETE_YN = 'N'
+		         AND (CR.STATUS != 'CANCEL' and CR.STATUS != 'REJECT')
+		        ) AS REG_CNT,
+				CASE
+				    WHEN 
+				    	DATE(NOW()) <![CDATA[ < ]]> DATE(IFNULL(CP.REG_OPEN_DATE, NOW())) OR
+				    	DATE(NOW()) > DATE(IFNULL(CP.REG_CLOSE_DATE, NOW())) THEN 'Y'
+				    ELSE 'N'
+				END AS STATUS_END
+			FROM COM_PROGRAM CP
+			WHERE DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			AND CP.PG_ID = #{pgId}
+	</select>
+</mapper>

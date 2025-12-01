@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.banner.service.impl.UserBannerMapper">
+
+	<select id="bannerList" resultType="UserBannerVO" parameterType="UserBannerVO">
+		
+		SELECT
+		    CB.BN_ID,
+		    CB.BN_NAME,
+		    CB.BN_LINK,
+		    CB.BN_DESCRIPTION,
+		    CB.BN_WIDTH,
+		    CB.BN_HEIGHT,
+		    CB.BN_TOP,
+		    CB.BN_LEFT,
+		    AF.FILE_SAVE_PATH AS BNTHUMBPATH,
+		    AF.SAVE_FILE_NAME AS BNTHUMBNAME,
+		    AF.ORG_FILE_NAME AS BNORGTHUMBNAME,
+		    DATE_FORMAT(CB.BN_START_DATE,'%Y.%m.%d') AS BN_START_DATE,
+			DATE_FORMAT(CB.BN_END_DATE,'%Y.%m.%d')   AS BN_END_DATE
+			FROM COM_BANNER CB
+			         LEFT JOIN ATCH_FILE AF ON
+			        AF.ATCH_FILE_IDX = CB.BN_THUMB
+			WHERE CB.DELETE_YN = 'N'
+			  AND CB.BN_USE = '1'
+			  AND CB.BN_TYPE = #{bnType}
+			  AND CURDATE() BETWEEN DATE(CB.BN_START_DATE) AND DATE(CB.BN_END_DATE)
+		      
+	</select>
+	
+</mapper>

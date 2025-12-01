@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.product.service.impl.UserProductMapper">
+
+	<select id="selectProductList" resultType="UserProductVO">
+			SELECT
+				CP.PRODUCT_ID,
+				CP.PRODUCT_NAME,
+				CP.PRODUCT_DESC,
+				CP.PRICE,
+				CP.OPTION_NAME,
+				CP.OPTION_PRICE,
+				CP.DURATION,
+				FN_GET_CODE_NAME('PRODUCT_TARGET', CP.TARGET) AS TARGET,
+				CP.TARGET AS TARGET_CODE,
+				CP.NEW_YN,
+				CP.SOLD_YN,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PRODUCT_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS THUMBPATH,
+				CP.REG_DT,
+				CP.REG_ID
+			FROM COM_PRODUCT CP
+			WHERE DELETE_YN = 'N'
+			<if test="productId != null and productId != ''">
+				AND CP.PRODUCT_ID = #{productId}
+			</if>
+	</select>
+</mapper>

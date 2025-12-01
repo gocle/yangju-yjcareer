@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+
+	<bean name="egovIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy" 	ref="mixPrefixSample" />
+		<property name="blockSize" 	value="10"/>
+		<property name="table"	   	value="IDS"/>
+		<property name="tableName"	value="SAMPLE"/>
+	</bean>
+	<bean name="mixPrefixSample" class="org.egovframe.rte.fdl.idgnr.impl.strategy.EgovIdGnrStrategyImpl">
+		<property name="prefix"   value="SAMPLE-" />
+		<property name="cipers"   value="5" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="menuIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="menuIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_MENU" />
+	</bean>	
+	
+	<bean name="menuIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#MENU" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="memberIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="memberIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_MEMBER" />
+	</bean>
+	<bean name="memberIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#USER" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="comcodeIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="comcodeIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_CODE" />
+	</bean>
+	<bean name="comcodeIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#CCOD" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>		
+	
+	<bean name="atchFileIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="atchFileIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="ATCH_FILE" />
+	</bean>
+	<bean name="atchFileIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#FILE" />
+		<property name="cipers"   value="12" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="boardArticleIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="dataSource" />
+        <property name="strategy"   ref="boardArticleIdMsgtrategy" />
+        <property name="blockSize"  value="10"/>
+        <property name="table"      value="COM_SEQUENCE_GEN"/>
+        <property name="nextIdFieldName"      value="CURRENT_SEQ" />
+        <property name="tableName"  value="COM_BOARD_ARTICLE"/>
+    </bean>
+     <bean name="boardArticleIdMsgtrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+        <property name="prefix"   value="" />
+        <property name="cipers"   value="7" />
+        <property name="fillChar" value="0" />
+    </bean>
+    
+    <bean name="boardReplyIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="dataSource" />
+        <property name="strategy"   ref="boardReplyIdMsgtrategy" />
+        <property name="blockSize"  value="10"/>
+        <property name="table"      value="COM_SEQUENCE_GEN"/>
+        <property name="nextIdFieldName"      value="CURRENT_SEQ" />
+        <property name="tableName"  value="COM_BOARD_REPLY"/>
+    </bean>
+     <bean name="boardReplyIdMsgtrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+        <property name="prefix"   value="" />
+        <property name="cipers"   value="7" />
+        <property name="fillChar" value="0" />
+    </bean>
+    
+    <bean name="bannerIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+        <property name="dataSource" ref="dataSource" />
+        <property name="strategy"   ref="bannerIdMsgtrategy" />
+        <property name="blockSize"  value="10"/>
+        <property name="table"      value="COM_SEQUENCE_GEN"/>
+        <property name="nextIdFieldName"      value="CURRENT_SEQ" />
+        <property name="tableName"  value="COM_BANNER"/>
+    </bean>
+    <bean name="bannerIdMsgtrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+        <property name="prefix"   value="" />
+        <property name="cipers"   value="7" />
+        <property name="fillChar" value="0" />
+    </bean>
+    
+    <bean name="productIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="productIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_PRODUCT" />
+	</bean>
+	<bean name="productIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#PROD" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="programIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="programIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_PROGRAM" />
+	</bean>
+	<bean name="programIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#PROG" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	<bean name="reservationIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="reservationIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_RESERVATION" />
+	</bean>
+	<bean name="reservationIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#RESV" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	<bean name="introIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="introIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_INTRO" />
+	</bean>
+	<bean name="introIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#INTR" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	<bean name="payIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="payIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_PAYMENT" />
+	</bean>
+	<bean name="payIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#PAY" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+	
+	<bean name="programTimeIdGnrService" class="org.egovframe.rte.fdl.idgnr.impl.EgovTableIdGnrServiceImpl" destroy-method="destroy">
+		<property name="dataSource" ref="dataSource" />
+		<property name="strategy"   ref="programTimeIdGnrStrategy" />
+		<property name="blockSize"  value="10" />
+		<property name="table"      value="COM_SEQUENCE_GEN" />
+		<property name="nextIdFieldName"      value="CURRENT_SEQ" />
+		<property name="tableName"  value="COM_PROGRAM_TIME_SLOT" />
+	</bean>
+	<bean name="programTimeIdGnrStrategy" class="com.gocle.yangju.forest.comm.idgnr.GocleIdGnrStrategyImpl">
+		<property name="prefix"   value="YEAR#TIME" />
+		<property name="cipers"   value="7" />
+		<property name="fillChar" value="0" />
+	</bean>
+</beans>

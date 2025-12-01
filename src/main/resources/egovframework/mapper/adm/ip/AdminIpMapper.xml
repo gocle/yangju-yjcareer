@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.ip.service.impl.AdminIpMapper">
+
+	<select id="selectAccessIpList" resultType="IpVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				IP_ID,
+				IP_ADDRESS,
+				ACCESS_NAME,
+				DELETE_YN,
+				REG_DT,
+				REG_ID,
+				UPD_DT,
+				UPD_ID
+			FROM ACCESS_IP
+			WHERE DELETE_YN = 'N'
+			<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<insert id="insertAccessIp">
+		INSERT INTO ACCESS_IP (
+		    IP_ADDRESS,
+		    ACCESS_NAME,
+		    DELETE_YN,
+		    REG_DT,
+		    REG_ID
+		) VALUES (
+		    #{ipAddress},
+		    #{accessName},
+		    'N',
+		    NOW(),
+		    #{sessionMemSeq}
+		);
+	</insert>
+	
+	<update id="deleteIp">
+		UPDATE ACCESS_IP
+		   SET DELETE_YN = 'Y',
+		       UPD_DT = NOW(),
+		       UPD_ID = #{sessionMemSeq}
+		 WHERE IP_ID = #{ipId};
+	</update>
+	
+	<select id="selectAccessAllIpList" resultType="string">
+	    SELECT IP_ADDRESS
+	    FROM ACCESS_IP
+	    WHERE DELETE_YN = 'N'
+	</select>
+</mapper>

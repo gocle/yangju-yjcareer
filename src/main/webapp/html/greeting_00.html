@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 예약 | 양주시 산림휴양시설</title>
+	<link rel="stylesheet" href="./css/font/font.css" type="text/css">
+	<link rel="stylesheet" href="./css/reset.css" type="text/css">
+	<link rel="stylesheet" href="./css/style.css" type="text/css">
+	<link rel="stylesheet" href="./css/style_m.css" type="text/css">
+
+	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const sections = document.querySelectorAll('.section');
+
+			function checkSectionInView() {
+				const windowHeight = window.innerHeight;
+
+				sections.forEach((section, index) => {
+					const rect = section.getBoundingClientRect();
+
+					if(rect.top < windowHeight && rect.bottom > 0 && !section.classList.contains('active')) {
+						// 화면 폭이 클수록 딜레이를 줄임
+						const delay = window.innerWidth > 1200 ? index * 50 : index * 150;
+						setTimeout(() => {
+							section.classList.add('active');
+						}, delay);
+					}
+				});
+			}
+
+			window.addEventListener('scroll', checkSectionInView, { passive: true });
+			window.addEventListener('resize', checkSectionInView, { passive: true });
+
+			checkSectionInView();
+		});
+		
+		$( document ).ready(function() {
+			// 햄버거 클릭 → 메뉴 열기/닫기
+			$('.m-menu').click(function(){
+				$('.mobile-nav').toggleClass('open');
+				$('body').toggleClass('no-scroll');
+				$('.slick-dots').toggleClass('no-dots');
+			});
+			
+			// 닫기 버튼 클릭 → 메뉴 닫기
+			$('.mobile-nav .close').click(function(){
+				$('.mobile-nav').removeClass('open');
+				$('body').removeClass('no-scroll');
+				$('.slick-dots').removeClass('no-dots');
+			});
+
+			// 모바일 메뉴에서 서브메뉴 클릭 시 토글
+			$('.mobile-nav > ul > li > a').click(function(e){
+				var $submenu = $(this).next('.submenu');
+				if($submenu.length){
+					e.preventDefault(); // 링크 이동 막기
+					$submenu.slideToggle();
+					$(this).parent().toggleClass('open');
+					$(this).parent().siblings().removeClass('open').find('.submenu').slideUp();
+				}
+			});
+
+		});
+	</script>
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <header class="header">
+   	<div class="header-inner">
+		<div class="logo pointer" onclick="location.href='main.html'">
+			<img src="img/logo.png" alt="Yangju 양주시" >
+		</div>
+		<div class="flex center">
+			<nav class="nav">
+			  <ul>
+				<li>
+					<a href="#">휴양림 소개</a>
+					<ul class="submenu">
+					  <li><a href="#">시설안내</a></li>
+					  <li><a href="#">오시는 길</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">프로그램 소개</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="sub.html">온라인 예약</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>	
+				</li>
+				<li>
+					<a href="#">참여마당</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>
+				</li>
+			  </ul>
+			</nav>
+			<div class="user-menu">
+				<a href="#">로그인</a>
+			</div>
+		</div>
+    </div>
+    
+    <!-- 모바일 메뉴 버튼 -->
+	<div class="m-menu">
+		<img src="img/menu-03.png" alt="메뉴">
+	</div>
+
+	<!-- 모바일 전용 메뉴 -->
+	<nav class="mobile-nav">
+		<div class="mo-top"> 
+			<img src="img/logo-m.png">
+			<div class="close"></div>
+		</div>
+		<ul>
+			<li>
+				<a href="#">휴양림 소개</a>
+				<ul class="submenu">
+					<li><a href="#">시설안내</a></li>
+					<li><a href="#">오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">프로그램 소개</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">온라인 예약</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">참여마당</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li class="login-li">
+				<a href="#">
+					<img src="img/login.png">
+					<!--<img src="img/logout.png"> 로그아웃 아이콘-->
+					<span>로그인</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+  </header>
+
+	<!-- 서브 배너 -->
+	<section class="sub-banner">
+		<div class="sub-banner-text">
+			<h1>산림교육</h1>
+		</div>
+	</section>
+
+    <!--서브 네비2-->
+   	<section class="nav-btn">
+		<div class="nav-btn-inner">
+			<ul>
+				<li class="on"><a href="greeting_00.html">인사말</a></li>
+				<li><a href="program.html">대표 프로그램</a></li>
+				<li><a href="forest.html">숲체험원 현황</a></li>
+			</ul>
+		</div>
+	</section>
+
+    <!-- 인사말 -->
+	<section class="intro-section">
+		<div class="intro-inner-00">
+			<header class="intro-header section">
+				<div class="intro-header-box-00">
+					<h1>산림교육 인사말</h1>
+				</div>
+			</header>
+
+			<div class="intro-body section">
+				<p class="subtitle">숲에서 펼쳐지는 자연과의 힐링 타임</p>
+				<p>안녕하세요? 양주 산림교육센터입니다.</p>
+				<p>양주 산림교육센터 홈페이지를 찾아주셔서 감사합니다.</p>
+				<p>
+				양주 산림교육센터는 숲체험, 유아숲교육을 통해 어린아이부터 어른까지 숲에서 다양한 체험과 프로그램을 통해 자연에 대한 관심과 생명에 대한 존중을 배울 수 있는 교육을 운영하고 있습니다.
+				</p>
+				<p>
+				아이들은 숲에서 즐겁게 뛰어놀며 자연을 접하고 사회성을 길러주며 체력을 튼튼하게 만들어 줄 뿐만 아니라, 남녀노소 모두에게 숲에서 살아가는 다양한 생물의 살아가는 이야기, 나무나 식물에 대한 지식 등의 지식을 제공하는 복합적인 교육공간입니다.
+				</p>
+				<p>
+					양주시 내 산림욕장 및 유아숲체험원에서 누구나 쉽고 즐겁게 자연과 조화를 이루어 도심 속에 지친 분들에게 힐링의 공간으로 거듭나도록 항상 노력하겠습니다.
+				</p>
+				<p class="thanks">감사합니다.</p>
+			</div>
+		</div>
+	</section>
+
+	<div class="link">
+		<div class="link-inner">
+			<ul class="flex">
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+			</ul>
+		</div>
+	</div>
+
+<!--   푸터 -->
+  <footer class="footer flex">
+   	<img src="img/logo_footer.png">
+   	<div>
+   		<ul class="flex">
+			<li><a href="#">개인정보처리방침</a></li>
+			<li><a href="#">저작권정책</a></li>
+			<li><a href="#">이용약관</a></li>
+   		</ul>
+   		<p>
+   			[11498] 경기도 양주시 부흥로 1533(남방동)<br>
+   			대표전화 031-8082-4114 FAX 031-8082-4009
+   		</p>
+    	<p>COPYRIGHT © 2025 YANGJU CITY. ALL RIGHTS RESERVED</p>
+    </div>
+  </footer>
+</body>
+</html>

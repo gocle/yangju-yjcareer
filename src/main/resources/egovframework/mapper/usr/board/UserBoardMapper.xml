@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.board.service.impl.UserBoardMapper">
+
+	<select id="listBoardConfig" resultType="UserBoardConfigVO" parameterType="UserBoardConfigVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT
+			CB.BC_ID
+			,CB.BC_NAME
+			,CB.BC_USE
+			,CB.BC_TYPE
+			,CB.BC_SUPPORT_THUMBNAIL
+			,CB.BC_THUMBNAIL_CROP
+			,BC_THUMBNAIL_WIDTH
+			,CB.BC_THUMBNAIL_HEIGHT
+			,CB.BC_UPLOAD_FILE_NUM
+			,CB.BC_UPLOAD_SIZE_MAX
+			,CB.BC_REGDATE
+			,CB.BC_CATEGORY1
+			,CB.REG_DT
+		FROM COM_BOARD_CONFIG CB
+		WHERE CB.DELETE_YN= 'N'
+		<choose>
+			<when test="searchCondition != null and searchCondition != ''">
+				<if test="searchCondition eq 'BC_NAME'">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CB.BC_NAME LIKE '%' || #{searchKeyword } || '%'
+					</if>
+				</if>
+				<if test="searchCondition eq 'BC_ID'">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CB.BC_ID LIKE '%' || #{searchKeyword } || '%'
+					</if>
+				</if>
+			</when>
+			<otherwise>
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND ( CB.BC_NAME LIKE '%' || #{searchKeyword } || '%' OR CB.BC_ID LIKE '%'
+					|| #{searchKeyword } || '%' )
+				</if>
+			</otherwise>	
+		</choose>
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<insert id="insertBoardConfig" parameterType="UserBoardConfigVO">
+		INSERT
+		INTO COM_BOARD_CONFIG
+		(
+		BC_ID
+		,BC_NAME
+		,BC_USE
+		,BC_TYPE
+		,BC_SUPPORT_NOTICE
+		,BC_NOTICE_EVERY_PAGE
+		,BC_SUPPORT_SECRET
+		,BC_SUPPORT_COMMENT
+		,BC_SUPPORT_ANSWER
+		,BC_SUPPORT_RECOMMEND
+		,BC_SUPPORT_THUMBNAIL
+		,BC_THUMBNAIL_CROP
+		,BC_THUMBNAIL_WIDTH
+		,BC_THUMBNAIL_HEIGHT
+		,BC_UPLOAD_FILE_NUM
+		,BC_UPLOAD_SIZE_MAX
+		,BC_PAGE_SIZE
+		,BC_REGDATE
+		,BC_SUPPORT_IMAGE
+		,REG_DT
+		,REG_ID
+		)
+		VALUES
+		(
+		#{bcId}
+		,#{bcName}
+		,#{bcUse}
+		,#{bcType}
+		,#{bcSupportNotice}
+		,#{bcNoticeEverypage}
+		,#{bcSupportSecret}
+		,#{bcSupportComment}
+		,#{bcSupportAnswer}
+		,#{bcSupportRecommend}
+		,#{bcSupportThumbnail}
+		,#{bcThumbnailCrop}
+		,#{bcThumbnailWidth}
+		,#{bcThumbnailHeight}
+		,#{bcUploadFileNum}
+		,#{bcUploadSizeMax}
+		,#{bcPageSize}
+		, NOW()
+		,#{bcSupportImage}
+		, NOW()
+		,#{sessionMemSeq}
+		)
+	</insert>
+	
+	<select id="selectBoardConfig" parameterType="UserBoardConfigVO" resultType="UserBoardConfigVO">
+		SELECT *
+		FROM COM_BOARD_CONFIG
+		WHERE BC_ID = #{bcId}
+	</select>
+	
+	<update id="updateBoardConfig" parameterType="UserBoardConfigVO">
+		UPDATE COM_BOARD_CONFIG
+		SET BC_NAME = #{bcName}
+			,BC_USE = #{bcUse}
+			,BC_TYPE = #{bcType}
+			,BC_SUPPORT_NOTICE = #{bcSupportNotice}
+			,BC_NOTICE_EVERY_PAGE = #{bcNoticeEverypage}
+			,BC_SUPPORT_SECRET = #{bcSupportSecret}
+			,BC_SUPPORT_COMMENT = #{bcSupportComment}
+			,BC_SUPPORT_ANSWER = #{bcSupportAnswer}
+			,BC_SUPPORT_RECOMMEND = #{bcSupportRecommend}
+			,BC_SUPPORT_THUMBNAIL = #{bcSupportThumbnail}
+			,BC_THUMBNAIL_CROP = #{bcThumbnailCrop}
+			,BC_THUMBNAIL_WIDTH = #{bcThumbnailWidth}
+			,BC_THUMBNAIL_HEIGHT = #{bcThumbnailHeight}
+			,BC_UPLOAD_FILE_NUM = #{bcUploadFileNum}
+			,BC_UPLOAD_SIZE_MAX = #{bcUploadSizeMax}
+			,BC_PAGE_SIZE = #{bcPageSize}
+			,BC_SUPPORT_IMAGE =#{bcSupportImage}
+			,UPD_DT = NOW()
+		 	,UPD_ID = #{sessionMemSeq}
+		WHERE BC_ID = #{bcId}
+	</update>
+	
+	<update id="deleteBoardConfig" parameterType="UserBoardConfigVO">
+		UPDATE COM_BOARD_CONFIG
+		SET DELETE_YN = 'Y'
+		,UPD_DT = NOW()
+		,UPD_ID = #{sessionMemSeq}
+		WHERE BC_ID = #{bcId}
+	</update>
+	
+	<select id="listBoardArticle" resultType="UserBoardArticleVO" parameterType="UserBoardArticleVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+	    SELECT
+	        CA.BA_ID,
+	        CC.BC_ID,
+	        CA.BA_TITLE,
+	        CA.MEM_ID,
+	        CA.BA_CONTENT_HTML,
+	        CA.BA_CONTENT_PLAIN,
+	        DATE_FORMAT(CA.BA_REGDATE, '%Y.%m.%d') AS BA_REGDATE,
+	        (
+	            SELECT AF.SAVE_FILE_NAME
+	            FROM ATCH_FILE AF
+	            WHERE AF.THUMBNAIL_CROP = 'Y'
+	              AND AF.DELETE_YN = 'N'
+	              AND CA.BA_ID = AF.BOARD_IDX
+	            LIMIT 1
+	        ) AS BA_THUMBPATH,
+	        IFNULL(CM.MEM_NAME, CA.BA_GUEST_NAME) AS MEM_NAME,
+	        CA.BA_HIT,
+	        CA.BA_SECRET,
+	        CA.REG_ID,
+	        CA.REG_DT,
+	        CA.BA_CATEGORY1,
+	        CA.BA_NOTICE,
+	        FN_GET_CODE_NAME('BOARD_DATA', CA.BA_CATEGORY1) AS BOARD_DATA_CATEGORY1,
+	        CA.PROCESS_STATUS_ARTICLE
+	    FROM COM_BOARD_ARTICLE CA
+	    INNER JOIN COM_BOARD_CONFIG CC ON CC.BC_ID = CA.BC_ID
+	    LEFT JOIN COM_MEMBER CM ON CM.MEM_SEQ = CA.REG_ID
+	    WHERE CA.DELETE_YN = 'N'
+	      AND CA.BC_ID = #{bcId}
+	      AND CA.BA_NOTICE = #{baNotice}
+	    
+	    <if test="searchCondition != null and searchCondition != ''">
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	            AND CA.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+	        </if>
+	    </if>
+	
+	    <if test="searchKeyword != null and searchKeyword != ''">
+	        AND (
+	            CA.BA_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+	            OR CA.BA_CONTENT_HTML LIKE CONCAT('%', #{searchKeyword}, '%')
+	        )
+	    </if>
+	
+	    <if test="baCategory1 != null and baCategory1 != ''">
+	        AND CA.BA_CATEGORY1 = #{baCategory1}
+	    </if>
+	    ORDER BY CA.REG_DT DESC
+	    <include refid="kr.co.gocle.include.paging-end" />
+    </select>
+    
+    <select id="topNoticeList" parameterType="UserBoardArticleVO" resultType="UserBoardArticleVO">
+    	SELECT A.*
+		FROM (
+		    SELECT
+		        CA.BA_ID,
+		        CC.BC_ID,
+		        CA.BA_TITLE,
+		        CA.MEM_ID,
+		        CA.BA_CONTENT_HTML,
+		        DATE_FORMAT(CA.BA_REGDATE, '%Y.%m.%d') AS BA_REGDATE,
+		        (
+		            SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CA.BA_ID = AF.BOARD_IDX
+		            LIMIT 1
+		        ) AS BA_THUMBPATH,
+		        CM.MEM_NAME,
+		        CA.BA_HIT,
+		        CA.BA_SECRET,
+		        CA.REG_ID,
+		        CA.REG_DT,
+		        CA.BA_CATEGORY1,
+		        CA.BA_NOTICE,
+		        CA.DELETE_YN,
+		        FN_GET_CODE_NAME('BOARD_DATA', CA.BA_CATEGORY1) AS BOARD_DATA_CATEGORY1
+		    FROM COM_BOARD_ARTICLE CA
+		    INNER JOIN COM_BOARD_CONFIG CC ON CC.BC_ID = CA.BC_ID
+		    LEFT JOIN COM_MEMBER CM ON CM.MEM_SEQ = CA.REG_ID
+		    WHERE CA.DELETE_YN = 'N'
+		      AND CA.BA_NOTICE = 1
+		      AND CA.BC_ID = #{bcId}
+		    ORDER BY CA.REG_DT DESC
+		    LIMIT 3
+		) A
+		ORDER BY A.REG_DT DESC;
+    </select>
+    
+    <insert id="insertUserBoardArticle" parameterType="UserBoardArticleVO">
+		INSERT INTO COM_BOARD_ARTICLE
+		(
+			BA_ID
+			,BC_ID
+			,BA_TITLE
+			,BA_CONTENT_HTML
+			<if test="baContentPlain != null and baContentPlain != ''">,BA_CONTENT_PLAIN</if>
+			,BA_THUMB
+			,BA_CATEGORY1
+			,BA_NOTICE
+			,BA_GUEST_NAME
+			,MEM_ID
+			,BA_REGDATE
+			,REG_DT
+			,REG_ID
+		)
+		VALUES
+		(
+			#{baId}
+			,#{bcId}
+			,#{baTitle}
+			,#{baContentHtml}
+			<if test="baContentPlain != null and baContentPlain != ''">,#{baContentPlain}</if>
+			,#{baThumb}
+			,#{baCategory1}
+			,#{baNotice}
+			,#{sessionMemName}
+			,#{sessionMemName}
+			,NOW()
+			,NOW()
+			,#{sessionMemSeq}
+		)
+	</insert>
+	
+	<select id="selectBoardArticle" resultType="UserBoardArticleVO" parameterType="UserBoardArticleVO">
+		SELECT
+		    CA.BC_ID,
+		    CA.BA_ID,
+		    CA.BA_TITLE,
+		    CA.BA_CONTENT_HTML,
+		    CA.BA_CONTENT_PLAIN,
+		    CA.BA_HIT,
+		    CA.BA_RECOMMEND,
+		    DATE_FORMAT(CA.BA_REGDATE, '%Y-%m-%d') AS BA_REGDATE,
+		    IFNULL(CM.MEM_NAME, CA.BA_GUEST_NAME) AS MEM_NAME,
+		    CA.BA_NOTICE,
+		    CA.BA_GUEST_PASSWORD,
+		    (
+		        SELECT AF.SAVE_FILE_NAME
+		        FROM ATCH_FILE AF
+		        WHERE AF.THUMBNAIL_CROP = 'Y'
+		          AND AF.DELETE_YN = 'N'
+		          AND CA.BA_ID = AF.BOARD_IDX
+		        LIMIT 1
+		    ) AS BA_THUMBPATH,
+		    CA.BA_SECRET,
+		    CA.BA_CATEGORY1,
+		    CA.BA_NOTICE
+		FROM COM_BOARD_ARTICLE CA
+		LEFT JOIN COM_MEMBER CM
+		    ON CM.MEM_SEQ = CA.REG_ID
+		WHERE CA.BC_ID = #{bcId}
+		  AND CA.BA_ID = #{baId}
+	</select>
+	
+	<select id="listBoardReply" resultType="UserBoardReplyVO" parameterType="UserBoardReplyVO">
+		SELECT
+			CB.BR_ID,
+			CB.BA_ID,
+			CB.BR_CONTENT,
+			CB.ATCH_FILE_IDX,
+			CB.REG_DT as insertDate,
+			CB.REG_ID,
+			CB.UPD_DT,
+			CB.UPD_ID,
+			AF.ORG_FILE_NAME,
+			AF.DELETE_YN AS rDeleteYn,
+			CM.MEM_NAME
+	    FROM COM_BOARD_REPLY CB
+			LEFT OUTER JOIN ATCH_FILE AF
+			ON CB.ATCH_FILE_IDX = AF.ATCH_FILE_IDX
+			LEFT JOIN COM_MEMBER CM
+		    ON CM.MEM_SEQ = CB.REG_ID
+		WHERE CB.BA_ID = #{baId} 
+		AND CB.DELETE_YN = 'N'
+		ORDER BY CB.REG_DT DESC
+	</select>
+	
+	<update id="updateArticleBoard" parameterType="UserBoardArticleVO">
+		UPDATE COM_BOARD_ARTICLE
+		SET BA_TITLE = #{baTitle}
+			,BA_CONTENT_HTML = #{baContentHtml}
+			<if test="baContentPlain != null and baContentPlain != ''">,BA_CONTENT_PLAIN = #{baContentPlain}</if>
+			,BA_LAST_MODIFIED = NOW()
+			,UPD_DT = NOW()
+		 	,UPD_ID = #{sessionMemSeq}
+		 	,BA_CATEGORY1 = #{baCategory1}
+		 	,BA_NOTICE = #{baNotice}
+		WHERE BA_ID = #{baId} AND BC_ID = #{bcId}
+	</update>
+	
+	<update id="deleteBoardArticle" parameterType="UserBoardArticleVO">
+		UPDATE COM_BOARD_ARTICLE
+		SET DELETE_YN= 'Y',
+			BA_LAST_MODIFIED = NOW()
+		WHERE BC_ID = #{bcId} AND BA_ID = #{baId} 
+	</update>
+	
+		<select id="getBoardConfig" parameterType="UserBoardConfigVO"
+		resultType="UserBoardConfigVO">
+
+		SELECT *
+		FROM COM_BOARD_CONFIG
+		WHERE BC_ID = #{bcId}
+
+	</select>
+	
+	<!-- 조회수 -->
+	<update id="boardHit" parameterType="UserBoardArticleVO"  >
+	
+		UPDATE COM_BOARD_ARTICLE
+			SET	
+			BA_HIT = BA_HIT+1 
+		WHERE BC_ID = #{bcId}
+		 AND BA_ID = #{baId}
+	</update>
+	
+	<!--USER 조회수 부분  -->
+		<select id="getUserBoardResult" resultType="UserBoardArticleVO"
+		parameterType="UserBoardArticleVO">
+
+		SELECT
+			CA.BC_ID,
+			CA.BA_ID,
+			CA.BA_TITLE,
+			CA.BA_CONTENT_HTML,
+			CA.BA_CONTENT_PLAIN,
+			CA.BA_RECOMMEND,
+			DATE_FORMAT(CA.BA_REGDATE, '%Y-%m-%d') AS BA_REGDATE,
+			IFNULL(CM.MEM_NAME, CA.BA_GUEST_NAME) AS MEM_NAME,
+			(SELECT AF.SAVE_FILE_NAME
+				FROM ATCH_FILE AF
+				WHERE AF.THUMBNAIL_CROP = 'Y' AND  AF.DELETE_YN = 'N'
+				AND CA.BA_ID = AF.BOARD_IDX) AS BA_THUMBPATH,
+			CA.BA_HIT,
+			CA.REG_ID,
+			CA.BA_NOTICE,
+			CA.BA_SECRET,
+			CA.BA_CATEGORY1,
+			CA.BA_GUEST_PASSWORD
+			BIZ_REG_NO
+		FROM COM_BOARD_ARTICLE CA
+		LEFT JOIN COM_MEMBER CM
+        ON CM.MEM_SEQ = CA.REG_ID
+		WHERE CA.BC_ID = #{bcId} 
+		AND CA.BA_ID = #{baId}
+		AND CA.DELETE_YN= 'N'
+
+	</select>
+	
+	<!-- 이전글 , 다음글  -->
+	<select id="prevNext" parameterType="UserBoardArticleVO" resultType="UserBoardArticleVO">
+	
+	
+	SELECT A.*
+		FROM (
+			    SELECT
+			        CA.BC_ID,
+					CA.BA_ID,
+					CA.BA_TITLE,
+			        CA.DELETE_YN,
+			        CA.BA_NOTICE,
+			        LEAD(CA.BA_ID, 1) OVER (ORDER BY CA.BA_ID ASC) AS NEXT_NO,
+			        LEAD(CA.BA_TITLE, 1, '') OVER (ORDER BY CA.BA_ID ASC) AS NEXT_TITLE,
+			        LAG(CA.BA_ID, 1) OVER (ORDER BY CA.BA_ID ASC) AS PRE_NO,
+			        LAG(CA.BA_TITLE, 1, '') OVER (ORDER BY CA.BA_ID ASC) AS PRE_TITLE
+			    FROM COM_BOARD_ARTICLE CA
+			    WHERE CA.BC_ID =#{bcId} AND CA.DELETE_YN = 'N' AND CA.BA_NOTICE = #{baNotice}
+			    <if test="baCategory1 != null and baCategory1 != ''">
+			        AND CA.BA_CATEGORY1 = #{baCategory1}
+			    </if>
+			) A
+		WHERE A.BC_ID =#{bcId}
+		AND A.DELETE_YN = 'N'
+		AND BA_ID = #{baId}
+			
+	
+	</select>
+	
+		<!-- 사용자 게시글(QNA,체험후기...) 등록 -->
+	<update id="insertBoardArticle" parameterType="UserBoardArticleVO"  >
+	
+		INSERT INTO COM_BOARD_ARTICLE
+		(
+			BC_ID,
+			BA_ID,
+			BA_TITLE,
+			BA_CONTENT_HTML,
+			BA_REGDATE,
+			REG_DT,
+		    REG_ID,
+		    BA_SECRET,
+		    BA_GUEST_NAME,
+		    BA_GUEST_PASSWORD
+		)
+		VALUES
+		(
+			
+			#{bcId},
+			#{baId},
+			#{baTitle},
+			#{baContentHtml},
+			NOW(),		
+			NOW(),
+			#{sessionMemSeq},
+			#{baSecret},
+			#{sessionMemSeq},
+			#{baGuestPassword}
+		)
+		
+		
+	</update>
+	
+	
+	<select id="getBoardArticle" resultType="UserBoardArticleVO"
+		parameterType="UserBoardArticleVO">
+
+		SELECT
+		    CA.BC_ID,
+		    CA.BA_ID,
+		    CA.BA_TITLE,
+		    CA.BA_CONTENT_HTML,
+		    CA.BA_CONTENT_PLAIN,
+		    CA.BA_HIT,
+		    CA.BA_RECOMMEND,
+		    DATE_FORMAT(CA.BA_REGDATE, '%Y-%m-%d') AS BA_REGDATE,
+		    IFNULL(CM.MEM_NAME, CA.BA_GUEST_NAME) AS MEM_NAME,
+		    CA.PROCESS_STATUS_ARTICLE,
+		    CA.BA_NOTICE,
+		    CA.BA_GUEST_PASSWORD,
+		    (
+		        SELECT AF.SAVE_FILE_NAME
+		        FROM ATCH_FILE AF
+		        WHERE AF.THUMBNAIL_CROP = 'Y'
+		          AND AF.DELETE_YN = 'N'
+		          AND CA.BA_ID = AF.BOARD_IDX
+		        LIMIT 1
+		    ) AS BA_THUMBPATH,
+		    CA.BA_SECRET,
+		    FN_GET_CODE_NAME('PROCESS_STATUS_ARTICLE', CA.PROCESS_STATUS_ARTICLE) AS PROCESS_STATUS,
+		    CA.BA_CATEGORY1
+		FROM
+		    COM_BOARD_ARTICLE CA
+		LEFT JOIN
+		    COM_MEMBER CM ON CM.MEM_SEQ = CA.REG_ID
+		WHERE
+		    CA.BC_ID = #{bcId}
+		    AND CA.BA_ID = #{baId};
+
+	</select>
+	
+	<!-- QNA 수정 -->
+	<update id="userUpdateQna" parameterType="UserBoardArticleVO">
+	
+		UPDATE COM_BOARD_ARTICLE
+			SET UPD_ID = #{sessionMemSeq},
+				UPD_DT = NOW(),
+				BA_TITLE = #{baTitle},
+				BA_CONTENT_HTML = #{baContentHtml},
+				BA_SECRET = #{baSecret},
+				BA_GUEST_NAME = #{sessionMemName},
+				BA_GUEST_PASSWORD = #{baGuestPassword}
+		WHERE BA_ID = #{baId}
+		 AND BC_ID = #{bcId}
+		
+	</update>
+	
+	<!-- QNA, 체험후기 삭제 -->
+	<update id="userDeleteQna" parameterType="UserBoardArticleVO">
+		UPDATE COM_BOARD_ARTICLE
+		SET DELETE_YN= 'Y',
+			BA_LAST_MODIFIED = NOW()
+		WHERE BC_ID = #{bcId} AND BA_ID = #{baId} 
+	</update>
+</mapper>

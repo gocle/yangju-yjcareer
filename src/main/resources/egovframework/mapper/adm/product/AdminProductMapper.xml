@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.product.service.impl.AdminProductMapper">
+
+	<select id="selectProductList" resultType="ProductVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CP.PRODUCT_ID,
+				CP.PRODUCT_NAME,
+				CP.PRODUCT_DESC,
+				CP.PRICE,
+				CP.OPTION_NAME,
+				CP.OPTION_PRICE,
+				CP.DURATION,
+				CP.TARGET,
+				CP.NEW_YN,
+				CP.SOLD_YN,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CP.PRODUCT_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS THUMBPATH,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.USE_YEAR
+			FROM COM_PRODUCT CP
+			WHERE DELETE_YN = 'N'
+			<if test="searchCondition != null and searchCondition != ''">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CP.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CP.PRODUCT_NAME LIKE CONCAT('%',  #{searchKeyword}, '%') OR CP.PRODUCT_DESC LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<insert id="insertProduct" parameterType="ProductVO">
+		INSERT INTO COM_PRODUCT
+		(
+			PRODUCT_ID
+			,PRODUCT_NAME
+			,PRODUCT_DESC
+			,PRICE
+			,OPTION_NAME
+			,OPTION_PRICE
+			,DURATION
+			,TARGET
+			,NEW_YN
+			,SOLD_YN
+			,REG_DT
+			,REG_ID
+			,USE_YEAR
+		)
+		VALUES
+		(
+			#{productId}
+			,#{productName}
+			,#{productDesc}
+			,#{price}
+			,#{optionName}
+			,#{optionPrice}
+			,#{duration}
+			,#{target}
+			,#{newYn}
+			,#{soldYn}
+			,NOW()
+			,#{sessionMemSeq}
+			,#{useYear}
+		)
+	</insert>
+	
+	<select id="selectProduct" resultType="ProductVO">
+			SELECT
+				CP.PRODUCT_ID,
+				CP.PRODUCT_NAME,
+				CP.PRODUCT_DESC,
+				CP.PRICE,
+				CP.OPTION_NAME,
+				CP.OPTION_PRICE,
+				CP.DURATION,
+				CP.TARGET,
+				CP.NEW_YN,
+				CP.SOLD_YN,
+				CP.REG_DT,
+				CP.REG_ID,
+				CP.USE_YEAR
+			FROM COM_PRODUCT CP
+			WHERE DELETE_YN = 'N'
+			AND CP.PRODUCT_ID = #{productId}
+	</select>
+	
+	<update id="updateProduct" parameterType="ProductVO">
+		UPDATE COM_PRODUCT
+		SET PRODUCT_NAME = #{productName}
+			,PRODUCT_DESC = #{productDesc}
+			,PRICE = #{price}
+			,OPTION_NAME = #{optionName}
+			,OPTION_PRICE = #{optionPrice}
+			,DURATION = #{duration}
+			,TARGET = #{target}
+			,NEW_YN = #{newYn}
+			,SOLD_YN = #{soldYn}
+			,UPD_DT = NOW()
+		 	,UPD_ID = #{sessionMemSeq}
+		 	,USE_YEAR = #{useYear}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+	
+	<update id="deleteProduct" parameterType="ProductVO">
+		UPDATE COM_PRODUCT
+		SET DELETE_YN = 'Y'
+		,UPD_DT = NOW()
+		,UPD_ID = #{sessionMemSeq}
+		WHERE PRODUCT_ID = #{productId}
+	</update>
+
+</mapper>

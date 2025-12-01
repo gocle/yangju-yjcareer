@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 예약 | 양주시 산림휴양시설</title>
+	<link rel="stylesheet" href="./css/font/font.css" type="text/css">
+	<link rel="stylesheet" href="./css/reset.css" type="text/css">
+	<link rel="stylesheet" href="./css/style.css" type="text/css">
+	<link rel="stylesheet" href="./css/style_m.css" type="text/css">
+
+	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const sections = document.querySelectorAll('.section');
+
+			function checkSectionInView() {
+				const windowHeight = window.innerHeight;
+
+				sections.forEach((section, index) => {
+					const rect = section.getBoundingClientRect();
+
+					if(rect.top < windowHeight && rect.bottom > 0 && !section.classList.contains('active')) {
+						// 화면 폭이 클수록 딜레이를 줄임
+						const delay = window.innerWidth > 1200 ? index * 50 : index * 150;
+						setTimeout(() => {
+							section.classList.add('active');
+						}, delay);
+					}
+				});
+			}
+
+			window.addEventListener('scroll', checkSectionInView, { passive: true });
+			window.addEventListener('resize', checkSectionInView, { passive: true });
+
+			checkSectionInView();
+		});
+		
+		$( document ).ready(function() {
+			// 햄버거 클릭 → 메뉴 열기/닫기
+			$('.m-menu').click(function(){
+				$('.mobile-nav').toggleClass('open');
+				$('body').toggleClass('no-scroll');
+				$('.slick-dots').toggleClass('no-dots');
+			});
+			
+			// 닫기 버튼 클릭 → 메뉴 닫기
+			$('.mobile-nav .close').click(function(){
+				$('.mobile-nav').removeClass('open');
+				$('body').removeClass('no-scroll');
+				$('.slick-dots').removeClass('no-dots');
+			});
+
+			// 모바일 메뉴에서 서브메뉴 클릭 시 토글
+			$('.mobile-nav > ul > li > a').click(function(e){
+				var $submenu = $(this).next('.submenu');
+				if($submenu.length){
+					e.preventDefault(); // 링크 이동 막기
+					$submenu.slideToggle();
+					$(this).parent().toggleClass('open');
+					$(this).parent().siblings().removeClass('open').find('.submenu').slideUp();
+				}
+			});
+
+		});
+	</script>
+</head>
+<body>
+  <!-- 공통 헤더 -->
+  <header class="header">
+   	<div class="header-inner">
+		<div class="logo pointer" onclick="location.href='main.html'">
+			<img src="img/logo.png" alt="Yangju 양주시" >
+		</div>
+		<div class="flex center">
+			<nav class="nav">
+			  <ul>
+				<li>
+					<a href="#">휴양림 소개</a>
+					<ul class="submenu">
+					  <li><a href="#">시설안내</a></li>
+					  <li><a href="#">오시는 길</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">프로그램 소개</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="sub.html">온라인 예약</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>	
+				</li>
+				<li>
+					<a href="#">참여마당</a>
+					<ul class="submenu">
+					  <li><a href="#">인사말</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>
+				</li>
+			  </ul>
+			</nav>
+			<div class="user-menu">
+				<a href="#">로그인</a>
+			</div>
+		</div>
+    </div>
+    
+    <!-- 모바일 메뉴 버튼 -->
+	<div class="m-menu">
+		<img src="img/menu-03.png" alt="메뉴">
+	</div>
+
+	<!-- 모바일 전용 메뉴 -->
+	<nav class="mobile-nav">
+		<div class="mo-top"> 
+			<img src="img/logo-m.png">
+			<div class="close"></div>
+		</div>
+		<ul>
+			<li>
+				<a href="#">휴양림 소개</a>
+				<ul class="submenu">
+					<li><a href="#">시설안내</a></li>
+					<li><a href="#">오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">프로그램 소개</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">온라인 예약</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">참여마당</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li class="login-li">
+				<a href="#">
+					<img src="img/login.png">
+					<!--<img src="img/logout.png"> 로그아웃 아이콘-->
+					<span>로그인</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+  </header>
+
+	<!-- 서브 배너 -->
+	<section class="sub-banner">
+		<div class="sub-banner-text">
+			<h1>산림교육</h1>
+		</div>
+	</section>
+
+    <!--서브 네비2-->
+   	<section class="nav-btn">
+		<div class="nav-btn-inner">
+			<ul>
+				<li><a href="greeting_00.html">인사말</a></li>
+				<li><a href="program.html">대표 프로그램</a></li>
+				<li class="on"><a href="forest.html">숲체험원 현황</a></li>
+			</ul>
+		</div>
+	</section>
+
+	<section class="road sub-section">
+		<div class="info-main-title flex section">
+			<h2>양주시 숲체험원 현황</h2>
+		</div>
+		<div class="tree">
+			<div class="road-info tree-info section">
+				<div class="tree-title"><span></span>산림욕장</div>
+				<dl>
+					<dd><span>1</span> 천보산 산림욕장(삼숭동 산48번지 일원) <span>면적 29,876㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>2</span> 불곡산 산림욕장(유양동 산 33-1 일원) <span>면적 22,278㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>3</span> 고장산 산림욕장(고암동 493-81 일원) <span>면적 29,875㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>4</span> 옥정숲 산림욕장(옥정동 산57번지 외 4필지) <span>면적 10304㎡</span></dd>
+				</dl>
+			</div>
+			<div class="road-info tree-info tree-2 section">
+				<div class="tree-title"><span></span>유아숲체험원</div>
+				<dl>
+					<dd><span>1</span> 불곡산 유아숲체험원(유양동 산33-1번지) <span>면적 15,000㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>2</span> 하늘물 유아숲체험원(광사동 659 하늘물 근린공원 내) <span>면적 15,000㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>3</span> 회암사지 유아숲체험원(회암동 산14-4 외 1필지) <span>면적 10,000㎡</span></dd>
+				</dl>
+				<dl>
+					<dd><span>4</span> 독바위 유아숲체험원(옥정동 889 독바위공원 내) <span>면적 15,000㎡</span> </dd>
+				</dl>
+				<dl>
+					<dd><span>5</span> 감악산 산마루 유아숲체험원(남면 신암리 산24-3) <span>면적 5,000㎡</span> </dd>
+				</dl>
+				<dl>
+					<dd><span>6</span> 홍죽 유아숲체험원(백석읍 홍죽리 952) <span>면적 6,400㎡</span> </dd>
+				</dl>
+				<dl>
+					<dd><span>7</span> 오산산들 유아숲체험원(백석읍 오산리 522-3) <span>면적 11,000㎡</span> </dd>
+				</dl>
+			</div>
+		</div>
+	</section>
+
+	<div class="link">
+		<div class="link-inner">
+			<ul class="flex">
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+			</ul>
+		</div>
+	</div>
+
+<!--   푸터 -->
+  <footer class="footer flex">
+   	<img src="img/logo_footer.png">
+   	<div>
+   		<ul class="flex">
+			<li><a href="#">개인정보처리방침</a></li>
+			<li><a href="#">저작권정책</a></li>
+			<li><a href="#">이용약관</a></li>
+   		</ul>
+   		<p>
+   			[11498] 경기도 양주시 부흥로 1533(남방동)<br>
+   			대표전화 031-8082-4114 FAX 031-8082-4009
+   		</p>
+    	<p>COPYRIGHT © 2025 YANGJU CITY. ALL RIGHTS RESERVED</p>
+    </div>
+  </footer>
+</body>
+</html>

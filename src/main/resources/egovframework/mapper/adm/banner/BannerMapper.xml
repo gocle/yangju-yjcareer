@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.banner.service.impl.AdminBannerMapper">
+
+	<select id="selectBannerList" parameterType="BannerVO" resultType="BannerVO">
+	    <include refid="kr.co.gocle.include.paging-start" />
+	    SELECT
+	        BA.BN_ID,
+	        BA.BN_TYPE,
+	        BA.BN_NAME,
+	        BA.BN_LINK,
+	        BA.BN_DESCRIPTION,
+	        DATE_FORMAT(BA.BN_START_DATE, '%Y.%m.%d') AS BN_START_DATE,
+	        DATE_FORMAT(BA.BN_END_DATE, '%Y.%m.%d') AS BN_END_DATE,
+	        BA.BN_USE,
+	        BA.BN_REGDATE,
+	        (
+	            SELECT FILE_SAVE_PATH
+	            FROM ATCH_FILE AF
+	            WHERE AF.DELETE_YN = 'N'
+	              AND BA.BN_THUMB = AF.ATCH_FILE_IDX
+	            LIMIT 1
+	        ) AS BNTHUMBPATH,
+	        (
+	            SELECT SAVE_FILE_NAME
+	            FROM ATCH_FILE AF
+	            WHERE AF.DELETE_YN = 'N'
+	              AND BA.BN_THUMB = AF.ATCH_FILE_IDX
+	            LIMIT 1
+	        ) AS BNTHUMBNAME,
+	        (
+	            SELECT ORG_FILE_NAME
+	            FROM ATCH_FILE AF
+	            WHERE AF.DELETE_YN = 'N'
+	              AND BA.BN_THUMB = AF.ATCH_FILE_IDX
+	            LIMIT 1
+	        ) AS BNORGTHUMBNAME,
+	        BA.BN_WIDTH,
+	        BA.BN_HEIGHT,
+	        BA.BN_THUMB,
+	        BA.BN_TOP,
+	        BA.BN_LEFT,
+	        BA.REG_DT
+	    FROM COM_BANNER BA
+	    LEFT JOIN ATCH_FILE AF ON AF.ATCH_FILE_IDX = BA.BN_THUMB
+	    WHERE BA.BN_TYPE = #{bnType}
+	      AND BA.DELETE_YN = 'N'
+	    <choose>
+	        <when test="searchCondition != null and searchCondition != ''">
+	            <if test="searchCondition == 'BN_NAME'">
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                    AND BA.BN_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </if>
+	            <if test="searchCondition == 'BN_ID'">
+	                <if test="searchKeyword != null and searchKeyword != ''">
+	                    AND BA.BN_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+	                </if>
+	            </if>
+	        </when>
+	        <otherwise>
+	            <if test="searchKeyword != null and searchKeyword != ''">
+	                AND (
+	                    BA.BN_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
+	                    OR BA.BN_ID LIKE CONCAT('%', #{searchKeyword}, '%')
+	                )
+	            </if>
+	        </otherwise>
+	    </choose>
+	    ORDER BY BA.BN_REGDATE DESC
+	    <include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<insert id="insertBanner" parameterType="BannerVO">
+		INSERT INTO COM_BANNER (
+		    BN_ID,
+		    BN_TYPE,
+		    BN_NAME,
+		    BN_DESCRIPTION,
+		    BN_LINK,
+		    BN_NEW_WIN,
+		    BN_START_DATE,
+		    BN_END_DATE,
+		    BN_REGDATE,
+		    BN_USE,
+		    BN_WIDTH,
+		    BN_HEIGHT,
+		    BN_TOP,
+		    BN_LEFT,
+		    BN_THUMB,
+		    REG_DT,
+		    REG_ID
+		) VALUES (
+		    #{bnId},
+		    #{bnType},
+		    #{bnName},
+		    #{bnDescription},
+		    #{bnLink},
+		    #{bnNewWin},
+		    STR_TO_DATE(#{bnStartDate}, '%Y-%m-%d'),
+		    STR_TO_DATE(#{bnEndDate}, '%Y-%m-%d'),
+		    NOW(),
+		    #{bnUse},
+		    #{bnWidth},
+		    #{bnHeight},
+		    #{bnTop},
+		    #{bnLeft},
+		    #{bnThumb},
+		    NOW(),
+		    #{sessionMemSeq}
+		);
+	</insert>
+	
+	<select id="selectBanner" parameterType="BannerVO" resultType="BannerVO">
+		SELECT
+		       BN.BN_ID,
+		       BN.BN_TYPE,
+		       BN.BN_NAME,
+		       BN.BN_DESCRIPTION,
+		       BN.BN_LINK,
+		       BN.BN_NEW_WIN,
+		       DATE_FORMAT(BN.BN_START_DATE,'%Y.%m.%d') AS BN_START_DATE,
+			   DATE_FORMAT(BN.BN_END_DATE,'%Y.%m.%d')   AS BN_END_DATE,
+		       BN.BN_REGDATE,
+		       BN.BN_USE,
+		       BN.BN_WIDTH,
+		       BN.BN_HEIGHT,
+		       BN.BN_TOP,
+		       BN.BN_LEFT,
+		       BN.BN_THUMB,
+		       (SELECT 
+		       	SAVE_FILE_NAME
+		        FROM ATCH_FILE AF
+		        WHERE AF.DELETE_YN = 'N'
+		        AND BN.BN_THUMB = AF.ATCH_FILE_IDX
+		        )AS BNTHUMBNAME   
+		FROM COM_BANNER BN
+        	LEFT OUTER JOIN ATCH_FILE AF  
+       		ON BN.BN_THUMB = AF.ATCH_FILE_IDX
+		WHERE BN.BN_TYPE = #{bnType} 
+		AND BN.BN_ID = #{bnId}
+		AND BN.DELETE_YN = 'N'
+	</select>
+	
+	<update id="updateBanner" parameterType="BannerVO">
+		UPDATE COM_BANNER
+		SET 
+			BN_NAME= #{bnName},
+			BN_DESCRIPTION= #{bnDescription},
+			BN_LINK= #{bnLink},
+		    BN_NEW_WIN= #{bnNewWin},
+			BN_USE= #{bnUse},
+			BN_WIDTH= #{bnWidth},
+			BN_HEIGHT= #{bnHeight},
+			BN_START_DATE = STR_TO_DATE(#{bnStartDate}, '%Y-%m-%d'),
+			BN_END_DATE   = STR_TO_DATE(#{bnEndDate}, '%Y-%m-%d'),
+		    BN_TOP= #{bnTop},
+		    BN_LEFT= #{bnLeft},
+		    BN_THUMB= #{bnThumb},
+		    UPD_DT = NOW(),
+	 		UPD_ID = #{sessionMemSeq}
+		WHERE BN_ID = #{bnId}
+		AND BN_TYPE = #{bnType}
+		AND DELETE_YN = 'N'
+	</update>
+	
+	<update id="deleteBanner" parameterType="BannerVO">
+	
+		UPDATE COM_BANNER
+		SET 
+			DELETE_YN = 'Y'
+			,UPD_DT = NOW()
+	 		,UPD_ID = #{sessionMemSeq}
+		WHERE BN_ID = #{bnId}
+		AND BN_TYPE = #{bnType}
+		
+	</update>
+	
+</mapper>

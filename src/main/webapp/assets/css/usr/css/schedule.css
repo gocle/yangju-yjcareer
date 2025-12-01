@@ -1,0 +1,190 @@
+.calendar {
+	width: 76%;
+	margin: auto;
+	margin-top: 2rem
+}
+
+.calendar_searchBox input#cbx_chkAll:checked + label,
+.calendar_searchBox input#cbx_chkAll + label:hover { 
+	background: #000; 
+	color:#fff; 
+	border: 1px solid #000
+}
+
+.calendar_searchBox input#chk1:checked + label,
+.calendar_searchBox input#chk1 + label:hover
+{ 
+	background: #56ab2d; 
+	color:#fff; 
+	border: 1px solid #56ab2d
+}
+
+.calendar_searchBox input#chk2:checked + label,
+.calendar_searchBox input#chk2 + label:hover
+{ 
+	background: #f7b146; 
+	color:#fff; 
+	border: 1px solid #f7b146
+}
+
+.calendar_searchBox input[type=checkbox] { 
+	display: none;
+}
+
+.calendar_searchBox label { 
+	border: 1px solid #DADCE5; 
+	cursor: pointer; 
+	padding: 10px 15px 8px 15px; 
+	text-align: center; 
+	border-radius: 5px; 
+	margin-left: 5px; 
+	background: #fff;
+}
+
+.calendar_searchBox label:nth-child(2) {
+	margin-left: 0;
+}
+
+.calendar_searchBox { 
+	display: flex; 
+	justify-content: space-between; 
+	align-items: center;
+	margin-bottom: 3rem;
+}
+
+#selectBox {
+	border: 1px solid #DADCE5;
+	height: 50px;
+	border-radius: 10px 0px 0px 10px;
+	width: 120px;
+	background: url(../img/arrow_down.png) right no-repeat;
+	font-size: 16px;
+	margin-right: 3px;
+}
+
+#searchKeyword{
+	border: 1px solid #DADCE5;
+	border-radius: 0px 10px 10px 0; 
+	border-left:0; 
+	margin-left: -3px;
+	width:auto;
+	height: 48px;
+}
+
+.select_search_box{
+	position: relative;
+	text-align: right;
+	display: flex
+}
+
+.calendar input::placeholder
+{
+	font-size: 16px;
+}
+
+
+#calendar,.fc-toolbar .fc-toolbar-chunk .fc-button { 
+	font-family: 'Pretendard', sans-serif;
+}
+
+.fc-col-header-cell .fc-scrollgrid-sync-inner {
+	background: #f2f2f2;
+}
+
+.fc-col-header-cell .fc-scrollgrid-sync-inner .fc-col-header-cell-cushion {
+    padding: 0.8rem 4px;
+}
+
+:root {
+	--fc-button-bg-color: #2C3C16;
+	--fc-button-border-color: #2C3C16;
+	--fc-button-active-bg-color: #000;
+	--fc-button-active-border-color: #000;
+}
+
+.check + label { background: #151e27; color:#fff; border: 1px solid #151e27}
+
+@media (max-width: 1000px) {
+	.calendar {
+		width: 90%;
+	}
+}
+
+@media (max-width: 900px) {
+	.calendar_searchBox {
+		flex-direction: column;
+		justify-content: normal;
+		align-items: normal
+	}
+	
+	.select_search_box {
+		margin-top: 3rem;
+	}
+	
+	#searchKeyword {
+		width : 100%;
+	}
+}
+
+@media (max-width: 600px) {
+	#calendar .fc-toolbar {
+		flex-direction: column;
+		gap: 20px;
+	}
+	
+	:root {
+		--fc-button-bg-color: #fff;
+		--fc-button-border-color: #fff;
+		--fc-button-text-color: #000;
+		--fc-button-active-bg-color: #fff;
+		--fc-button-active-border-color: #fff;
+	}
+	
+	.fc-toolbar .fc-toolbar-chunk .fc-button-group .fc-button.fc-button-active {
+	  color: #56ab2d;  /* 원하는 활성화 텍스트 색 */
+	}
+}
+
+@media (max-width: 400px) {
+	.calendar_searchBox label {
+		padding: 10px 10px 8px 10px;
+		font-size: 15px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

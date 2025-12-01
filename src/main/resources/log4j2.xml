@@ -1,0 +1,50 @@
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d %5p [%c] %m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- MyBatis 전체 SQL 로그 -->
+        <Logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.mybatis" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!-- MyBatis Spring 내부 유틸은 WARN 레벨로 -->
+        <Logger name="org.mybatis.spring.SqlSessionUtils" level="WARN" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.mybatis.spring.transaction.SpringManagedTransaction" level="WARN" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+
+        <!-- 기타 프로젝트 로거 -->
+        <Logger name="com.gocle" level="DEBUG" additivity="true">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!-- Spring, Egov 등 -->
+        <Logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.web.context" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="egovframework" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.egovframe" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!-- 루트 로그 레벨 WARN으로 낮춤 -->
+        <Root level="WARN">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

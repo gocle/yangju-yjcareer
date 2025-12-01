@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.time.service.impl.AdminProgramTimeMapper">
+
+	<insert id="insertSlot" parameterType="ProgramTimeVO">
+	   INSERT INTO COM_PROGRAM_TIME_SLOT (
+	   		SLOT_ID,
+	   		PG_ID, 
+	   		SLOT_NO,
+	   		SLOT_DATE, 
+	   		START_TIME, 
+	   		END_TIME, 
+	   		CAPACITY, 
+	   		REG_DT, 
+	   		REG_ID)
+	    VALUES (
+	    	#{slotId},
+	    	#{pgId}, 
+	    	#{slotNo},
+	    	#{slotDate}, 
+	    	#{startTime}, 
+	    	#{endTime}, 
+	    	#{capacity}, 
+	    	NOW(), 
+	    	#{sessionMemSeq}
+	    	)
+	</insert>
+	
+	<select id="selectProgramTimeList" parameterType="reservationVO" resultType="ProgramTimeVO">
+			SELECT
+				CPTS.SLOT_ID,
+				CPTS.PG_ID,
+				CP.PG_NAME,
+				CPTS.SLOT_NO,
+				CPTS.SLOT_DATE,
+				CPTS.START_TIME,
+				CPTS.END_TIME,
+				CPTS.CAPACITY,
+				CPTS.RESV_CNT
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+			INNER JOIN COM_PROGRAM CP ON CPTS.PG_ID = CP.PG_ID AND CP.DELETE_YN = 'N'
+			WHERE CPTS.DELETE_YN = 'N'
+			AND CP.PG_TYPE = #{pgType}
+			AND CPTS.PG_ID = #{pgId}
+			AND CPTS.SLOT_DATE = #{slotDate}
+			ORDER BY CPTS.SLOT_NO
+	</select>
+	
+	<select id="selectSlotDateList" resultType="ProgramTimeVO">
+		SELECT *
+	        FROM (
+	            SELECT 
+	                data.*,
+	                ROW_NUMBER() OVER (ORDER BY SLOT_DATE ASC) AS row_num,
+	                COUNT(*) OVER() AS total_count
+	            FROM (
+					    SELECT SLOT_DATE,
+					    	   MAX(REG_DT) AS REG_DT
+					    FROM COM_PROGRAM_TIME_SLOT
+					    WHERE DELETE_YN = 'N'
+					      AND PG_ID = #{pgId}
+					    GROUP BY SLOT_DATE
+					    
+				  ) AS data
+	        ) AS data
+	        <![CDATA[
+	        WHERE row_num > ( (#{pageIndex, jdbcType=INTEGER} - 1) * #{pageSize, jdbcType=INTEGER} )
+	          AND row_num <= (#{pageIndex, jdbcType=INTEGER} * #{pageSize, jdbcType=INTEGER})
+	        ]]>
+	</select>
+	
+	<select id="selectDayList" parameterType="map" resultType="ProgramTimeVO">
+			SELECT
+				CPTS.SLOT_ID,
+				CPTS.PG_ID,
+				CPTS.SLOT_NO,
+				CPTS.SLOT_DATE,
+				CPTS.START_TIME,
+				CPTS.END_TIME,
+				CPTS.CAPACITY,
+				(SELECT
+				        COALESCE(
+				            SUM(
+				                CASE
+				                    WHEN CR.GROUP_YN = 'Y' THEN CR.PEOPLE_CNT
+				                    ELSE 1
+				                END
+				            ),
+				            0
+				        )
+				    FROM
+				        COM_RESERVATION CR
+				    WHERE
+				        CPTS.PG_ID = CR.PG_ID
+				        AND CPTS.SLOT_ID = CR.SLOT_ID
+				        AND CR.STATUS NOT IN ('CANCEL', 'REJECT')
+				        AND CR.DELETE_YN = 'N'
+				) AS RESV_CNT
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+			WHERE CPTS.DELETE_YN = 'N'
+			AND CPTS.PG_ID = #{pgId}
+			<if test="slotDates != null and !slotDates.isEmpty()">
+		        AND SLOT_DATE IN
+		        <foreach item="date" collection="slotDates" open="(" separator="," close=")">
+		            #{date}
+		        </foreach>
+		    </if>
+			ORDER BY CPTS.SLOT_DATE, CPTS.SLOT_NO 
+	</select>
+	
+	<delete id="deleteByPgId" parameterType="String">
+		DELETE 
+	    FROM COM_PROGRAM_TIME_SLOT
+	    WHERE PG_ID = #{pgId}
+	</delete>
+	
+	<delete id="deleteSlot" parameterType="String">
+		DELETE FROM
+		COM_PROGRAM_TIME_SLOT
+	    WHERE PG_ID = #{pgId}
+	    AND SLOT_DATE = STR_TO_DATE(#{slotDate}, '%Y-%m-%d')
+	</delete>
+	
+	<select id="getApplyCnt" parameterType="ProgramTimeVO">
+		SELECT COUNT(*)
+		FROM COM_RESERVATION R
+		JOIN COM_PROGRAM_TIME_SLOT S 
+		  ON R.SLOT_ID = S.SLOT_ID
+		WHERE R.DELETE_YN = 'N'
+		  AND R.PG_ID = #{pgId}
+		  AND S.SLOT_DATE = STR_TO_DATE(#{slotDate}, '%Y-%m-%d')
+	</select>
+</mapper>

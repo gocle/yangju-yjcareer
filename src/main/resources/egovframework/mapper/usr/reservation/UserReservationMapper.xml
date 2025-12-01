@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.reservation.service.impl.UserReservationMapper">
+
+	<select id="selectReservationList" parameterType="UserReservationVO" resultType="UserReservationVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT
+			CP.PG_ID,
+			CP.PG_TYPE,
+			CP.PG_NAME,
+			CP.PG_TARGET,
+			CP.PG_ITEM,
+			CP.DURATION,
+			CP.CAPACITY,
+			CP.LOCATION,
+				(
+				  SELECT GROUP_CONCAT(
+				           FN_GET_CODE_NAME(
+				             CASE CP.PG_CODE
+				               WHEN 'FOREST_INT' THEN 'GEN_PLACE'
+				               WHEN 'CHILD_REG'  THEN 'KIND_PLACE'
+				               ELSE CONCAT(SUBSTRING_INDEX(CP.PG_TARGET,'_',1), '_PLACE')
+				             END,
+				             TRIM(t.val)
+				           ) SEPARATOR ', '
+				         )
+				  FROM JSON_TABLE(
+				         CONCAT('["', REPLACE(CP.LOCATION, ',', '","'), '"]'),
+				         '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+				       ) t
+				) AS LOCATION_NM,
+			CP.INSTRUCTOR_NAME,
+			CP.CONTACT,
+			CP.START_DATE,
+			CP.END_DATE,
+			CP.REG_OPEN_DATE,
+			CP.REG_CLOSE_DATE,
+			CP.STATUS,
+			CP.CLASS_TYPE,
+			CP.REG_DT,
+			(SELECT AF.SAVE_FILE_NAME
+				FROM ATCH_FILE AF
+				WHERE AF.P_ID = CP.PG_ID
+				AND AF.THUMBNAIL_CROP = 'Y'
+				AND AF.DELETE_YN = 'N'
+			) AS PG_THUMB_PATH,
+			CP.PG_CODE,
+			FN_GET_CODE_NAME('FOREST_EDU_CATE', CP.PG_CODE) AS PG_CODE_NM
+		FROM COM_PROGRAM CP
+		WHERE CP.PG_TYPE = #{pgType}
+			AND CP.DELETE_YN = 'N'
+		<if test="classType != null and classType != ''">
+			AND CP.CLASS_TYPE = #{classType}
+		</if>
+		<if test="pgCode != null and pgCode != ''">
+			AND CP.PG_CODE = #{pgCode}
+		</if>
+		<if test="searchDt != null and searchDt != ''">
+			  AND (
+			       (#{searchDt} BETWEEN CP.START_DATE AND CP.END_DATE)
+			       OR
+			       (#{searchDt} BETWEEN CP.REG_OPEN_DATE AND CP.REG_CLOSE_DATE)
+			      )
+		</if>
+		ORDER BY CP.REG_DT DESC
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="selectReservation" resultType="UserReservationVO">
+		SELECT
+			CP.PG_ID,
+			CP.PG_TYPE,
+			CP.PG_NAME,
+			CP.PG_TARGET,
+			CP.PG_ITEM,
+			CP.DURATION,
+			CP.CAPACITY,
+			CP.LOCATION,
+			CP.INSTRUCTOR_NAME,
+			CP.CONTACT,
+			CP.START_DATE,
+			CP.END_DATE,
+			CP.REG_OPEN_DATE,
+			CP.REG_CLOSE_DATE,
+			CP.STATUS,
+			CP.REG_DT,
+			(SELECT AF.SAVE_FILE_NAME
+				FROM ATCH_FILE AF
+				WHERE AF.P_ID = CP.PG_ID
+				AND AF.THUMBNAIL_CROP = 'Y'
+				AND AF.DELETE_YN = 'N'
+			) AS PG_THUMB_PATH
+		FROM COM_PROGRAM CP
+		WHERE CP.PG_TYPE = #{pgType}
+			AND CP.DELETE_YN = 'N'
+			AND CP.PG_ID = #{pgId}
+	</select>
+
+	<select id="selectScheduleList" resultType="UserProgramVO">
+			SELECT
+				PG_ID,
+				PG_TYPE,
+				PG_NAME,
+				START_DATE,
+				END_DATE,
+				STATUS,
+				REG_OPEN_DATE,
+				REG_CLOSE_DATE
+			FROM COM_PROGRAM 
+			WHERE DELETE_YN = 'N'
+			<if test="types != null and types.size() > 0">
+		      AND PG_TYPE IN
+		      <foreach collection="types" item="t" open="(" separator="," close=")">
+		        #{t}
+		      </foreach>
+		    </if>
+	</select>
+	
+	<insert id="insertReservation">
+		INSERT INTO COM_RESERVATION (
+            RESV_ID,
+            PG_ID,
+            PG_TYPE,
+            DI_KEY,
+            NAME,
+            PHONE,
+            EMAIL,
+            SLOT_ID,
+            AGE,
+            GENDER,
+            PARENT_NAME,
+            PARENT_PHONE,
+            GROUP_YN,
+            GROUP_NAME,
+            GROUP_TYPE,
+            PEOPLE_CNT,
+            APPLY_DATE,
+            CAR_NUM,
+            PRODUCT_ID,
+            OPTION_NAME,
+            STATUS,
+            RECOMMEND,
+            REG_DT,
+            REG_ID,
+            LOCATION,
+            PROGRAM_DT
+        ) VALUES (
+            #{resvId},
+            #{pgId},
+            #{pgType},
+            #{diKey},
+            #{name}, 
+            #{phone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{email, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{slotId},
+            #{age},
+            #{gender},
+            #{parentName},
+            #{parentPhone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{groupYn},
+            #{groupName},
+            #{groupType},
+            #{peopleCnt},
+            NOW(),
+            #{carNum, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler}, 
+            #{productId},
+            #{optionName},
+            #{status},
+            #{recommend},
+            NOW(),
+            #{sessionMemSeq},
+            #{location},
+            #{programDt}
+        )
+	</insert>
+	
+	<select id="getResvDupChk" resultType="int">
+			SELECT count(*)
+			FROM COM_RESERVATION
+			WHERE DELETE_YN = 'N'
+		      AND PG_ID = #{pgId}
+		      AND DI_KEY = #{diKey}
+		      AND SLOT_ID = #{slotId}
+	</select>
+	
+	<select id="regChk" resultType="int">
+			SELECT count(*)
+			FROM COM_RESERVATION
+			WHERE DELETE_YN = 'N'
+		      AND PG_ID = #{pgId}
+		      AND REG_ID = #{sessionMemSeq}
+		      AND REG_DT >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+	</select>
+	
+	<select id="regPlaceCnt" resultType="int">
+		SELECT COUNT(DISTINCT LOCATION)
+	    FROM COM_RESERVATION
+	    WHERE DELETE_YN = 'N'
+	      AND PG_ID = #{pgId}
+	</select>
+	
+	<select id="regPlace" parameterType="UserReservationVO" resultType="UserReservationVO">
+		SELECT DISTINCT LOCATION
+	    FROM COM_RESERVATION
+	    WHERE DELETE_YN = 'N'
+	    AND PG_ID = #{pgId}
+	</select>
+	
+	<select id="selectHeadsByLocation" parameterType="string" resultType="UserReservationVO">
+	    SELECT
+	      CR.LOCATION        AS location,
+	      SUM(
+	        CASE WHEN CR.GROUP_YN = 'Y'
+	             THEN CAST(CR.PEOPLE_CNT AS UNSIGNED)
+	             ELSE 1
+	        END
+	      ) AS locationCnt
+	    FROM COM_RESERVATION CR
+	    WHERE CR.DELETE_YN = 'N'
+	      AND CR.PG_ID     = #{pgId}
+	    GROUP BY CR.LOCATION
+	</select>
+	
+	<select id="sumHeadsByDate" resultType="UserReservationVO">
+	  SELECT
+	      r.location AS location,
+	      SUM(CASE WHEN r.group_yn = 'Y' THEN IFNULL(r.people_cnt, 1) ELSE 1 END) AS location_cnt
+	  FROM COM_RESERVATION r
+	  WHERE r.pg_id = #{pgId}
+	  	AND (r.STATUS != 'CANCEL' AND r.STATUS != 'REJECT')
+	    AND r.DELETE_YN = 'N'
+	  GROUP BY r.location
+	  ORDER BY r.location
+	</select>
+	
+	<select id="selectResvCheck" resultType="String">
+		SELECT
+		    CR.PRODUCT_ID
+		FROM COM_RESERVATION CR
+		WHERE CR.DELETE_YN = 'N'
+			AND CR.PG_TYPE = 'wood'
+			AND CR.PG_ID = #{pgId}
+			AND CR.SLOT_ID = #{slotId}
+	</select>
+	
+</mapper>

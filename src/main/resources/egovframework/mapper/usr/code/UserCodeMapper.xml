@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.code.service.impl.UserCodeMapper">
+
+	<select id="codeList" parameterType="UserCodeVO" resultType="UserCodeVO">
+	    <![CDATA[
+			  SELECT CODE_CODE CODE_ID,
+       				    CODE_NAME
+               FROM COM_CODE
+			  WHERE 1 = 1
+			      AND CODE_GROUP = #{codeGroup}
+			      AND CODE_CODE <> '0000'
+			      AND DELETE_YN = 'N'
+			      AND USE_YN = 'Y'
+	    ]]>
+			ORDER BY CODE_ORDER ASC
+	</select>
+	
+</mapper>

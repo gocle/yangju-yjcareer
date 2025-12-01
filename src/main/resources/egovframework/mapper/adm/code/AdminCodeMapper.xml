@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.code.service.impl.AdminCodeMapper">
+
+	<select id="codeConfigList" resultType="CodeVO" >
+	   	<include refid="kr.co.gocle.include.paging-start" />
+	   		SELECT
+	   			  CC.CODE_ID,
+	   			  CC.CODE_CODE,
+	   			  CC.CODE_GROUP,
+	   			  CC.CODE_NAME,
+	   			  CC.CODE_NAME_ENG,
+	   			  CC.CODE_ORDER,
+	   			  CC.GROUP_DESC,
+	   			  CC.REG_DT
+            FROM COM_CODE CC
+            WHERE CC.DELETE_YN = 'N'
+            <if test="searchCondition != null and searchCondition != ''">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CC.${searchCondition} LIKE CONCAT('%','${searchKeyword}','%')
+					</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND ( CC.CODE_NAME LIKE CONCAT('%','${searchKeyword}','%') OR CC.CODE_GROUP LIKE CONCAT('%','${searchKeyword}','%') )
+			</if>    
+			ORDER BY CC.CODE_GROUP,CC.CODE_ORDER DESC
+			<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="codeConfigFormList" parameterType="CodeVO" resultType="CodeVO">
+		SELECT
+		CC.CODE_ID,
+	   			  CC.CODE_CODE,
+	   			  CC.CODE_GROUP,
+	   			  CC.CODE_NAME,
+	   			  CC.CODE_NAME_ENG,
+	   			  CC.CODE_ORDER,
+	   			  CC.GROUP_DESC
+            FROM COM_CODE CC
+            WHERE CC.DELETE_YN = 'N'
+            AND CC.CODE_CODE = '0000'
+	</select>
+	
+	<insert id="codeInsert" parameterType="CodeVO">
+		INSERT INTO COM_CODE
+		(
+			CODE_ID,
+	   		CODE_CODE,
+	   		CODE_GROUP,
+	   		CODE_NAME,
+	   		CODE_NAME_ENG,
+	   		CODE_ORDER,
+	   		REG_ID,
+	   		REG_DT,
+	   		GROUP_DESC
+		)
+		VALUES(
+			#{codeId},
+			#{codeCode},
+			#{codeGroup},
+			#{codeName},
+			#{codeNameEng},
+			#{codeOrder},
+			#{sessionMemSeq},
+			NOW(),
+			#{groupDesc}
+		)
+	</insert>
+	
+	<select id="selectCode" parameterType="CodeVO" resultType="CodeVO">
+		SELECT
+			CC.CODE_ID,
+			CC.CODE_CODE,
+			CC.CODE_GROUP,
+			CC.CODE_NAME,
+			CC.CODE_NAME_ENG,
+			CC.CODE_ORDER,
+			CC.GROUP_DESC
+		FROM COM_CODE CC
+		WHERE CODE_ID = #{codeId}
+	</select>
+	
+	<update id="codeUpdate" parameterType="CodeVO">
+		UPDATE COM_CODE
+		SET
+	   		CODE_CODE = #{codeCode},
+	   		CODE_GROUP = #{codeGroup},
+	   		CODE_NAME = #{codeName},
+	   		CODE_NAME_ENG = #{codeNameEng},
+	   		CODE_ORDER = #{codeOrder},
+	   		UPD_ID = #{sessionMemSeq},
+	   		UPD_DT = NOW(),
+	   		GROUP_DESC = #{groupDesc}
+	   	WHERE CODE_ID = #{codeId}
+	</update>
+	
+	<update id="codeDelete" parameterType="CodeVO">
+		UPDATE COM_CODE
+		SET
+	   		DELETE_YN = 'Y',
+	   		UPD_ID = #{sessionMemSeq},
+	   		UPD_DT = NOW()
+	   	WHERE CODE_ID = #{codeId}
+	</update>
+	
+	<select id="codeUpperList" parameterType="CodeVO" resultType="CodeVO">
+		 SELECT
+			  CODE_GROUP,
+			  CODE_NAME
+            FROM COM_CODE
+		 WHERE 1 = 1
+		      AND CODE_CODE = '0000'
+		      AND DELETE_YN = 'N'
+		      AND USE_YN = 'Y'
+		ORDER BY CODE_ORDER ASC
+	</select>
+	
+	<select id="selectCodeList" parameterType="CodeVO" resultType="CodeVO">
+	    <![CDATA[
+			  SELECT 
+			  		CODE_ID
+			  		, CODE_CODE 
+       				, CODE_NAME
+               FROM COM_CODE
+			  WHERE 1 = 1
+			      AND CODE_GROUP = #{codeGroup}
+			      AND CODE_CODE <> '0000'
+			      AND DELETE_YN = 'N'
+			      AND USE_YN = 'Y'
+	    ]]>
+			ORDER BY CODE_ORDER ASC
+	</select>
+	
+	<select id="selectAudCode" parameterType="CodeVO" resultType="CodeVO">
+	  SELECT 
+	  		CODE_ID
+			, CODE_CODE 
+       	    , CODE_NAME
+	  FROM COM_CODE
+	  WHERE DELETE_YN='N'
+	    AND USE_YN = 'Y'
+	    AND CODE_GROUP = #{codeGroup}
+	    AND CODE_CODE LIKE CONCAT(#{codeCode}, '%')
+	</select>
+</mapper>

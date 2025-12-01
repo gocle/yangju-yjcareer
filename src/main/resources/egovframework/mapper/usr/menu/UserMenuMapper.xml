@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gocle.yangju.forest.usr.menu.service.impl.UserMenuMapper">
+
+	<select id="listMenuTree" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		<![CDATA[
+		SELECT
+		    CONCAT(
+		        IFNULL(CM4.UP_MENU_ID, ''), '@',
+		        IFNULL(CM3.UP_MENU_ID, ''), '@',
+		        IFNULL(CM2.UP_MENU_ID, ''), '@',
+		        IFNULL(CM.UP_MENU_ID, '')
+		    ) AS MENU_ID_PATH_LEAF_NODE,
+		    CONCAT(
+		        IFNULL(CM4.MENU_TITLE, ''), '@',
+		        IFNULL(CM3.MENU_TITLE, ''), '@',
+		        IFNULL(CM2.MENU_TITLE, ''), '@',
+		        IFNULL(CM.MENU_TITLE, '')
+		    ) AS MENU_PATH_LEAF_NODE,
+		    CM.MENU_ID,
+		    CM.MENU_TYPE,
+		    CM.MENU_VIEW_TYPE_CODE,
+		    CM.UP_MENU_ID,
+		    CM2.MENU_TITLE AS UP_MENU_TITLE,
+		    CM.MENU_DEPTH AS MENU_DEPTH,
+		    CM.MENU_ORDER,
+		    CM.MENU_STATUS,
+		    CM.MENU_URL,
+		    CM.MENU_TITLE,
+		    CM.DELETE_YN,
+		    CM.SHOW_YN,
+		    IF(
+		        EXISTS (
+		            SELECT 1
+		            FROM COM_MENU A
+		            WHERE A.UP_MENU_ID = CM.MENU_ID
+		            LIMIT 1
+		        ),
+		        'true',
+		        'false'
+		    ) AS IS_LEAF,
+		    CASE
+		        WHEN CM.MENU_DEPTH < 6 THEN 'true'
+		        ELSE 'false'
+		    END AS EXPANDED,
+		    'true' AS LOADED,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM4.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM3.MENU_ORDER
+		            WHEN CM2.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM3.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM2.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP_2,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP_3,
+		    CAST(IFNULL(CM2.MENU_DEPTH_1, 0) AS SIGNED) AS MENU_DEPTH_2,
+		    CAST(IFNULL(CM3.MENU_DEPTH_1, 0) AS SIGNED) AS MENU_DEPTH_3
+		FROM (
+		    SELECT A.*, 1 AS MENU_DEPTH_1
+		    FROM COM_MENU A
+		  ]]>
+		    WHERE 1=1
+		      AND A.DELETE_YN = 'N'
+		      AND A.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND A.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND A.MENU_TYPE = #{menuType}
+		      </if>
+		    ORDER BY A.MENU_ORDER
+		) CM
+		LEFT OUTER JOIN (
+		    SELECT B.*, 2 AS MENU_DEPTH_1
+		    FROM COM_MENU B
+		    WHERE 1=1
+		      AND B.DELETE_YN = 'N'
+		      AND B.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND B.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND B.MENU_TYPE = #{menuType}
+		      </if>
+		) CM2 ON CM.UP_MENU_ID = CM2.MENU_ID
+		LEFT OUTER JOIN (
+		    SELECT C.*, 3 AS MENU_DEPTH_1
+		    FROM COM_MENU C
+		    WHERE 1=1
+		      AND C.DELETE_YN = 'N'
+		      AND C.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND C.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND C.MENU_TYPE = #{menuType}
+		      </if>
+		) CM3 ON CM2.UP_MENU_ID = CM3.MENU_ID
+		LEFT OUTER JOIN (
+		    SELECT D.*, 4 AS MENU_DEPTH_1
+		    FROM COM_MENU D
+		    WHERE 1=1
+		      AND D.DELETE_YN = 'N'
+		      AND D.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND D.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND D.MENU_TYPE = #{menuType}
+		      </if>
+		) CM4 ON CM3.UP_MENU_ID = CM4.MENU_ID
+		ORDER BY
+		    MENU_ORDER_TOP ASC,
+		    IFNULL(MENU_ORDER_TOP_2, 999) ASC,
+		    IFNULL(MENU_ORDER_TOP_3, 999) ASC,
+		    MENU_DEPTH_2 ASC,
+		    MENU_DEPTH_3 ASC
+			
+	</select>
+
+	<select id="getMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.getMenu ====== */
+		SELECT 			CM.MENU_ID  /* 메뉴ID */
+					 ,  CM.MENU_TYPE  /* 메뉴분류 */
+					 ,  CM.MENU_VIEW_TYPE_CODE  /* 메뉴 노출 타입 */
+					 ,  CM.UP_MENU_ID  /* 대메뉴ID */
+					 ,  CM.MENU_DEPTH  /* 깊이 */
+					 ,  CM.MENU_ORDER  /* 메뉴순서 */
+					 ,  CM.MENU_STATUS  /* 상태 */
+					 ,  CM.MENU_URL  /* 경로 */
+					 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
+					 ,  CM.DELETE_YN  /* 삭제여부 */
+					 ,  CM.SHOW_YN  /* 활성여부 */
+					 ,  CM.INSERT_USER  /* 등록자 */
+					 ,  CM.UPDATE_USER  /* 수정자 */
+					 ,  CM.SITE_ID  /* 사이트ID */
+					 ,  (SELECT MENU_TITLE 
+				         FROM COM_MENU 
+				        WHERE MENU_ID = CM.UP_MENU_ID
+				              AND DELETE_YN = 'N'
+				              AND SHOW_YN = 'Y'
+				              AND UP_MENU_ID = 'TOP'
+				       ) AS UP_MENU_TITLE
+					FROM COM_MENU CM 
+				WHERE CM.MENU_ID = #{menuId}
+				AND CM.DELETE_YN='N'
+				AND CM.SHOW_YN='Y'
+	</select>
+	<select id="listMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.listMenu ====== */
+		<include refid="kr.co.gocle.include.paging-start"/>
+	    <![CDATA[
+			SELECT 
+					CM.MENU_ID  /* 메뉴ID */
+					 ,  CM.MENU_TYPE  /* 메뉴분류 */
+					 ,  CM.MENU_VIEW_TYPE_CODE  /* 메뉴 노출 타입 */
+					 ,  CM.UP_MENU_ID  /* 대메뉴ID */
+					 ,  CM.MENU_DEPTH  /* 깊이 */
+					 ,  CM.MENU_ORDER  /* 메뉴순서 */
+					 ,  CM.MENU_STATUS  /* 상태 */
+					 ,  CM.MENU_URL  /* 경로 */
+					 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
+					 ,  CM.DELETE_YN  /* 삭제여부 */
+					 ,  CM.SHOW_YN  /* 활성여부 */
+					 ,  CM.INSERT_USER  /* 등록자 */
+					 ,  DATE_FORMAT( CM.INSERT_DATE ,'YYYY-MM-DD HH24:MI:SS')  AS INSERT_DATE  /* 등록일 */
+					 ,  CM.UPDATE_USER  /* 수정자 */
+					 ,  DATE_FORMAT( CM.UPDATE_DATE ,'YYYY-MM-DD HH24:MI:SS')  AS UPDATE_DATE  /* 수정일 */
+				  FROM COM_MENU CM
+				WHERE 1 = 1 
+				AND CM.DELETE_YN='N'
+				AND CM.SHOW_YN='Y'
+	    ]]>
+ 
+			ORDER BY CM.UPDT_YMDTM DESC
+		<include refid="kr.co.gocle.include.paging-end"/>
+	</select>
+	
+	<select id="getMenuCnt" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+	
+	    <![CDATA[
+			/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.getMenuCnt ====== */
+	        SELECT
+	               COUNT(*) CNT
+	          FROM COM_MENU CM
+	          WHERE 1=1
+	          AND CM.DELETE_YN='N'
+	    ]]>
+ 
+	</select>
+
+	
+	<select id="listTopMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.listTopMenu ====== */
+	    SELECT CM.MENU_ID, 
+			       CM.UP_MENU_ID, 
+			       CM.MENU_DEPTH, 
+			       CM.MENU_ORDER, 
+			       (SELECT ME.MENU_URL||'@'||ME.MENU_ID 
+			         FROM COM_MENU ME 
+			        WHERE ME.UP_MENU_ID = CM.MENU_ID 
+			              AND ME.DELETE_YN = 'N' 
+			              AND ME.SHOW_YN = 'Y' 
+			              AND ME.MENU_DEPTH = 2 
+			              AND ROWNUM = 1 
+			       ) MENU_URL, 
+			       CM.MENU_TITLE 
+			  FROM COM_MENU CM 
+			 WHERE CM.SITE_ID = #{siteId} 
+			       AND CM.MENU_TYPE = #{menuType}
+			       AND CM.DELETE_YN = 'N' 
+			       AND CM.SHOW_YN = 'Y' 
+			       AND MENU_DEPTH = 1 
+			       AND UP_MENU_ID = 'TOP'
+			ORDER BY MENU_ORDER 
+	</select>
+	
+	<select id="listSubMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.listSubMenu ====== */
+	    SELECT CM.MENU_ID, 
+			       CM.UP_MENU_ID, 
+			       CM.MENU_DEPTH, 
+			       CM.MENU_ORDER, 
+			       CM.MENU_URL, 
+			       CM.MENU_TITLE  
+			  FROM COM_MENU CM 
+			 WHERE CM.SITE_ID = #{siteId} 
+			       AND CM.MENU_TYPE = #{menuType}
+			       AND CM.DELETE_YN = 'N' 
+			       AND CM.SHOW_YN = 'Y' 
+			       AND MENU_DEPTH = 2 
+			       AND CM.UP_MENU_ID = (SELECT UP_MENU_ID FROM COM_MENU WHERE MENU_ID=#{menuId})
+			ORDER BY MENU_ORDER 
+	</select>
+	
+	<select id="listSubSubMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.listSubSubMenu ====== */
+	    SELECT CM.MENU_ID, 
+			       CM.UP_MENU_ID, 
+			       CM.MENU_DEPTH, 
+			       CM.MENU_ORDER, 
+			       CM.MENU_URL, 
+			       CM.MENU_TITLE  
+			  FROM COM_MENU CM 
+			 WHERE CM.SITE_ID = #{siteId} 
+			       AND CM.MENU_TYPE = #{menuType}
+			       AND CM.DELETE_YN = 'N' 
+			       AND CM.SHOW_YN = 'Y' 
+			       AND MENU_DEPTH = 3 
+			       AND CM.UP_MENU_ID = (SELECT UP_MENU_ID FROM COM_MENU WHERE MENU_ID=#{menuId})
+			ORDER BY MENU_ORDER 
+	</select>
+	
+	<select id="menuDepth" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="int">
+	    SELECT  CM.MENU_DEPTH  
+			  FROM COM_MENU CM 
+			 WHERE CM.MENU_ID=#{menuId}
+	</select>
+	
+	<select id="getSubMenuId" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="string">
+	    SELECT  CM.UP_MENU_ID  
+			  FROM COM_MENU CM 
+			 WHERE CM.MENU_ID=#{menuId}
+	</select>
+	
+	<select id="menuInfo" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.getMenu ====== */
+		SELECT 			CM.MENU_ID  /* 메뉴ID */
+					 ,  CM.MENU_TYPE  /* 메뉴분류 */
+					 ,  CM.MENU_VIEW_TYPE_CODE  /* 메뉴 노출 타입 */
+					 ,  CM.UP_MENU_ID  /* 대메뉴ID */
+					 ,  CM.MENU_DEPTH /* 깊이 */
+					 ,  CM.MENU_ORDER  /* 메뉴순서 */
+					 ,  CM.MENU_STATUS  /* 상태 */
+					 ,  CM.MENU_URL  /* 경로 */
+					 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
+					 ,  CM.DELETE_YN  /* 삭제여부 */
+					 ,  CM.SHOW_YN  /* 활성여부 */
+					 ,  CM.INSERT_USER  /* 등록자 */
+					 ,  CM.UPDATE_USER  /* 수정자 */
+					 ,  CM.SITE_ID  /* 사이트ID */
+					 ,  (SELECT MENU_TITLE 
+				         FROM COM_MENU 
+				        WHERE MENU_ID = CM.UP_MENU_ID
+				              AND DELETE_YN = 'N'
+				              AND SHOW_YN = 'Y'
+				       ) AS UP_MENU_TITLE
+					FROM COM_MENU CM 
+				WHERE CM.MENU_ID = #{menuId}
+				AND CM.DELETE_YN='N'
+				AND CM.SHOW_YN='Y'
+	</select>
+</mapper>

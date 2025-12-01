@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>양주시 산림휴양시설</title>
+	<link rel="stylesheet" href="./css/font/font.css" type="text/css">
+	<link rel="stylesheet" href="./css/reset.css" type="text/css">
+	<link rel="stylesheet" href="./css/style.css" type="text/css">
+	<link rel="stylesheet" href="./css/style_m.css" type="text/css">
+
+	<script src="http://code.jquery.com/jquery-1.9.0.js"></script>
+	
+	<!--slick slider-->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const sections = document.querySelectorAll('.section');
+
+			function checkSectionInView() {
+				const windowHeight = window.innerHeight;
+
+				sections.forEach((section, index) => {
+					const rect = section.getBoundingClientRect();
+
+					if(rect.top < windowHeight && rect.bottom > 0 && !section.classList.contains('active')) {
+						// 화면 폭이 클수록 딜레이를 줄임
+						const delay = window.innerWidth > 1200 ? index * 50 : index * 150;
+						setTimeout(() => {
+							section.classList.add('active');
+						}, delay);
+					}
+				});
+			}
+
+			window.addEventListener('scroll', checkSectionInView, { passive: true });
+			window.addEventListener('resize', checkSectionInView, { passive: true });
+
+			checkSectionInView();
+		});
+		
+		$( document ).ready(function() {
+			
+			const $slider = $('.post-slider').slick({
+				/*autoplay: true,
+				autoplaySpeed: 3000,*/
+				dots: true,
+				prevArrow : false,
+				nextArrow : false,
+				responsive: [
+				{
+				  breakpoint: 840
+				}]
+			});
+			
+			// 초기 append
+			var pauseBtn = '<li><a href="#" role="tab" class="pause">3</a></li>';
+			$(".slick-dots").append(pauseBtn);
+
+			// slider 이벤트에서 재확인
+			$('.post-slider').on('setPosition', function(){
+				if ($('.slick-dots .pause').length === 0) { 
+					$(".slick-dots").append(pauseBtn);
+				}
+			});
+
+
+			// 페이지 로드 후 강제로 위치 재계산
+			$slider.slick('setPosition');
+
+			$('.prev').click(function(){
+				$slider.slick('slickPrev');
+			});
+
+			$('.next').click(function(){
+				$slider.slick('slickNext');
+			});
+
+			$('.pause').click(function(){
+				if ($(this).attr('class') === 'pause') {
+					$slider.slick('slickPause');
+					$(this).attr('class','play');
+				} else {
+					$slider.slick('slickPlay');
+					$(this).attr('class','pause');
+				}
+			});
+			
+			$('.tooltip-btn').click(function(){
+				$('.tooltip').hide();
+			});
+
+			$('.gallery-list').slick({
+			  infinite: false,
+			  arrows: false,
+			  dots: false,
+			  slidesToShow: 2,
+			  variableWidth: true
+			});
+			
+			// 초기 실행
+			$(window).on('load resize', initReviewSlider);
+			
+			// 햄버거 클릭 → 메뉴 열기/닫기
+			$('.m-menu').click(function(){
+				$('.mobile-nav').toggleClass('open');
+				$('body').toggleClass('no-scroll');
+				$('.slick-dots').toggleClass('no-dots');
+			});
+			
+			// 닫기 버튼 클릭 → 메뉴 닫기
+			$('.mobile-nav .close').click(function(){
+				$('.mobile-nav').removeClass('open');
+				$('body').removeClass('no-scroll');
+				$('.slick-dots').removeClass('no-dots');
+			});
+
+			// 모바일 메뉴에서 서브메뉴 클릭 시 토글
+			$('.mobile-nav > ul > li > a').click(function(e){
+				var $submenu = $(this).next('.submenu');
+				if($submenu.length){
+					e.preventDefault(); // 링크 이동 막기
+					$submenu.slideToggle();
+					$(this).parent().toggleClass('open');
+					$(this).parent().siblings().removeClass('open').find('.submenu').slideUp();
+				}
+			});
+
+		});
+		
+		function initReviewSlider() {
+		  var $reviewList = $('.review-list');
+		  var windowWidth = $(window).width();
+
+		  if (windowWidth <= 1520) { // 모바일 기준
+			if (!$reviewList.hasClass('slick-initialized')) {
+			  $reviewList.slick({
+				infinite: false,
+				arrows: false,
+				dots: false,
+				slidesToShow: 1,
+				variableWidth: true
+			  });
+			}
+		  } else { // 769px 이상이면 slick 제거
+			if ($reviewList.hasClass('slick-initialized')) {
+			  $reviewList.slick('unslick');
+			}
+		  }
+		}
+		
+	</script>
+</head>
+<body>
+  <!-- 헤더 -->
+  <header class="header">
+   	<div class="header-inner">
+		<div class="logo pointer" onclick="location.href='main.html'">
+			<img src="img/logo.png" alt="Yangju 양주시" >
+		</div>
+		<div class="flex center">
+			<nav class="nav">
+			  <ul>
+				<li>
+					<a href="#">휴양림 소개</a>
+					<ul class="submenu">
+					  <li><a href="greeting.html">목재문화체험장</a></li>
+					  <li><a href="greeting_00.html">산림교육</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="#">프로그램 소개</a>
+					<ul class="submenu">
+					  <li><a href="programA.html">목공체험</a></li>
+					  <li><a href="programB.html">산림교육</a></li>
+					</ul>
+				</li>
+				<li>
+					<a href="sub.html">온라인 예약</a>
+					<ul class="submenu">
+					  <li><a href="schedule.html">프로그램 일정</a></li>
+					  <li><a href="#">시설 안내</a></li>
+					  <li><a href="#">찾아오시는 길</a></li>
+					</ul>	
+				</li>
+				<li>
+					<a href="#">참여마당</a>
+					<ul class="submenu">
+				  	  <li><a href="notice.html">공지사항</a></li>
+					  <li><a href="gallery.html">사진게시판</a></li>
+					  <li><a href="qna.html">Q&A</a></li>
+					  <li><a href="#">체험후기</a></li>
+					</ul>
+				</li>
+			  </ul>
+			</nav>
+			<div class="user-menu" style="display: none">
+				<a href="#">로그인</a>
+			</div>
+			<div class="user-on-menu">
+				<a href="myReservation.html">나의 예약</a>
+				<a href="" class="logout">로그아웃</a>
+			</div>
+		</div>
+    </div>
+    
+    <!-- 모바일 메뉴 버튼 -->
+	<div class="m-menu">
+		<img src="img/menu-03.png" alt="메뉴">
+	</div>
+
+	<!-- 모바일 전용 메뉴 -->
+	<nav class="mobile-nav">
+		<div class="mo-top"> 
+			<img src="img/logo-m.png">
+			<div class="close"></div>
+		</div>
+		<ul>
+			<li>
+				<a href="#">휴양림 소개</a>
+				<ul class="submenu">
+					<li><a href="#">시설안내</a></li>
+					<li><a href="#">오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">프로그램 소개</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="sub.html">온라인 예약</a>
+				<ul class="submenu">
+					<li><a href="schedule.html">프로그램 일정</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li>
+				<a href="#">참여마당</a>
+				<ul class="submenu">
+					<li><a href="#">인사말</a></li>
+					<li><a href="#">시설 안내</a></li>
+					<li><a href="#">찾아오시는 길</a></li>
+				</ul>
+			</li>
+			<li class="login-li">
+				<a href="#">
+					<img src="img/login.png">
+					<!--<img src="img/logout.png"> 로그아웃 아이콘-->
+					<span>로그인</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+  </header>
+
+	<!-- 메인 배너 -->
+	<section class="banner">
+		<div class="post-slider">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+		<div class="banner-div">
+			<div>
+				<div class="banner-text">
+					<p>양주의 숲에서 하루를 빛다</p>
+					<h1>목공부터 체험까지, 숲에서 즐기는 하루</h1>
+				</div>
+			</div>
+			<div class="reservation-box">
+				<form>
+					<dl>
+						<dt>이용날짜</dt>
+						<dd><input type="text" placeholder="YYYY.MM.DD" class="date"/></dd>
+					</dl>
+					<dl>
+						<dt>프로그램 선택</dt>
+						<dd>
+							<select>
+								<option>선택해주세요.</option>
+								<option>21</option>
+							</select>
+						</dd>
+					</dl>
+					<dl>
+						<dt>인원수</dt>
+						<dd>
+							<select>
+								<option>선택해주세요.</option>
+							</select>
+						</dd>
+					</dl>
+
+					<button type="submit" class="search-btn">조회하기</button>
+				</form>
+				<div class="box-label">
+					이용조회
+				</div>
+				<div class="tooltip flex center">
+					편리하게 이용예약 조회를 해보세요!
+					<button type="button" class="tooltip-btn">
+						<img src="img/button-colse.png" alt="닫기">
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 프로그램 소개 -->
+	<section class="section program flex">
+		<div class="program-left">
+			<div class="program-left-text">
+				<h3>교육 · 행사</h3>
+				<p>목공부터 자연체험까지,</p>
+				<p>숲속에서 즐기는 모든 교육과 행사</p>
+			</div>
+		</div>
+		<div class="program-right">
+			<div class="section-title flex center">
+				<h2>프로그램 소개</h2>
+				<a href="#">더보기</a>
+			</div>
+			
+			<div class="program-list flex">
+				<div class="card">
+					<img src="img/list-1.jpg" alt="">
+					<div class="card-body">
+						<div class="status">모집중</div>
+						<h3>6월 성인 목공체험 원데이클래스</h3>
+						<p>2025.06.01 ~ 2025.06.31</p>
+						<dl class="flex center">
+							<dt>인원</dt>
+							<dd>12명</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="card">
+					<img src="img/list-2.jpg" alt="">
+					<div class="card-body">
+						<div class="status">모집중</div>
+						<h3>6월 5세이상(유치원/초등학생) 목공체험 원데이클래스</h3>
+						<p>2025.06.01 ~ 2025.06.31</p>
+						<dl class="flex center">
+							<dt>인원</dt>
+							<dd>12명</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="card">
+					<img src="img/list-3.jpg" alt="">
+					<div class="card-body">
+						<div class="status">모집중</div>
+						<h3>6세 이상 어린이 목공체험</h3>
+						<p>2025.06.01 ~ 2025.06.31</p>
+						<dl class="flex center">
+							<dt>인원</dt>
+							<dd>12명</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="card">
+					<img src="img/list-4.jpg" alt="">
+					<div class="card-body">
+						<div class="status">모집중</div>
+						<h3>6월 어린이 숲체험</h3>
+						<p>2025.06.01 ~ 2025.06.31</p>
+						<dl class="flex center">
+							<dt>인원</dt>
+							<dd>12명</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 새소식 / 체험후기 -->
+	<section class="section news">
+		<div class="news-box">
+			<div class="section-title flex center">
+				<h2>새소식</h2>
+				<a href="#">더보기</a>
+			</div>
+			<ul>
+				<li>
+					<a href="#">
+						<p>예약관련하여 다시한번 공지사항 확인바랍니다.</p>
+						<span>2025-06-01</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<p>예약관련하여 다시한번 공지사항 확인바랍니다.</p>
+						<span>2025-06-01</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<p>예약관련하여 다시한번 공지사항 확인바랍니다.예약관련하여 다시한번 공지사항 확인바랍니다.</p>
+						<span>2025-06-01</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<p>예약관련하여 다시한번 공지사항 확인바랍니다.</p>
+						<span>2025-06-01</span>
+					</a>
+				</li>
+				<li>
+					<a href="#">
+						<p>예약관련하여 다시한번 공지사항 확인바랍니다.</p>
+						<span>2025-06-01</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="review-box">
+			<div class="section-title flex center">
+				<h2>체험후기</h2>
+				<a href="#">더보기</a>
+			</div>
+			<div class="review-list">
+				<div class="card">
+					<img src="img/list-6.jpg" alt="">
+					<div class="card-body">
+						<h3>6월 어린이 숲체험 후기</h3>
+						<p>아이들이 나무 냄새 맡으면서 목공도 하고, 숲길도 걸었어요. 집에 와서도 계속 '다시 가고 싶다'고 하네요. 다음</p>
+						<dl>
+							<dt>김OO</dt>
+							<dd>2025. 09. 01</dd>
+						</dl>
+					</div>
+				</div>
+				<div class="card">
+					<img src="img/list-7.jpg" alt="">
+					<div class="card-body">
+						<h3>아이들이 너무 즐거워했어요!</h3>
+						<p>아이들이 나무 냄새 맡으면서 목공도 하고, 숲길도 걸었어요. 집에 와서도 계속 '다시 가고 싶다'고 하네요. 다음</p>
+						<dl>
+							<dt>김OO</dt>
+							<dd>2025. 09. 01</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- 사진 게시판 -->
+	<section class="section gallery">
+		<div class="section-title">
+			<div class="section-title-text flex center">
+				<h2>사진 게시판</h2>
+				<a href="#">더보기</a>
+			</div>
+			<div class="radio-group">
+				<input type="radio" id="all" name="program" checked>
+				<label for="all">전체</label>
+
+				<input type="radio" id="wood" name="program">
+				<label for="wood">목공체험활동</label>
+
+				<input type="radio" id="kids" name="program">
+				<label for="kids">유아숲체험</label>
+
+				<input type="radio" id="guide" name="program">
+				<label for="guide">숲해설체험</label>
+
+				<input type="radio" id="healing" name="program">
+				<label for="healing">산림치유</label>
+			</div>
+		</div>
+	</section>
+
+	<div class="section gallery-list">
+		<div><img src="img/img-1.jpg" alt=""></div>
+		<div><img src="img/img-2.jpg" alt=""></div>
+		<div><img src="img/img-3.jpg" alt=""></div>
+		<div><img src="img/img-4.jpg" alt=""></div>
+		<div><img src="img/img-5.jpg" alt=""></div>
+	</div>
+
+	<div class="link">
+		<div class="link-inner">
+			<ul class="flex">
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+				<li><a href="#">유관기관</a></li>
+			</ul>
+		</div>
+	</div>
+
+<!--   푸터 -->
+  <footer class="footer flex">
+   	<img src="img/logo_footer.png">
+   	<div>
+   		<ul class="flex">
+			<li><a href="#">개인정보처리방침</a></li>
+			<li><a href="#">저작권정책</a></li>
+			<li><a href="#">이용약관</a></li>
+   		</ul>
+   		<p>
+   			[11498] 경기도 양주시 부흥로 1533(남방동)<br>
+   			대표전화 031-8082-4114 FAX 031-8082-4009
+   		</p>
+    	<p>COPYRIGHT © 2025 YANGJU CITY. ALL RIGHTS RESERVED</p>
+    </div>
+  </footer>
+</body>
+</html>

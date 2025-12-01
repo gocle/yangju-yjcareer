@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.menu.service.impl.AdminMenuMapper">
+
+	<select id="listMenuTree" parameterType="MenuVO" resultType="MenuVO">
+		<![CDATA[
+		SELECT
+		    CONCAT(
+		        IFNULL(CM4.UP_MENU_ID, ''), '@',
+		        IFNULL(CM3.UP_MENU_ID, ''), '@',
+		        IFNULL(CM2.UP_MENU_ID, ''), '@',
+		        IFNULL(CM.UP_MENU_ID, '')
+		    ) AS MENU_ID_PATH_LEAF_NODE,
+		    CONCAT(
+		        IFNULL(CM4.MENU_TITLE, ''), '@',
+		        IFNULL(CM3.MENU_TITLE, ''), '@',
+		        IFNULL(CM2.MENU_TITLE, ''), '@',
+		        IFNULL(CM.MENU_TITLE, '')
+		    ) AS MENU_PATH_LEAF_NODE,
+		    CM.MENU_ID,
+		    CM.MENU_TYPE,
+		    CM.MENU_VIEW_TYPE_CODE,
+		    CM.UP_MENU_ID,
+		    CM2.MENU_TITLE AS UP_MENU_TITLE,
+		    CM.MENU_DEPTH AS MENU_DEPTH,
+		    CM.MENU_ORDER,
+		    CM.MENU_STATUS,
+		    CM.MENU_URL,
+		    CM.MENU_TITLE,
+		    CM.DELETE_YN,
+		    CM.SHOW_YN,
+		    IF(
+		        EXISTS (
+		            SELECT 1
+		            FROM COM_MENU A
+		            WHERE A.UP_MENU_ID = CM.MENU_ID
+		            LIMIT 1
+		        ),
+		        'true',
+		        'false'
+		    ) AS IS_LEAF,
+		    CASE
+		        WHEN CM.MENU_DEPTH < 6 THEN 'true'
+		        ELSE 'false'
+		    END AS EXPANDED,
+		    'true' AS LOADED,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM4.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM3.MENU_ORDER
+		            WHEN CM2.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM3.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM2.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP_2,
+		    CAST(
+		        CASE
+		            WHEN CM4.MENU_ORDER IS NOT NULL THEN CM2.MENU_ORDER
+		            WHEN CM3.MENU_ORDER IS NOT NULL THEN CM.MENU_ORDER
+		            ELSE 0
+		        END AS SIGNED
+		    ) AS MENU_ORDER_TOP_3,
+		    CAST(IFNULL(CM2.MENU_DEPTH_1, 0) AS SIGNED) AS MENU_DEPTH_2,
+		    CAST(IFNULL(CM3.MENU_DEPTH_1, 0) AS SIGNED) AS MENU_DEPTH_3
+		FROM (
+		    SELECT A.*, 1 AS MENU_DEPTH_1
+		    FROM COM_MENU A
+		  ]]>
+		    WHERE 1=1
+		      AND A.DELETE_YN = 'N'
+		      AND A.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND A.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND A.MENU_TYPE = #{menuType}
+		      </if>
+		    ORDER BY A.MENU_ORDER
+		) CM
+		LEFT OUTER JOIN (
+		    SELECT B.*, 2 AS MENU_DEPTH_1
+		    FROM COM_MENU B
+		    WHERE 1=1
+		      AND B.DELETE_YN = 'N'
+		      AND B.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND B.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND B.MENU_TYPE = #{menuType}
+		      </if>
+		) CM2 ON CM.UP_MENU_ID = CM2.MENU_ID
+		LEFT OUTER JOIN (
+		    SELECT C.*, 3 AS MENU_DEPTH_1
+		    FROM COM_MENU C
+		    WHERE 1=1
+		      AND C.DELETE_YN = 'N'
+		      AND C.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND C.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND C.MENU_TYPE = #{menuType}
+		      </if>
+		) CM3 ON CM2.UP_MENU_ID = CM3.MENU_ID
+		LEFT OUTER JOIN (
+		    SELECT D.*, 4 AS MENU_DEPTH_1
+		    FROM COM_MENU D
+		    WHERE 1=1
+		      AND D.DELETE_YN = 'N'
+		      AND D.SHOW_YN = 'Y'
+		      <if test="searchMenuType != null and searchMenuType != ''">
+		          AND D.MENU_TYPE = #{searchMenuType}
+		      </if>
+		      <if test="menuType != null and menuType != ''">
+		          AND D.MENU_TYPE = #{menuType}
+		      </if>
+		) CM4 ON CM3.UP_MENU_ID = CM4.MENU_ID
+		ORDER BY
+		    MENU_ORDER_TOP ASC,
+		    IFNULL(MENU_ORDER_TOP_2, 999) ASC,
+		    IFNULL(MENU_ORDER_TOP_3, 999) ASC,
+		    MENU_DEPTH_2 ASC,
+		    MENU_DEPTH_3 ASC
+			
+	</select>
+	
+	<insert id="insertMenu" parameterType="MenuVO">
+	        INSERT INTO COM_MENU (
+	              MENU_ID
+	            , MENU_TYPE
+	            , MENU_VIEW_TYPE_CODE
+	            , UP_MENU_ID
+	            , MENU_DEPTH
+	            , MENU_ORDER
+	            , MENU_STATUS
+	            , MENU_URL
+	            , MENU_TITLE
+	            , DELETE_YN
+	            , SHOW_YN
+	            , REG_ID
+	            , REG_DT
+	        )
+	        VALUES (
+	              #{menuId}
+	            , #{menuType}
+	            , #{menuViewTypeCode}
+	            , #{upMenuId}
+	            , #{menuDepth}
+	            , #{menuOrder}
+	            , #{menuStatus}
+	            , #{menuUrl}
+	            , #{menuTitle}
+	            , #{deleteYn}
+	            , #{showYn}
+	            , #{sessionMemSeq}
+	            , NOW()
+	        )
+	</insert>
+	
+	<update id="updateMenu" parameterType="MenuVO">
+	        UPDATE COM_MENU
+	        SET 
+	              UPD_DT = NOW()
+	            , UPD_ID = #{sessionMemSeq}
+	        <if test="menuType != null and menuType != ''">
+	            , MENU_TYPE = #{menuType}
+	        </if>
+	        <if test="menuViewTypeCode != null and menuViewTypeCode != ''">
+	            , MENU_VIEW_TYPE_CODE = #{menuViewTypeCode}
+	        </if>
+	        <if test="upMenuId != null and upMenuId != ''">
+	            , UP_MENU_ID = #{upMenuId}
+	        </if>
+	        <if test="menuDepth != null and menuDepth != ''">
+	            , MENU_DEPTH = #{menuDepth}
+	        </if>
+	        <if test="menuOrder != null and menuOrder != ''">
+	            , MENU_ORDER = #{menuOrder}
+	        </if>
+	        <if test="menuStatus != null and menuStatus != ''">
+	            , MENU_STATUS = #{menuStatus}
+	        </if>
+	        <if test="menuUrl != null and menuUrl != ''">
+	            , MENU_URL = #{menuUrl}
+	        </if>
+	        <if test="menuTitle != null and menuTitle != ''">
+	            , MENU_TITLE = #{menuTitle}
+	        </if>
+	        <if test="deleteYn != null and deleteYn != ''">
+	            , DELETE_YN = #{deleteYn}
+	        </if>
+	        <if test="showYn != null and showYn != ''">
+	            , SHOW_YN = #{showYn}
+	        </if>
+	        WHERE MENU_ID = #{menuId}
+	</update>
+	
+	<select id="getMenu" parameterType="MenuVO" resultType="MenuVO">
+		SELECT 		CM.MENU_ID  /* 메뉴ID */
+				 ,  CM.MENU_TYPE  /* 메뉴분류 */
+				 ,  CM.MENU_VIEW_TYPE_CODE  /* 메뉴 노출 타입 */
+				 ,  CM.UP_MENU_ID  /* 대메뉴ID */
+				 ,  CM.MENU_DEPTH  /* 깊이 */
+				 ,  CM.MENU_ORDER  /* 메뉴순서 */
+				 ,  CM.MENU_STATUS  /* 상태 */
+				 ,  CM.MENU_URL  /* 경로 */
+				 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
+				 ,  CM.DELETE_YN  /* 삭제여부 */
+				 ,  CM.SHOW_YN  /* 활성여부 */
+				 ,  CM.REG_ID  /* 등록자 */
+				 ,  CM.UPD_ID  /* 수정자 */
+				 ,  (SELECT MENU_TITLE 
+			         FROM COM_MENU 
+			        WHERE MENU_ID = CM.UP_MENU_ID
+			              AND DELETE_YN = 'N'
+			              AND SHOW_YN = 'Y'
+			              AND UP_MENU_ID = 'TOP'
+			       ) AS UP_MENU_TITLE
+				FROM COM_MENU CM 
+			WHERE CM.MENU_ID = #{menuId}
+			AND CM.DELETE_YN='N'
+			AND CM.SHOW_YN='Y'
+	</select>
+</mapper>

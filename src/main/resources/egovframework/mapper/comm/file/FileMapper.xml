@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.comm.file.service.impl.FileMapper">
+
+	<select id="getFileIdx" resultType="String">
+		SELECT IFNULL(MAX(ATCH_FILE_IDX), 0) + 1 FROM ATCH_FILE;
+	</select>
+
+	<insert id="insertFile" parameterType="FileVO">
+		INSERT INTO ATCH_FILE
+		       (
+		           ATCH_FILE_IDX,
+		           FILE_SN,
+		           FILE_SAVE_PATH,
+		           SAVE_FILE_NAME,
+		           ORG_FILE_NAME,
+		           FILE_EXTN,
+		           FILE_SIZE,
+		           REG_ID,
+		           REG_DT,
+		           THUMBNAIL_CROP,
+		           BOARD_IDX,
+		           P_ID
+		       ) 
+		       VALUES
+		       ( 
+		           #{atchFileIdx},
+		           #{fileSn},
+		           #{fileSavePath},
+		           #{saveFileName},
+		           #{orgFileName},
+		           #{fileExtn},
+		           #{fileSize},
+		           #{sessionMemSeq},
+		           NOW(),
+		           #{thumbnailCrop},
+		           <choose>
+					  <when test="boardIdx != null and boardIdx != ''">
+					    #{boardIdx}
+					  </when>
+					  <otherwise>0</otherwise>
+					</choose>,
+		           #{pId}
+		       )
+	</insert>
+	
+	<select id="listBoardFile" parameterType="FileVO" resultType="FileVO">
+		SELECT ATCH_FILE_IDX, 
+			       FILE_SN, 
+			       FILE_SAVE_PATH, 
+			       SAVE_FILE_NAME, 
+			       ORG_FILE_NAME, 
+			       FILE_EXTN, 
+			       FILE_SIZE, 
+			       DOWN_CNT, 
+			       REG_ID, 
+			       REG_DT, 
+			       UPD_ID, 
+			       UPD_DT, 
+			       DELETE_YN,
+			       THUMBNAIL_CROP
+			  FROM ATCH_FILE 
+			 WHERE
+				BOARD_IDX = #{boardIdx} 
+			 	AND DELETE_YN = 'N'
+			 	AND THUMBNAIL_CROP = #{thumbnailCrop}
+			ORDER BY ATCH_FILE_IDX DESC
+	</select>
+	
+	<select id="getFile" parameterType="FileVO" resultType="FileVO">
+		SELECT ATCH_FILE_IDX, 
+			       FILE_SN, 
+			       FILE_SAVE_PATH, 
+			       SAVE_FILE_NAME, 
+			       ORG_FILE_NAME, 
+			       FILE_EXTN, 
+			       FILE_SIZE, 
+			       DOWN_CNT, 
+			       REG_ID, 
+			       REG_DT, 
+			       UPD_ID, 
+			       UPD_DT, 
+			       DELETE_YN,
+			       BOARD_IDX
+			  FROM ATCH_FILE 
+			 WHERE ATCH_FILE_IDX = #{atchFileIdx}
+			 	AND DELETE_YN = 'N'
+			ORDER BY FILE_SN DESC
+	</select>
+	
+	<update id="deleteFile" parameterType="FileVO">
+		UPDATE ATCH_FILE
+		        SET UPD_ID = #{sessionMemSeq}
+		       ,UPD_DT = NOW()
+		       ,DELETE_YN = 'Y'
+	 		WHERE ATCH_FILE_IDX = #{atchFileIdx} 
+	</update>
+	
+	<select id="listProductFile" parameterType="FileVO" resultType="FileVO">
+		SELECT ATCH_FILE_IDX, 
+			       FILE_SN, 
+			       FILE_SAVE_PATH, 
+			       SAVE_FILE_NAME, 
+			       ORG_FILE_NAME, 
+			       FILE_EXTN, 
+			       FILE_SIZE, 
+			       DOWN_CNT, 
+			       REG_ID, 
+			       REG_DT, 
+			       UPD_ID, 
+			       UPD_DT, 
+			       DELETE_YN,
+			       THUMBNAIL_CROP,
+			       P_ID
+			  FROM ATCH_FILE 
+			 WHERE
+				P_ID = #{pId} 
+			 	AND DELETE_YN = 'N'
+			 	AND THUMBNAIL_CROP = #{thumbnailCrop}
+			ORDER BY ATCH_FILE_IDX DESC
+	</select>
+	
+	<select id="listFile" parameterType="FileVO" resultType="FileVO">
+		SELECT ATCH_FILE_IDX, 
+			       FILE_SN, 
+			       FILE_SAVE_PATH, 
+			       SAVE_FILE_NAME, 
+			       ORG_FILE_NAME, 
+			       FILE_EXTN, 
+			       FILE_SIZE, 
+			       DOWN_CNT, 
+			       REG_ID, 
+			       REG_DT, 
+			       UPD_ID, 
+			       UPD_DT, 
+			       DELETE_YN,
+			       THUMBNAIL_CROP
+			  FROM ATCH_FILE 
+			 WHERE
+				BOARD_IDX = #{boardIdx} 
+			 	AND DELETE_YN = 'N'
+			 	AND THUMBNAIL_CROP = #{thumbnailCrop}
+			ORDER BY ATCH_FILE_IDX DESC
+	</select>
+</mapper>

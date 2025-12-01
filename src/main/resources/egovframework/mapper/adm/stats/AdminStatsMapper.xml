@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.stats.service.impl.AdminStatsMapper">
+
+	<select id="selectYearsByClassType" resultType="String">
+		SELECT DISTINCT YEAR(CPTS.SLOT_DATE) AS YEAR
+			FROM COM_PROGRAM_TIME_SLOT CPTS
+		INNER JOIN COM_PROGRAM CP ON CP.PG_ID = CPTS.PG_ID
+		WHERE CP.CLASS_TYPE = #{classType}
+			AND CPTS.SLOT_DATE IS NOT NULL
+		ORDER BY YEAR DESC
+	</select>
+	
+	<select id="selectMonthByYear" parameterType="map" resultType="String">
+	    SELECT DISTINCT MONTH(CPTS.SLOT_DATE) AS MONTH
+	    	FROM COM_PROGRAM_TIME_SLOT CPTS
+	    	INNER JOIN COM_PROGRAM CP ON CP.PG_ID = CPTS.PG_ID
+	    WHERE YEAR(CPTS.SLOT_DATE) = #{year}
+		    AND CP.CLASS_TYPE = #{classType}
+		    AND CPTS.SLOT_DATE IS NOT NULL
+	    ORDER BY MONTH ASC
+	</select>
+	
+	<select id="selectMonthStats" parameterType="StatsVO" resultType="StatsVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+	    select 
+			CP.PG_NAME,
+			CP.CLASS_TYPE,
+			CR.PEOPLE_CNT,
+			CPD.PRICE,
+			CPD.OPTION_PRICE,
+			CPD.PRODUCT_NAME,
+			CPY.AMOUNT,
+			DATE_FORMAT(CPY.PAY_DT, '%Y-%m-%d') AS PAY_DT,
+			CPY.PAY_STATUS ,
+			CPY.PAY_METHOD ,
+			CPY.PAY_NAME,
+			CR.GENDER,
+			CR.OPTION_NAME,
+			CPY.NOTE,
+			CPY.REG_DT,
+			CPTS.SLOT_DATE ,
+			CPTS.SLOT_NO,
+			CASE 
+		        WHEN CR.GROUP_YN = 'Y' THEN CR.M_CNT
+		        WHEN CR.GROUP_YN = 'N' AND CR.GENDER = 'M' THEN 1
+		        ELSE 0
+		    END AS M_CNT,
+		    CASE 
+		        WHEN CR.GROUP_YN = 'Y' THEN CR.F_CNT
+		        WHEN CR.GROUP_YN = 'N' AND CR.GENDER = 'F' THEN 1
+		        ELSE 0
+		    END AS F_CNT 
+		FROM COM_PAYMENT CPY
+		INNER JOIN COM_PROGRAM CP 
+		    ON CPY.PG_ID = CP.PG_ID AND CP.DELETE_YN ='N'
+		INNER JOIN COM_RESERVATION CR 
+		    ON CR.RESV_ID = CPY.RESV_ID AND CR.DELETE_YN ='N'
+		INNER JOIN COM_PRODUCT CPD 
+		    ON CR.PRODUCT_ID = CPD.PRODUCT_ID AND CPD.DELETE_YN ='N'
+		INNER JOIN COM_PROGRAM_TIME_SLOT CPTS 
+			ON CR.PG_ID = CPTS.PG_ID 
+			AND CR.SLOT_ID = CPTS.SLOT_ID
+			AND CPTS.DELETE_YN ='N'
+		WHERE CPY.DELETE_YN ='N' 
+		  AND CPY.PAY_STATUS ='PAY'
+		  AND CP.CLASS_TYPE = #{classType}
+		  AND YEAR(CPY.PAY_DT) = #{year}
+		<if test="month != null and month != ''">
+		    AND MONTH(CPY.PAY_DT) = #{month}
+		</if>
+		  <include refid="kr.co.gocle.include.paging-end" />
+		ORDER BY SLOT_DATE, SLOT_NO
+	</select>
+	
+</mapper>

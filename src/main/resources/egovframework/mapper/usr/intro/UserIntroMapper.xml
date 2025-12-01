@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.usr.intro.service.impl.UserIntroMapper">
+
+	<select id="selectIntroList" parameterType="UserIntroVO" resultType="UserIntroVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT
+			CI.INT_ID,
+			CI.PG_TYPE,
+			CI.INT_TITLE,
+			FN_GET_CODE_NAME('PRODUCT_TARGET', CI.INT_AGE) AS INT_AGE,
+			CI.INT_DESC,
+			CI.REG_DT,
+			(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CI.INT_ID = AF.P_ID
+		            LIMIT 1
+		     ) AS THUMBPATH
+		FROM COM_INTRO CI
+		WHERE CI.PG_TYPE = #{pgType}
+			AND CI.DELETE_YN = 'N'
+		ORDER BY CI.REG_DT DESC
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="selectOneIntro" parameterType="UserIntroVO" resultType="UserIntroVO">
+		SELECT
+			CI.INT_ID,
+			CI.PG_TYPE,
+			CI.INT_TITLE,
+			FN_GET_CODE_NAME('PRODUCT_TARGET', CI.INT_AGE) AS INT_AGE,
+			CI.INT_DESC,
+			CI.REG_DT,
+			(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CI.INT_ID = AF.P_ID
+		            LIMIT 1
+		     ) AS THUMBPATH,
+		     CI.INT_CONTENT_HTML
+		FROM COM_INTRO CI
+		WHERE CI.INT_ID = #{intId}
+			AND CI.DELETE_YN = 'N'
+	</select>
+</mapper>

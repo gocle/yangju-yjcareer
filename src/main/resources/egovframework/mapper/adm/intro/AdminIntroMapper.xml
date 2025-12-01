@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.gocle.yangju.forest.adm.intro.service.impl.AdminIntroMapper">
+
+	<select id="selectIntroList" resultType="IntroVO">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CI.INT_ID,
+				CI.PG_TYPE,
+				CI.INT_TITLE,
+				CI.INT_DESC,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CI.INT_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS THUMBPATH,
+				CI.REG_DT,
+				CI.REG_ID,
+				CI.ORDERS
+			FROM COM_INTRO CI
+		    WHERE CI.DELETE_YN = 'N'
+			AND CI.PG_TYPE = #{pgType}
+				<if test="searchCondition != null and searchCondition != ''">
+						<if test="searchKeyword != null and searchKeyword != ''">
+							AND CI.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+						</if>
+				</if>	
+				<if test="searchKeyword != null and searchKeyword != ''">
+					AND (CI.INT_TITLE     LIKE CONCAT('%', #{searchKeyword}, '%')
+			          OR CI.INT_DESC LIKE CONCAT('%', #{searchKeyword}, '%'))
+				</if>
+			<include refid="kr.co.gocle.include.paging-end" />
+		ORDER BY data.ORDERS DESC
+	</select>
+
+	<insert id="insertIntro" parameterType="IntroVO">
+		INSERT INTO COM_INTRO (
+		  INT_ID, PG_TYPE, INT_TITLE, INT_AGE, INT_DESC, REG_DT, REG_ID, ORDERS, INT_CONTENT_HTML
+		)
+		SELECT
+		  #{intId}, #{pgType}, #{intTitle}, #{intAge}, #{intDesc}, NOW(), #{regId},
+		  COALESCE(MAX(t.ORDERS), 0) + 1, #{intContentHtml}
+		FROM (
+		  SELECT ORDERS
+		  FROM COM_INTRO
+		  WHERE DELETE_YN = 'N'
+		  AND PG_TYPE = #{pgType}
+		) AS t
+	</insert>
+	
+	<select id="selectIntro" resultType="IntroVO">
+			SELECT
+				CI.INT_ID,
+				CI.PG_TYPE,
+				CI.INT_TITLE,
+				CI.INT_AGE,
+				CI.INT_DESC,
+				(
+		         SELECT AF.SAVE_FILE_NAME
+		            FROM ATCH_FILE AF
+		            WHERE AF.THUMBNAIL_CROP = 'Y'
+		              AND AF.DELETE_YN = 'N'
+		              AND CI.INT_ID = AF.P_ID
+		            LIMIT 1
+		        ) AS THUMBPATH,
+				CI.REG_DT,
+				CI.REG_ID,
+				CI.INT_CONTENT_HTML
+			FROM COM_INTRO CI
+			WHERE DELETE_YN = 'N'
+			AND CI.PG_TYPE = #{pgType}
+			AND CI.INT_ID = #{intId}
+	</select>
+	
+	<update id="updateIntro" parameterType="IntroVO">
+		UPDATE COM_INTRO
+		SET INT_TITLE = #{intTitle}
+			,INT_DESC = #{intDesc}
+			,INT_AGE  = #{intAge}
+			,UPD_DT = NOW()
+		 	,UPD_ID = #{sessionMemSeq}
+		 	,INT_CONTENT_HTML = #{intContentHtml}
+		WHERE INT_ID = #{intId}
+		AND PG_TYPE = #{pgType}
+	</update>
+	
+	<update id="deleteIntro" parameterType="IntroVO">
+		UPDATE COM_INTRO
+		SET DELETE_YN = 'Y'
+		,UPD_DT = NOW()
+		,UPD_ID = #{sessionMemSeq}
+		WHERE INT_ID = #{intId}
+		AND PG_TYPE = #{pgType}
+	</update>
+	
+	<update id="introOrderUpdate" parameterType="IntroVO">
+		update COM_INTRO
+		set
+			ORDERS = #{orders}
+			,UPD_DT = NOW()
+			,UPD_ID = #{sessionMemSeq}
+		where INT_ID = #{intId}
+		AND PG_TYPE = #{pgType}
+	</update>
+</mapper>

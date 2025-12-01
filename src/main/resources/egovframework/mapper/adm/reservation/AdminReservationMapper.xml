@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.reservation.service.impl.AdminReservationMapper">
+
+	<resultMap id="resvResultMap" type="ReservationVO">
+	    <id column="RESV_ID" property="resvId"/>
+	    <result column="PG_ID" property="pgId"/>
+	    <result column="PG_TYPE" property="pgType"/>
+	    <result column="DI_KEY" property="diKey"/>
+	    <result column="NAME" property="name"/>
+	    <result column="PHONE" property="phone" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
+	    <result column="EMAIL" property="email" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
+	    <result column="AGE" property="age"/>
+	    <result column="GENDER" property="gender"/>
+	    <result column="M_CNT" property="mCnt"/>
+	    <result column="F_CNT" property="fCnt"/>
+	    <result column="PARENT_NAME" property="parentName"/>
+	    <result column="PARENT_PHONE" property="parentPhone" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
+	    <result column="GROUP_YN" property="groupYn"/>
+	    <result column="GROUP_NAME" property="groupName"/>
+	    <result column="GROUP_TYPE" property="groupType"/>
+	    <result column="PEOPLE_CNT" property="peopleCnt"/>
+	    <result column="APPLY_DATE" property="applyDate"/>
+	    <result column="CAR_NUM" property="carNum" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
+	    <result column="PRODUCT_ID" property="productId"/>
+	    <result column="OPTION_NAME" property="optionName"/>
+	    <result column="STATUS" property="status"/>
+	    <result column="NOTE" property="note"/>
+	    <result column="ATTEND_YN" property="attendYn"/>
+	    <result column="REG_DT" property="regDt"/>
+	    <result column="REG_ID" property="regId"/>
+	    <result column="SLOT_ID" property="slotId"/>
+	    <result column="SLOT_NO" property="slotNo"/>
+	    <result column="SLOT_DATE" property="slotDate"/>
+	    <result column="START_TIME" property="startTime"/>
+	    <result column="END_TIME" property="endTime"/>
+	</resultMap>
+
+	
+	<select id="selectApplyList" resultMap="resvResultMap">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CR.RESV_ID,
+				CR.PG_ID,
+				CR.PG_TYPE,
+				CR.DI_KEY,
+				CR.NAME,
+				CR.PHONE,
+				CR.EMAIL,
+				CR.AGE,
+				CR.GENDER,
+				CR.PARENT_NAME,
+				CR.PARENT_PHONE,
+				CR.GROUP_YN,
+				CR.GROUP_NAME,
+				CR.GROUP_TYPE,
+		        CR.PEOPLE_CNT,
+		        CR.M_CNT,
+				CR.F_CNT,
+		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
+		        CR.CAR_NUM,
+		        CR.PRODUCT_ID,
+		        (SELECT CP.PRODUCT_NAME 
+			     FROM COM_PRODUCT CP 
+			     WHERE CP.PRODUCT_ID = CR.PRODUCT_ID) AS PRODUCT_NAME,
+			    CR.OPTION_NAME,
+		        CR.STATUS,
+		        CR.NOTE,
+		        CR.ATTEND_YN,
+				CR.REG_DT,
+				CR.REG_ID,
+				CPTS.SLOT_ID,
+		        CPTS.SLOT_NO,
+		        CPTS.SLOT_DATE,
+		        CPTS.START_TIME,
+		        CPTS.END_TIME
+			FROM COM_RESERVATION CR
+			INNER JOIN COM_PROGRAM_TIME_SLOT CPTS 
+			ON CR.PG_ID = CPTS.PG_ID 
+				AND CR.SLOT_ID = CPTS.SLOT_ID
+				AND CPTS.DELETE_YN ='N'
+				AND CPTS.SLOT_DATE = #{slotDate}
+			WHERE CR.DELETE_YN = 'N'
+				AND CR.PG_TYPE = #{pgType}
+				AND CR.PG_ID = #{pgId}
+			<if test="slotId != null and slotId != ''">
+				AND CPTS.SLOT_ID = #{slotId}
+			</if>
+			<if test="searchCondition != null and searchCondition != ''">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CR.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CR.NAME     LIKE CONCAT('%', #{searchKeyword}, '%')
+			        OR CR.GROUP_NAME LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+			ORDER BY SLOT_NO ASC, APPLY_DATE DESC
+	</select>
+	
+	<insert id="insertApply">
+		INSERT INTO COM_RESERVATION (
+            RESV_ID,
+            PG_ID,
+            PG_TYPE,
+            NAME,
+            PHONE,
+            EMAIL,
+            SLOT_ID,
+            AGE,
+            GENDER,
+            PARENT_NAME,
+            PARENT_PHONE,
+            GROUP_YN,
+            GROUP_NAME,
+            GROUP_TYPE,
+            PEOPLE_CNT,
+            M_CNT,
+            F_CNT,
+            APPLY_DATE,
+            CAR_NUM,
+            ATTEND_YN,
+            PRODUCT_ID,
+            OPTION_NAME,
+            STATUS,
+            NOTE,
+            REG_DT,
+            REG_ID,
+            LOCATION,
+            PROGRAM_DT
+        ) VALUES (
+            #{resvId},
+            #{pgId},
+            #{pgType},
+            #{name}, 
+            #{phone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{email, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{slotId},
+            #{age},
+            #{gender},
+            #{parentName},
+            #{parentPhone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+            #{groupYn},
+            #{groupName},
+            #{groupType},
+            #{peopleCnt},
+            #{mCnt},
+            #{fCnt},
+            NOW(),
+            #{carNum, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler}, 
+            #{attendYn},
+            #{productId},
+            #{optionName},
+            #{status},
+            #{note},
+            NOW(),
+            #{sessionMemSeq},
+            #{location},
+            #{programDt}
+        )
+	</insert>
+	
+	<select id="selectReservation" resultMap="resvResultMap">
+			SELECT
+				CR.RESV_ID,
+				CR.PG_ID,
+				CR.PG_TYPE,
+				CR.DI_KEY,
+				CR.NAME,
+				CR.PHONE,
+				CR.EMAIL,
+				CR.AGE,
+				CR.GENDER,
+				CR.PARENT_NAME,
+				CR.PARENT_PHONE,
+				CR.GROUP_YN,
+				CR.GROUP_NAME,
+				CR.GROUP_TYPE,
+		        CR.PEOPLE_CNT,
+		        CR.M_CNT,
+            	CR.F_CNT,
+		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
+		        CR.CAR_NUM,
+		        CR.PRODUCT_ID,
+		        (SELECT CP.PRODUCT_NAME 
+			     FROM COM_PRODUCT CP 
+			     WHERE CP.PRODUCT_ID = CR.PRODUCT_ID) AS PRODUCT_NAME,
+			    CR.OPTION_NAME,
+		        CR.STATUS,
+		        CR.NOTE,
+		        CR.ATTEND_YN,
+				CR.REG_DT,
+				CR.REG_ID,
+				CPTS.SLOT_ID,
+		        CPTS.SLOT_NO,
+		        CPTS.SLOT_DATE,
+		        CPTS.START_TIME,
+		        CPTS.END_TIME,
+		        CR.PROGRAM_DT,
+		        (SELECT CPG.PG_CODE 
+			     FROM COM_PROGRAM CPG 
+			     WHERE CPG.PG_ID = CR.PG_ID) AS PG_CODE,
+			    CR.LOCATION
+			FROM COM_RESERVATION CR
+			LEFT JOIN COM_PROGRAM_TIME_SLOT CPTS 
+				ON CR.PG_ID = CPTS.PG_ID 
+				AND CR.SLOT_ID = CPTS.SLOT_ID
+				AND CPTS.DELETE_YN ='N'
+			WHERE CR.DELETE_YN = 'N'
+			AND CR.PG_TYPE = #{pgType}
+			AND CR.RESV_ID = #{resvId}
+	</select>
+	
+	<update id="updateApplicant" parameterType="ReservationVO">
+		UPDATE COM_RESERVATION
+		SET 
+		    NAME         = #{name},
+		    PHONE        = #{phone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+		    EMAIL        = #{email, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+		    AGE          = #{age},
+		    GENDER       = #{gender},
+		    PARENT_NAME  = #{parentName},
+		    PARENT_PHONE = #{parentPhone, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+		    GROUP_YN     = #{groupYn},
+		    GROUP_NAME   = #{groupName},
+		    GROUP_TYPE   = #{groupType},
+		  	PEOPLE_CNT = CAST(REPLACE(#{peopleCnt}, ',', '') AS UNSIGNED),
+			M_CNT      = CAST(REPLACE(#{mCnt}, ',', '') AS UNSIGNED),
+			F_CNT      = CAST(REPLACE(#{fCnt}, ',', '') AS UNSIGNED),
+		    CAR_NUM      = #{carNum, typeHandler=com.gocle.yangju.forest.comm.util.AESTypeHandler},
+		    PRODUCT_ID   = #{productId},
+		    OPTION_NAME  = #{optionName},
+		    STATUS       = #{status},
+		    NOTE         = #{note},
+		    ATTEND_YN    = #{attendYn},
+		    UPD_DT       = NOW(),
+		    UPD_ID       = #{sessionMemSeq},
+		    PROGRAM_DT   = #{programDt}
+		WHERE DELETE_YN = 'N'
+		  AND PG_TYPE   = #{pgType}
+		  AND RESV_ID   = #{resvId}
+	</update>
+	
+	<update id="deleteApplicant" parameterType="ReservationVO">
+		UPDATE COM_RESERVATION
+		SET DELETE_YN = 'Y'
+		,UPD_DT = NOW()
+		,UPD_ID = #{sessionMemSeq}
+		WHERE PG_ID = #{pgId}
+		AND PG_TYPE = #{pgType}
+		AND RESV_ID   = #{resvId}
+	</update>
+	
+	<select id="getApplyCnt" parameterType="String">
+		SELECT COUNT(*)
+		FROM COM_RESERVATION
+		WHERE DELETE_YN = 'N'
+		  AND PG_ID   = #{pgId}
+	</select>
+	
+		<select id="selectApplyListF" resultMap="resvResultMap">
+		<include refid="kr.co.gocle.include.paging-start" />
+			SELECT
+				CR.RESV_ID,
+				CR.PG_ID,
+				CR.PG_TYPE,
+				CR.DI_KEY,
+				CR.NAME,
+				CR.PHONE,
+				CR.EMAIL,
+				CR.AGE,
+				CR.GENDER,
+				CR.PARENT_NAME,
+				CR.PARENT_PHONE,
+				CR.GROUP_YN,
+				CR.GROUP_NAME,
+				CR.GROUP_TYPE,
+				CR.PEOPLE_CNT,
+		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
+		        CR.CAR_NUM,
+		        CR.PRODUCT_ID,
+		        (SELECT CP.PRODUCT_NAME 
+			     FROM COM_PRODUCT CP 
+			     WHERE CP.PRODUCT_ID = CR.PRODUCT_ID) AS PRODUCT_NAME,
+			    CR.OPTION_NAME,
+		        CR.STATUS,
+		        CR.NOTE,
+		        CR.ATTEND_YN,
+				CR.REG_DT,
+				CR.REG_ID,
+			    (
+			      SELECT GROUP_CONCAT(
+			               FN_GET_CODE_NAME(
+			                 CASE
+			                   WHEN #{pgCode} = 'FOREST_INT' THEN 'GEN_PLACE'
+			                   WHEN #{pgCode} = 'CHILD_REG'  THEN 'KIND_PLACE'
+			                   ELSE NULL
+			                 END,
+			                 TRIM(t.val)
+			               ) SEPARATOR ', '
+			             )
+			      FROM JSON_TABLE(
+			             CONCAT('["', REPLACE(CR.LOCATION, ',', '","'), '"]'),
+			             '$[*]' COLUMNS(val VARCHAR(50) PATH '$')
+			           ) t
+			    ) AS LOCATION_NM,
+			    CR.PROGRAM_DT
+			FROM COM_RESERVATION CR
+			WHERE CR.DELETE_YN = 'N'
+				AND CR.PG_TYPE = #{pgType}
+				AND CR.PG_ID = #{pgId}
+			<if test="searchCondition != null and searchCondition != ''">
+					<if test="searchKeyword != null and searchKeyword != ''">
+						AND CR.${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+					</if>
+			</if>	
+			<if test="searchKeyword != null and searchKeyword != ''">
+				AND (CR.NAME     LIKE CONCAT('%', #{searchKeyword}, '%')
+			        OR CR.GROUP_NAME LIKE CONCAT('%', #{searchKeyword}, '%'))
+			</if>
+		<include refid="kr.co.gocle.include.paging-end" />
+			ORDER BY APPLY_DATE DESC
+	</select>
+	
+	<select id="regPlaceCnt" resultType="int">
+		SELECT COUNT(DISTINCT LOCATION)
+	    FROM COM_RESERVATION
+	    WHERE DELETE_YN = 'N'
+	    AND   (STATUS != 'CANCEL' and STATUS != 'REJECT')
+	    AND   PG_ID = #{pgId}
+	</select>
+	
+	<select id="regPlace" parameterType="UserReservationVO" resultType="UserReservationVO">
+		SELECT DISTINCT LOCATION
+	    FROM COM_RESERVATION
+	    WHERE DELETE_YN = 'N'
+	    AND   (STATUS != 'CANCEL' and STATUS != 'REJECT')
+	    AND   PG_ID = #{pgId}
+	</select>
+	
+	<select id="selectHeadsByLocation" parameterType="string" resultType="UserReservationVO">
+	    SELECT
+	      CR.LOCATION        AS location,
+	      SUM(
+	        CASE WHEN CR.GROUP_YN = 'Y'
+	             THEN CAST(CR.PEOPLE_CNT AS UNSIGNED)
+	             ELSE 1
+	        END
+	      ) AS locationCnt
+	    FROM COM_RESERVATION CR
+	    WHERE CR.DELETE_YN = 'N'
+	      AND (CR.STATUS != 'CANCEL' and CR.STATUS != 'REJECT')
+	      AND CR.PG_ID     = #{pgId}
+	    GROUP BY CR.LOCATION
+	</select>
+	
+	<select id="selectUsedByLocation" resultType="map">
+	  SELECT
+	    CR.LOCATION AS location,
+	    SUM(
+	      CASE
+	        WHEN CR.GROUP_YN = 'Y' THEN IFNULL(CR.PEOPLE_CNT, 1)
+	        ELSE 1
+	      END
+	    ) AS used
+	  FROM COM_RESERVATION CR
+	  WHERE CR.DELETE_YN = 'N'
+	    AND      (CR.STATUS != 'CANCEL' and CR.STATUS != 'REJECT')
+	    AND CR.PG_ID     = #{pgId}
+	  GROUP BY CR.LOCATION
+	  ORDER BY CR.LOCATION
+	</select>
+	
+	<select id="selectApplyListAll" resultMap="resvResultMap">
+			SELECT
+				CR.RESV_ID,
+				CR.PG_ID,
+				CR.PG_TYPE,
+				CR.DI_KEY,
+				CR.NAME,
+				CR.PHONE,
+				CR.EMAIL,
+				CR.AGE,
+				CR.GENDER,
+				CR.PARENT_NAME,
+				CR.PARENT_PHONE,
+				CR.GROUP_YN,
+				CR.GROUP_NAME,
+				CR.GROUP_TYPE,
+		        CR.PEOPLE_CNT,
+		        CR.M_CNT,
+				CR.F_CNT,
+		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
+		        CR.CAR_NUM,
+		        CR.PRODUCT_ID,
+		        (SELECT CP.PRODUCT_NAME 
+			     FROM COM_PRODUCT CP 
+			     WHERE CP.PRODUCT_ID = CR.PRODUCT_ID) AS PRODUCT_NAME,
+			    CR.OPTION_NAME,
+		        CR.STATUS,
+		        CR.NOTE,
+		        CR.ATTEND_YN,
+				CR.REG_DT,
+				CR.REG_ID,
+				CPTS.SLOT_ID,
+		        CPTS.SLOT_NO,
+		        CPTS.SLOT_DATE,
+		        CPTS.START_TIME,
+		        CPTS.END_TIME
+			FROM COM_RESERVATION CR
+			INNER JOIN COM_PROGRAM_TIME_SLOT CPTS 
+			ON CR.PG_ID = CPTS.PG_ID 
+				AND CR.SLOT_ID = CPTS.SLOT_ID
+				AND CPTS.DELETE_YN ='N'
+				AND CPTS.SLOT_DATE = #{slotDate}
+			WHERE CR.DELETE_YN = 'N'
+				AND CR.PG_TYPE = #{pgType}
+				AND CR.PG_ID = #{pgId}
+			ORDER BY CPTS.SLOT_DATE ASC, CPTS.SLOT_NO ASC, CR.APPLY_DATE DESC
+	</select>
+</mapper>
