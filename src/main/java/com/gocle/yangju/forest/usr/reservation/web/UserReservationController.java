@@ -108,10 +108,10 @@ public class UserReservationController {
 		return "/usr/reservation/list4";
 	}
 	
-	@RequestMapping("privacyPolicy.do")
+	@RequestMapping("privacyPolicy1.do")
 	public String privacyPolicy(ModelMap model) throws Exception {
 		
-		return "/usr/reservation/privacyPolicy";
+		return "/usr/reservation/privacyPolicy1";
 	}
 	
 	@RequestMapping("form.do")
@@ -124,7 +124,13 @@ public class UserReservationController {
 	public String view(ModelMap model) throws Exception {
 		
 		return "/usr/reservation/view1";
-	}	
+	}
+	
+	@RequestMapping("complete1.do")
+	public String complete1(ModelMap model) throws Exception {
+		
+		return "/usr/reservation/complete1";
+	}
 	
 	/**
 	 * 사용자 프로그램 목록

@@ -385,7 +385,7 @@
 		</div>
 	</div>
 	<div class="education_formbox">
-		<form id="eduApplcntVO" name="eduApplcntVOForm" action="addWebEduApplcnt.do" method="post" enctype="multipart/form-data" onsubmit="return AddSubmit(this)">
+		<form id="eduApplcntVO" name="eduApplcntVOForm" action="/yjcareer/usr/reservation/complete1.do" method="post" enctype="multipart/form-data" onsubmit="return AddSubmit(this)">
 			<fieldset>
 				<legend>교육생 정보입력</legend>
 					<input type="hidden" name="key" id="key" value="4133"/>
@@ -1080,7 +1080,7 @@
 
 				<div class="bbs_btn_wrap clearfix">
 					<div class="bbs_left">
-						<a href="./selectEduLctreWebList.do?key=4133&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1" class="btn type5">목록</a>
+						<a href="/yjcareer/usr/reservation/list1.do" class="btn type5">목록</a>
 					</div>
 					<div class="bbs_right">
 						<input type="submit" value="등록" class="btn type2" />

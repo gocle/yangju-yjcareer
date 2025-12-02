@@ -7,7 +7,7 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
-      
+    
     <div id="container">
         <div class="wrap clearfix">
             <main class="colgroup">
@@ -17,10 +17,10 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">학습지원서비스</p>
+                            <p class="first_title">교육 네트워크</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>학습 상담</h2>
+                            <h2>지역 진로교사 안내</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -32,14 +32,14 @@
 	<a href="./index.do" class="home">홈</a>
 	<ol class="breadcrumbs_list">
 		<li class="breadcrumbs_item">
-			<a href="" class="breadcrumbs_anchor mobile">학습지원서비스</a>
-			<button type="button" class="breadcrumbs_select" title="목록열기">학습지원서비스</button>
+			<a href="" class="breadcrumbs_anchor mobile">교육 네트워크</a>
+			<button type="button" class="breadcrumbs_select" title="목록열기">교육 네트워크</button>
 			<ul class="breadcrumbs_panel">
 									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" class="active">학습지원서비스</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" >교육 네트워크</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" class="active">교육 네트워크</a></li>
 					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" >알림마당</a></li>
 					<li class="tab_item"><a href="/yjcareer/sitemap.do?key=4151"  target="_self" >홈페이지 가이드</a></li>
 			</ul>
@@ -48,17 +48,17 @@
 				
 				
 				
+				
+				
 					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile">학습 상담</a>
-						<button type="button" class="breadcrumbs_select" title="목록열기">학습 상담</button>
+						<a href="" class="breadcrumbs_anchor mobile">지역 진로교사 안내</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">지역 진로교사 안내</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스안내</a>	</li>
-									<li class="tab_item"><a href="https://study4way.com/intro" title="새창" target="_blank" >학습유형 검사</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&key=4139"  target="_self" class="active">학습 상담</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" class="active">지역 진로교사 안내</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4142"  target="_self" >진로교육콘텐츠</a>	</li>
+									<li class="tab_item"><a href="https://www.ggoomgil.go.kr/front/index.do" title="새창" target="_blank" >체험처 소개(꿈길)</a>	</li>
 						</ul>
 					</li>
-				
-				
 				
 				
 
@@ -156,239 +156,35 @@
                     </header>
                     
                     
-                    <div id="contents" class="cts4139">
-						<script>
-//<![CDATA[
-	function popUpCommonSimple( path , winName , widthSize , heightSize ){
-		var winHandle;
-		var topPoint = (window.screen.height-heightSize)/2;
-		var leftPoint = (window.screen.width-widthSize)/2;
-		if(winHandle)winHandle.close();
-		 winHandle = window.open( path , winName, "width="+ widthSize +", height=" + heightSize + ", status=0, location=0, menubar=0, toolbar=0, scrollbars=auto, help=0, hide=0, center=yes, left=" + leftPoint + ", top=" + topPoint );
-		if(winHandle==null){
-		   alert("사용자 설정에 의해 팝업이 차단되었습니다. \n\n자세한 내용을 보시려면 [도구]-[인터넷옵션]-[개인정보] 화면에서 팝업차단 체크를 해제하여 주십시오."); 
-		}else{
-		 winHandle.focus();
-		}
-		return winHandle;
-	}
-		 
-	function findDoro(){
-		var pop = window.open("/common/doro/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-	}
-
-	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
-		document.bbsNttForm.zip.value = zipNo;
-		document.bbsNttForm.adres.value = roadAddrPart1 + " " + roadAddrPart2;
-		document.bbsNttForm.detailAdres.value = addrDetail;
-	}
-
-	function checkMailDomain(str) {
-		var reg = /^[0-9a-z-]+(\.[_0-9a-z-\/\~]+)+(:[0-9]{2,4})*$/;
-		return reg.test(str);
-	}
-
-	function noScriptDisplay(id, size){
-
-		if(size == 0){
-			document.getElementById(id).style.display="inline-block";
-		}else{
-			for (i=1;i<=size;i++)
-			{
-				document.getElementById(id+i).style.display="inline-block";
-			}
-		}
-	}
-
-	function fnDomainCheck( ) {
-
-		if(bbsNttForm.emaillist.value == '1'){
-			bbsNttForm.email2.readOnly = false;
-			bbsNttForm.email2.value = '';
-			bbsNttForm.email2.focus();
-		} else {
-			bbsNttForm.email2.readOnly = true;
-			bbsNttForm.email2.value = bbsNttForm.emaillist.value;
-		}
-
-	}
-//]]>
-</script>
-
-
-<script>
-//<![CDATA[
-
-
-
-function fn_validatorBbsNtt( frm ) {
-
+                    <div id="contents" class="cts4141">
+						<div class="service cts4141">
+	<div class="title_box n3">
+		<div class="box_wrap">
+			<h3 class="box_title">지역 진로교사 안내</h3>
+			<p>청소년의 다양한 직업 체험을 위해 지역의 다양한 전문가와 함께하고 있습니다. 소정의 교육 과정을 이수하고 우리시의 청소년들을 위해 양질의 강의를 진행해주시는
+				지역 진로교사 분들의 강의를 많이 시청하여 주시고 응원 부탁드립니다.</p>
+			<p class="caution_call">지역의 청소년을 위해 참여를 원하시는 경우 양주진로진학지원센터<span>(031-8082-7954)</span>로 연락 바랍니다.</p>
+		</div>
+	</div>
 	
-	
-                if( fn_isEmpty( frm, 'nttSj') ) {
-                    alert(fn_getMessage("INPUT", '제목'));
-                    fn_setFocus(frm, 'nttSj');
-                    return false;
-                }
-				
-		
-                if( fn_isEmpty( frm, 'nttCn') ) {
-                    alert(fn_getMessage("INPUT", '내용'));
-                    fn_setFocus(frm, 'nttCn');
-                    return false;
-                }
-
-	return true;
-	
-}
-
-//]]>
-</script>
-
-
-<form name="bbsNttForm" id="bbsNtt" method="post" action="./addBbsNtt.do" onsubmit="return fn_validatorBbsNtt(this)" enctype="multipart/form-data">
-<fieldset>
-<legend>게시물 작성</legend>
-	<input type="hidden" name="key" id="key" value="4139"/>
-	<input type="hidden" name="bbsNo" id="bbsNo" value="531"/>
-	<input type="hidden" name="integrDeptCode" id="integrDeptCode" value=""/>	
-	<input type="hidden" name="noticeAt" id="noticeAt" value="N" />
-
-<!-- 양주시청 : 온라인원탁토론신청 동의서 폼 -->
-
-<!-------------------------------------------->
-
-<p class="write_guide">글 작성시 <span class="exactly y">필수</span> 표시된 항목은 꼭 기재해 주세요</p>
-	<table class="bbs_default write">
-		<caption>학습상담 글쓰기 - 제목, 작성자, 내용, 파일 입력 </caption>
-        <tbody>
-
-		<tr>
-			<th scope="row"><label for="nttSj">제목</label> <span class="exactly y">필수</span></th>
-			<td class="subject"><input type="text" name="nttSj" id="nttSj" style="width:540px;" value=""/></td>
-		</tr>
-	
-
-		<tr>
-			<th scope="row"><label for="writerNm">작성자</label> <span class="exactly y">필수</span></th>
-			<td>
-				
-					
-							
-						김소현
-					
-									
-			</td>
-		</tr>
-
-	
-
-		<tr>
-			<th scope="row"><label for="nttCn">내용</label> <span class="exactly y">필수</span></th>
-			<td>
-					<textarea name="nttCn" id="nttCn" rows="10" cols="5" style="width:540px; height:300px" class="bbs_content"></textarea>
-			</td>
-		</tr>
-	
-
-		<tr>
-			<th scope="row">파일 <span class="exactly"></span>
-				
-			</th>
-			<td>
-				<ul class="attach">
-					<li>
-						<div class="attach_file">
-							<label for="atchmnfl_0" class="file_label">첨부파일_0</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_0" class="file" /></span>
-								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_0" value="0" /> <label for="bdtInsrtAt_0"><span class="skip">0번 첨부파일</span>본문삽입</label></span>
-						</div>
-						<div class="attach_alt">
-							<label for="replcText_0" class="alt_label">첨부파일_0에 대체텍스트</label>
-							<span class="alt_input"><input type="text" name="replcText" id="replcText_0" placeholder="첨부 이미지 대체콘텐츠 입력"  /></span>
-						</div>
-					</li>
-					<li>
-						<div class="attach_file">
-							<label for="atchmnfl_1" class="file_label">첨부파일_1</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_1" class="file" /></span>
-								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_1" value="1" /> <label for="bdtInsrtAt_1"><span class="skip">1번 첨부파일</span>본문삽입</label></span>
-						</div>
-						<div class="attach_alt">
-							<label for="replcText_1" class="alt_label">첨부파일_1에 대체텍스트</label>
-							<span class="alt_input"><input type="text" name="replcText" id="replcText_1" placeholder="첨부 이미지 대체콘텐츠 입력"  /></span>
-						</div>
-					</li>
-				</ul>
-			</td>
-		</tr>
-
-		
-	
-
-        </tbody>
-    </table>
-
-        <!-- 양주시청 >분야별정보>복지교육> 초등학생 입학축가금 신청 동의서 폼 -->  
-	
-	 <!-- -------------------------------------------------------------- -->
-
-	<div class="bbs_btn_wrap clearfix">
-        <div class="bbs_center">
-			
-				
-				
-				
-				
-				
-					<input type="submit" value="글등록" class="bbs_btn write">
-				
-			
-            
-            <a href="/yjcareer/usr/support/list.do?menuId=2025MENU0000153" class="bbs_btn"><i class="icon"></i><span>목록</span></a>
-        </div>
-    </div>
-
-</fieldset>
-</form>
-
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script nonce="NEOCMSSCRIPT">
-	function openDaumZipAddressAdit(adresField) {
-		new daum.Postcode({
-			oncomplete:function(data) {
-				$("#zip2").val(data.zonecode);
-				$("#"+adresField).val('['+data.zonecode+']'+data.address);  
-				$("#"+adresField).focus();
-			}
-		}).open();
-	}
-	function openDaumZipAddress() {
-		new daum.Postcode({
-			oncomplete:function(data) {
-				$("#zip").val(data.zonecode);
-				$("#adres").val(data.address);
-				$("#detailAdres").focus();
-				$("#detailAdres").show();
-				$("#addressShow").show();
-				$("#addressShow").html("(" + data.zonecode + ") " + data.address + " " );
-				console.log(data);
-			}
-		}).open();
-	}
-</script>
+	<div class="box">
+		<div class="box_inner">
+			<i class="service_bg"></i>
+			<div class="img_box">
+				<div class="img_item">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/cts4141_img01.png" alt="지역 진로교사 안내1">
+				</div>
+				<div class="img_item">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/cts4141_img02.png" alt="지역 진로교사 안내2">
+				</div>
+				<div class="img_item">
+					<img src="/yjcareer/assets/site/yjcareer/images/contents/cts4141_img03.png" alt="지역 진로교사 안내3">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
                     </div>
-					
-					
-
-
-
-
-
-
-
-
                 
                 </article>
             </main>

@@ -7,7 +7,7 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
-      
+  
     <div id="container">
         <div class="wrap clearfix">
             <main class="colgroup">
@@ -17,10 +17,10 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">학습지원서비스</p>
+                            <p class="first_title">프로그램 신청</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>학습 상담</h2>
+                            <h2>특별 교육 프로그램 신청</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -32,12 +32,12 @@
 	<a href="./index.do" class="home">홈</a>
 	<ol class="breadcrumbs_list">
 		<li class="breadcrumbs_item">
-			<a href="" class="breadcrumbs_anchor mobile">학습지원서비스</a>
-			<button type="button" class="breadcrumbs_select" title="목록열기">학습지원서비스</button>
+			<a href="" class="breadcrumbs_anchor mobile">프로그램 신청</a>
+			<button type="button" class="breadcrumbs_select" title="목록열기">프로그램 신청</button>
 			<ul class="breadcrumbs_panel">
 									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" class="active">학습지원서비스</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" class="active">프로그램 신청</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
 					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" >교육 네트워크</a></li>
 					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" >알림마당</a></li>
@@ -47,21 +47,32 @@
 
 				
 				
-				
 					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile">학습 상담</a>
-						<button type="button" class="breadcrumbs_select" title="목록열기">학습 상담</button>
+						<a href="" class="breadcrumbs_anchor mobile">프로그램 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">프로그램 신청</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스안내</a>	</li>
-									<li class="tab_item"><a href="https://study4way.com/intro" title="새창" target="_blank" >학습유형 검사</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&key=4139"  target="_self" class="active">학습 상담</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청 안내</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" class="active">프로그램 신청</a>	</li>
 						</ul>
 					</li>
 				
 				
 				
 				
+				
 
+				
+					<li class="breadcrumbs_item">
+						<a href="" class="breadcrumbs_anchor mobile">특별 교육 프로그램 신청</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">특별 교육 프로그램 신청</button>
+						<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" >진로진학 컨설팅 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4131"  target="_self" >진로 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4132"  target="_self" >진학 프로그램 신청</a></li>
+									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4133"  target="_self" class="active">특별 교육 프로그램 신청</a></li>
+						</ul>
+					</li>
+				
 	</ol>
 </div>
             
@@ -155,240 +166,163 @@
                         </div>
                     </header>
                     
-                    
-                    <div id="contents" class="cts4139">
-						<script>
-//<![CDATA[
-	function popUpCommonSimple( path , winName , widthSize , heightSize ){
-		var winHandle;
-		var topPoint = (window.screen.height-heightSize)/2;
-		var leftPoint = (window.screen.width-widthSize)/2;
-		if(winHandle)winHandle.close();
-		 winHandle = window.open( path , winName, "width="+ widthSize +", height=" + heightSize + ", status=0, location=0, menubar=0, toolbar=0, scrollbars=auto, help=0, hide=0, center=yes, left=" + leftPoint + ", top=" + topPoint );
-		if(winHandle==null){
-		   alert("사용자 설정에 의해 팝업이 차단되었습니다. \n\n자세한 내용을 보시려면 [도구]-[인터넷옵션]-[개인정보] 화면에서 팝업차단 체크를 해제하여 주십시오."); 
-		}else{
-		 winHandle.focus();
-		}
-		return winHandle;
-	}
-		 
-	function findDoro(){
-		var pop = window.open("/common/doro/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes");
-	}
+                    <div id="contents" class="cts4133">
+						<div class="agreecontent">
+	<form name="agreeForm" id="agreeForm" method="post" action="/yjcareer/usr/reservation/form.do" onsubmit="return agreeSubmit(this)">
+	<input type="hidden" name="key" value="4133"/>
+	<input type="hidden" name="eduLctreNo" value="12437"/>
+	<input type="hidden" name="pageUnit" value="10"/>
+	<input type="hidden" name="searchCnd" value="all"/>
+	<input type="hidden" name="searchKrwd" value=""/>
+	<input type="hidden" name="pageIndex" value="1"/>
 
-	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo){
-		document.bbsNttForm.zip.value = zipNo;
-		document.bbsNttForm.adres.value = roadAddrPart1 + " " + roadAddrPart2;
-		document.bbsNttForm.detailAdres.value = addrDetail;
-	}
-
-	function checkMailDomain(str) {
-		var reg = /^[0-9a-z-]+(\.[_0-9a-z-\/\~]+)+(:[0-9]{2,4})*$/;
-		return reg.test(str);
-	}
-
-	function noScriptDisplay(id, size){
-
-		if(size == 0){
-			document.getElementById(id).style.display="inline-block";
-		}else{
-			for (i=1;i<=size;i++)
-			{
-				document.getElementById(id+i).style.display="inline-block";
-			}
-		}
-	}
-
-	function fnDomainCheck( ) {
-
-		if(bbsNttForm.emaillist.value == '1'){
-			bbsNttForm.email2.readOnly = false;
-			bbsNttForm.email2.value = '';
-			bbsNttForm.email2.focus();
-		} else {
-			bbsNttForm.email2.readOnly = true;
-			bbsNttForm.email2.value = bbsNttForm.emaillist.value;
-		}
-
-	}
-//]]>
-</script>
-
-
-<script>
-//<![CDATA[
-
-
-
-function fn_validatorBbsNtt( frm ) {
-
-	
-	
-                if( fn_isEmpty( frm, 'nttSj') ) {
-                    alert(fn_getMessage("INPUT", '제목'));
-                    fn_setFocus(frm, 'nttSj');
-                    return false;
-                }
-				
-		
-                if( fn_isEmpty( frm, 'nttCn') ) {
-                    alert(fn_getMessage("INPUT", '내용'));
-                    fn_setFocus(frm, 'nttCn');
-                    return false;
-                }
-
-	return true;
-	
-}
-
-//]]>
-</script>
-
-
-<form name="bbsNttForm" id="bbsNtt" method="post" action="./addBbsNtt.do" onsubmit="return fn_validatorBbsNtt(this)" enctype="multipart/form-data">
-<fieldset>
-<legend>게시물 작성</legend>
-	<input type="hidden" name="key" id="key" value="4139"/>
-	<input type="hidden" name="bbsNo" id="bbsNo" value="531"/>
-	<input type="hidden" name="integrDeptCode" id="integrDeptCode" value=""/>	
-	<input type="hidden" name="noticeAt" id="noticeAt" value="N" />
-
-<!-- 양주시청 : 온라인원탁토론신청 동의서 폼 -->
-
-<!-------------------------------------------->
-
-<p class="write_guide">글 작성시 <span class="exactly y">필수</span> 표시된 항목은 꼭 기재해 주세요</p>
-	<table class="bbs_default write">
-		<caption>학습상담 글쓰기 - 제목, 작성자, 내용, 파일 입력 </caption>
-        <tbody>
-
-		<tr>
-			<th scope="row"><label for="nttSj">제목</label> <span class="exactly y">필수</span></th>
-			<td class="subject"><input type="text" name="nttSj" id="nttSj" style="width:540px;" value=""/></td>
-		</tr>
-	
-
-		<tr>
-			<th scope="row"><label for="writerNm">작성자</label> <span class="exactly y">필수</span></th>
-			<td>
-				
-					
+		<fieldset>
+			<legend>개인정보수집동의</legend>
+			<div class="stepbox">
+				<ol>
+					<li class="active">
+						<div class="roundbox">
+							<div class="tablebox">
+								<div class="cellbox">
+									<span class="step">STEP 01</span>
+									<p>개인정보수집동의</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="roundbox">
+							<div class="tablebox">
+								<div class="cellbox">
+									<span class="step">STEP 02</span>
+									<p>교육생 정보입력</p>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="roundbox">
+							<div class="tablebox">
+								<div class="cellbox">
+									<span class="step">STEP 03</span>
+									<p>교육신청완료</p>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ol>
+			</div>
+			<div class="temp_box">
+				<div class="box_wrap">
+					<p>홈페이지 이용과 관련하여 「개인정보보호법」제15조(개인정보의 수집ㆍ이용) 및 제 22조에 따라 귀하의 개인정보를 <br />아래와 같이 수집 및 이용하고자 합니다.</p>
+				</div>
+			</div>
+			<h4>개인정보 수집ㆍ이용 내역 (필수사항)</h4>
+			<table class="table responsive">
+				<caption>
+					개인정보 수집ㆍ이용 내역 (필수사항) - 수집ㆍ이용 항목, 수집ㆍ이용 목적, 보유기간
+				</caption>
+				<thead>
+				<tr>
+					<th scope="col">수집 ㆍ이용하려는 개인정보의 항목</th>
+					<th scope="col">개인정보의 수집ㆍ이용 목적</th>
+					<th scope="col">개인정보 이용 및 보유기간</th>
+				</tr>
+				</thead>
+				<tbody class="text_center">
+				<tr>
+					<td style="font-weight:600">성명, 성별, 핸드폰, 주소, 수업참여 사진</td>
+					<td>
+						<ul class="bu">
+							<li>교육과정 각종 안내 및 협의에 관한 사항</li>
+							<li>만족도조사 및 설문조사를 위한 정보제공</li>
+							<li>통계자료</li>
+							<li>대면/비대면 교육운영 확인 및 수강생 출결확인</li>
 							
-						김소현
-					
-									
-			</td>
-		</tr>
+						</ul>
+					</td>
+					<td style="font-weight:600">2년</td>
+				</tr>
+				</tbody>
+			</table>
+			<p class="point margin_t_15">귀하께서는 개인정보 제공 및 활용에 거부할 권리가 있습니다.<br />거부에 따른 불이익 : 위 제공사항은 프로그램 진행을 위해 필요한 사항으로 거부하실 경우 원활한 사업추진에 어려움이 있을 수 있습니다.</p>
+			<div class="linebox agreebox">
+				<p>위와 같이 개인정보를 수집ㆍ이용하는데 동의하십니까?</p>
+				<div class="input_area">
+					<span class="temp_checkbox">
+						<input type="radio" name="agree_check01" id="agree_check011" value="1" title="예" checked="checked" />
+						<label for="agree_check011">예</label>
+					</span>
+					<span class="temp_checkbox">
+						<input type="radio" name="agree_check01" id="agree_check012" value="0" title="아니오" />
+						<label for="agree_check012">아니오</label>
+					</span>
+				</div>
+			</div>
+			<h4>선택적 개인정보 수집ㆍ이용내역(동의거부 가능)</h4>
+			<table class="table responsive">
+				<caption>
+					선택적 개인정보 수집ㆍ이용내역(동의거부 가능) - 수집ㆍ이용 항목, 수집ㆍ이용 목적, 보유기간
+				</caption>
+				<thead>
+				<tr>
+					<th scope="col">수집 ㆍ이용하려는 개인정보의 항목</th>
+					<th scope="col">개인정보의 수집ㆍ이용 목적</th>
+					<th scope="col">개인정보 이용 및 보유기간</th>
+				</tr>
+				</thead>
+				<tbody class="text_center">
+				<tr>
+					<td style="font-weight:600">전화번호, 이메일</td>
+					<td>
+						<ul class="bu">
+							<li>교육과정 각종 안내 및 협의에 관한 사항</li>
+							<li>만족도조사 및 설문조사를 위한 정보제공</li>
+						</ul>
+					</td>
+					<td style="font-weight:600">2년</td>
+				</tr>
+				</tbody>
+			</table>
+			<p class="point margin_t_15">귀하께서는 개인정보 제공 및 활용에 거부할 권리가 있습니다.<br />거부에 따른 불이익 : 위 제공사항은 프로그램 진행을 위해 필요한 사항으로 거부하실 경우 원활한 사업추진에 어려움이 있을 수 있습니다.</p>
+			<div class="linebox agreebox">
+				<p>위와 같이 개인정보를 수집ㆍ이용하는데 동의하십니까?</p>
+				<div class="input_area">
+					<span class="temp_checkbox">
+						<input type="radio" name="agree_check02" id="agree_check021" value="1" title="예" checked="checked" />
+						<label for="agree_check021">예</label>
+					</span>
+					<span class="temp_checkbox">
+						<input type="radio" name="agree_check02" id="agree_check022" value="0" title="아니오" />
+						<label for="agree_check022">아니오</label>
+					</span>
+				</div>
+			</div>
+			<div class="bbs_btn_wrap clearfix">
+				<div class="bbs_left">
+					<a href="/yjcareer/usr/reservation/list1.do" class="btn link2 reverse list">뒤로가기</a>
+				</div>
+				<div class="bbs_right">
+					<input type="submit" class="btn type2" value="확인" />
+				</div>
+			</div>
+		</fieldset>
+	</form>
+</div>
 
-	
+<script> 
+//<![CDATA[
+	function agreeSubmit(form){
+		if(form.agree_check011.checked != true){
+			alert('개인정보 수집 및 이용에 동의를 하셔야 수강신청을 할 수 있습니다.');
+			return false;
+		}
 
-		<tr>
-			<th scope="row"><label for="nttCn">내용</label> <span class="exactly y">필수</span></th>
-			<td>
-					<textarea name="nttCn" id="nttCn" rows="10" cols="5" style="width:540px; height:300px" class="bbs_content"></textarea>
-			</td>
-		</tr>
-	
-
-		<tr>
-			<th scope="row">파일 <span class="exactly"></span>
-				
-			</th>
-			<td>
-				<ul class="attach">
-					<li>
-						<div class="attach_file">
-							<label for="atchmnfl_0" class="file_label">첨부파일_0</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_0" class="file" /></span>
-								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_0" value="0" /> <label for="bdtInsrtAt_0"><span class="skip">0번 첨부파일</span>본문삽입</label></span>
-						</div>
-						<div class="attach_alt">
-							<label for="replcText_0" class="alt_label">첨부파일_0에 대체텍스트</label>
-							<span class="alt_input"><input type="text" name="replcText" id="replcText_0" placeholder="첨부 이미지 대체콘텐츠 입력"  /></span>
-						</div>
-					</li>
-					<li>
-						<div class="attach_file">
-							<label for="atchmnfl_1" class="file_label">첨부파일_1</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_1" class="file" /></span>
-								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_1" value="1" /> <label for="bdtInsrtAt_1"><span class="skip">1번 첨부파일</span>본문삽입</label></span>
-						</div>
-						<div class="attach_alt">
-							<label for="replcText_1" class="alt_label">첨부파일_1에 대체텍스트</label>
-							<span class="alt_input"><input type="text" name="replcText" id="replcText_1" placeholder="첨부 이미지 대체콘텐츠 입력"  /></span>
-						</div>
-					</li>
-				</ul>
-			</td>
-		</tr>
-
-		
-	
-
-        </tbody>
-    </table>
-
-        <!-- 양주시청 >분야별정보>복지교육> 초등학생 입학축가금 신청 동의서 폼 -->  
-	
-	 <!-- -------------------------------------------------------------- -->
-
-	<div class="bbs_btn_wrap clearfix">
-        <div class="bbs_center">
-			
-				
-				
-				
-				
-				
-					<input type="submit" value="글등록" class="bbs_btn write">
-				
-			
-            
-            <a href="/yjcareer/usr/support/list.do?menuId=2025MENU0000153" class="bbs_btn"><i class="icon"></i><span>목록</span></a>
-        </div>
-    </div>
-
-</fieldset>
-</form>
-
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script nonce="NEOCMSSCRIPT">
-	function openDaumZipAddressAdit(adresField) {
-		new daum.Postcode({
-			oncomplete:function(data) {
-				$("#zip2").val(data.zonecode);
-				$("#"+adresField).val('['+data.zonecode+']'+data.address);  
-				$("#"+adresField).focus();
-			}
-		}).open();
+		return true;
 	}
-	function openDaumZipAddress() {
-		new daum.Postcode({
-			oncomplete:function(data) {
-				$("#zip").val(data.zonecode);
-				$("#adres").val(data.address);
-				$("#detailAdres").focus();
-				$("#detailAdres").show();
-				$("#addressShow").show();
-				$("#addressShow").html("(" + data.zonecode + ") " + data.address + " " );
-				console.log(data);
-			}
-		}).open();
-	}
+//]]>
 </script>
                     </div>
-					
-					
-
-
-
-
-
-
-
-
                 
                 </article>
             </main>

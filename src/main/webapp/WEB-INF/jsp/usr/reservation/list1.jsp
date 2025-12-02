@@ -377,7 +377,7 @@
 					<td>무료	</td>
 					<td>접수대기</td>
 					<td data-content="수강신청">
-						<a href="/yjcareer/usr/reservation/privacyPolicy.do" class="request btn type2 small">수강신청</a>
+						<a href="/yjcareer/usr/reservation/privacyPolicy1.do" class="request btn type2 small">수강신청</a>
 					</td>
 				</tr>
 			</tbody>
