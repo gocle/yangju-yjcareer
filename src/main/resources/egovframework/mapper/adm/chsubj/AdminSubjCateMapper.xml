@@ -13,6 +13,7 @@
                 ,(SELECT COUNT(1) FROM TB_SUBJ_CATE WHERE upper_cate_cd = sc.cate_cd) AS under_cnt
         FROM    TB_SUBJ_CATE sc
         WHERE   1 = 1
+        ORDER BY sgr_cd, sort_order, cate_cd, cate_nm
 	</select>
 	
 	<!-- 과정 분류 보기 -->
@@ -118,4 +119,10 @@
 	                     ) temp
 	          )
 	</delete>
+	
+	<update id="orderUpdate">
+        UPDATE ${tableNm}
+        SET  ${columnNm}   = #{orderNo}
+	    WHERE ${keyNm}     = #{sortNo}
+    </update>
 </mapper>

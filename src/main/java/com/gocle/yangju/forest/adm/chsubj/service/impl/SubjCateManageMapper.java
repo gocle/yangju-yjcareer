@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
+import com.gocle.spring.vo.OrderVo;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageDefaultVo;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo;
 
@@ -24,6 +25,6 @@ public interface SubjCateManageMapper {
 
 	int delete(SubjCateManageVo subjCateManageVo);
 
-	SubjCateManageVo selectUpper(@Param("sgrCd")String sgrCd,@Param("upperCateCd") String upperCateCd);
+	void orderUpdate(OrderVo orderVo);
 
 }

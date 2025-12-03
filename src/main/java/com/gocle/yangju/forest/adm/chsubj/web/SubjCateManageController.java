@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gocle.spring.vo.OrderVo;
 import com.gocle.yangju.forest.adm.chsgr.service.SgrManageService;
 import com.gocle.yangju.forest.adm.chsgr.vo.SgrManageDefaultVo;
 import com.gocle.yangju.forest.adm.chsgr.vo.SgrManageVo;
@@ -155,9 +156,6 @@ public class SubjCateManageController {
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
             SessionStatus status) throws Exception {
-
-    	System.out.println("111111111111");
-    	System.out.println(subjCateManageVo.getCateCd());
     	
         int result = subjCateManageService.delete(subjCateManageVo);
 
@@ -170,6 +168,26 @@ public class SubjCateManageController {
         }
 
         redirectAttributes.addFlashAttribute("retMsg", retMsg);
+        
+        return "redirect:/adm/chsubj/SubjCateManageList.do";
+    }
+    
+    
+    @RequestMapping(value = "OrderUpdate.do", method = RequestMethod.POST)
+    public String orderUpdate(
+    		@ModelAttribute("orderVo") OrderVo orderVo,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes,
+            SessionStatus status) throws Exception {
+    	
+    	System.out.println("111111111111");
+    	System.out.println(orderVo);
+    	System.out.println(orderVo.getOrderNo());
+    	System.out.println(orderVo.getOrder());
+    	
+    	String result = subjCateManageService.orderSave(orderVo);
+
+        redirectAttributes.addFlashAttribute("retMsg", result);
         
         return "redirect:/adm/chsubj/SubjCateManageList.do";
     }

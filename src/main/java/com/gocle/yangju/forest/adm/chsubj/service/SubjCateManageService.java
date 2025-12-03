@@ -1,5 +1,6 @@
 package com.gocle.yangju.forest.adm.chsubj.service;
 
+import com.gocle.spring.vo.OrderVo;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface SubjCateManageService {
 	int update(SubjCateManageVo subjCateManageVo) throws Exception;
 
 	int delete(SubjCateManageVo subjCateManageVo) throws Exception;
+
+	String orderSave(OrderVo orderVo) throws Exception;
 }

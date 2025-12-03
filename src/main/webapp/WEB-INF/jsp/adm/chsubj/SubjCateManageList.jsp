@@ -98,7 +98,84 @@ function fnCmdDelete(cateCd, sgrCd, subjCnt) {
     $("#listForm").submit();
 }
 
+//type: 'Up' 또는 'DW'
+//name: 라디오 name (예: 'sortOrder')
+function fnOrderDoc(type, name) {
+ var $radios = $("input[name='" + name + "']");
+ var moved = 0;
+
+ $radios.each(function () {
+     if ($(this).is(":checked")) {
+         var $row = $(this).closest("tr");
+
+         if (type === "DW") { // 아래로
+             var $next = $row.next("tr");
+             if ($next.length) {
+                 $next.after($row);
+                 moved++;
+             }
+         } else {             // 위로
+             var $prev = $row.prev("tr");
+             if ($prev.length) {
+                 $prev.before($row);
+                 moved++;
+             }
+         }
+     }
+ });
+
+ if (moved === 0) {
+     alert("체크된 정보가 없습니다.");
+ }
+}
+
+
+//name: 정렬용 prefix (예: 'sortOrder') -> 지금 구조에선 사실 안 써도 됨
+//tbnm: 서버에 넘길 테이블명/코드 (예: 'subjCate')
+function fnOrderUpdate(name, tbnm) {
+ var $form = $("#listForm");
+ var listOrderCnt = 1;
+
+ // 기존 order hidden 제거
+ $form.find("input[name='order']").remove();
+
+ // 화면에 보이는 순서대로 sortKey 옆에 order 부여
+ $form.find("input[name='sortKey']").each(function () {
+     // 이 sortKey 뒤에 order hidden 하나씩 추가
+     $("<input>", {
+         type: "hidden",
+         name: "order",
+         value: listOrderCnt++
+     }).insertAfter($(this));
+ });
+
+ // tbnm hidden 갱신
+ $form.find("input[name='tbnm']").remove();
+ $("<input>", {
+     type: "hidden",
+     name: "tbnm",
+     value: tbnm
+ }).appendTo($form);
+
+ if (!confirm("정렬을 저장하시겠습니까?")) {
+     return;
+ }
+
+ var reqUrl = "${contextRoot}/adm/chsubj/OrderUpdate.do";  // 필요하면 여기만 수정
+ $form.attr("action", reqUrl);
+ $form.submit();
+}
+
 </script>
+
+<style>
+.radio {
+    width: 11px;
+    height: 11px;
+    transform: scale(0.5);
+    cursor: pointer;
+}
+</style>
 
 <section>
 	<form id="listForm" name="listForm" method="post">
@@ -133,17 +210,17 @@ function fnCmdDelete(cateCd, sgrCd, subjCnt) {
 				</button>
 			</li>
 		</ul>
-	</form>
+	
 
-	<div class="text-right btn-area">
+	<div class="text-right btn-area" style="padding-bottom:10px;">
 		<c:if test="${0 ne fn:length(sgrManageList)}">
-			<a href="#none" onclick="$J.fnOrderDoc('Up','sortOrder')" class="btn btn_01">
+			<a href="#none" onclick="fnOrderDoc('Up','sortOrder')" class="btn btn_01">
 				<span>↑</span>
 			</a>
-			<a href="#none" onclick="$J.fnOrderDoc('DW','sortOrder')" class="btn btn_01">
+			<a href="#none" onclick="fnOrderDoc('DW','sortOrder')" class="btn btn_01">
 				<span>↓</span>
 			</a>
-			<a href="#none" onclick="$J.fnOrderUpdate('sortOrder','subjCate')" class="btn btn_03">
+			<a href="#none" onclick="fnOrderUpdate('sortOrder','subjCate')" class="btn btn_03">
 				정렬저장
 			</a>
 		</c:if>
@@ -184,7 +261,7 @@ function fnCmdDelete(cateCd, sgrCd, subjCnt) {
 				<c:forEach var="result" items="${resultList}" varStatus="resultStatus">
 					<c:if test="${result.sgrCd eq item.sgrCd}">
 						<tr>
-							<td style="text-align: center;">
+							<td style="text-align: center;" class="radio">
 								<c:if test="${result.underCnt eq '0'}">
 									<input type="hidden" id="sortKey" name="sortKey" value="${result.cateCd}" />
 									<input type="radio" id="sortOrder" name="sortOrder" value="${result.sortOrder}" />
@@ -199,28 +276,14 @@ function fnCmdDelete(cateCd, sgrCd, subjCnt) {
 							</td>
 							<td style="text-align: center;">${result.useYn}</td>
 							<td style="text-align: center;">
-								<c:choose>
-									<c:when test="${result.sgrCd eq 'B'}">
-										<c:if test="${fn:length(fn:split(result.catePath, '/')) < 4}">
-											<!-- 3depth까지 생성 가능 -->
-											<a href="javascript:void(0);" 
-											   onclick="fnCmdInsertForm('${result.cateCd}', '${result.sgrCd}')" 
-											   class="btn btn_02">
-												하위 분류 추가
-											</a>
-										</c:if>
-									</c:when>
-									<c:otherwise>
-										<c:if test="${fn:length(fn:split(result.catePath, '/')) < 2}">
-											<!-- 1depth까지 생성 가능 -->
-											<a href="javascript:void(0);" 
-											   onclick="fnCmdInsertForm('${result.cateCd}', '${result.sgrCd}')" 
-											   class="btn btn_02">
-												하위 분류 추가
-											</a>
-										</c:if>
-									</c:otherwise>
-								</c:choose>
+								<c:if test="${fn:length(fn:split(result.catePath, '/')) < 2}">
+									<!-- 1depth까지 생성 가능 -->
+									<a href="javascript:void(0);" 
+									   onclick="fnCmdInsertForm('${result.cateCd}', '${result.sgrCd}')" 
+									   class="btn btn_02">
+										하위 분류 추가
+									</a>
+								</c:if>
 							</td>
 							<td style="text-align: center;">
 								<a href="javascript:void(0);" 
@@ -257,4 +320,6 @@ function fnCmdDelete(cateCd, sgrCd, subjCnt) {
 			</c:if>
 		</tbody>
 	</table>
+	
+	</form>
 </section>
