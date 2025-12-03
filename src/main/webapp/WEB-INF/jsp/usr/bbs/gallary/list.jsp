@@ -192,7 +192,7 @@
         <ul class="list clearfix">
 	
             <li>
-				<a href="selectBbsNttView.html">
+				<a href="/yjcareer/usr/bbs/photo/detail.do">
                     <div class="ico_group">
 						
 						
@@ -237,7 +237,7 @@
             </li>
 	
             <li>
-				<a href="selectBbsNttView.html">
+				<a href="/yjcareer/usr/bbs/photo/detail.do">
                     <div class="ico_group">
 						
 						
@@ -282,7 +282,7 @@
             </li>
 	
             <li>
-				<a href="selectBbsNttView.html">
+				<a href="/yjcareer/usr/bbs/photo/detail.do">
                     <div class="ico_group">
 						
 						

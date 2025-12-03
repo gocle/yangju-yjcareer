@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsgr.service.impl.SgrManageMapper">
+
+	<select id="selectList" resultType="SgrManageVo" parameterType="SgrManageVo">
+		SELECT   sg.sgr_cd      /* 교육사이트 코드 */
+                ,sg.sgr_nm      /* 교육사이트 명 */
+                ,sg.domain      /* 도메인 */
+                ,sg.attach_id   /*            첨부 아이디 */
+                ,sg.use_yn      /* 사용여부 */
+        FROM    TB_SGR sg
+        WHERE   1 = 1
+	</select>
+	
+	<!-- 교육사이트 보기 -->
+    <select id="select" resultType="SgrManageVo" parameterType="SgrManageVo">
+        SELECT  sg.sgr_cd       /* 교육사이트 코드 */
+                ,sg.sgr_nm      /* 교육사이트 명 */
+                ,sg.domain      /* 도메인 */
+                ,sg.attach_id   /* 첨부 아이디 */
+                ,sg.use_yn      /* 사용여부 */
+                ,sg.reg_id      /* 등록아이디 */
+                ,sg.reg_dt      /* 등록일 */
+                ,sg.reg_ip      /* 등록아이피 */
+                ,sg.upd_id      /* 수정 아이디 */
+                ,sg.upd_dt      /* 수정날짜 */
+                ,sg.upd_ip      /* 수정 아이피 */
+        FROM    TB_SGR sg
+        WHERE   sgr_cd      = #{sgrCd}
+    </select>
+</mapper>

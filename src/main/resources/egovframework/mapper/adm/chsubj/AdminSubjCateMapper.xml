@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsubj.service.impl.SubjCateManageMapper">
+
+	<select id="selectList" resultType="SubjCateManageVo" parameterType="SubjCateManageVo">
+		SELECT  sgr_cd                 /* 교육사이트 코드 */
+                ,cate_cd               /* 분류 일련번호 */
+                ,cate_nm               /* 분류 명 */
+                ,cate_path             /* 분류 경로 */
+                ,sort_order            /* 정렬 순서 */
+                ,use_yn                /* 사용 여부 */
+                ,upper_cate_cd         /* 상위 분류 일련번호 */
+                ,(SELECT COUNT(1) FROM TB_SUBJ_CATE WHERE upper_cate_cd = sc.cate_cd) AS under_cnt
+        FROM    TB_SUBJ_CATE sc
+        WHERE   1 = 1
+	</select>
+	
+	<!-- 과정 분류 보기 -->
+    <select id="select" resultType="SubjCateManageVo" parameterType="SubjCateManageVo">
+        SELECT  sgr_cd                /* 교육사이트 코드 */
+                ,cate_cd               /* 분류 일련번호 */
+                ,cate_nm               /* 분류 명 */
+                ,upper_cate_cd         /* 상위 분류 일련번호 */
+                ,cate_path             /* 분류 경로 */
+                ,cate_desc             /* 분류 설명 */
+                ,sort_order            /* 정렬 순서 */
+                ,use_yn                /* 사용 여부 */
+                ,special_yn                /* 신규 재위촉 구분 */
+        FROM    TB_SUBJ_CATE
+        WHERE   sgr_cd     = #{sgrCd}
+        <if test="cateCd != null and cateCd != '' ">
+            AND     cate_cd    = #{cateCd}
+        </if>
+    </select>
+	
+	<!-- 다음 정렬 순서 -->
+    <select id="selectNextSortOrder" resultType="int">
+        SELECT COALESCE(COUNT(cate_cd), 0) + 1 AS nextOrdr
+        FROM   TB_SUBJ_CATE
+        WHERE  sgr_cd               = #{sgrCd}
+        AND    upper_cate_cd    = #{upperCateCd}
+    </select>
+    
+    <!-- 과정 분류 보기 -->
+    <select id="selectUpper" resultType="SubjCateManageVo" parameterType="SubjCateManageVo">
+        SELECT  sgr_cd             /* 교육사이트 코드 */
+                ,cate_cd           /* 분류 일련번호 */
+                ,cate_nm           /* 분류 명 */
+                ,upper_cate_cd     /* 상위 분류 일련번호 */
+                ,cate_path         /* 분류 경로 */
+                ,cate_desc         /* 분류 설명 */
+                ,sort_order        /* 정렬 순서 */
+                ,use_yn            /* 사용 여부 */
+        FROM    TB_SUBJ_CATE
+        WHERE   sgr_cd         = #{sgrCd}
+        AND     cate_cd        = #{upperCateCd}
+    </select>
+    
+    <!-- 과정 분류 입력 -->
+    <insert id="insert">
+        INSERT INTO TB_SUBJ_CATE (
+             sgr_cd                 /* 교육사이트 코드 */
+            ,cate_cd                /* 분류 일련번호 */
+            ,cate_nm                /* 분류 명 */
+            ,upper_cate_cd          /* 상위 분류 일련번호 */
+            ,cate_path              /* 분류 경로 */
+            ,cate_desc              /* 분류 경로 */
+            ,sort_order             /* 정렬 순서 */
+            ,use_yn                 /* 사용 여부 */
+            ,reg_id                 /* 등록 아이디 */
+            ,reg_ip                 /* 등록 아이피 */
+            ,reg_dt                 /* 등록 일시 */
+            ,special_yn             /* 신규 재위촉 구분 */
+        ) VALUES (
+             #{sgrCd}
+            ,#{cateCd}
+            ,#{cateNm}
+            ,#{upperCateCd}
+            ,#{catePath}
+            ,#{cateDesc}
+            ,#{sortOrder}
+            ,'Y'
+            ,#{regId}
+            ,#{regIp}
+            ,NOW()
+            ,#{specialYn}
+        )
+    </insert>
+    
+    <!-- 과정 분류 수정 -->
+    <update id="update">
+        UPDATE  TB_SUBJ_CATE
+        SET      cate_nm          = #{cateNm}           /* 분류 명 */
+                ,cate_desc        = #{cateDesc}         /* 분류 설명 */
+                ,sort_order       = #{sortOrder}        /* 정렬 순서 */
+                ,use_yn           = #{useYn}            /* 사용 여부 */
+                ,upd_id           = #{updId}            /* 수정 아이디 */
+                ,upd_ip           = #{updIp}            /* 수정 아이피 */
+                ,upd_dt           = NOW()               /* 수정 일시 */
+                ,special_yn       = #{specialYn}        /* 신규 재위촉 구분 */
+        WHERE   sgr_cd            = #{sgrCd}
+        AND     cate_cd           = #{cateCd}
+    </update>
+    
+    <!-- 과정 분류 삭제 -->
+	<delete id="delete">
+	    DELETE
+	    FROM TB_SUBJ_CATE
+	    WHERE sgr_cd = #{sgrCd}
+	      AND CONCAT(cate_path, '/')
+	          LIKE (
+	                SELECT CONCAT(temp.cate_path, '%')
+	                FROM (
+	                        SELECT CONCAT(cate_path, '/') AS cate_path
+	                        FROM TB_SUBJ_CATE
+	                        WHERE sgr_cd = #{sgrCd}
+	                          AND cate_cd = #{cateCd}
+	                     ) temp
+	          )
+	</delete>
+</mapper>
