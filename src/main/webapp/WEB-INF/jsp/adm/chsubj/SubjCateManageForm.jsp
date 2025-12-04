@@ -110,151 +110,144 @@ function fnCmdDelete() {
 
 </script>
 
- <section>
-        <form id="detailForm" name="detailForm" method="post">
+<section>
+  <form id="detailForm" name="detailForm" method="post">
 
-            <!-- hidden 값들 -->
-            <input type="hidden" id="sgrCd" name="sgrCd" value="${sgrMap.sgrCd}" />
-            <c:if test="${resultMap.cateCd != null}">
-                <input type="hidden" id="cateCd" name="cateCd" value="${resultMap.cateCd}" />
-            </c:if>
-            <input type="hidden" id="upperCateCd" name="upperCateCd"
-                   value="${empty resultUpperMap.cateCd ? sgrMap.sgrCd : resultUpperMap.cateCd}" />
-            <input type="hidden" id="pageIndex" name="pageIndex" value="${searchVo.pageIndex}" />
+    <!-- hidden 값들 -->
+    <input type="hidden" id="sgrCd" name="sgrCd" value="${sgrMap.sgrCd}" />
+    <c:if test="${resultMap.cateCd != null}">
+      <input type="hidden" id="cateCd" name="cateCd" value="${resultMap.cateCd}" />
+    </c:if>
+    <input type="hidden" id="upperCateCd" name="upperCateCd"
+           value="${empty resultUpperMap.cateCd ? sgrMap.sgrCd : resultUpperMap.cateCd}" />
+    <input type="hidden" id="pageIndex" name="pageIndex" value="${searchVo.pageIndex}" />
 
-            <!-- 교육사이트 정보 -->
-            <table class="table00" width="80%">
-                <colgroup>
-                    <col width="150" />
-                    <col width="*" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th><span class="red">* </span>교육사이트</th>
-                        <td><c:out value="${sgrMap.sgrNm}" /></td>
-                    </tr>
-                </tbody>
-            </table>
+    <table class="detail">
+      <colgroup>
+        <col width="15%" />
+        <col width="*" />
+      </colgroup>
+      <tbody>
+        <!-- 교육사이트 정보 -->
+        <tr>
+          <th><span class="red">*</span> 교육사이트</th>
+          <td>
+            <c:out value="${sgrMap.sgrNm}" />
+          </td>
+        </tr>
 
-            <!-- 상위 분류 -->
-            <c:if test="${not empty resultUpperMap}">
-                <table class="table00" width="80%">
-                    <colgroup>
-                        <col width="150" />
-                        <col width="*" />
-                    </colgroup>
-                    <tbody>
-                        <tr>
-                            <th>상위 분류</th>
-                            <td>
-                                <c:out value="${resultUpperMap.cateNm}" />
-                                (<c:out value="${resultUpperMap.cateCd}" />)
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </c:if>
+        <!-- 상위 분류 -->
+        <c:if test="${not empty resultUpperMap}">
+          <tr>
+            <th>상위 분류</th>
+            <td>
+              <c:out value="${resultUpperMap.cateNm}" />
+              (<c:out value="${resultUpperMap.cateCd}" />)
+            </td>
+          </tr>
+        </c:if>
 
-            <!-- 분류 정보 입력 -->
-            <table class="table00" width="80%">
-                <colgroup>
-                    <col width="150" />
-                    <col width="*" />
-                </colgroup>
-                <tbody>
-                    <tr>
-                        <th><span class="red">* </span>분류명</th>
-                        <td>
-                            <input type="text"
-                                   id="cateNm"
-                                   name="cateNm"
-                                   value="${resultMap.cateNm}"
-                                   title="분류명"
-                                   class="required q1" />
-                        </td>
-                    </tr>
+        <!-- 분류명 -->
+        <tr>
+          <th><span class="red">*</span> 분류명</th>
+          <td>
+            <input type="text"
+                   id="cateNm"
+                   name="cateNm"
+                   value="${resultMap.cateNm}"
+                   title="분류명"
+                   class="required q1"
+                   style="width: 100%;" />
+          </td>
+        </tr>
 
-                    <!-- 신규일 때만 분류코드 직접 입력 -->
-                    <c:if test="${resultMap.cateCd == null}">
-                        <tr>
-                            <th>분류 코드</th>
-                            <td>
-                                <input type="text"
-                                       id="cateCdInput"
-                                       name="cateCd"
-                                       value="${resultMap.cateCd}"
-                                       title="분류 코드"
-                                       class="required q1" />
-                            </td>
-                        </tr>
-                    </c:if>
+        <!-- 신규일 때만 분류코드 직접 입력 -->
+        <c:if test="${resultMap.cateCd == null}">
+          <tr>
+            <th>분류 코드</th>
+            <td>
+              <input type="text"
+                     id="cateCdInput"
+                     name="cateCd"
+                     value="${resultMap.cateCd}"
+                     title="분류 코드"
+                     class="required q1"
+                     style="width: 50%;" />
+            </td>
+          </tr>
+        </c:if>
 
-                    <tr>
-                        <th>분류 설명</th>
-                        <td>
-                            <textarea id="cateDesc"
-                                      name="cateDesc"
-                                      title="분류설명"
-                                      class="q4"
-                                      rows="3">${resultMap.cateDesc}</textarea>
-                        </td>
-                    </tr>
+        <!-- 분류 설명 -->
+        <tr>
+          <th>분류 설명</th>
+          <td>
+            <textarea id="cateDesc"
+                      name="cateDesc"
+                      title="분류설명"
+                      class="q4"
+                      rows="3"
+                      style="width: 100%;">${resultMap.cateDesc}</textarea>
+          </td>
+        </tr>
 
-                    <tr>
-                        <th>정렬 순서</th>
-                        <td>
-                            <input type="text"
-                                   id="sortOrder"
-                                   name="sortOrder"
-                                   size="3"
-                                   title="정렬 순서"
-                                   value="${empty resultMap.sortOrder ? sortOrder : resultMap.sortOrder}" />
-                        </td>
-                    </tr>
+        <!-- 정렬 순서 -->
+        <tr>
+          <th>정렬 순서</th>
+          <td>
+            <input type="text"
+                   id="sortOrder"
+                   name="sortOrder"
+                   size="3"
+                   title="정렬 순서"
+                   value="${empty resultMap.sortOrder ? sortOrder : resultMap.sortOrder}"
+                   style="width: 80px;" />
+          </td>
+        </tr>
 
-                    <tr>
-                        <th>사용 여부</th>
-                        <td>
-                            <label>
-                                <input type="radio" name="useYn" value="Y"
-                                    <c:if test="${empty resultMap.useYn or resultMap.useYn eq 'Y'}">checked="checked"</c:if> />
-                                사용
-                            </label>
-                            &nbsp;&nbsp;
-                            <label>
-                                <input type="radio" name="useYn" value="N"
-                                    <c:if test="${resultMap.useYn eq 'N'}">checked="checked"</c:if> />
-                                미사용
-                            </label>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- 사용 여부 -->
+        <tr>
+          <th>사용 여부</th>
+          <td>
+            <label>
+              <input type="radio" name="useYn" value="Y"
+                     <c:if test="${empty resultMap.useYn or resultMap.useYn eq 'Y'}">checked="checked"</c:if> />
+              사용
+            </label>
+            &nbsp;&nbsp;
+            <label>
+              <input type="radio" name="useYn" value="N"
+                     <c:if test="${resultMap.useYn eq 'N'}">checked="checked"</c:if> />
+              미사용
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-            <br />
+    <!-- 버튼 영역 -->
+    <div class="text-right btn-area" style="margin-top: 20px;">
+      <!-- 저장 / 수정 -->
+      <button type="button" onclick="fnCmdSave();" class="point">
+        ${buttonSaveText}
+      </button>
 
-            <!-- 버튼 영역 -->
-            <div class="text-right btn-area">
-                <a href="javascript:void(0);" onclick="fnCmdSave();" class="btn btn_01">
-                    ${buttonSaveText}
-                </a>
+      <!-- 계속등록 (신규일 때만) -->
+      <c:if test="${cmd eq 'Insert'}">
+        <button type="button" onclick="fnCmdKeep();">
+          계속등록
+        </button>
+      </c:if>
 
-                <c:if test="${cmd eq 'Insert'}">
-                    <a href="javascript:void(0);" onclick="fnCmdKeep();" class="btn btn_01">
-                        계속등록
-                    </a>
-                </c:if>
+      <!-- 삭제 (수정일 때만) -->
+      <c:if test="${cmd eq 'Update'}">
+        <button type="button" onclick="fnCmdDelete();">
+          삭제
+        </button>
+      </c:if>
 
-                <c:if test="${cmd eq 'Update'}">
-                    <a href="javascript:void(0);" onclick="fnCmdDelete();" class="btn btn_01">
-                        삭제
-                    </a>
-                </c:if>
+      <!-- 목록 -->
+      <a href="javascript:fnCmdList();">목록</a>
+    </div>
 
-                <a href="javascript:void(0);" onclick="fnCmdList();" class="btn btn_01">
-                    목록
-                </a>
-            </div>
-
-        </form>
-    </section>
+  </form>
+</section>

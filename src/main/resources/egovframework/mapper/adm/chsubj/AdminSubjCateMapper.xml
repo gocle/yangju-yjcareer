@@ -26,7 +26,6 @@
                 ,cate_desc             /* 분류 설명 */
                 ,sort_order            /* 정렬 순서 */
                 ,use_yn                /* 사용 여부 */
-                ,special_yn                /* 신규 재위촉 구분 */
         FROM    TB_SUBJ_CATE
         WHERE   sgr_cd     = #{sgrCd}
         <if test="cateCd != null and cateCd != '' ">
@@ -71,7 +70,6 @@
             ,reg_id                 /* 등록 아이디 */
             ,reg_ip                 /* 등록 아이피 */
             ,reg_dt                 /* 등록 일시 */
-            ,special_yn             /* 신규 재위촉 구분 */
         ) VALUES (
              #{sgrCd}
             ,#{cateCd}
@@ -84,7 +82,6 @@
             ,#{regId}
             ,#{regIp}
             ,NOW()
-            ,#{specialYn}
         )
     </insert>
     
@@ -98,7 +95,6 @@
                 ,upd_id           = #{updId}            /* 수정 아이디 */
                 ,upd_ip           = #{updIp}            /* 수정 아이피 */
                 ,upd_dt           = NOW()               /* 수정 일시 */
-                ,special_yn       = #{specialYn}        /* 신규 재위촉 구분 */
         WHERE   sgr_cd            = #{sgrCd}
         AND     cate_cd           = #{cateCd}
     </update>
