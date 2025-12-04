@@ -105,6 +105,12 @@ public class BoardArticleVO extends BaseVO implements Serializable{
     
     private String processStatus;  //QnA 처리상태
     
+    private String zipCode;
+    
+    private String address;
+    
+    private String addressDtl;
+    
 	public String getBaId() {
 		return baId;
 	}
@@ -392,6 +398,24 @@ public class BoardArticleVO extends BaseVO implements Serializable{
 	}
 	public void setProcessStatus(String processStatus) {
 		this.processStatus = processStatus;
+	}
+	public String getZipCode() {
+		return zipCode;
+	}
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	public String getAddressDtl() {
+		return addressDtl;
+	}
+	public void setAddressDtl(String addressDtl) {
+		this.addressDtl = addressDtl;
 	}
     
 }

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.company.service.impl.CompanyManageMapper">
+
+	<select id="listBoardArticle" resultType="CompanyManageVo" parameterType="CompanyManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT  COM_ID                 
+                ,COM_TITLE               
+                ,COM_INTRO               
+                ,NOTE       
+                ,address
+	            ,zip_code
+	            ,address_dtl
+                ,REG_DT      
+        FROM    COM_COMPANY sc
+        WHERE   1 = 1
+        <include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<!-- 과정 분류 보기 -->
+    <select id="getBoardArticle" resultType="CompanyManageVo" parameterType="CompanyManageVo">
+		SELECT  COM_ID                 
+                ,COM_TITLE               
+                ,COM_INTRO               
+                ,NOTE       
+                ,address
+	            ,zip_code
+	            ,address_dtl
+	            ,USE_YN
+                ,REG_DT            
+        FROM    COM_COMPANY sc
+        WHERE   COM_ID     = #{comId}
+    </select>
+    
+    <!-- 과정 분류 입력 -->
+    <insert id="insertBoardArticle">
+        INSERT INTO COM_COMPANY (
+             com_id                 
+            ,com_title              
+            ,com_intro
+            ,use_yn
+            ,note 
+            ,address
+            ,zip_code
+            ,address_dtl                
+            ,reg_id                 
+            ,reg_dt                 
+        ) VALUES (
+             #{comId}
+            ,#{comTitle}
+            ,#{comIntro}
+            ,#{useYn}
+            ,#{note}
+            ,#{address}
+            ,#{zipCode}
+            ,#{addressDtl}
+            ,#{regId}
+            ,NOW()
+        )
+    </insert>
+    
+    <!-- 과정 분류 수정 -->
+    <update id="updateBoardArticle">
+        UPDATE  COM_COMPANY
+        SET      com_title        = #{comTitle}           
+        		,com_intro        = #{comIntro}           
+        		,note 			  = #{note} 
+        		,address          = #{address}        
+        		,zip_code         = #{zipCode}        
+                ,address_dtl      = #{addressDtl}        
+                ,use_yn           = #{useYn}           
+                ,upd_id           = #{regId}            
+                ,upd_dt           = NOW()             
+        WHERE   com_id            = #{comId}
+    </update>
+    
+    <!-- 과정 분류 삭제 -->
+	<delete id="deleteBoardArticle">
+	    DELETE
+	    FROM COM_COMPANY
+	    WHERE com_id = #{comId}
+	</delete>
+</mapper>

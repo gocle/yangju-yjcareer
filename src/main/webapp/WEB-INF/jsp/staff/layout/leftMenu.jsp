@@ -5,7 +5,7 @@
 <body>
 <div class="wrapper nav-default" >
 	<header>
-		<a href="#" class="logo"><img src="/forest/assets/css/adm/img/logo_admin.png" alt="Yangju 양주시"></a>
+		<a href="#" class="logo"><img src="${contextRoot}/assets/css/adm/img/logo_admin.png" alt="Yangju 양주시"></a>
 		<div>
 			<span>${SESSION_MEM_NAME} 님 로그인 중입니다.</span>
 			<button type="button" class="btn-link" data-target="${contextRoot}/adm/logout.do" title="Logout">로그아웃</button>

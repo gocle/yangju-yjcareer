@@ -38,6 +38,7 @@
 	    <typeAlias alias="UserProgramTimeVO" type="com.gocle.yangju.forest.usr.time.vo.UserProgramTimeVO" />
 	    <typeAlias alias="SubjCateManageVo" type="com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo" />
 	    <typeAlias alias="SgrManageVo" type="com.gocle.yangju.forest.adm.chsgr.vo.SgrManageVo" />
+	    <typeAlias alias="CompanyManageVo" type="com.gocle.yangju.forest.adm.company.vo.CompanyManageVo" />
 	</typeAliases>
 	
 </configuration>
