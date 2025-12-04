@@ -17,7 +17,7 @@
         <include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	
-	<!-- 과정 분류 보기 -->
+	<!-- 기관 보기 -->
     <select id="getBoardArticle" resultType="CompanyManageVo" parameterType="CompanyManageVo">
 		SELECT  COM_ID                 
                 ,COM_TITLE               
@@ -32,7 +32,7 @@
         WHERE   COM_ID     = #{comId}
     </select>
     
-    <!-- 과정 분류 입력 -->
+    <!-- 기관 입력 -->
     <insert id="insertBoardArticle">
         INSERT INTO COM_COMPANY (
              com_id                 
@@ -59,7 +59,7 @@
         )
     </insert>
     
-    <!-- 과정 분류 수정 -->
+    <!-- 기관 수정 -->
     <update id="updateBoardArticle">
         UPDATE  COM_COMPANY
         SET      com_title        = #{comTitle}           
@@ -74,10 +74,38 @@
         WHERE   com_id            = #{comId}
     </update>
     
-    <!-- 과정 분류 삭제 -->
+    <!-- 기관 삭제 -->
 	<delete id="deleteBoardArticle">
 	    DELETE
 	    FROM COM_COMPANY
 	    WHERE com_id = #{comId}
 	</delete>
+	
+	<!-- 교육 장소 등록 -->
+    <insert id="insertCompanyLocation">
+        INSERT INTO COMPANY_LOCATION (
+             com_id                 
+            ,seq_no              
+            ,location                
+        ) VALUES (
+             #{comId}
+            ,#{seqNo}
+            ,#{location}
+        )
+    </insert>
+    
+    <!-- 교육 장소 삭제 -->
+	<delete id="deleteCompanyLocation">
+	    DELETE
+	    FROM COMPANY_LOCATION
+	    WHERE com_id = #{comId}
+	</delete>
+	
+	<select id="getLocation" resultType="CompanyManageVo" parameterType="CompanyManageVo">
+		SELECT  COM_ID             
+                ,SEQ_NO             
+                ,LOCATION         
+        FROM    COMPANY_LOCATION
+        WHERE   1 = 1
+	</select>
 </mapper>

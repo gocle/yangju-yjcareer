@@ -237,21 +237,21 @@ function fn_goSearchDoroCodePop(){
 				  </tbody>
 				</table>
 				
-				<h3>기관 장소</h3> <!-- <button type="button" onclick="addHistoryRow()">이력 추가</button> -->
+				<h3 style="margin-top:20px;">교육 장소</h3> <!-- <button type="button" onclick="addHistoryRow()">이력 추가</button> -->
 				<p style="text-align: right; margin-top: 10px; width:50%;">
 					<button type="button" style="display: inline-block; font-size: 12px;color: #FFF;border: none; padding: 3px 8px; background-color: black;" onclick="addHistoryRow()" class="type-3">장소 추가</button>
 				</p>
-				<table class="detail" id="historyTable" style="width:50%;">
+				<table class="detail" id="locationTable" style="width:50%;">
 				  <colgroup>
 				  <col width="30%">
 				  <col width="70%">
 				  </colgroup>
 				  <tbody>
-				  	<c:if test = "${empty selectCompanyHistory}">
+				  	<c:if test = "${empty companyLocation}">
 				    <tr>
 					    <th>장소</th>
 					    <td style="display: flex; align-items: center; gap: 8px; height:auto;">
-					    <input type="text" name="historyInfoList" value="" style="width:50%">
+					    <input type="text" name="location" value="" style="width:50%">
 					    <div>
 					    	<p>
 					    		<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>
@@ -259,12 +259,13 @@ function fn_goSearchDoroCodePop(){
 					    </div>
 					    </td>
 				    </tr>
-				    <c:if test = "${!empty selectCompanyHistory}">
-				    <c:forEach var="list" items="${selectCompanyHistory}" varStatus="status"> 
+				    </c:if>
+				    <c:if test = "${!empty companyLocation}">
+				    <c:forEach var="list" items="${companyLocation}" varStatus="status"> 
 				    <tr>
 					    <th>장소</th>
-					    <td style="display: flex; align-items: center; gap: 8px;">
-					    <input type="text" name="historyInfoList" value="${list.historyInfo}" style="width:50%">
+					    <td style="display: flex; align-items: center; gap: 8px; height:auto;">
+					    <input type="text" name="location" value="${list.location}" style="width:50%">
 					    <div>
 						    <p>
 								<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>
@@ -283,7 +284,7 @@ function fn_goSearchDoroCodePop(){
 				function addHistoryRow() {
 					let row = '<tr>';
 					row += '<th>장소</th>';
-					row += '<td style="display: flex; align-items: center; gap: 8px; height:auto;"><input type="text" name="historyInfoList" style="width:50%">';
+					row += '<td style="display: flex; align-items: center; gap: 8px; height:auto;"><input type="text" name="location" style="width:50%">';
 					row += '	<div>';
 					row += '		<p>';
 					row += '			<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>';
@@ -292,7 +293,7 @@ function fn_goSearchDoroCodePop(){
 					row += '		</p>';
 					row += '	</div>';
 					row += '</tr>';
-					  document.querySelector("#historyTable tbody").insertAdjacentHTML("beforeend", row);
+					  document.querySelector("#locationTable tbody").insertAdjacentHTML("beforeend", row);
 					}
 
 					function removeRow(btn) {
@@ -316,7 +317,6 @@ function fn_goSearchDoroCodePop(){
 					    }
 					}
 				</script>
-				</c:if>
 		</form>
 					<div class="text-right btn-area">
 					<c:choose>

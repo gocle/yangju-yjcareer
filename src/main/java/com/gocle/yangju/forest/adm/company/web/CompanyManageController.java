@@ -154,6 +154,10 @@ public class CompanyManageController {
 		
 		model.addAttribute("companyManageVo", companyManageVo);
 		
+		List<CompanyManageVo> companyLocation = companyManageService.getLocation(companyManageVo);
+		
+		model.addAttribute("companyLocation", companyLocation);
+		
 		returnPage = "/adm/company/form";
 		
 		return returnPage;

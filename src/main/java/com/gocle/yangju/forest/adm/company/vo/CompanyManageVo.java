@@ -23,6 +23,10 @@ public class CompanyManageVo extends BaseVO {
     
     private String addressDtl; 	//상세 주소
 
+    private String location;
+    
+    private int seqNo;
+    
 	public String getComId() {
 		return comId;
 	}
@@ -82,8 +86,25 @@ public class CompanyManageVo extends BaseVO {
 	public String getNote() {
 		return note;
 	}
+	
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public int getSeqNo() {
+		return seqNo;
+	}
+
+	public void setSeqNo(int seqNo) {
+		this.seqNo = seqNo;
 	}
 	
 }

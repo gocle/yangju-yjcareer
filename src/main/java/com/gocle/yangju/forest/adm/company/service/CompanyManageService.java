@@ -15,5 +15,7 @@ public interface CompanyManageService {
 	int updateBoardArticle(CompanyManageVo companyManageVo) throws Exception;
 
 	int deleteBoardArticle(CompanyManageVo companyManageVo) throws Exception;
+
+	List<CompanyManageVo> getLocation(CompanyManageVo companyManageVo) throws Exception;
 	
 }

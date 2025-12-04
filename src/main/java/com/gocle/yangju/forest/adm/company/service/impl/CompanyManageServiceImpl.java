@@ -36,6 +36,19 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		
 		int data = companyManageMapper.insertBoardArticle(companyManageVo);
 		
+		String[] locations = companyManageVo.getLocation().split(",");
+		
+		for (int i = 0; i < locations.length; i++) {
+
+		    String loc = locations[i].trim(); // 공백 제거
+		    if (loc.isEmpty()) continue;      // 빈 값은 건너뛰기
+
+		    companyManageVo.setSeqNo(i + 1);  // i=0 → seq 1
+		    companyManageVo.setLocation(loc); // 각 location 세팅
+
+		    companyManageMapper.insertCompanyLocation(companyManageVo);
+		}
+		
 		return data;
 	}
 
@@ -50,6 +63,21 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		
 		int data = companyManageMapper.updateBoardArticle(companyManageVo);
 		
+		 companyManageMapper.deleteCompanyLocation(companyManageVo);
+		
+		String[] locations = companyManageVo.getLocation().split(",");
+		
+		for (int i = 0; i < locations.length; i++) {
+
+		    String loc = locations[i].trim(); // 공백 제거
+		    if (loc.isEmpty()) continue;      // 빈 값은 건너뛰기
+
+		    companyManageVo.setSeqNo(i + 1);  // i=0 → seq 1
+		    companyManageVo.setLocation(loc); // 각 location 세팅
+
+		    companyManageMapper.insertCompanyLocation(companyManageVo);
+		}
+		
 		return data;
 	}
 	
@@ -59,6 +87,12 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		int data = companyManageMapper.deleteBoardArticle(companyManageVo);
 		
 		return data;
+	}
+
+	@Override
+	public List<CompanyManageVo> getLocation(CompanyManageVo companyManageVo) throws Exception {
+		
+		return companyManageMapper.getLocation(companyManageVo);
 	}
 	
 }
