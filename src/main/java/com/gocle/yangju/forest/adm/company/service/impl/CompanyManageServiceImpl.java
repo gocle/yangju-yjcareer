@@ -63,7 +63,7 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		
 		int data = companyManageMapper.updateBoardArticle(companyManageVo);
 		
-		 companyManageMapper.deleteCompanyLocation(companyManageVo);
+		companyManageMapper.deleteCompanyLocation(companyManageVo);
 		
 		String[] locations = companyManageVo.getLocation().split(",");
 		
@@ -85,6 +85,8 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 	public int deleteBoardArticle(CompanyManageVo companyManageVo) throws Exception {
 		
 		int data = companyManageMapper.deleteBoardArticle(companyManageVo);
+		
+		companyManageMapper.deleteCompanyLocation(companyManageVo);
 		
 		return data;
 	}
