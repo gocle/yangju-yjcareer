@@ -5,17 +5,22 @@
 <%@ include file="/WEB-INF/jsp/adm/include/common.jsp" %>
 <c:import url="/adm/menu/leftMenu.do" />
 
-<script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
-<script type="text/javascript">
-var oEditors = [];
+<%-- <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script> --%> <!-- 기존 스마트에디터 -->
 
- $(document).ready(function() {
-	
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script> <!-- CKEditor -->
+
+<script type="text/javascript">
+var comIntroEditor;
+
+<!-- 기존 스마트에디터 -->
+/* var oEditors = []; */
+
+/* $(document).ready(function() {
 	
 	initEditor();	 
-}); 
-
-function initEditor() {
+});  */
+ 
+/* function initEditor() {
 	//Smart Editor
 	nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
@@ -32,7 +37,72 @@ function initEditor() {
 		},
 		fCreator: "createSEditor2"
 	});
+} */
+
+<!-- CKEditor -->
+//파일을 Base64로 읽어서 CKEditor에 넣어주는 업로드 어댑터
+class MyUploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+
+    // 파일 업로드 로직
+    upload() {
+        return this.loader.file.then(file => {
+            return new Promise((resolve, reject) => {
+
+                const data = new FormData();
+                data.append('file', file);
+
+                const uploadUrl = '${contextRoot}/ckeditor/ckeditorUpload.jsp';
+
+                fetch(uploadUrl, {
+                    method: 'POST',
+                    body: data
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(res => {
+                    resolve({
+                        default: res.url
+                    });
+                })
+                .catch(error => {
+                    console.error(error);
+                    reject(error);
+                });
+            });
+        });
+    }
+
+    abort() {}
 }
+
+// CKEditor에 위 어댑터를 연결하는 플러그인
+function MyCustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new MyUploadAdapter(loader);
+    };
+}
+
+$(document).ready(function() {
+
+    ClassicEditor
+        .create(document.querySelector('#comIntro'), {
+            extraPlugins: [ MyCustomUploadAdapterPlugin ]   // 여기!
+        })
+        .then(editor => {
+            comIntroEditor = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+});
 
 
 function fn_save(){
@@ -42,13 +112,26 @@ function fn_save(){
         return false; // 사용자가 [취소] 누르면 저장 안 함
     }
 	
-	var data =oEditors.getById["comIntro"].getIR();
+	/* var data =oEditors.getById["comIntro"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("소개를 입력 하세요.");
 		oEditors.getById["comIntro"].exec("FOCUS"); 
 		return false;
-	}
+	} */
+	
+	// CKEditor에서 HTML 내용 가져오기
+	var data = comIntroEditor.getData();
+
+    // 태그 제거해서 실제 내용 비어있는지 확인
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+		alert("소개를 입력 하세요.");
+        // CKEditor 포커스
+		comIntroEditor.editing.view.focus();
+		return false;
+	};
 	
 
 	
@@ -69,7 +152,7 @@ function fn_update() {
         return false; // 사용자가 [취소] 누르면 저장 안 함
     }
 	
-	var data =oEditors.getById["comIntro"].getIR();
+	/* var data =oEditors.getById["comIntro"].getIR();
 	
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	
@@ -77,7 +160,20 @@ function fn_update() {
 		alert("내용을 입력 하세요.");
 		oEditors.getById["comIntro"].exec("FOCUS"); 
 		return false;
-	}
+	} */
+	
+	// CKEditor에서 HTML 내용 가져오기
+	var data = comIntroEditor.getData();
+
+    // 태그 제거해서 실제 내용 비어있는지 확인
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+		alert("소개를 입력 하세요.");
+        // CKEditor 포커스
+		comIntroEditor.editing.view.focus();
+		return false;
+	};
 	
     $("#comIntro").val(data);
 	
