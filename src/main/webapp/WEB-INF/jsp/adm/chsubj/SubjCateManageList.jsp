@@ -241,6 +241,7 @@ function fnOrderUpdate(name, tbnm) {
 		<tbody>
 			<c:forEach var="item" items="${sgrManageList}" varStatus="itemStatus">
 				<!-- 루트 행 -->
+				<c:if test="${item.sgrCd eq subjCateManageVo.searchSgrCd || empty subjCateManageVo.searchSgrCd}">
 				<tr>
 					<td></td>
 					<td class="al" style="font-weight: bold;"></td>
@@ -256,9 +257,11 @@ function fnOrderUpdate(name, tbnm) {
 					<td style="text-align: center;">-</td>
 					<td style="text-align: center;">-</td>
 				</tr>
+				</c:if>
 
 				<!-- 하위 분류 목록 -->
 				<c:forEach var="result" items="${resultList}" varStatus="resultStatus">
+					<c:if test="${result.sgrCd eq subjCateManageVo.searchSgrCd || empty subjCateManageVo.searchSgrCd}">
 					<c:if test="${result.sgrCd eq item.sgrCd}">
 						<tr>
 							<td style="text-align: center;" class="radio">
@@ -307,6 +310,7 @@ function fnOrderUpdate(name, tbnm) {
 								</c:otherwise>
 							</c:choose>
 						</tr>
+					</c:if>
 					</c:if>
 				</c:forEach>
 			</c:forEach>

@@ -81,6 +81,12 @@ function fnCmdSave() {
         $("#cateNm").focus();
         return false;
     }
+    
+    if ($.trim($("#cateCd").val()) === "") {
+        alert("분류 코드를 입력해 주세요.");
+        $("#cateCd").focus();
+        return false;
+    }
 
     $("#detailForm").attr("action", "${cmdUrl}");
     $("#detailForm").submit();
@@ -91,6 +97,12 @@ function fnCmdKeep() {
     if ($.trim($("#cateNm").val()) === "") {
         alert("분류명을 입력해 주세요.");
         $("#cateNm").focus();
+        return false;
+    }
+    
+    if ($.trim($("#cateCd").val()) === "") {
+        alert("분류 코드를 입력해 주세요.");
+        $("#cateCd").focus();
         return false;
     }
 
@@ -167,7 +179,7 @@ function fnCmdDelete() {
             <th>분류 코드</th>
             <td>
               <input type="text"
-                     id="cateCdInput"
+                     id="cateCd"
                      name="cateCd"
                      value="${resultMap.cateCd}"
                      title="분류 코드"

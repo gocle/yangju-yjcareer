@@ -14,6 +14,34 @@
                 ,REG_DT      
         FROM    COM_COMPANY sc
         WHERE   1 = 1
+        
+        <if test="searchCondition != null and searchCondition != ''">
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	        	<choose>
+	        		<when test="searchCondition == 'ALL'">
+			   			<![CDATA[ AND (REGEXP_REPLACE(COM_TITLE, '<[^>]*>', '') LIKE CONCAT('%', #{searchKeyword}, '%') OR REGEXP_REPLACE(COM_INTRO, '<[^>]*>', '') LIKE CONCAT('%', #{searchKeyword}, '%')) ]]> 
+			    	</when>
+			   		<when test="searchCondition == 'COM_TITLE'">
+			   			<![CDATA[ AND REGEXP_REPLACE(COM_TITLE, '<[^>]*>', '') LIKE CONCAT('%', #{searchKeyword}, '%') ]]>
+			    	</when>
+			    	<when test="searchCondition == 'COM_INTRO'">
+			   			<![CDATA[ AND REGEXP_REPLACE(COM_INTRO, '<[^>]*>', '') LIKE CONCAT('%', #{searchKeyword}, '%') ]]>
+			    	</when>
+				    <otherwise>
+				      	AND ${searchCondition} LIKE CONCAT('%', #{searchKeyword}, '%')
+				    </otherwise>
+			  </choose>
+	        </if>
+	    </if>
+	    
+		<if test="searchCondition == null or searchCondition == ''">
+		    <if test="searchKeyword != null and searchKeyword != ''">
+		        AND (
+		            CA.BA_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+		            <![CDATA[ OR REGEXP_REPLACE(CA.BA_CONTENT_HTML, '<[^>]*>', '') LIKE CONCAT('%', #{searchKeyword}, '%') ]]>
+		        )
+		    </if>
+	    </if>
         <include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	

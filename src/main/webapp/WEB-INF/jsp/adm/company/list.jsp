@@ -109,8 +109,9 @@ function fn_search(param1){
 							<label><i class="fa fa-angle-right"></i> 검색조건</label>
 							
 							 <select id="searchCondition" name="searchCondition">
-								<option>전체</option>		<!--아직 미수정  -->
-								<option value="COM_TITLE"  ${param.searchCondition == 'COM_TITLE' ? 'selected="selected"' : ''}>제목</option>
+								<option value="ALL">전체</option>		<!--아직 미수정  -->
+								<option value="COM_TITLE"  ${param.searchCondition == 'COM_TITLE' ? 'selected="selected"' : ''}>기관 명</option>
+								<option value="COM_INTRO"  ${param.searchCondition == 'COM_INTRO' ? 'selected="selected"' : ''}>기관 소개</option>
 							</select> 
 							<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
 						</li>

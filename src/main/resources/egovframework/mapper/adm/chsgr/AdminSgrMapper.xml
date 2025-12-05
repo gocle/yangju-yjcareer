@@ -8,6 +8,9 @@
                 ,sg.use_yn      /* 사용여부 */
         FROM    TB_SGR sg
         WHERE   1 = 1
+        <!-- <if test="searchSgrCd != null and searchSgrCd != ''">
+			AND sgr_cd = #{searchSgrCd}
+	    </if> -->
 	</select>
 	
 	<!-- 교육사이트 보기 -->

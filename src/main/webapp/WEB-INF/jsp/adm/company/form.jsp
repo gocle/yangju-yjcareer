@@ -91,13 +91,12 @@ function fn_update() {
 
 //유효성 검사 함수
 function validateForm() {
-	var title = $("#comTitle").val();
 	
-	if (title.trim() === "") {
-	    alert("기관명을 입력 하세요");
-	    $("#comTitle").focus();
-	    return false;
-	}
+	if ($.trim($("#comTitle").val()) === "") {
+        alert("기관명을 입력해 주세요.");
+        $("#comTitle").focus();
+        return false;
+    }
 
     return true;
 }

@@ -52,6 +52,9 @@ public class SubjCateManageController {
         SgrManageVo sgrManageVo = new SgrManageVo();
         sgrManageVo.setSearchSgrCd(subjCateManageVo.getSearchSgrCd());
         
+        System.out.println("11111111");
+        System.out.println(sgrManageVo.getSearchSgrCd());
+        
         model.addAttribute("sgrManageList", this.sgrManageService.selectList(sgrManageVo)); // 교육사이트 목록
         model.addAttribute("resultList", this.subjCateManageService.selectList(subjCateManageVo));
 
