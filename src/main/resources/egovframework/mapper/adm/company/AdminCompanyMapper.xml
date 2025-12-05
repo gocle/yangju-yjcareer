@@ -135,5 +135,6 @@
                 ,LOCATION         
         FROM    COMPANY_LOCATION
         WHERE   1 = 1
+        AND     com_id = #{comId}
 	</select>
 </mapper>
