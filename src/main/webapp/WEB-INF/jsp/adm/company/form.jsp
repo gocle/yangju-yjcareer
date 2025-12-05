@@ -201,7 +201,7 @@ function fn_goSearchDoroCodePop(){
 					<tr>
 						<th>기관소개</th>
 						<td colspan="3">
-						<input type="text" style="width: 100%" name="comIntro" id="comIntro" value="${companyManageVo.comIntro}">
+						<textarea style="width: 100%" name="comIntro" id="comIntro">${companyManageVo.comIntro}</textarea>
 						</td>
 					</tr>
 					<tr>

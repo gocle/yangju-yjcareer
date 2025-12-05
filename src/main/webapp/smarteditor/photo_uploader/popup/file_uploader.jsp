@@ -65,7 +65,7 @@ if (ServletFileUpload.isMultipartContent(request)){
                 os.close();
                 ///////////////// 서버에 파일쓰기 /////////////////
               //return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/upload/"+realname;
-                return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/forest/editorImages/"+realname;
+                return3 += "&bNewLine=true&sFileName="+name+"&sFileURL=/yjcareer/editorImages/"+realname;
             }else {
                 return3 += "&errstr=error";
             }
