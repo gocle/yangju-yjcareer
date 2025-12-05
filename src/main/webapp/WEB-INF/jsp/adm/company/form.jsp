@@ -7,10 +7,20 @@
 
 <%-- <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script> --%> <!-- 기존 스마트에디터 -->
 
-<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script> <!-- CKEditor -->
+<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
 
 <script type="text/javascript">
+
 var comIntroEditor;
+
+$(document).ready(function () {
+    comIntroEditor = CKEDITOR.replace('comIntro', {
+        height: 300,                // 필요시 조절
+        // 이미지 업로드용
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+    });
+});
 
 <!-- 기존 스마트에디터 -->
 /* var oEditors = []; */
@@ -39,71 +49,6 @@ var comIntroEditor;
 	});
 } */
 
-<!-- CKEditor -->
-//파일을 Base64로 읽어서 CKEditor에 넣어주는 업로드 어댑터
-class MyUploadAdapter {
-    constructor(loader) {
-        this.loader = loader;
-    }
-
-    // 파일 업로드 로직
-    upload() {
-        return this.loader.file.then(file => {
-            return new Promise((resolve, reject) => {
-
-                const data = new FormData();
-                data.append('file', file);
-
-                const uploadUrl = '${contextRoot}/ckeditor/ckeditorUpload.jsp';
-
-                fetch(uploadUrl, {
-                    method: 'POST',
-                    body: data
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(res => {
-                    resolve({
-                        default: res.url
-                    });
-                })
-                .catch(error => {
-                    console.error(error);
-                    reject(error);
-                });
-            });
-        });
-    }
-
-    abort() {}
-}
-
-// CKEditor에 위 어댑터를 연결하는 플러그인
-function MyCustomUploadAdapterPlugin(editor) {
-    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-        return new MyUploadAdapter(loader);
-    };
-}
-
-$(document).ready(function() {
-
-    ClassicEditor
-        .create(document.querySelector('#comIntro'), {
-            extraPlugins: [ MyCustomUploadAdapterPlugin ]   // 여기!
-        })
-        .then(editor => {
-            comIntroEditor = editor;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-
-});
-
 
 function fn_save(){
 	if (!validateForm()) return;
@@ -120,21 +65,15 @@ function fn_save(){
 		return false;
 	} */
 	
-	// CKEditor에서 HTML 내용 가져오기
 	var data = comIntroEditor.getData();
-
-    // 태그 제거해서 실제 내용 비어있는지 확인
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 
 	if (text.trim() === "" && data.indexOf("img") <= 0) {
-		alert("소개를 입력 하세요.");
-        // CKEditor 포커스
-		comIntroEditor.editing.view.focus();
-		return false;
-	};
-	
+	    alert("소개를 입력 하세요.");
+	    comIntroEditor.focus();   // 포커스
+	    return false;
+	}
 
-	
 	$("#comIntro").val(data);
 	
 	$("#form").attr("action", "/yjcareer/adm/company/insert.do");
@@ -162,20 +101,16 @@ function fn_update() {
 		return false;
 	} */
 	
-	// CKEditor에서 HTML 내용 가져오기
 	var data = comIntroEditor.getData();
-
-    // 태그 제거해서 실제 내용 비어있는지 확인
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 
 	if (text.trim() === "" && data.indexOf("img") <= 0) {
-		alert("소개를 입력 하세요.");
-        // CKEditor 포커스
-		comIntroEditor.editing.view.focus();
-		return false;
-	};
-	
-    $("#comIntro").val(data);
+	    alert("소개를 입력 하세요.");
+	    comIntroEditor.focus();   // 포커스
+	    return false;
+	}
+
+	$("#comIntro").val(data);
 	
 	var comId= "${companyManageVo.comId}";
 	
