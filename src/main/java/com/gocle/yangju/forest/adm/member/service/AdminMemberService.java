@@ -67,4 +67,28 @@ public interface AdminMemberService {
 	 * @throws Exception
 	 */
 	int resetPassword(MemberVO mvo) throws Exception;
+	
+	/**
+	 * 비밀번호 수정
+	 * @param memberVO
+	 * @return
+	 * @throws Exception
+	 */
+	int updateAdminPw(MemberVO memberVO, String oldPassword) throws Exception;
+	
+	/**
+	 * 사용/회수 처리
+	 * @param memberVO
+	 * @return
+	 * @throws Exception
+	 */
+	int updateUseYnAdmin(String[] memArr, String useYn, String sessionMemSeq) throws Exception;
+	
+	/**
+	 * 잠금/잠금해제 처리
+	 * @param memberVO
+	 * @return
+	 * @throws Exception
+	 */
+	int updateLockYnAdmin(String[] memArr, String lockYn, String sessionMemSeq) throws Exception;
 }

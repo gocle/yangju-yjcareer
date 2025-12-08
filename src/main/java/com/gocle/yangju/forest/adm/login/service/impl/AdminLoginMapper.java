@@ -11,4 +11,11 @@ public interface AdminLoginMapper {
 
 	LoginVO staffLogin(LoginVO loginVO) throws Exception;
 
+	LoginVO selectAdminLogin(LoginVO loginVO) throws Exception;
+	
+	void updateAdminLoginFailCntAdd(LoginVO loginVO) throws Exception;
+	
+	int selectAdminLoginFailCnt(LoginVO loginVO) throws Exception;
+	
+	void updateAdminLoginSuccessInit(LoginVO loginVO) throws Exception;
 }

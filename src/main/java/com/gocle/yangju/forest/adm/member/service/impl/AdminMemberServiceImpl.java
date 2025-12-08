@@ -1,6 +1,8 @@
 package com.gocle.yangju.forest.adm.member.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
@@ -64,4 +66,51 @@ public class AdminMemberServiceImpl extends EgovAbstractServiceImpl implements A
 		return adminMemberMapper.resetPassword(mvo);
 	}
 
+	@Override
+	public int updateAdminPw(MemberVO memberVO, String oldPassword) throws Exception {
+		int result = 0;
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("memId", memberVO.getMemId());
+		params.put("encryptPassword", memberVO.getEncryptPassword());
+		params.put("oldPassword", oldPassword);
+
+		try{
+			result = adminMemberMapper.updateAdminPw(params);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	@Override
+	public int updateUseYnAdmin(String[] memArr, String useYn, String sessionMemSeq) throws Exception {
+		int result = 0;
+		
+		for(String memSeq : memArr) {
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMemSeq(memSeq);
+			memberVO.setUseYn(useYn);
+			memberVO.setSessionMemSeq(sessionMemSeq);
+			
+			result = adminMemberMapper.updateUseYnAdmin(memberVO);
+		}
+		return result;
+	}
+	
+	@Override
+	public int updateLockYnAdmin(String[] memArr, String lockYn, String sessionMemSeq) throws Exception {
+		int result = 0;
+		
+		for(String memSeq : memArr) {
+			MemberVO memberVO = new MemberVO();
+			memberVO.setMemSeq(memSeq);
+			memberVO.setLockYn(lockYn);
+			memberVO.setSessionMemSeq(sessionMemSeq);
+			
+			result = adminMemberMapper.updateLockYnAdmin(memberVO);
+		}
+		return result;
+	}
 }

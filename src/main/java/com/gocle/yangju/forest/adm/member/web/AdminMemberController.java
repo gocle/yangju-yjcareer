@@ -1,5 +1,6 @@
 package com.gocle.yangju.forest.adm.member.web;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -246,4 +247,47 @@ public class AdminMemberController {
 		}
 		return retCd;
 	}
+	
+	@ResponseBody
+	@RequestMapping("memconfig/updateUseYnAdmin.do")
+	public String updateUseYnAdmin(@RequestParam("memArr") String[] memArr, @ModelAttribute("memberVO") MemberVO memberVO,
+			@RequestParam("useYn") String useYn, ModelMap model)throws Exception {
+		
+		String retCd = "";
+		
+		LoginInfo loginInfo = new LoginInfo();
+		loginInfo.putSessionToVo(memberVO);
+		
+		try {
+			adminMemberService.updateUseYnAdmin(memArr, useYn, memberVO.getSessionMemSeq());
+			retCd = "SUCCESS";
+		}catch (Exception e) {
+			e.printStackTrace();
+			retCd = "FAIL";
+		}
+		
+		return retCd;
+	}
+	
+	@ResponseBody
+	@RequestMapping("memconfig/updateLockYnAdmin.do")
+	public String updateLockYnAdmin(@RequestParam("memArr") String[] memArr, @ModelAttribute("memberVO") MemberVO memberVO,
+			@RequestParam("lockYn") String lockYn, ModelMap model)throws Exception {
+		
+		String retCd = "";
+		
+		LoginInfo loginInfo = new LoginInfo();
+		loginInfo.putSessionToVo(memberVO);
+		
+		try {
+			adminMemberService.updateLockYnAdmin(memArr, lockYn, memberVO.getSessionMemSeq());
+			retCd = "SUCCESS";
+		}catch (Exception e) {
+			e.printStackTrace();
+			retCd = "FAIL";
+		}
+		
+		return retCd;
+	}
+	
 }

@@ -36,7 +36,8 @@ public class LoginBindingInterceptor extends ControllerInterceptorAdaptor{
 		    "/adm/logout.do",
 		    "/staff/loginPage.do",
 		    "/staff/login.do",
-		    "/staff/logout.do"
+		    "/staff/logout.do",
+		    "/adm/modifyLoginPw.do"
 		);
 
 		if (excludeUrls.contains(path)) {

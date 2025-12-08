@@ -24,6 +24,13 @@ public class LoginVO implements Serializable {
 	private int   	  pwErrNumberTimes;       
 	private String   pwErrLimitYmd;          
 	private String   useExpireYmd;
+	private String lockYn;
+	private String permitIp;
+	private String ip;
+	private String startDate;
+	private String endDate;
+	private String deptNm;
+	private String deleteYn;
 	
 	public String getEncryptPassword() throws Exception {
 		return CommonUtil.getEncryptPassword(memPassword);
@@ -127,5 +134,46 @@ public class LoginVO implements Serializable {
 	public void setUseExpireYmd(String useExpireYmd) {
 		this.useExpireYmd = useExpireYmd;
 	}
-	
+	public String getLockYn() {
+		return lockYn;
+	}
+	public void setLockYn(String lockYn) {
+		this.lockYn = lockYn;
+	}
+	public String getPermitIp() {
+		return permitIp;
+	}
+	public void setPermitIp(String permitIp) {
+		this.permitIp = permitIp;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+	public String getStartDate() {
+		return startDate;
+	}
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	public String getEndDate() {
+		return endDate;
+	}
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	public String getDeptNm() {
+		return deptNm;
+	}
+	public void setDeptNm(String deptNm) {
+		this.deptNm = deptNm;
+	}
+	public String getDeleteYn() {
+		return deleteYn;
+	}
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
+	}
 }

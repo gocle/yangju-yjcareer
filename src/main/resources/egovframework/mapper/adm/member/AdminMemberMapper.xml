@@ -12,7 +12,9 @@
 				CM.MEM_TYPE,
 				CM.HP_NO,
 				CM.EMAIL,
-				CM.REG_DT
+				CM.REG_DT,
+				CM.LOCK_YN,
+				CM.USE_YN
 			FROM COM_MEMBER CM
 			WHERE DELETE_YN = 'N'
 			 <if test="searchCondition != null and searchCondition != ''">
@@ -31,24 +33,44 @@
 	
 	<insert id="memberInsert" parameterType="MemberVO">
 		INSERT INTO COM_MEMBER(
-			MEM_SEQ,
-			MEM_ID,
-			MEM_TYPE,
-			MEM_NAME,
-			MEM_PASSWORD,
-			EMAIL,
-			REG_ID,
-			REG_DT
+			MEM_SEQ
+			,MEM_ID
+			,MEM_TYPE
+			,MEM_NAME
+			,MEM_PASSWORD
+			,EMAIL
+			,REG_ID
+			,REG_DT
+			<if test="permitIp != null and permitIp != '' ">
+			,PERMIT_IP
+			</if>
+			,DEPT_NM
+			<if test="startDate != null and startDate != ''">
+			,START_DATE
+			</if>
+			<if test="endDate != null and endDate != ''">
+			,END_DATE
+			</if>
 		)
 		VALUES(
-			#{memSeq},
-			#{memId},
-			#{memType},
-			#{memName},
-			#{encryptPassword},
-			#{encryptEmail},
-			#{sessionMemSeq},
-			NOW()
+			#{memSeq}
+			,#{memId}
+			,#{memType}
+			,#{memName}
+			,#{encryptPassword}
+			,#{encryptEmail}
+			,#{sessionMemSeq}
+			,NOW()
+			<if test="permitIp != null and permitIp != '' ">
+			,#{permitIp}
+			</if>
+			,#{deptNm}
+			<if test="startDate != null and startDate != ''">
+			,#{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''">
+			,#{endDate}
+			</if>
 		)
 	</insert>
 	
@@ -66,7 +88,14 @@
 	        MEM_NAME,
 	        MEM_TYPE,
 	        HP_NO,
-	        EMAIL
+	        EMAIL,
+	        STR_TO_DATE(REG_DT, '%Y-%m-%d %H:%i:%s') AS REG_DT,
+	        STR_TO_DATE(UPD_DT, '%Y-%m-%d %H:%i:%s') AS UPD_DT,
+	        STR_TO_DATE(LAST_LOGIN_YMD, '%Y-%m-%d') AS LAST_LOGIN_YMD,
+	        PERMIT_IP,
+	        DEPT_NM,
+	        START_DATE,
+	        END_DATE
 	    FROM COM_MEMBER
 	    WHERE MEM_SEQ = #{memSeq}
 	</select>
@@ -74,31 +103,34 @@
 	<update id="memberUpdate" parameterType="MemberVO">
 		UPDATE COM_MEMBER
 		SET
-		<choose>
-			<when test="memType == 'ADM'">
-				<if test="memPassword != null and memPassword != '' ">
-					MEM_PASSWORD = #{encryptPassword},
-				</if>	
-				EMAIL = #{encryptEmail},
-				UPD_DT = NOW(),
-				UPD_ID = #{sessionMemSeq}
-			</when>
-		</choose>
+			EMAIL = #{encryptEmail}
+		<if test="memPassword != null and memPassword != '' ">
+			MEM_PASSWORD = #{encryptPassword}
+			,LAST_PW_UPDT_YMD = NOW()
+		</if>	
+			,UPD_DT = NOW()
+			,UPD_ID = #{sessionMemSeq}
+			,MEM_TYPE = #{memType}
+		<if test="permitIp != null and permitIp != '' ">
+			,PERMIT_IP = #{permitIp}
+		</if>	
+			,DEPT_NM = #{deptNm}
+		<if test="startDate != null and startDate != '' ">
+			,START_DATE = #{startDate}
+		</if>
+		<if test="endDate != null and endDate != '' ">
+			,END_DATE = #{endDate}
+		</if>
 		WHERE MEM_ID = #{memId}
 	</update>
 	
 	<update id="memberDelete" parameterType="MemberVO">
 		UPDATE COM_MEMBER
-		SET
-		<choose>
-			<when test="memType == 'ADM'">
-				EMAIL = '',
-				UPD_DT = NOW(),
-				UPD_ID = #{sessionMemSeq},
-				DELETE_YN = 'Y',
-				SCSN_YN = 'Y'
-			</when>
-		</choose>
+		SET EMAIL = '',
+			UPD_DT = NOW(),
+			UPD_ID = #{sessionMemSeq},
+			DELETE_YN = 'Y',
+			SCSN_YN = 'Y'
 		WHERE MEM_ID = #{memId}	
 	</update>
 	
@@ -124,5 +156,34 @@
 		WHERE MEM_SEQ = #{memSeq} 
 		AND MEM_ID = #{memId}
 		AND DELETE_YN = 'N'
+	</update>
+	
+	<update id="updateAdminPw">
+		UPDATE COM_MEMBER
+		SET 
+			MEM_PASSWORD = #{encryptPassword},
+			LAST_PW_UPDT_YMD = NOW(),
+			UPD_ID = #{sessionMemSeq},
+			UPD_DT = NOW()
+		WHERE MEM_ID = #{memId}
+		AND MEM_PASSWORD = #{oldPassword}
+	</update>
+	
+	<update id="updateLockYnAdmin" parameterType="MemberVO">
+		UPDATE COM_MEMBER
+		SET 
+			LOCK_YN = #{lockYn},
+			UPD_ID = #{sessionMemSeq},
+			UPD_DT = NOW()
+		WHERE MEM_SEQ = #{memSeq}
+	</update>
+	
+	<update id="updateUseYnAdmin" parameterType="MemberVO">
+		UPDATE COM_MEMBER
+		SET 
+			USE_YN = #{useYn},
+			UPD_ID = #{sessionMemSeq},
+			UPD_DT = NOW()
+		WHERE MEM_SEQ = #{memSeq}
 	</update>
 </mapper>

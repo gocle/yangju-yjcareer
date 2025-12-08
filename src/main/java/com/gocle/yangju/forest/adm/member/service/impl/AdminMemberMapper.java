@@ -1,6 +1,7 @@
 package com.gocle.yangju.forest.adm.member.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,4 +25,10 @@ public interface AdminMemberMapper {
 	MemberVO getMember(MemberVO memberVO) throws Exception;
 
 	int resetPassword(MemberVO mvo) throws Exception;
+	
+	int updateAdminPw(Map<String, String> params) throws Exception;
+	
+	int updateUseYnAdmin(MemberVO memberVO) throws Exception;
+	
+	int updateLockYnAdmin(MemberVO memberVO) throws Exception;
 }

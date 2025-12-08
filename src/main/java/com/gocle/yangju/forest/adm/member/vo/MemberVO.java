@@ -39,6 +39,13 @@ public class MemberVO extends BaseVO implements Serializable {
 	private String   pwErrLimitYmd;          
 	private String   useExpireYmd;
 	
+	private String permitIp;
+	private String deptNm;
+	private String startDate;
+	private String endDate;
+	private String lockYn;
+	private String useYn;
+	
 	public String getMemSeq() {
 		return memSeq;
 	}
@@ -130,4 +137,51 @@ public class MemberVO extends BaseVO implements Serializable {
 		return CommonUtil.getAesDecrypt(email);
 	}
 	
+	public String getPermitIp() {
+		return permitIp;
+	}
+	
+	public void setPermitIp(String permitIp) {
+		this.permitIp = permitIp;
+	}
+	
+	public String getDeptNm() {
+		return deptNm;
+	}
+	
+	public void setDeptNm(String deptNm) {
+		this.deptNm = deptNm;
+	}
+	
+	public String getStartDate() {
+		return startDate;
+	}
+	
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+	
+	public String getEndDate() {
+		return endDate;
+	}
+	
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+	
+	public String getLockYn() {
+		return lockYn;
+	}
+	
+	public void setLockYn(String lockYn) {
+		this.lockYn = lockYn;
+	}
+	
+	public String getUseYn() {
+		return useYn;
+	}
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+
 }

@@ -253,7 +253,9 @@ img.ui-datepicker-trigger {
 	
 </script>
 
-
+<style>
+.red {color:red;}
+</style>
 
 <section>
 	<form id="form" name="form" method="post">
@@ -265,20 +267,18 @@ img.ui-datepicker-trigger {
 				<col width="*">
 			</colgroup>
 			<tbody>
-				<c:choose>
-					<c:when test="${adminUpdateResult.memType eq 'ADM' || adminUpdateResult.memType eq null}">
 						<tr>
-							<th>분 류</th>
+							<th>분 류<span class="red"> *</span></th>
 							<td>
 								<select id="memType" name="memType" style="width: 30%">
-									<option value="ADM">관리자</option>
-									<option value="WOOD_STAFF">목공체험 담당자</option>
-									<option value="FOREST_STAFF">숲체험 담당자</option>
+									<option value="SUP" ${adminUpdateResult.memType eq 'SUPER' or adminUpdateResult.memType eq null ? 'selected="selected"' : ''}>슈퍼관리자</option>
+									<option value="OPR" ${adminUpdateResult.memType eq 'OPER' ? 'selected="selected"' : ''}>운영담당자</option>
+									<option value="ORG" ${adminUpdateResult.memType eq 'ORG' ? 'selected="selected"' : ''}>기관담당자</option>
 								</select>
 							</td>
 						</tr>
 						<tr>
-							<th>관리자 아이디</th>
+							<th>관리자 아이디<span class="red"> *</span></th>
 							<td><input type="text" style="width: 50%" name="memId"
 								id="memId" value="${adminUpdateResult.memId}" maxlength="12" ${adminUpdateResult.memId ne null ? 'readonly="readonly"' : ''}> <span id="notId"></span>
 								<c:if test="${empty adminUpdateResult}">
@@ -288,13 +288,13 @@ img.ui-datepicker-trigger {
 						</tr>
 						<c:if test="${empty adminUpdateResult}">
 							<tr>
-								<th>관리자 비밀번호</th>
+								<th>관리자 비밀번호<span class="red"> *</span></th>
 								<td><input type="password" style="width: 50%"
 									name="memPassword" id="memPassword" value="" maxlength="20" >
 									<span id="notPass"></span></td>
 							</tr>
 							<tr>
-								<th>비밀번호 확인</th>
+								<th>비밀번호 확인<span class="red"> *</span></th>
 								<td><input type="password" style="width: 50%"
 									id="memPasswordRe" value="" maxlength="20"> <span
 									id="notPass1"></span></td>
@@ -302,24 +302,51 @@ img.ui-datepicker-trigger {
 						</c:if>
 						<c:if test="${not empty adminUpdateResult}">
 							<tr>
-								<th>관리자 비밀번호</th>
+								<th>관리자 비밀번호<span class="red"> *</span></th>
 								<td><input type="password" style="width: 50%"
 									name="memPassword" id="memPassword" value="" maxlength="20" >
 									<b style="font-size:14px; color:red;">*비밀민호 변경시 입력해주세요.</b></td>
 							</tr>
 						</c:if>
 						<tr>
-							<th>관리자 이름</th>
+							<th>관리자 이름<span class="red"> *</span></th>
 							<td><input type="text" style="width: 50%" name="memName"
 								id="memName" value="${adminUpdateResult.memName }" ${adminUpdateResult.memName ne null ? 'readonly="readonly"' : ''}></td>
 						</tr>
 						<tr>
-							<th>관리자 이메일</th>
+							<th>관리자 이메일<span class="red"> *</span></th>
 							<td><input type="text" style="width: 50%" name="email"
 								id="email" value="${adminUpdateResult.decryptEmail }"> <span id="notEml"></span></td>
 						</tr>
-					</c:when>
-				</c:choose>
+						<tr>
+							<th>관리자 부서</th>
+							<td><input type="text" style="width: 50%" name="deptNm" id="deptNm" value="${adminUpdateResult.deptNm }"></td>
+						</tr>
+						<tr>
+							<th>접속기간</th>
+							<td><input type="date" style="width: 20%" name="startDate" id="startDate" value="${adminUpdateResult.startDate }" onclick="this.showPicker ? this.showPicker() : this.focus()">
+								~ <input type="date" style="width: 20%" name="endDate" id="endDate" value="${adminUpdateResult.endDate }" onclick="this.showPicker ? this.showPicker() : this.focus()">
+							</td>
+						</tr>
+						<tr>
+							<th>허용 아이피</th>
+							<td><input type="text" style="width: 50%" name="permitIp" id="permitIp" value="${adminUpdateResult.permitIp }" placeholder="예: 192.168.0.10" />
+							</td>
+						</tr>
+						<c:if test="${not empty adminUpdateResult}">
+							<tr>
+								<th>등록일</th>
+								<td>${adminUpdateResult.regDt }</td>
+							</tr>
+							<tr>
+								<th>수정일</th>
+								<td>${adminUpdateResult.updDt }</td>
+							</tr>
+							<tr>
+								<th>최근 로그인</th>
+								<td>${adminUpdateResult.lastLoginYmd }</td>
+							</tr>
+						</c:if>
 			</tbody>
 		</table>
 	</form>
