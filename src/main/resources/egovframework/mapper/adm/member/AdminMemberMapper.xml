@@ -51,6 +51,7 @@
 			<if test="endDate != null and endDate != ''">
 			,END_DATE
 			</if>
+			,COM_ID
 		)
 		VALUES(
 			#{memSeq}
@@ -71,6 +72,7 @@
 			<if test="endDate != null and endDate != ''">
 			,#{endDate}
 			</if>
+			,#{comId}
 		)
 	</insert>
 	
@@ -95,7 +97,8 @@
 	        PERMIT_IP,
 	        DEPT_NM,
 	        START_DATE,
-	        END_DATE
+	        END_DATE,
+	        COM_ID
 	    FROM COM_MEMBER
 	    WHERE MEM_SEQ = #{memSeq}
 	</select>
@@ -105,7 +108,7 @@
 		SET
 			EMAIL = #{encryptEmail}
 		<if test="memPassword != null and memPassword != '' ">
-			MEM_PASSWORD = #{encryptPassword}
+			,MEM_PASSWORD = #{encryptPassword}
 			,LAST_PW_UPDT_YMD = NOW()
 		</if>	
 			,UPD_DT = NOW()
@@ -121,6 +124,7 @@
 		<if test="endDate != null and endDate != '' ">
 			,END_DATE = #{endDate}
 		</if>
+			,COM_ID = #{comId}
 		WHERE MEM_ID = #{memId}
 	</update>
 	

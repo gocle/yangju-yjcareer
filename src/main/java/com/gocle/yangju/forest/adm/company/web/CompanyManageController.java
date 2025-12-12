@@ -39,6 +39,11 @@ public class CompanyManageController {
 	@Autowired
 	CompanyManageService companyManageService;
 	
+	@Autowired
+    SubjCateManageService subjCateManageService;
+
+	@Autowired
+    SgrManageService sgrManageService;
 	
 	@RequestMapping( value = {"list.do"} , method = RequestMethod.GET)
 	public String boardListGet(
@@ -100,6 +105,11 @@ public class CompanyManageController {
 		
 		returnPage = "/adm/company/form";
 		
+		SgrManageVo sgrManageVo = new SgrManageVo();
+		SubjCateManageVo subjCateManageVo = new SubjCateManageVo();
+		model.addAttribute("sgrManageList", this.sgrManageService.selectList(sgrManageVo));
+        model.addAttribute("resultList", this.subjCateManageService.selectList(subjCateManageVo));
+        
 		return returnPage;
 	}
 	
@@ -160,6 +170,10 @@ public class CompanyManageController {
 		
 		returnPage = "/adm/company/form";
 		
+		SgrManageVo sgrManageVo = new SgrManageVo();
+		model.addAttribute("sgrManageList", this.sgrManageService.selectList(sgrManageVo));
+        model.addAttribute("resultList", companyManageService.getMapping(companyManageVo));
+        
 		return returnPage;
 	}
 	

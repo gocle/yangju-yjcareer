@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gocle.yangju.forest.adm.company.service.CompanyManageService;
+import com.gocle.yangju.forest.adm.company.vo.CompanyManageVo;
 import com.gocle.yangju.forest.adm.member.service.AdminMemberService;
 import com.gocle.yangju.forest.adm.member.vo.MemberVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
@@ -27,6 +29,8 @@ public class AdminMemberController {
 	@Autowired
 	private AdminMemberService adminMemberService;
 	
+	@Autowired
+	private CompanyManageService companyManageService;
 	
 	/**
 	 * 회원관리 > 회원관리
@@ -83,6 +87,9 @@ public class AdminMemberController {
 		
 		String menuId = memberVO.getMenuId();
 		model.addAttribute("menuId");
+		
+		CompanyManageVo companyManageVo = new CompanyManageVo();
+		model.addAttribute("companyList", companyManageService.listBoardArticle(companyManageVo));
 		
 		return "/adm/member/memconfig/form";
 	}
@@ -151,6 +158,9 @@ public class AdminMemberController {
 		MemberVO adminUpdateResult = adminMemberService.adminUpdateResult(memberVO);
 		model.addAttribute("adminUpdateResult", adminUpdateResult);
 		model.addAttribute("menuId", menuId);
+		
+		CompanyManageVo companyManageVo = new CompanyManageVo();
+		model.addAttribute("companyList", companyManageService.listBoardArticle(companyManageVo));
 		
 		return "/adm/member/memconfig/form";
 	}

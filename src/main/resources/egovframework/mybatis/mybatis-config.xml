@@ -39,6 +39,9 @@
 	    <typeAlias alias="SubjCateManageVo" type="com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo" />
 	    <typeAlias alias="SgrManageVo" type="com.gocle.yangju.forest.adm.chsgr.vo.SgrManageVo" />
 	    <typeAlias alias="CompanyManageVo" type="com.gocle.yangju.forest.adm.company.vo.CompanyManageVo" />
+	    <typeAlias alias="SubjManageVo" type="com.gocle.yangju.forest.adm.chsubj.vo.SubjManageVo" />
+	    <typeAlias alias="SubjSeqManageVo" type="com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo" />
+	    <typeAlias alias="EnrollManageVo" type="com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo" />
 	</typeAliases>
 	
 </configuration>

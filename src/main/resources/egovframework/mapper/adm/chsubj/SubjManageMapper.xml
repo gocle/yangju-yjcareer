@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsubj.service.impl.SubjManageMapper">
+	<sql id="selectSearchWhere">
+		<if test="searchSgrCd != null and searchSgrCd != '' and searchSgrCd != 'ALL' ">
+            AND sb.sgr_cd       = #{searchSgrCd}
+        </if>
+        <if test="searchCateCd != null and searchCateCd != '' and searchCateCd != 'ALL' ">
+            AND sb.cate_cd       = #{searchCateCd}
+        </if>
+		<if test="searchKeyword != null and searchKeyword != '' ">
+            AND (sb.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  sb.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
+        </if>
+	</sql>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ sb
+		INNER JOIN TB_SGR sg
+			ON sb.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = sb.cate_cd
+			AND sg.sgr_cd = sc.sgr_cd
+		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
+	</select>
+	
+	<select id="selectList" resultType="SubjManageVo" parameterType="SgrManageVo">
+		SELECT sb.subj_cd
+			 , sb.cate_cd
+			 , sc.cate_nm
+			 , sb.subj_nm
+			 , sb.sgr_cd
+			 , sg.sgr_nm
+			 , sb.use_yn
+			 , cc.com_title
+			 , sb.enroll_type
+		FROM TB_SUBJ sb
+		INNER JOIN TB_SGR sg
+			ON sb.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = sb.cate_cd
+			AND sg.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = sb.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
+		ORDER BY sb.reg_dt DESC
+	</select>
+	
+	<select id="selectSubjCd" resultType="String">
+		SELECT CONCAT(RPAD(#{sgrCd}, 2, '0'), LPAD(IFNULL(MAX(CAST(REGEXP_REPLACE(subj_cd, '[^0-9]', '') AS UNSIGNED)), 0) + 1, 4,'0')) AS subj_cd
+		FROM TB_SUBJ
+		WHERE SGR_CD = #{sgrCd}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO TB_SUBJ (
+             sgr_cd
+            ,cate_cd
+            ,subj_cd
+            ,subj_nm
+            ,com_id
+            ,use_yn
+            ,dupl_enroll_yn
+            ,tel
+            ,subj_plan
+            ,subj_desc
+            ,enroll_type
+            ,edu_target
+            ,reg_id
+            ,reg_ip
+            ,reg_dt
+        ) VALUES (
+             #{sgrCd}
+            ,#{cateCd}
+            ,#{subjCd}
+            ,#{subjNm}
+            ,#{comId}
+            ,#{useYn}
+            ,#{duplEnrollYn}
+            ,#{tel}
+            ,#{subjPlan}
+            ,#{subjDesc}
+            ,#{enrollType}
+            ,#{eduTarget}
+            ,#{sessionMemSeq}
+            ,#{sessionIp}
+            ,NOW()
+        )
+	</insert>
+	
+	<select id="select" resultType="SubjManageVo" parameterType="SubjManageVo">
+		SELECT sgr_cd
+			, cate_cd
+			, subj_cd
+			, subj_nm
+			, use_yn
+			, tel
+			, subj_plan
+			, subj_desc
+			, enroll_type
+			, com_id
+			, edu_target
+			, dupl_enroll_yn
+		FROM TB_SUBJ
+		WHERE subj_cd = #{subjCd}
+	</select>
+	
+	<update id="update">
+		UPDATE TB_SUBJ
+		SET  cate_cd = #{cateCd}
+            ,subj_nm = #{subjNm}
+            ,com_id = #{comId}
+            ,use_yn = #{useYn}
+            ,dupl_enroll_yn = #{duplEnrollYn}
+            ,tel = #{tel}
+            ,subj_plan = #{subjPlan}
+            ,subj_desc = #{subjDesc}
+            ,enroll_type = #{enrollType}
+            ,edu_target = #{eduTarget}
+            ,upd_id = #{sessionMemSeq}
+            ,upd_ip = #{sessionIp}
+            ,upd_dt = NOW()
+		WHERE SUBJ_CD = #{subjCd}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM TB_SUBJ
+		WHERE SUBJ_CD = #{subjCd}
+	</delete>
+</mapper>

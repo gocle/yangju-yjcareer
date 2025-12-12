@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsearch.service.impl.SearchManageMapper">
+	
+	<select id="selectSgrList" resultType="SubjCateManageVo">
+		SELECT sg.sgr_cd as sgr_cd
+			 , sg.sgr_nm as sgr_nm
+		FROM TB_SGR sg
+		WHERE sg.use_yn = 'Y'
+		ORDER BY sg.sgr_cd
+	</select>
+	
+	<select id="selectCateCdList" resultType="SubjCateManageVo" parameterType="String">
+		SELECT sc.cate_cd as cate_cd
+			 , sc.cate_nm as cate_nm
+		FROM TB_SUBJ_CATE sc
+		INNER JOIN TB_SGR sg
+			ON sc.sgr_cd = sg.sgr_cd
+		WHERE 1 = 1
+			AND sg.sgr_cd = #{sgrCd}
+			AND sg.use_yn = 'Y'
+		ORDER BY sc.sort_order
+	</select>
+	
+	<select id="selectCompanyList" resultType="CompanyManageVo" parameterType="LoginVO">
+		SELECT COM_ID, COM_TITLE, ADDRESS
+		FROM COM_COMPANY
+		WHERE USE_YN = 'Y'
+		  AND (
+		        (EXISTS (
+		            SELECT 1
+		            FROM COM_MEMBER
+		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'COM'
+		        ) AND COM_ID = (
+		            SELECT COM_ID
+		            FROM COM_MEMBER
+		            WHERE MEM_ID = #{memId}
+		        ))
+		        OR
+		        (NOT EXISTS (
+		            SELECT 1
+		            FROM COM_MEMBER
+		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'COM'
+		        ))
+		      )
+		ORDER BY COM_ID
+	</select>
+	
+	<select id="selectEduPlaceAddress" resultType="CompanyManageVo" parameterType="String">
+		SELECT COM_ID, COM_TITLE, CONCAT(ADDRESS, ' ', ADDRESS_DTL) AS ADDRESS
+		FROM COM_COMPANY
+		WHERE USE_YN = 'Y'
+		AND COM_ID = #{comId}
+	</select>
+</mapper>

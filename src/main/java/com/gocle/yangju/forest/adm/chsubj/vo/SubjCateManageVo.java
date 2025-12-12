@@ -8,6 +8,7 @@ public class SubjCateManageVo extends SubjCateManageDefaultVo {
     private String categoryPrefix = "A";
     // 교육사이트 코드
     private String sgrCd;
+    private String sgrNm;
     // 분류 일련번호
     private String cateCd;
     // 분류 명
@@ -39,6 +40,8 @@ public class SubjCateManageVo extends SubjCateManageDefaultVo {
     
     private Integer subjCnt;
     
+    //기관
+    private String comId;
     
 	public String getCategoryPrefix() {
 		return categoryPrefix;
@@ -129,5 +132,17 @@ public class SubjCateManageVo extends SubjCateManageDefaultVo {
 	}
 	public void setSubjCnt(Integer subjCnt) {
 		this.subjCnt = subjCnt;
+	}
+	public String getComId() {
+		return comId;
+	}
+	public void setComId(String comId) {
+		this.comId = comId;
+	}
+	public String getSgrNm() {
+		return sgrNm;
+	}
+	public void setSgrNm(String sgrNm) {
+		this.sgrNm = sgrNm;
 	}
 }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsubjopen.service.impl.EnrollManageMapper">
+	<sql id="selectSearchWhere">
+		<if test="searchKeyword != null and searchKeyword != '' ">
+            AND (ss.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  ss.seq_cd      LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  ss.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
+        </if>
+	</sql>
+	
+	<sql id="selectSearchDetailWhere">
+		<if test="searchKeyword != null and searchKeyword != '' ">
+            AND (e.mem_id    LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  e.mem_name      LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  CONCAT(e.hp_tel1, e.hp_tel2, e.hp_tel3) LIKE CONCAT('%', #{searchKeyword}, '%') )
+        </if>
+		<if test="searchEnrollStatusCd != null and searchEnrollStatusCd != '' ">
+        	AND e.enroll_status_cd = #{searchEnrollStatusCd}
+        </if>
+	</sql>
+	
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		WHERE 1 = 1
+	</select>
+	
+	<select id="selectList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		SELECT ss.seq_cd
+			, ss.sgr_cd
+			, ss.subj_nm
+			, ss.session_nm
+			, cc.com_title
+			, ss.use_yn
+			, sc.cate_nm
+			, ss.enroll_type
+			, DATE_FORMAT(ss.enroll_start_dt, '%Y.%m.%d') AS enroll_start_dt
+			, DATE_FORMAT(ss.enroll_end_dt, '%Y.%m.%d') AS enroll_end_dt
+			, DATE_FORMAT(ss.learn_start_dt, '%Y.%m.%d') AS learn_start_dt
+			, DATE_FORMAT(ss.learn_end_dt, '%Y.%m.%d') AS learn_end_dt
+			, (SELECT COUNT(*) FROM TB_ENROLL e WHERE e.seq_cd = ss.seq_cd) AS enroll_cnt
+			, IFNULL(ss.capacity, 0) AS capacity
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
+		ORDER BY ss.reg_dt desc, ss.seq_cd desc
+	</select>
+	
+	<select id="selectEnrollDetailTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_ENROLL e
+			ON ss.seq_cd = e.seq_cd
+		WHERE 1 = 1
+		AND ss.seq_cd = #{seqCd}
+		<include refid="selectSearchDetailWhere" />
+	</select>
+	
+	<select id="selectEnrollDetailList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		SELECT ss.seq_cd
+			, e.mem_id
+			, e.seqno
+			, e.mem_name
+			, e.reg_dt
+			, e.enroll_app_dt
+			, e.enroll_status_cd
+			, e.force_yn
+			, CONCAT(e.hp_tel1, '-', e.hp_tel2, '-', e.hp_tel3) as hp_tel1
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_ENROLL e
+			ON ss.seq_cd = e.seq_cd
+		WHERE 1 = 1
+		AND ss.seq_cd = #{seqCd}
+		<include refid="selectSearchDetailWhere" />
+		ORDER BY e.reg_dt desc
+	</select>
+	
+	<insert id="insert">
+		INSERT 
+		INTO TB_ENROLL (
+			 seq_cd
+			, seqno
+			, mem_id
+			, mem_name
+			, age_group
+			, grade
+			, school_nm
+			, sexdstn
+			, address
+			, zipcode
+			, memo
+			, hp_tel1
+			, hp_tel2
+			, hp_tel3
+			, resdnc_detail
+			, enroll_status_cd
+			, sms_yn
+			, force_yn
+			, reg_id
+			, reg_ip
+			, reg_dt
+			<if test="enrollStatusCd != null and enrollStatusCd != '' ">
+				<if test='enrollStatusCd == "B" '>
+				, enroll_app_id
+				, enroll_app_ip
+				, enroll_app_dt
+				</if>
+			</if>		
+		)
+		SELECT
+			 #{seqCd}
+			, IFNULL(MAX(seqno), 0) + 1
+			, #{sessionMemId}
+			, #{memName}
+			, #{ageGroup}
+			, #{grade}
+			, #{schoolNm}
+			, #{sexdstn}
+			, #{address}
+			, #{zipcode}
+			, #{memo}
+			, #{hpTel1}
+			, #{hpTel2}
+			, #{hpTel3}
+			, #{resdncDetail}
+			, #{enrollStatusCd}
+			, IFNULL(#{smsYn}, 'N')
+			, 'Y'
+			, #{sessionMemSeq}
+			, #{sessionIp}
+			, NOW()
+			<if test="enrollStatusCd != null and enrollStatusCd != '' ">
+				<if test='enrollStatusCd == "B" '>
+				, #{sessionMemSeq}
+				, #{sessionIp}
+				, NOW()
+				</if>
+			</if>
+		FROM TB_ENROLL
+	</insert>
+	
+	<update id="update">
+		UPDATE TB_ENROLL
+		SET mem_name = #{memName}
+		  , age_group = #{ageGroup}
+		  , grade = #{grade}
+		  , school_nm = #{schoolNm}
+		  , sexdstn = #{sexdstn}
+		  , address = #{address}
+		  , zipcode = #{zipcode}
+		  , memo = #{memo}
+		  , hp_tel1 = #{hpTel1}
+		  , hp_tel2 = #{hpTel2}
+		  , hp_tel3 = #{hpTel3}
+		  , resdnc_detail = #{resdncDetail}
+		  , sms_yn = IFNULL(#{smsYn}, 'N')
+		  , upd_id = #{sessionMemSeq}
+		  , upd_ip = #{sessionIp} 
+		  , upd_dt = NOW()
+	 	WHERE seq_cd = #{seqCd}
+	 	AND mem_id = #{memId}
+	 	AND seqno = #{seqno}
+	</update>
+	
+	<delete id="delete">
+		DELETE
+		FROM TB_ENROLL
+		WHERE SEQ_CD = #{seqCd}
+		AND MEM_ID = #{memId}
+		AND SEQNO = #{seqno}
+	</delete>
+	
+	<select id="selectEnrollUserInfo" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		SELECT mem_id
+			, mem_name
+			, seq_cd
+			, enroll_status_cd
+			, sexdstn
+			, age_group
+			, school_nm
+			, grade
+			, hp_tel1
+			, hp_tel2
+			, hp_tel3
+			, zipcode
+			, address
+			, resdnc_detail
+			, memo
+			, sms_yn
+			, seqno
+		FROM TB_ENROLL
+		WHERE SEQ_CD = #{seqCd} 
+		and MEM_ID = #{memId}
+		AND SEQNO = #{seqno}
+	</select>
+	
+	<update id="updateEnrollApply">
+		UPDATE TB_ENROLL
+		SET enroll_status_cd = 'B'
+		  , enroll_app_id = #{sessionMemSeq}
+		  , enroll_app_ip = #{sessionIp}
+		  , enroll_app_dt = NOW()
+		  , upd_id = #{sessionMemSeq}
+		  , upd_ip = #{sessionIp}
+		  , upd_dt = NOW()
+		WHERE SEQ_CD = #{seqCd} 
+		and MEM_ID = #{memId}
+		AND SEQNO = #{seqno}
+	</update>
+	
+	<update id="updateEnrollApplyCancel">
+		UPDATE TB_ENROLL
+		SET enroll_status_cd = 'C'
+		  , cancel_req_dt = NOW()
+		  , upd_id = #{sessionMemSeq}
+		  , upd_ip = #{sessionIp}
+		  , upd_dt = NOW()
+		WHERE SEQ_CD = #{seqCd} 
+		AND MEM_ID = #{memId}
+		AND SEQNO = #{seqno}
+	</update>
+</mapper>

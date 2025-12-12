@@ -27,5 +27,10 @@ public interface CompanyManageMapper {
 	void deleteCompanyLocation(CompanyManageVo companyManageVo) throws Exception;
 
 	List<CompanyManageVo> getLocation(CompanyManageVo companyManageVo) throws Exception;
+	
+	void deleteCompanyMapping(CompanyManageVo companyManageVo) throws Exception;
 
+	void insertCompanyMapping(CompanyManageVo companyManageVo) throws Exception;
+	
+	List<CompanyManageVo> getMapping(CompanyManageVo companyManageVo) throws Exception;
 }

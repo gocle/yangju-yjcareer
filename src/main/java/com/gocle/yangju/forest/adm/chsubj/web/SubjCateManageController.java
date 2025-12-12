@@ -26,6 +26,7 @@ import com.gocle.yangju.forest.adm.chsgr.vo.SgrManageVo;
 import com.gocle.yangju.forest.adm.chsubj.service.SubjCateManageService;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageDefaultVo;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo;
+import com.gocle.yangju.forest.adm.menu.vo.MenuVO;
 
 @RequestMapping(value = "/adm/chsubj")
 @Controller(value = "subjCateManageController")

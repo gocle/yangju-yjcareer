@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chsubjopen.service.impl.SubjSeqManageMapper">
+	<sql id="selectSearchWhere">
+		<if test="searchSgrCd != null and searchSgrCd != '' and searchSgrCd != 'ALL' ">
+            AND ss.sgr_cd       = #{searchSgrCd}
+        </if>
+        <if test="searchCateCd != null and searchCateCd != '' and searchCateCd != 'ALL' ">
+            AND ss.cate_cd       = #{searchCateCd}
+        </if>
+		<if test="searchKeyword != null and searchKeyword != '' ">
+            AND (ss.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  ss.seq_cd      LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  ss.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
+        </if>
+	</sql>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
+	</select>
+	
+	<select id="selectList" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">
+		SELECT ss.seq_cd
+			, ss.sgr_cd
+			, ss.subj_nm
+			, ss.session_nm
+			, cc.com_title
+			, ss.use_yn
+			, sc.cate_nm
+			, ss.enroll_type
+			, DATE_FORMAT(ss.enroll_start_dt, '%Y.%m.%d') AS enroll_start_dt
+			, DATE_FORMAT(ss.enroll_end_dt, '%Y.%m.%d') AS enroll_end_dt
+			, DATE_FORMAT(ss.learn_start_dt, '%Y.%m.%d') AS learn_start_dt
+			, DATE_FORMAT(ss.learn_end_dt, '%Y.%m.%d') AS learn_end_dt
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
+		ORDER BY ss.reg_dt desc, ss.seq_cd desc
+	</select>
+	
+	<select id="select" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">
+		SELECT ss.seq_cd
+			, ss.sgr_cd
+			, sg.sgr_nm
+			, ss.subj_nm
+			, ss.session_nm
+			, sc.cate_nm
+			, cc.com_title
+			, ss.use_yn
+			, ss.com_id
+			, IFNULL(ss.capacity, 0) as capacity
+			, IFNULL(ss.wait_enroll_cnt, 0) as wait_enroll_cnt
+			, ss.edu_target
+			, DATE_FORMAT(ss.enroll_start_dt, '%Y.%m.%d %H:%i') AS enroll_start_dt
+			, DATE_FORMAT(ss.enroll_end_dt, '%Y.%m.%d %H:%i') AS enroll_end_dt
+			, DATE_FORMAT(ss.learn_start_dt, '%Y.%m.%d %H:%i') AS learn_start_dt
+			, DATE_FORMAT(ss.learn_end_dt, '%Y.%m.%d %H:%i') AS learn_end_dt
+			, ss.tel
+			, ss.enroll_type
+			, ss.subj_plan
+			, ss.subj_desc
+			, s.dupl_enroll_yn
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		WHERE 1 = 1
+			AND ss.seq_cd = #{seqCd}
+	</select>
+	
+	<select id="selectSubjSeqCd" resultType="String">
+		SELECT CONCAT(subj_cd, IFNULL((
+                 SELECT LPAD(IFNULL(MAX(CAST(REPLACE(seq_cd, #{subjCd}, '') AS UNSIGNED)) + 1, 1), 4, '0')
+                 FROM TB_SUBJ_SEQ
+                 WHERE subj_cd LIKE CONCAT(#{subjCd}, '%')
+             ), '0001')) AS seq_cd
+		FROM TB_SUBJ
+		WHERE subj_cd = #{subjCd}
+	</select>
+	
+	<insert id="insert">
+		INSERT 
+		INTO TB_SUBJ_SEQ(
+			seq_cd
+			, sgr_cd
+			, subj_cd
+			, subj_nm
+			, cate_cd
+			, session_nm
+			, capacity
+			, wait_enroll_cnt
+			, enroll_start_dt
+			, enroll_end_dt
+			, learn_start_dt
+			, learn_end_dt
+			, com_id
+			, tel
+			, enroll_type
+			, edu_target
+			, subj_plan
+			, subj_desc
+			, use_yn
+			, reg_id
+			, reg_ip
+			, reg_dt
+		)
+		SELECT
+			#{seqCd}
+			, sgr_cd
+			, subj_cd
+			, #{subjNm}
+			, cate_cd
+			, #{sessionNm}
+			, IFNULL(#{capacity}, 0)
+			, IFNULL(#{waitEnrollCnt}, 0)
+			, #{enrollStartDt}
+			, #{enrollEndDt}
+			, #{learnStartDt}
+			, #{learnEndDt}
+			, com_id
+			, tel
+			, enroll_type
+			, edu_target
+			, subj_plan
+			, subj_desc
+			, use_yn
+			, #{sessionMemSeq}
+			, #{sessionIp}
+			, NOW()
+		FROM TB_SUBJ
+		WHERE subj_cd = #{subjCd}
+	</insert>
+	
+	<update id="update">
+		UPDATE TB_SUBJ_SEQ
+		SET   subj_nm = #{subjNm}
+			, session_nm = #{sessionNm}
+			, capacity = IFNULL(#{capacity}, 0)
+			, wait_enroll_cnt = IFNULL(#{waitEnrollCnt}, 0)
+			, enroll_start_dt = #{enrollStartDt}
+			, enroll_end_dt = #{enrollEndDt}
+			, learn_start_dt = #{learnStartDt}
+			, learn_end_dt = #{learnEndDt}
+			, com_id = #{comId}
+			, subj_plan = #{subjPlan}
+			, subj_desc = #{subjDesc}
+			, enroll_type = #{enrollType}
+			, edu_target = #{eduTarget}
+			, tel = #{tel}
+			, use_yn = #{useYn}
+			, upd_id = #{sessionMemSeq}
+			, upd_ip = #{sessionIp}
+			, upd_dt = NOW()
+		WHERE seq_cd = #{seqCd}
+	</update>
+	
+	<delete id="delete">
+		DELETE 
+		FROM TB_SUBJ_SEQ
+		WHERE seq_cd = #{seqCd}
+	</delete>
+</mapper>

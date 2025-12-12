@@ -21,7 +21,19 @@ img.ui-datepicker-trigger {
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		function memTypeChange() {
+			if($("#memType").val() == "COM") {
+				$(".comOnlyTr").show();
+			}else {
+				$(".comOnlyTr").hide();
+			}
+		}
+		
+		memTypeChange();
+		
+		$("#memType").on("change", function () {
+			memTypeChange();
+		});
 	});
 
 	//아이디 DB 여부
@@ -95,7 +107,7 @@ img.ui-datepicker-trigger {
 		var memPasswordRe = $("#memPasswordRe").val();
 		var memName = $("#memName").val();
 		var email = $("#email").val();
-
+		
 		if (memId == "") {
 			alert("아이디를 입력하지 않았습니다.")
 			memId.focus();
@@ -177,7 +189,7 @@ img.ui-datepicker-trigger {
 
 		//이메일 입력여부 검사
 		if (email == "") {
-			alert("이메일을 입력해주세요");
+			alert("이메일을 입력해주세요.");
 			$("#notEml").empty();
 			email = $("#email").val("");
 			email.focus();
@@ -271,9 +283,19 @@ img.ui-datepicker-trigger {
 							<th>분 류<span class="red"> *</span></th>
 							<td>
 								<select id="memType" name="memType" style="width: 30%">
-									<option value="SUP" ${adminUpdateResult.memType eq 'SUPER' or adminUpdateResult.memType eq null ? 'selected="selected"' : ''}>슈퍼관리자</option>
-									<option value="OPR" ${adminUpdateResult.memType eq 'OPER' ? 'selected="selected"' : ''}>운영담당자</option>
-									<option value="ORG" ${adminUpdateResult.memType eq 'ORG' ? 'selected="selected"' : ''}>기관담당자</option>
+									<option value="SPR" ${adminUpdateResult.memType eq 'SPR' or adminUpdateResult.memType eq null ? 'selected="selected"' : ''}>슈퍼관리자</option>
+									<option value="OPR" ${adminUpdateResult.memType eq 'OPR' ? 'selected="selected"' : ''}>운영담당자</option>
+									<option value="COM" ${adminUpdateResult.memType eq 'COM' ? 'selected="selected"' : ''}>기관담당자</option>
+								</select>
+							</td>
+						</tr>
+						<tr class="comOnlyTr" style="display:none;">
+							<th>기 관<span class="red"> *</span></th>
+							<td>
+								<select id="comId" name="comId" style="width: 30%" value="${adminUpdateResult.comId }">
+									<c:forEach var="com" items="${companyList}">
+										<option value="${com.comId }" ${adminUpdateResult.comId == com.comId ? 'selected : "selected"' : ''}>${com.comTitle }</option>
+									</c:forEach>
 								</select>
 							</td>
 						</tr>

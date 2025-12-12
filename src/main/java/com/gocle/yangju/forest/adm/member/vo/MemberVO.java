@@ -45,6 +45,7 @@ public class MemberVO extends BaseVO implements Serializable {
 	private String endDate;
 	private String lockYn;
 	private String useYn;
+	private String comId;
 	
 	public String getMemSeq() {
 		return memSeq;
@@ -180,8 +181,16 @@ public class MemberVO extends BaseVO implements Serializable {
 	public String getUseYn() {
 		return useYn;
 	}
+	
 	public void setUseYn(String useYn) {
 		this.useYn = useYn;
 	}
-
+	
+	public String getComId() {
+		return comId;
+	}
+	
+	public void setComId(String comId) {
+		this.comId = comId;
+	}
 }

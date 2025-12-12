@@ -18,4 +18,5 @@ public interface CompanyManageService {
 
 	List<CompanyManageVo> getLocation(CompanyManageVo companyManageVo) throws Exception;
 	
+	List<CompanyManageVo> getMapping(CompanyManageVo companyManageVo) throws Exception;
 }

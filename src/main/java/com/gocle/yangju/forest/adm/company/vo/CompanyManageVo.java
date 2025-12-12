@@ -27,6 +27,10 @@ public class CompanyManageVo extends BaseVO {
     
     private int seqNo;
     
+    private String cateCd;
+    private String sgrCd;
+    private String cateNm;
+    
 	public String getComId() {
 		return comId;
 	}
@@ -106,5 +110,30 @@ public class CompanyManageVo extends BaseVO {
 	public void setSeqNo(int seqNo) {
 		this.seqNo = seqNo;
 	}
+
+	public String getCateCd() {
+		return cateCd;
+	}
+
+	public void setCateCd(String cateCd) {
+		this.cateCd = cateCd;
+	}
+
+	public String getSgrCd() {
+		return sgrCd;
+	}
+
+	public void setSgrCd(String sgrCd) {
+		this.sgrCd = sgrCd;
+	}
+
+	public String getCateNm() {
+		return cateNm;
+	}
+
+	public void setCateNm(String cateNm) {
+		this.cateNm = cateNm;
+	}
+	
 	
 }
