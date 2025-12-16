@@ -37,7 +37,8 @@ public class LoginBindingInterceptor extends ControllerInterceptorAdaptor{
 		    "/staff/loginPage.do",
 		    "/staff/login.do",
 		    "/staff/logout.do",
-		    "/adm/modifyLoginPw.do"
+		    "/adm/modifyLoginPw.do",
+		    "/staff/modifyLoginPw.do"
 		);
 
 		if (excludeUrls.contains(path)) {
@@ -84,8 +85,8 @@ public class LoginBindingInterceptor extends ControllerInterceptorAdaptor{
 		}
 		
 		if (memType != null) {
-			if (originalURL.contains("/adm/") && !memType.equalsIgnoreCase("ADM")
-			    || originalURL.contains("/staff/") && !(memType.equalsIgnoreCase("WOOD_STAFF") || memType.equalsIgnoreCase("FOREST_STAFF"))) {
+			if (originalURL.contains("/adm/") && !(memType.equalsIgnoreCase("ADM") || memType.equalsIgnoreCase("OPR"))
+			    || originalURL.contains("/staff/") && !memType.equalsIgnoreCase("STAFF")) {
 
 			    response.sendError(HttpServletResponse.SC_FORBIDDEN, "권한이 없습니다.");
 			    return false;

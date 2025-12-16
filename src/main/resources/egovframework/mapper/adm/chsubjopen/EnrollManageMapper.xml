@@ -7,6 +7,16 @@
             OR  ss.seq_cd      LIKE CONCAT('%', #{searchKeyword}, '%')
             OR  ss.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
         </if>
+        
+        <if test="sessionMemType != null and sessionMemType != '' ">
+        	<if test="sessionMemType == 'STAFF' ">
+        		AND ss.com_id = (
+        			SELECT com_id
+        			FROM COM_MEMBER
+        			WHERE MEM_SEQ = #{sessionMemSeq}
+        		)
+        	</if>
+        </if>
 	</sql>
 	
 	<sql id="selectSearchDetailWhere">
@@ -81,12 +91,13 @@
 	<select id="selectEnrollDetailList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
 		SELECT ss.seq_cd
 			, e.mem_id
-			, e.seqno
+			, e.enroll_no
 			, e.mem_name
 			, e.reg_dt
 			, e.enroll_app_dt
 			, e.enroll_status_cd
 			, e.force_yn
+			, e.complete_yn
 			, CONCAT(e.hp_tel1, '-', e.hp_tel2, '-', e.hp_tel3) as hp_tel1
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_ENROLL e
@@ -98,10 +109,13 @@
 	</select>
 	
 	<insert id="insert">
+		<selectKey keyProperty="enrollNo" order="BEFORE" resultType="String">
+        SELECT IFNULL(MAX(enroll_no), 0) + 1 FROM TB_ENROLL
+    	</selectKey>
 		INSERT 
 		INTO TB_ENROLL (
 			 seq_cd
-			, seqno
+			, enroll_no
 			, mem_id
 			, mem_name
 			, age_group
@@ -128,10 +142,9 @@
 				, enroll_app_dt
 				</if>
 			</if>		
-		)
-		SELECT
+		) VALUES (
 			 #{seqCd}
-			, IFNULL(MAX(seqno), 0) + 1
+			, #{enrollNo}
 			, #{sessionMemId}
 			, #{memName}
 			, #{ageGroup}
@@ -158,7 +171,7 @@
 				, NOW()
 				</if>
 			</if>
-		FROM TB_ENROLL
+		)
 	</insert>
 	
 	<update id="update">
@@ -181,7 +194,7 @@
 		  , upd_dt = NOW()
 	 	WHERE seq_cd = #{seqCd}
 	 	AND mem_id = #{memId}
-	 	AND seqno = #{seqno}
+	 	AND enroll_no = #{enrollNo}
 	</update>
 	
 	<delete id="delete">
@@ -189,7 +202,7 @@
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd}
 		AND MEM_ID = #{memId}
-		AND SEQNO = #{seqno}
+		AND ENROLL_NO = #{enrollNo}
 	</delete>
 	
 	<select id="selectEnrollUserInfo" resultType="EnrollManageVo" parameterType="EnrollManageVo">
@@ -209,11 +222,11 @@
 			, resdnc_detail
 			, memo
 			, sms_yn
-			, seqno
+			, enroll_no
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd} 
 		and MEM_ID = #{memId}
-		AND SEQNO = #{seqno}
+		AND ENROLL_NO = #{enrollNo}
 	</select>
 	
 	<update id="updateEnrollApply">
@@ -227,7 +240,7 @@
 		  , upd_dt = NOW()
 		WHERE SEQ_CD = #{seqCd} 
 		and MEM_ID = #{memId}
-		AND SEQNO = #{seqno}
+		AND ENROLL_NO = #{enrollNo}
 	</update>
 	
 	<update id="updateEnrollApplyCancel">
@@ -239,6 +252,70 @@
 		  , upd_dt = NOW()
 		WHERE SEQ_CD = #{seqCd} 
 		AND MEM_ID = #{memId}
-		AND SEQNO = #{seqno}
+		AND ENROLL_NO = #{enrollNo}
 	</update>
+	
+	<insert id="insertEnrollHistory">
+		INSERT INTO TB_ENROLL_HIST
+		(	
+			seqno
+		  , enroll_no
+		  , seq_cd
+		  , mem_id
+		  , mem_name
+		  , age_group
+		  , grade
+		  , school_nm
+		  , sexdstn
+		  , address
+		  , zipcode
+		  , memo
+		  , hp_tel1
+		  , hp_tel2
+		  , hp_tel3
+		  , resdnc_detail
+		  , enroll_status_cd
+		  , sms_yn
+		  , force_yn
+		  , reg_id
+		  , reg_ip
+		  , reg_dt
+	 	  , connection_type
+	 	  , enroll_app_id
+	 	  , enroll_app_ip
+	 	  , enroll_app_dt
+	 	  , cancel_req_dt
+		) SELECT
+		   (SELECT IFNULL(MAX(seqno), 0) + 1 FROM TB_ENROLL_HIST) AS seqno
+		  , enroll_no
+		  , seq_cd
+		  , mem_id
+		  , mem_name
+		  , age_group
+		  , grade
+		  , school_nm
+		  , sexdstn
+		  , address
+		  , zipcode
+		  , memo
+		  , hp_tel1
+		  , hp_tel2
+		  , hp_tel3
+		  , resdnc_detail
+		  , enroll_status_cd
+		  , sms_yn
+		  , force_yn
+		  , #{sessionMemSeq}
+		  , #{sessionIp}
+		  , NOW()
+	 	  , #{connectionType} AS connection_type
+	 	  , enroll_app_id
+	 	  , enroll_app_ip
+	 	  , enroll_app_dt
+	 	  , cancel_req_dt
+		FROM TB_ENROLL
+		WHERE SEQ_CD = #{seqCd}
+		AND mem_id = #{memId}
+		AND enroll_no = #{enrollNo}
+	</insert>
 </mapper>

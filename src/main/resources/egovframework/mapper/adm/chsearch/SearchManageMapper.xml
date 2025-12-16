@@ -30,7 +30,7 @@
 		        (EXISTS (
 		            SELECT 1
 		            FROM COM_MEMBER
-		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'COM'
+		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'STAFF'
 		        ) AND COM_ID = (
 		            SELECT COM_ID
 		            FROM COM_MEMBER
@@ -40,7 +40,7 @@
 		        (NOT EXISTS (
 		            SELECT 1
 		            FROM COM_MEMBER
-		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'COM'
+		            WHERE MEM_ID = #{memId} AND MEM_TYPE = 'STAFF'
 		        ))
 		      )
 		ORDER BY COM_ID

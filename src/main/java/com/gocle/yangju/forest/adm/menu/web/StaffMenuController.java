@@ -89,8 +89,8 @@ public class StaffMenuController {
 		
 		HashMap<String, Object> menuList = new HashMap<String,Object>();
 		MenuVO menu = new MenuVO();
-		menu.setMenuType(StringUtils.defaultIfBlank((String)commandMap.get("searchMenuType"), "ADM"));
-		menu.setSearchMenuType(StringUtils.defaultIfBlank((String)commandMap.get("searchMenuType"), "ADM"));
+		menu.setMenuType(StringUtils.defaultIfBlank((String)commandMap.get("searchMenuType"), "STAFF"));
+		menu.setSearchMenuType(StringUtils.defaultIfBlank((String)commandMap.get("searchMenuType"), "STAFF"));
 		List<MenuVO> treeMenuList = adminMenuService.listMenuTree(menu);
 		
 		for (MenuVO menuVO : treeMenuList) {

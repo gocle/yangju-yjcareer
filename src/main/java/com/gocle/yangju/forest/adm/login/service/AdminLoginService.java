@@ -11,4 +11,6 @@ public interface AdminLoginService {
 	LoginVO staffLogin(LoginVO loginVO) throws Exception;
 
 	Map<String, Object> logonAdmin(LoginVO loginVO) throws Exception;
+	
+	Map<String, Object> logonStaff(LoginVO loginVO) throws Exception;
 }

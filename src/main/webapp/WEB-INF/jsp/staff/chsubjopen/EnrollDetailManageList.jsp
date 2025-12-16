@@ -2,8 +2,8 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ include file="/WEB-INF/jsp/adm/include/common.jsp" %>
-<c:import url="/adm/menu/leftMenu.do" />
+<%@ include file="/WEB-INF/jsp/staff/include/common.jsp" %>
+<c:import url="/${sessionScope.SESSION_MEM_TYPE}/menu/leftMenu.do" />
 
 <script type="text/javascript">
 function fn_check_all() {
@@ -25,7 +25,7 @@ function fnCmdList() {
 function fnEnrollInsert () {
 	popOpenWindow("", "popEnrollDetailInsert", 650, 550);
 	
-	var reqUrl =  "${contextRoot}/adm/chsubjopen/popup/EnrollDetailManageInsertForm.do";
+	var reqUrl =  "${contextRoot}/staff/chsubjopen/popup/EnrollDetailManageInsertForm.do";
 	
 	$("#listForm").attr("target", "popEnrollDetailInsert");
 	$("#listForm").attr("action", reqUrl);
@@ -35,7 +35,7 @@ function fnEnrollInsert () {
 function fnEnrollUpdate(seqCd, memId, enrollNo) {
 	popOpenWindow("", "popEnrollDetailUpdate", 650, 550);
 	
-	var reqUrl =  "${contextRoot}/adm/chsubjopen/popup/EnrollDetailManageUpdateForm.do";
+	var reqUrl =  "${contextRoot}/staff/chsubjopen/popup/EnrollDetailManageUpdateForm.do";
 	$("#seqCd").val(seqCd);
 	$("#memId").val(memId);
 	$("#enrollNo").val(enrollNo);
@@ -57,7 +57,7 @@ function fnEnrollDelete() {
 	
 	$.ajax({
 		type: "post",
-		url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageDelete.do",
+		url: "${contextRoot}/staff/chsubjopen/EnrollDetailManageDelete.do",
 		data: $("#listForm").serialize(),
 		success: function(result) {
 			alert(result);
@@ -81,7 +81,7 @@ function fnEnrollApply() {
 	
 	$.ajax({
 		type: "post",
-		url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageApply.do",
+		url: "${contextRoot}/staff/chsubjopen/EnrollDetailManageApply.do",
 		data: $("#listForm").serialize(),
 		success: function(result) {
 			alert(result);
@@ -105,7 +105,7 @@ function fnEnrollApplyCancel() {
 	
 	$.ajax({
 		type: "post",
-		url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageApplyCancel.do",
+		url: "${contextRoot}/staff/chsubjopen/EnrollDetailManageApplyCancel.do",
 		data: $("#listForm").serialize(),
 		success: function(result) {
 			alert(result);
@@ -118,7 +118,7 @@ function fnEnrollApplyCancel() {
 }
 
 function fn_search(pageIndex) {
-	let reqUrl = "${contextRoot}/adm/chsubjopen/EnrollDetailManageList.do";
+	let reqUrl = "${contextRoot}/staff/chsubjopen/EnrollDetailManageList.do";
 
     $("#listForm").attr("action", reqUrl);
     $("#listForm").submit();

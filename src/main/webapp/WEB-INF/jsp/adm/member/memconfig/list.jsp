@@ -248,13 +248,13 @@ function fn_admin_use(useYn) {
 												숲체험 담당자
 											</c:when > --%>
 											
-											<c:when test="${memberList.memType eq 'SPR' }">
+											<c:when test="${memberList.memType eq 'ADM' }">
 											 	슈퍼관리자
 											</c:when>
 											<c:when test="${memberList.memType eq 'OPR' }">
 												운영담당자
 											</c:when>
-											<c:when test="${memberList.memType eq 'COM' }">
+											<c:when test="${memberList.memType eq 'STAFF' }">
 												기관담당자
 											</c:when>
 											<c:otherwise>-</c:otherwise>

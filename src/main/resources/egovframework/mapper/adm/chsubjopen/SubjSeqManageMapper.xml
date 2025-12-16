@@ -13,6 +13,16 @@
             OR  ss.seq_cd      LIKE CONCAT('%', #{searchKeyword}, '%')
             OR  ss.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
         </if>
+        
+        <if test="sessionMemType != null and sessionMemType != '' ">
+        	<if test="sessionMemType == 'STAFF' ">
+        		AND ss.com_id = (
+        			SELECT com_id
+        			FROM COM_MEMBER
+        			WHERE MEM_SEQ = #{sessionMemSeq}
+        		)
+        	</if>
+        </if>
 	</sql>
 	
 	<select id="selectTotalCount" resultType="int">

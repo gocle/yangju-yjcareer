@@ -163,9 +163,11 @@ function fn_reset(){
 											<li class="num">
 										<input type="hidden" name="menuId"  value="${menuId}"/>
 										<select id="searchMenuType" name="searchMenuType" onchange="javascript:fn_search();">
-												<option value="ADM" <c:if test="${menuVO.searchMenuType eq 'ADM' }" >selected="selected"</c:if>>관리자</option>
-												<option value="WOOD_STAFF" <c:if test="${menuVO.searchMenuType eq 'WOOD_STAFF' }" >selected="selected"</c:if>>목공체험담당자</option>
-												<option value="FOREST_STAFF" <c:if test="${menuVO.searchMenuType eq 'FOREST_STAFF' }" >selected="selected"</c:if>>숲체험담당자</option>
+												<option value="ADM" <c:if test="${menuVO.searchMenuType eq 'ADM' }" >selected="selected"</c:if>>슈퍼관리자</option>
+												<%-- <option value="WOOD_STAFF" <c:if test="${menuVO.searchMenuType eq 'WOOD_STAFF' }" >selected="selected"</c:if>>목공체험담당자</option>
+												<option value="FOREST_STAFF" <c:if test="${menuVO.searchMenuType eq 'FOREST_STAFF' }" >selected="selected"</c:if>>숲체험담당자</option> --%>
+												<option value="OPR" <c:if test="${menuVO.searchMenuType eq 'OPR' }" >selected="selected"</c:if>>운영담당자</option>
+												<option value="STAFF" <c:if test="${menuVO.searchMenuType eq 'STAFF' }" >selected="selected"</c:if>>기관담당자</option>
 												<option value="USR" <c:if test="${menuVO.searchMenuType eq 'USR' }" >selected="selected"</c:if>>사용자</option>
 											</select>
 											</li>
@@ -280,9 +282,11 @@ function fn_reset(){
 												<td>
 													<select id="menuType" name="menuType">
 														
-														<option value="ADM" <c:if test="${menuVO.menuType eq 'ADM' }" >selected="selected"</c:if>>관리자</option>
-														<option value="WOOD_STAFF" <c:if test="${menuVO.menuType eq 'WOOD_STAFF' }" >selected="selected"</c:if>>목공체험 담당자</option>
-														<option value="FOREST_STAFF" <c:if test="${menuVO.menuType eq 'FOREST_STAFF' }" >selected="selected"</c:if>>숲체험 담당자</option>
+														<option value="ADM" <c:if test="${menuVO.menuType eq 'ADM' }" >selected="selected"</c:if>>슈퍼관리자</option>
+														<%-- <option value="WOOD_STAFF" <c:if test="${menuVO.menuType eq 'WOOD_STAFF' }" >selected="selected"</c:if>>목공체험 담당자</option>
+														<option value="FOREST_STAFF" <c:if test="${menuVO.menuType eq 'FOREST_STAFF' }" >selected="selected"</c:if>>숲체험 담당자</option> --%>
+														<option value="OPR" <c:if test="${menuVO.menuType eq 'OPR' }" >selected="selected"</c:if>>운영담당자</option>
+														<option value="STAFF" <c:if test="${menuVO.menuType eq 'STAFF' }" >selected="selected"</c:if>>기관담당자</option>
 														<option value="USR" <c:if test="${menuVO.menuType eq 'USR' }" >selected="selected"</c:if>>사용자</option>
 														
 													</select>													

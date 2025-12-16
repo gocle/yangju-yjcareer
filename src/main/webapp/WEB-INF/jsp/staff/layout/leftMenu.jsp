@@ -8,7 +8,7 @@
 		<a href="#" class="logo"><img src="${contextRoot}/assets/css/adm/img/logo_admin.png" alt="Yangju 양주시"></a>
 		<div>
 			<span>${SESSION_MEM_NAME} 님 로그인 중입니다.</span>
-			<button type="button" class="btn-link" data-target="${contextRoot}/adm/logout.do" title="Logout">로그아웃</button>
+			<button type="button" class="btn-link" data-target="${contextRoot}/staff/logout.do" title="Logout">로그아웃</button>
 <%-- 			<button class="nav-btn" title="Toggle navigation">Toggle navigation</button>
  			<ul>
 				<li>${SESSION_MEM_NAME} 님 안녕하세요. <strong id="session_timer"></strong></li>

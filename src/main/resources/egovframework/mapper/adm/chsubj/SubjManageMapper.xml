@@ -12,6 +12,16 @@
             AND (sb.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
             OR  sb.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
         </if>
+        
+        <if test="sessionMemType != null and sessionMemType != '' ">
+        	<if test="sessionMemType == 'STAFF' ">
+        		AND sb.com_id = (
+        			SELECT com_id
+        			FROM COM_MEMBER
+        			WHERE MEM_SEQ = #{sessionMemSeq}
+        		)
+        	</if>
+        </if>
 	</sql>
 	
 	<select id="selectTotalCount" resultType="int">
@@ -79,7 +89,7 @@
             ,#{subjNm}
             ,#{comId}
             ,#{useYn}
-            ,#{duplEnrollYn}
+            ,IFNULL(#{duplEnrollYn}, 'N')
             ,#{tel}
             ,#{subjPlan}
             ,#{subjDesc}

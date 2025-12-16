@@ -15,7 +15,7 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     // 운영과정코드
     private String seqCd;
     // 신청 일련번호
-    private String seqno;
+    private String enrollNo;
     // 교육강좌명
     private String subjNm;
     // 기수명
@@ -81,6 +81,9 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private int userCnt;
     private int dupErrCnt;
     private int eduErrCnt;
+    
+    // 히스토리 저장 타입
+    private String connectionType;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -328,11 +331,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setEduErrCnt(int eduErrCnt) {
 		this.eduErrCnt = eduErrCnt;
 	}
-	public String getSeqno() {
-		return seqno;
+	public String getEnrollNo() {
+		return enrollNo;
 	}
-	public void setSeqno(String seqno) {
-		this.seqno = seqno;
+	public void setEnrollNo(String enrollNo) {
+		this.enrollNo = enrollNo;
 	}
 	public String getForceYn() {
 		return forceYn;
@@ -358,5 +361,10 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setCompleteDt(String completeDt) {
 		this.completeDt = completeDt;
 	}
-	
+	public String getConnectionType() {
+		return connectionType;
+	}
+	public void setConnectionType(String connectionType) {
+		this.connectionType = connectionType;
+	}
 }

@@ -25,4 +25,6 @@ public interface EnrollManageMapper {
 	void updateEnrollApplyCancel(EnrollManageVo enrollManageVo) throws Exception;
 	
 	EnrollManageVo selectEnrollUserInfo(EnrollManageVo enrollManageVo) throws Exception;
+	
+	void insertEnrollHistory(EnrollManageVo enrollManageVo) throws Exception;
 }

@@ -121,8 +121,14 @@
 		<if test="startDate != null and startDate != '' ">
 			,START_DATE = #{startDate}
 		</if>
+		<if test="startDate == null or startDate == '' ">
+			,START_DATE = NULL
+		</if>
 		<if test="endDate != null and endDate != '' ">
 			,END_DATE = #{endDate}
+		</if>
+		<if test="endDate == null or endDate == '' ">
+			,END_DATE = NULL
 		</if>
 			,COM_ID = #{comId}
 		WHERE MEM_ID = #{memId}

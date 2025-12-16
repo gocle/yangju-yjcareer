@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ include file="/WEB-INF/jsp/adm/include/common.jsp" %>
+<%@ include file="/WEB-INF/jsp/staff/include/common.jsp" %>
 
 <style>
 .red {color:red;}
@@ -89,7 +89,7 @@ function fnCmdInsert() {
 	if(valid()) {
 		$.ajax({
 			type: "post",
-			url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageInsert.do",
+			url: "${contextRoot}/staff/chsubjopen/EnrollDetailManageInsert.do",
 			data: $("#detailForm").serialize(),
 			success: function(result) {
 				alert(result);
@@ -106,7 +106,7 @@ function fnCmdUpdate() {
 	if(valid()) {
 		$.ajax({
 			type: "post",
-			url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageUpdate.do",
+			url: "${contextRoot}/staff/chsubjopen/EnrollDetailManageUpdate.do",
 			data: $("#detailForm").serialize(),
 			success: function(result) {
 				alert(result);

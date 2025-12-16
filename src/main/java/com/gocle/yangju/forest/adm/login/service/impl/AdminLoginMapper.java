@@ -18,4 +18,6 @@ public interface AdminLoginMapper {
 	int selectAdminLoginFailCnt(LoginVO loginVO) throws Exception;
 	
 	void updateAdminLoginSuccessInit(LoginVO loginVO) throws Exception;
+	
+	LoginVO selectStaffLogin(LoginVO loginVO) throws Exception;
 }

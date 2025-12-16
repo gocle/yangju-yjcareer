@@ -2,8 +2,8 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ include file="/WEB-INF/jsp/adm/include/common.jsp" %>
-<c:import url="/adm/menu/leftMenu.do" />
+<%@ include file="/WEB-INF/jsp/staff/include/common.jsp" %>
+<c:import url="/${sessionScope.SESSION_MEM_TYPE}/menu/leftMenu.do" />
 
 <script type="text/javascript">
 var sessionCnt = 0;
@@ -498,4 +498,3 @@ function fnCmdList() {
 		<a href="javascript:fnCmdList();">목록</a>
 	</div>
 </section>
-

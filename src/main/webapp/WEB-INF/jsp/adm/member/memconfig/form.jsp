@@ -22,7 +22,7 @@ img.ui-datepicker-trigger {
 <script type="text/javascript">
 	$(document).ready(function() {
 		function memTypeChange() {
-			if($("#memType").val() == "COM") {
+			if($("#memType").val() == "STAFF") {
 				$(".comOnlyTr").show();
 			}else {
 				$(".comOnlyTr").hide();
@@ -34,6 +34,10 @@ img.ui-datepicker-trigger {
 		$("#memType").on("change", function () {
 			memTypeChange();
 		});
+		
+		$("#startDate, #endDate").on("change", function() {
+	        validateDates();
+	    });
 	});
 
 	//아이디 DB 여부
@@ -261,8 +265,16 @@ img.ui-datepicker-trigger {
 		$("#form").submit();
 	}
 
-	
-	
+	function validateDates() {
+		let startDate = $("#startDate").val();
+		let endDate = $("#endDate").val();
+		
+		if (startDate && endDate && startDate > endDate) {
+	        alert("접속 허용 종료일은 시작일보다 빠를 수 없습니다.");
+	        $("#endDate").val(startDate).focus(); 
+	        return false;
+	    }
+	}
 </script>
 
 <style>
@@ -283,9 +295,9 @@ img.ui-datepicker-trigger {
 							<th>분 류<span class="red"> *</span></th>
 							<td>
 								<select id="memType" name="memType" style="width: 30%">
-									<option value="SPR" ${adminUpdateResult.memType eq 'SPR' or adminUpdateResult.memType eq null ? 'selected="selected"' : ''}>슈퍼관리자</option>
+									<option value="ADM" ${adminUpdateResult.memType eq 'ADM' or adminUpdateResult.memType eq null ? 'selected="selected"' : ''}>슈퍼관리자</option>
 									<option value="OPR" ${adminUpdateResult.memType eq 'OPR' ? 'selected="selected"' : ''}>운영담당자</option>
-									<option value="COM" ${adminUpdateResult.memType eq 'COM' ? 'selected="selected"' : ''}>기관담당자</option>
+									<option value="STAFF" ${adminUpdateResult.memType eq 'STAFF' ? 'selected="selected"' : ''}>기관담당자</option>
 								</select>
 							</td>
 						</tr>
@@ -345,7 +357,7 @@ img.ui-datepicker-trigger {
 							<td><input type="text" style="width: 50%" name="deptNm" id="deptNm" value="${adminUpdateResult.deptNm }"></td>
 						</tr>
 						<tr>
-							<th>접속기간</th>
+							<th>접속허용기간</th>
 							<td><input type="date" style="width: 20%" name="startDate" id="startDate" value="${adminUpdateResult.startDate }" onclick="this.showPicker ? this.showPicker() : this.focus()">
 								~ <input type="date" style="width: 20%" name="endDate" id="endDate" value="${adminUpdateResult.endDate }" onclick="this.showPicker ? this.showPicker() : this.focus()">
 							</td>

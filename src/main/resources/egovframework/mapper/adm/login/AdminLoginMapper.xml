@@ -48,12 +48,13 @@
 			       SCSN_YN
 			  FROM COM_MEMBER
 			  WHERE MEM_ID = #{memId}
+			  AND MEM_TYPE != 'STAFF'
 	</select>
 	
 	<update id="updateAdminLoginFailCntAdd" parameterType="LoginVO">
 		UPDATE COM_MEMBER
 		SET PW_ERR_NUMBER_TIMES = IFNULL(PW_ERR_NUMBER_TIMES, 0) + 1
-		, LOCK_YN = CASE WHEN PW_ERR_NUMBER_TIMES <![CDATA[>=]]> 4 THEN 'Y'
+		, LOCK_YN = CASE WHEN PW_ERR_NUMBER_TIMES <![CDATA[>=]]> 5 THEN 'Y'
 					ELSE 'N'
 					END
 		WHERE MEM_ID = #{memId}
@@ -77,4 +78,24 @@
 		AND DELETE_YN = 'N'
 		AND SCSN_YN = 'N'
 	</update>
+	
+	<select id="selectStaffLogin" parameterType="LoginVO" resultType="LoginVO">
+		SELECT MEM_SEQ,
+			       MEM_ID,
+			       MEM_NAME,
+			       DEPT_NO,
+			       EMAIL,
+			       MEM_TYPE,
+			       MEM_PASSWORD,
+			       LOCK_YN,
+			       PERMIT_IP,
+			       START_DATE,
+			       END_DATE,
+			       LAST_PW_UPDT_YMD,
+			       DELETE_YN,
+			       SCSN_YN
+			  FROM COM_MEMBER
+			  WHERE MEM_ID = #{memId}
+			  AND MEM_TYPE = 'STAFF'
+	</select>
 </mapper>

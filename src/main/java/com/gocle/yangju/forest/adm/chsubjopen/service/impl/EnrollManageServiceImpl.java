@@ -66,12 +66,26 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 			enrollManageVo.setEnrollStatusCd("A");
 		}
 		
-		return enrollManageMapper.insert(enrollManageVo);
+		int ins = enrollManageMapper.insert(enrollManageVo);
+		
+		// 히스토리 저장타입 - 등록(I)
+		enrollManageVo.setConnectionType("I");
+		// 수강등록 테이블 히스토리 입력
+		enrollManageMapper.insertEnrollHistory(enrollManageVo);
+		
+		return ins;
 	}
 	
 	@Override
 	public int update(EnrollManageVo enrollManageVo) throws Exception {
-		return enrollManageMapper.update(enrollManageVo);
+		int upd = enrollManageMapper.update(enrollManageVo);
+		
+		// 히스토리 저장타입 - 수정(U)
+		enrollManageVo.setConnectionType("U");
+		// 수강등록 테이블 히스토리 입력
+		enrollManageMapper.insertEnrollHistory(enrollManageVo);
+				
+		return upd; 
 	}
 	
 	@Override
@@ -79,7 +93,13 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int deleteCnt = 0;
 		for(String memId : enrollManageVo.getMemIds()) {
 			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setSeqno(memId.split("_")[1]);
+			enrollManageVo.setEnrollNo(memId.split("_")[1]);
+			
+			// 히스토리 저장타입 - 삭제(D)
+			enrollManageVo.setConnectionType("D");
+			// 수강등록 테이블 히스토리 입력
+			enrollManageMapper.insertEnrollHistory(enrollManageVo);
+			
 			enrollManageMapper.delete(enrollManageVo);
 			deleteCnt++;
 		}
@@ -94,7 +114,7 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		
 		for(String memId : enrollManageVo.getMemIds()) {
 			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setSeqno(memId.split("_")[1]);
+			enrollManageVo.setEnrollNo(memId.split("_")[1]);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
@@ -107,6 +127,11 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 					// 수강승인 처리
 					enrollManageMapper.updateEnrollApply(enrollManageVo);
 					userCnt++;
+					
+					// 히스토리 저장타입 - 수정(U)
+					enrollManageVo.setConnectionType("U");
+					// 수강등록 테이블 히스토리 입력
+					enrollManageMapper.insertEnrollHistory(enrollManageVo);
 				}
 			} else {
 				// 수강신청 이력이 없거나 삭제된 오류
@@ -127,7 +152,7 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		
 		for(String memId : enrollManageVo.getMemIds()) {
 			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setSeqno(memId.split("_")[1]);
+			enrollManageVo.setEnrollNo(memId.split("_")[1]);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
@@ -140,6 +165,11 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 					// 승인취소 처리
 					enrollManageMapper.updateEnrollApplyCancel(enrollManageVo);
 					userCnt++;
+					
+					// 히스토리 저장타입 - 수정(U)
+					enrollManageVo.setConnectionType("U");
+					// 수강등록 테이블 히스토리 입력
+					enrollManageMapper.insertEnrollHistory(enrollManageVo);
 				}
 			} else {
 				// 수강신청 이력이 없거나 삭제된 오류
