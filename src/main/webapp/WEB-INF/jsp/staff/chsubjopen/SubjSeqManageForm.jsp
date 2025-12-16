@@ -573,7 +573,9 @@ function fnCmdDelete() {
   	<!-- 버튼 영역 -->
   	<div class="text-right btn-area" style="margin-top: 20px;">
   		<button type="button" onclick="fnCmdSave();" class="point">수정</button>
+      	<c:if test="${cmd eq 'Update' && resultMap.enrollCnt == 0 }">
       	<button type="button" onclick="fnCmdDelete();">삭제</button>
+      	</c:if>
       	<a href="javascript:fnCmdList();">목록</a>
   	</div>
 	</form>
