@@ -20,6 +20,8 @@ public class SubjManageVo extends SubjManageDefaultVo {
     // 교육기관
     private String comId;
     private String comTitle;
+    // 교육장소
+    private String eduPlace;
     // 교육대상
     private String eduTarget;
     // 모집방법
@@ -115,7 +117,10 @@ public class SubjManageVo extends SubjManageDefaultVo {
 	public void setDuplEnrollYn(String duplEnrollYn) {
 		this.duplEnrollYn = duplEnrollYn;
 	}
-	
-    
-    
+	public String getEduPlace() {
+		return eduPlace;
+	}
+	public void setEduPlace(String eduPlace) {
+		this.eduPlace = eduPlace;
+	}
 }

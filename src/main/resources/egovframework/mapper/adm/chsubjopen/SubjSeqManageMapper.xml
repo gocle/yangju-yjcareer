@@ -93,6 +93,7 @@
 			, ss.subj_plan
 			, ss.subj_desc
 			, s.dupl_enroll_yn
+			, ss.edu_place
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
 			ON s.sgr_cd = ss.sgr_cd
@@ -134,6 +135,7 @@
 			, learn_start_dt
 			, learn_end_dt
 			, com_id
+			, edu_place
 			, tel
 			, enroll_type
 			, edu_target
@@ -158,6 +160,7 @@
 			, #{learnStartDt}
 			, #{learnEndDt}
 			, com_id
+			, edu_place
 			, tel
 			, enroll_type
 			, edu_target
@@ -182,6 +185,7 @@
 			, learn_start_dt = #{learnStartDt}
 			, learn_end_dt = #{learnEndDt}
 			, com_id = #{comId}
+			, edu_place = #{eduPlace}
 			, subj_plan = #{subjPlan}
 			, subj_desc = #{subjDesc}
 			, enroll_type = #{enrollType}

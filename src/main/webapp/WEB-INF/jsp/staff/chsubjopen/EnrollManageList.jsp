@@ -123,7 +123,7 @@ function fnEnrollDetailList(seqCd) {
 				</c:forEach>
 				<c:if test="${fn:length(resultList) == 0}">
 					<tr>
-						<td colspan="8" class="no-data">
+						<td colspan="9" class="no-data">
 							<i class="fa fa-search"></i> 등록된 과정이 없습니다.
 						</td>
 					</tr>

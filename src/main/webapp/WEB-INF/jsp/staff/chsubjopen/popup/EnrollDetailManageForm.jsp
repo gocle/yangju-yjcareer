@@ -7,6 +7,10 @@
 
 <style>
 .red {color:red;}
+.btn_blue {
+	color: #FFF!important;
+    background-color: #182142!important;
+}
 </style>
 
 <script type="text/javascript">
@@ -162,11 +166,10 @@ function fnCmdUpdate() {
 			          		<th>연령대<span class="red"> *</span></th>
 				            <td colspan="3">
 				            	<select id="ageGroup" name="ageGroup" title="연령대 선택" class="select" required="required">
-									<option value="" ${empty userInfo.ageGroup ? 'selected="selected"' : ''}>연령대선택</option>
-									<option value="ELE" ${userInfo.ageGroup eq 'ELE' ? 'selected="selected"' : ''}>초등</option>
-									<option value="MID" ${userInfo.ageGroup eq 'MID' ? 'selected="selected"' : ''}>중등</option>
-									<option value="HIG" ${userInfo.ageGroup eq 'HIG' ? 'selected="selected"' : ''}>고등</option>
-									<option value="ADT" ${userInfo.ageGroup eq 'ADT' ? 'selected="selected"' : ''}>성인</option>		
+									<option value="" ${empty userInfo.ageGroup ? 'selected="selected"' : ''}>연령대 선택</option>
+									<c:forEach var="age" items="${ageList}">
+										<option value="${age.codeCode}" ${userInfo.ageGroup eq age.codeCode ? 'selected="selected"' : ''}>${age.codeName}</option>
+									</c:forEach>
 								</select>
 			          		</td>
 			          	</tr>
@@ -177,13 +180,9 @@ function fnCmdUpdate() {
 			          		<td colspan="3">
 			          			<select id="grade" name="grade" title="학년 선택" class="select">
 									<option value="" ${empty userInfo.grade ? 'selected="selected"' : ''}>학년 선택</option>
-									<option value="1" ${userInfo.grade eq '1' ? 'selected="selected"' : ''}>1학년</option>
-									<option value="2" ${userInfo.grade eq '2' ? 'selected="selected"' : ''}>2학년</option>
-									<option value="3" ${userInfo.grade eq '3' ? 'selected="selected"' : ''}>3학년</option>
-									<option value="4" ${userInfo.grade eq '4' ? 'selected="selected"' : ''}>4학년</option>	
-									<option value="5" ${userInfo.grade eq '5' ? 'selected="selected"' : ''}>5학년</option>
-									<option value="6" ${userInfo.grade eq '6' ? 'selected="selected"' : ''}>6학년</option>
-									<option value="0" ${userInfo.grade eq '0' ? 'selected="selected"' : ''}>기타</option>
+									<c:forEach var="grade" items="${gradeList}">
+										<option value="${grade.codeCode}" ${userInfo.grade eq grade.codeCode ? 'selected="selected"' : ''}>${grade.codeName}</option>
+									</c:forEach>
 								</select>
 			          		</td>
 			          	</tr>
@@ -208,7 +207,7 @@ function fnCmdUpdate() {
 				            <th>주소<span class="red"> *</span></th>
 				            <td colspan="3">
 				            	<input type="text" name="zipcode" id="zipcode" value="${userInfo.zipcode}" title="우편번호" class="temp_textbox" readonly="readonly" placeholder="우편번호" /> 			
-								<button type="button"  class="btn type2 small" onclick="openDaumZipAddress();">도로명주소검색</button> <br/>
+								<button type="button"  class="btn_blue" onclick="openDaumZipAddress();">도로명주소검색</button> <br/>
 								<input id="address" name="address" placeholder="상세주소" class="temp_textbox margin_t_10 full_size" type="text" value="${userInfo.address}" size="50" maxlength="100"/>
 								<input type="hidden" path="detailAdres" placeholder="상세주소" maxlength="250" size="50" class="temp_textbox margin_t_10 full_size" />
 				            </td>
@@ -216,21 +215,11 @@ function fnCmdUpdate() {
 			          	<tr>
 				            <th>거주지<span class="red"> *</span></th>
 				            <td colspan="3">
-				            	<select id="resdncDetail" name="resdncDetail" title="거주지 읍면동 선택" class="select" required="required">
+				            	<select id="resdncDetail" name="resdncDetail" title="거주지 읍면동 선택" class="select">
 									<option value="" ${empty userInfo.resdncDetail ? 'selected="selected"' : ''}>거주지선택</option>
-									<option value="A0101" ${userInfo.resdncDetail eq 'A0101' ? 'selected="selected"' : ''}>백석읍</option>
-									<option value="A0102" ${userInfo.resdncDetail eq 'A0102' ? 'selected="selected"' : ''}>은현면</option>
-									<option value="A0103" ${userInfo.resdncDetail eq 'A0103' ? 'selected="selected"' : ''}>남면</option>
-									<option value="A0104" ${userInfo.resdncDetail eq 'A0104' ? 'selected="selected"' : ''}>광적면</option>
-									<option value="A0105" ${userInfo.resdncDetail eq 'A0105' ? 'selected="selected"' : ''}>장흥면</option>
-									<option value="A0106" ${userInfo.resdncDetail eq 'A0106' ? 'selected="selected"' : ''}>양주1동</option>
-									<option value="A0107" ${userInfo.resdncDetail eq 'A0107' ? 'selected="selected"' : ''}>양주2동</option>
-									<option value="A0108" ${userInfo.resdncDetail eq 'A0108' ? 'selected="selected"' : ''}>회천1동</option>
-									<option value="A0109" ${userInfo.resdncDetail eq 'A0109' ? 'selected="selected"' : ''} >회천2동</option>
-									<option value="A0110" ${userInfo.resdncDetail eq 'A0110' ? 'selected="selected"' : ''}>회천3동</option>
-									<option value="A0111" ${userInfo.resdncDetail eq 'A0111' ? 'selected="selected"' : ''}>옥정1동</option>
-									<option value="A0112" ${userInfo.resdncDetail eq 'A0112' ? 'selected="selected"' : ''}>옥정2동</option>
-									<option value="A0113" ${userInfo.resdncDetail eq 'A0113' ? 'selected="selected"' : ''}>기타</option>			
+									<c:forEach var="resdn" items="${resdncList}">
+										<option value="${resdn.codeCode}" ${userInfo.resdncDetail eq resdn.codeCode ? 'selected="selected"' : ''}>${resdn.codeName}</option>
+									</c:forEach>
 								</select>
 				            </td>
 			          	</tr>

@@ -358,6 +358,10 @@ function fnCmdList() {
 
 <style>
 .red {color:red;}
+.btn_blue {
+    color: #FFF!important;
+    background-color: #182142!important;
+}
 </style>
 
 <section>
@@ -451,7 +455,7 @@ function fnCmdList() {
 	          		<th>기수<span class="red"> *</span></th>
 	          		<td colspan="3">
 	          			<input type="text" id="sessionNms" name="sessionNms" value="${resultMap.subjNm }" maxlength="3" class="numberOnly"/>
-	          			&nbsp;<button type="button" onclick="fnCmdDelSeq('session', this);">기수 삭제</button>
+	          			&nbsp;<button type="button" onclick="fnCmdDelSeq('session', this);" class="btn_blue">기수 삭제</button>
 	          		</td>
 	          	</tr>
 	          	<tr>

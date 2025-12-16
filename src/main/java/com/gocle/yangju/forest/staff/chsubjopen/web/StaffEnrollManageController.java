@@ -19,6 +19,8 @@ import com.gocle.yangju.forest.adm.chsubjopen.service.EnrollManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.service.SubjSeqManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
+import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
+import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
 
 import egovframework.com.cmm.service.Globals;
@@ -37,6 +39,9 @@ public class StaffEnrollManageController {
 	
 	@Autowired
 	EnrollManageService enrollManageService;
+	
+	@Autowired
+	AdminCodeService adminCodeService;
 	
 	@RequestMapping(value = "EnrollManageList.do")
 	public String EnrollManageList(@ModelAttribute("searchVo") EnrollManageVo searchVo
@@ -106,6 +111,14 @@ public class StaffEnrollManageController {
 		model.addAttribute("cmd", "Insert");
 		model.addAttribute("resultMap", subjSeqManageService.select(subjSeqManageVo));
 		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("RESDNC_DETAIL");
+		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("AGE_GROUP");
+		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("GRADE");
+		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
+		
 		return "/staff/chsubjopen/popup/EnrollDetailManageForm";
 	}
 	
@@ -115,6 +128,15 @@ public class StaffEnrollManageController {
 		model.addAttribute("cmd", "Update");
 		model.addAttribute("resultMap", subjSeqManageService.select(subjSeqManageVo));
 		model.addAttribute("userInfo", enrollManageService.selectEnrollUserInfo(enrollManageVo));
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("RESDNC_DETAIL");
+		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("AGE_GROUP");
+		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("GRADE");
+		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
+		
 		return "/staff/chsubjopen/popup/EnrollDetailManageForm";
 	}
 	

@@ -45,11 +45,4 @@
 		      )
 		ORDER BY COM_ID
 	</select>
-	
-	<select id="selectEduPlaceAddress" resultType="CompanyManageVo" parameterType="String">
-		SELECT COM_ID, COM_TITLE, CONCAT(ADDRESS, ' ', ADDRESS_DTL) AS ADDRESS
-		FROM COM_COMPANY
-		WHERE USE_YN = 'Y'
-		AND COM_ID = #{comId}
-	</select>
 </mapper>

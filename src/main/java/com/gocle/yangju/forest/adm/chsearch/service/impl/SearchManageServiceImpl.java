@@ -33,9 +33,4 @@ public class SearchManageServiceImpl extends EgovAbstractServiceImpl implements 
 	public List<CompanyManageVo> selectCompanyList(LoginVO loginVO) throws Exception {
 		return searchManageMapper.selectCompanyList(loginVO);
 	}
-	
-	@Override
-	public CompanyManageVo selectEduPlaceAddress(String comId) throws Exception {
-		return searchManageMapper.selectEduPlaceAddress(comId);
-	}
 }

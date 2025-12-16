@@ -23,6 +23,8 @@ import com.gocle.yangju.forest.adm.chsgr.service.SgrManageService;
 import com.gocle.yangju.forest.adm.chsgr.vo.SgrManageVo;
 import com.gocle.yangju.forest.adm.chsubj.service.SubjManageService;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjManageVo;
+import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
+import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.adm.login.vo.LoginVO;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.comm.file.vo.FileVO;
@@ -45,6 +47,9 @@ public class StaffSubjManageController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	AdminCodeService adminCodeService;
 	
 	@RequestMapping(value = "SubjManageList.do")
 	public String selectSubjManageList(@ModelAttribute("subjManageVo") SubjManageVo searchVo
@@ -95,6 +100,11 @@ public class StaffSubjManageController {
 		LoginVO loginVO = new LoginVO();
 		loginVO.setMemId(memId);
 		model.addAttribute("companyList", searchManageService.selectCompanyList(loginVO));
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
 		
 		return "/staff/chsubj/SubjManageForm";
 	}
@@ -165,6 +175,11 @@ public class StaffSubjManageController {
 		fvo.setThumbnailCrop("Y");
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList1", tFileList);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
 		
 		return "/staff/chsubj/SubjManageForm";
 	}

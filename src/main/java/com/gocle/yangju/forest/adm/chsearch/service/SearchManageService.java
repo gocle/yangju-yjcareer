@@ -13,6 +13,4 @@ public interface SearchManageService {
 	 List<SubjCateManageVo> selectCateCdList(String sgrCd) throws Exception;
 	 
 	 List<CompanyManageVo> selectCompanyList(LoginVO loginVO) throws Exception;
-	 
-	 CompanyManageVo selectEduPlaceAddress(String comId) throws Exception;
 }

@@ -51,25 +51,6 @@ $(document).ready(function() {
 	});
 	
 	$("#sgrCd").trigger("change");
-	
-	$("#comId").change(function() {
-		var comId = $(this).val();
-		$("#eduPlace").val();
-		
-		$.ajax({
-	     	url: "${contextRoot}/staff/chsearch/SearchEduPlaceAddress.do",
-	        type: "GET",
-	        data: { comId: comId },
-	        success: function(result) {
-	        	$("#eduPlace").val(result.address);
-	        },
-	        error: function() {
-	        	//alert("오류 발생");
-	        }
-		});
-	});
-	
-	$("#comId").trigger("change");
 });
 
 function initEditor() {
@@ -263,6 +244,7 @@ function fnCmdDelete() {
 		            		<input type="file" class="input_file" id="file_thumbFileId1" name="file_thumbFileId" title="이미지 찾기" />
 		            	</c:if>
 	            	</c:if>
+	            	<br/><b style="font-size:12px; color:red;">* 이미지 미등록 시 기본이미지가 노출됩니다.</b>
 	            </td>
           	</tr>
           	<tr>
@@ -293,17 +275,19 @@ function fnCmdDelete() {
           	<tr>
 	            <th>교육장소</th>
 	            <td colspan="3">
-	            	<input type="text" id="eduPlace" name="eduPlace" value=""  style="width: 100%;" readonly/>
+	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}"  style="width: 100%;" maxlength="100"/>
 	            </td>
           	</tr>
           	<tr>
 	            <th>교육대상<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<label><input type="checkbox" id="eduTarget1" name="eduTarget1" value="1" <c:if test="${fn:contains(resultMap.eduTarget,'1')}">checked</c:if>/> 초</label>&nbsp;&nbsp;
-	            	<label><input type="checkbox" id="eduTarget2" name="eduTarget2" value="2" <c:if test="${fn:contains(resultMap.eduTarget,'2')}">checked</c:if>/> 중</label>&nbsp;&nbsp;
-	            	<label><input type="checkbox" id="eduTarget3" name="eduTarget3" value="3" <c:if test="${fn:contains(resultMap.eduTarget,'3')}">checked</c:if>/> 고</label>&nbsp;&nbsp;
-	            	<label><input type="checkbox" id="eduTarget4" name="eduTarget4" value="4" <c:if test="${fn:contains(resultMap.eduTarget,'4')}">checked</c:if>/> 학부모</label>&nbsp;&nbsp;
-	            	<label><input type="checkbox" id="eduTarget5" name="eduTarget5" value="5" <c:if test="${fn:contains(resultMap.eduTarget,'5')}">checked</c:if>/> 성인</label>
+	            	<c:forEach var="code" items="${codeList}">
+						<label>
+						<input type="checkbox" 
+			                   id="eduTarget${code.codeCode}" 
+			                   value="${code.codeCode}" 
+			                   ${fn:contains(resultMap.eduTarget, code.codeCode) ? 'checked' : ''} /> ${code.codeName}</label>&nbsp;&nbsp;
+					</c:forEach>
 	            </td>
           	</tr>
           	<tr>

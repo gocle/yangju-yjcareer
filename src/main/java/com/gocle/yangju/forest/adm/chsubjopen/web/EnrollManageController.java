@@ -20,6 +20,8 @@ import com.gocle.yangju.forest.adm.chsubjopen.service.EnrollManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.service.SubjSeqManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
+import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
+import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
 
 @RequestMapping(value = "/adm/chsubjopen")
@@ -37,6 +39,9 @@ public class EnrollManageController {
 	
 	@Autowired
 	EnrollManageService enrollManageService;
+	
+	@Autowired
+	AdminCodeService adminCodeService;
 	
 	@RequestMapping(value = "EnrollManageList.do")
 	public String EnrollManageList(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
@@ -99,6 +104,14 @@ public class EnrollManageController {
 		model.addAttribute("cmd", "Insert");
 		model.addAttribute("resultMap", subjSeqManageService.select(subjSeqManageVo));
 		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("RESDNC_DETAIL");
+		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("AGE_GROUP");
+		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("GRADE");
+		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
+		
 		return "/adm/chsubjopen/popup/EnrollDetailManageForm";
 	}
 	
@@ -108,6 +121,15 @@ public class EnrollManageController {
 		model.addAttribute("cmd", "Update");
 		model.addAttribute("resultMap", subjSeqManageService.select(subjSeqManageVo));
 		model.addAttribute("userInfo", enrollManageService.selectEnrollUserInfo(enrollManageVo));
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("RESDNC_DETAIL");
+		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("AGE_GROUP");
+		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("GRADE");
+		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
+		
 		return "/adm/chsubjopen/popup/EnrollDetailManageForm";
 	}
 	

@@ -24,6 +24,8 @@ import com.gocle.yangju.forest.adm.chsubj.vo.SubjManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.service.SubjSeqManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageDefaultVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
+import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
+import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.adm.login.vo.LoginVO;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.comm.file.vo.FileVO;
@@ -45,6 +47,9 @@ public class StaffSubjSeqManageController {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	AdminCodeService adminCodeService;
 	
 	@RequestMapping(value = "SubjSeqManageList.do")
 	public String selectSubjSeqManageList(@ModelAttribute("searchVo") SubjSeqManageVo searchVo
@@ -133,6 +138,11 @@ public class StaffSubjSeqManageController {
 		fvo.setThumbnailCrop("Y");
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList1", tFileList);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
 		
 		return "/staff/chsubjopen/SubjSeqManageForm";
 	}

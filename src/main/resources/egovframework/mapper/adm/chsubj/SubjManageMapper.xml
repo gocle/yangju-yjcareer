@@ -79,6 +79,7 @@
             ,subj_desc
             ,enroll_type
             ,edu_target
+            ,edu_place
             ,reg_id
             ,reg_ip
             ,reg_dt
@@ -95,6 +96,7 @@
             ,#{subjDesc}
             ,#{enrollType}
             ,#{eduTarget}
+            ,#{eduPlace}
             ,#{sessionMemSeq}
             ,#{sessionIp}
             ,NOW()
@@ -113,6 +115,7 @@
 			, enroll_type
 			, com_id
 			, edu_target
+			, edu_place
 			, dupl_enroll_yn
 		FROM TB_SUBJ
 		WHERE subj_cd = #{subjCd}
@@ -126,6 +129,7 @@
             ,use_yn = #{useYn}
             ,dupl_enroll_yn = #{duplEnrollYn}
             ,tel = #{tel}
+            ,edu_place = #{eduPlace}
             ,subj_plan = #{subjPlan}
             ,subj_desc = #{subjDesc}
             ,enroll_type = #{enrollType}

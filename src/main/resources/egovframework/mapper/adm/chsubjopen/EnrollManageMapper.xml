@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gocle.yangju.forest.adm.chsubjopen.service.impl.EnrollManageMapper">
 	<sql id="selectSearchWhere">
+		<if test="searchSgrCd != null and searchSgrCd != '' and searchSgrCd != 'ALL' ">
+            AND ss.sgr_cd       = #{searchSgrCd}
+        </if>
+        <if test="searchCateCd != null and searchCateCd != '' and searchCateCd != 'ALL' ">
+            AND ss.cate_cd       = #{searchCateCd}
+        </if>
 		<if test="searchKeyword != null and searchKeyword != '' ">
             AND (ss.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
             OR  ss.seq_cd      LIKE CONCAT('%', #{searchKeyword}, '%')
             OR  ss.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
         </if>
-        
         <if test="sessionMemType != null and sessionMemType != '' ">
         	<if test="sessionMemType == 'STAFF' ">
         		AND ss.com_id = (
@@ -45,6 +50,7 @@
 		LEFT JOIN COM_COMPANY cc
 			ON cc.com_id = ss.com_id
 		WHERE 1 = 1
+		<include refid="selectSearchWhere" />
 	</select>
 	
 	<select id="selectList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
