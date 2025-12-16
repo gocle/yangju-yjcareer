@@ -62,4 +62,9 @@ public class SubjManageServiceImpl extends EgovAbstractServiceImpl implements Su
 		}
 		return subjManageMapper.delete(subjManageVo);
 	}
+	
+	@Override
+	public int selectSubjSubSubSeqCnt(SubjManageVo subjManageVo) throws Exception {
+		return subjManageMapper.selectSubjSubSubSeqCnt(subjManageVo);
+	}
 }

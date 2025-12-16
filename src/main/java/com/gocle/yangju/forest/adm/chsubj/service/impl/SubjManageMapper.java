@@ -19,4 +19,6 @@ public interface SubjManageMapper {
 	int update(SubjManageVo subjManageVo) throws Exception;
 	
 	int delete(SubjManageVo subjManageVo) throws Exception;
+	
+	int selectSubjSubSubSeqCnt(SubjManageVo subjManageVo) throws Exception;
 }

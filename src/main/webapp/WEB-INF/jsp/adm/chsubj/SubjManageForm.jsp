@@ -191,8 +191,18 @@ function fnCmdDelete() {
         return false;
     }
 	
-	$("#detailForm").attr("action", "SubjManageDelete.do");
-	$("#detailForm").submit();
+	$.ajax({
+		type: "post",
+		url: "${contextRoot}/adm/chsubj/SubjManageDelete.do",
+		data: $("#detailForm").serialize(),
+		success: function(result) {
+			alert(result);
+			fnCmdList();
+		},
+		error: function() {
+	        alert("처리 중 오류가 발생했습니다.");
+	    }
+	});
 }
 </script>
 

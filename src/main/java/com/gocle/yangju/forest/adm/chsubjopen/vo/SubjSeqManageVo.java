@@ -76,6 +76,8 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
     private String[] learnStartDts;
     private String[] learnEndDts;
     
+    private int enrollCnt;
+    
 	public String getSgrCd() {
 		return sgrCd;
 	}
@@ -364,4 +366,11 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
 	public void setEduPlace(String eduPlace) {
 		this.eduPlace = eduPlace;
 	}
+	public int getEnrollCnt() {
+		return enrollCnt;
+	}
+	public void setEnrollCnt(int enrollCnt) {
+		this.enrollCnt = enrollCnt;
+	}
+	
 }	

@@ -144,4 +144,10 @@
 		DELETE FROM TB_SUBJ
 		WHERE SUBJ_CD = #{subjCd}
 	</delete>
-</mapper>
+	
+	<select id="selectSubjSubSubSeqCnt" resultType="int">
+		SELECT COUNT(ss.seq_cd)
+		FROM TB_SUBJ_SEQ ss
+		WHERE ss.subj_cd = #{subjCd}
+	</select>
+</mapper> 

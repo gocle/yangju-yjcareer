@@ -17,14 +17,18 @@
 				CM.USE_YN
 			FROM COM_MEMBER CM
 			WHERE DELETE_YN = 'N'
-			 <if test="searchCondition != null and searchCondition != ''">
-					<if test="searchKeyword != null and searchKeyword != ''">
-						AND CM.${searchCondition} LIKE '%' || #{searchKeyword } || '%'
+			<if test="searchCondition != null and searchCondition != ''">
+				<if test="searchKeyword != null and searchKeyword != ''">
+					<if test="searchCondition == 'MEM_NAME' ">
+					AND CM.MEM_NAME LIKE CONCAT('%', #{searchKeyword }, '%')
 					</if>
+					<if test="searchCondition == 'MEM_ID' ">
+					AND CM.MEM_ID LIKE CONCAT('%', #{searchKeyword }, '%')
+					</if>
+				</if>
 			</if>	
-			
 			<if test="searchKeyword != null and searchKeyword != ''">
-				AND ( CM.MEM_NAME LIKE '%' || #{searchKeyword } || '%' OR CM.MEM_ID LIKE '%'|| #{searchKeyword } || '%' )
+				AND ( CM.MEM_NAME LIKE CONCAT('%', #{searchKeyword }, '%') OR CM.MEM_ID LIKE CONCAT('%', #{searchKeyword }, '%') )
 			</if>
 			
 			ORDER BY CM.REG_DT ASC

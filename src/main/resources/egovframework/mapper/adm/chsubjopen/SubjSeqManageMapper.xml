@@ -94,6 +94,7 @@
 			, ss.subj_desc
 			, s.dupl_enroll_yn
 			, ss.edu_place
+			, (SELECT count(*) FROM TB_ENROLL WHERE seq_cd = #{seqCd}) as enroll_cnt
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
 			ON s.sgr_cd = ss.sgr_cd

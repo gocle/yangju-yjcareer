@@ -13,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -221,21 +222,25 @@ public class SubjManageController {
 		return "redirect:/adm/chsubj/SubjManageList.do";
 	}
 	
-    @RequestMapping(value = "SubjManageDelete.do", method = RequestMethod.POST)
+	@ResponseBody
+	@RequestMapping(value = "SubjManageDelete.do")
 	public String subjManageDeleteForm(@ModelAttribute("subjManageVo") SubjManageVo subjManageVo
 			, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
     	
-		int result = subjManageService.delete(subjManageVo);
+		int result = 0;
 		String retMsg = "";
+		
+		if(subjManageService.selectSubjSubSubSeqCnt(subjManageVo) == 0) {
+			result = subjManageService.delete(subjManageVo);
+		}
 		
 		if (result > 0) {
             retMsg = "삭제되었습니다.";
             status.setComplete();
         } else {
-            retMsg = "삭제에 실패했습니다.";
+            retMsg = "하위 개설된 운영과정이 존재합니다.\n개설운영과정은 삭제할 수 없습니다.";
         }
 		
-		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-        return "redirect:/adm/chsubj/SubjManageList.do";
+        return retMsg;
 	}
 }
