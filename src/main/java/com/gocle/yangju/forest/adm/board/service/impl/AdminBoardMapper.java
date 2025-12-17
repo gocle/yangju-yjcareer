@@ -45,4 +45,6 @@ public interface AdminBoardMapper {
 	int updateBoardReply(BoardReplyVO boardReplyVO) throws Exception;
 
 	BoardConfigVO getBoardConfig(BoardConfigVO boardConfigVO) throws Exception;
+	
+	BoardReplyVO selectBoardReply(BoardReplyVO boardReplyVO) throws Exception;
 }

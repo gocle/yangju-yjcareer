@@ -42,7 +42,8 @@ function fn_editor( brId , baId , index){
 	var pathId = $("#bcId").val();
 	
       $.ajax({
-         url:"${contextpath}/adm/bbs/"+pathId+"/detail.do?menuId="+menuId,
+         //url:"${contextRoot}/adm/bbs/"+pathId+"/detail.do?menuId="+menuId,
+         url:"${contextRoot}/adm/bbs/"+pathId+"/reply/detail.do?menuId="+menuId,
          type:"post",
          data:{
         	 "brId":brId,
@@ -50,10 +51,10 @@ function fn_editor( brId , baId , index){
          },
         success:function(data){
 			if(data){
-		       	 $("#div_"+index).empty();
-		       	 $("#div_"+index).html("<textarea id='content"+index+"' name='brContent"+index+"'>"+data+"</textarea>"); 
-		       	 initEditor("content"+index);
-		       	 $("#span_"+index).css("display","");
+				 $("#div_" + index).empty();
+				 $("#div_" + index).html("<textarea id='content" + index + "' name='brContent" + index + "'>" + data.brContent + "</textarea>");
+				 initEditor("content" + index);
+			     $("#span_" + index).show();
 			}
         },error:function(xhr,status,error){
            //alert(xhr.status);
@@ -144,7 +145,7 @@ function fn_reply_delete( brId ){
 	var menuId = $("#menuId").val();
 	
 	$("#replyId").val(brId);
-	$("#replyForm").attr("action", "/"+siteId+"/admin/bbs/"+pathBcId+"/replyDelete.do?menuId="+menuId);
+	$("#replyForm").attr("action", "${contextRoot}/adm/bbs/"+pathBcId+"/replyDelete.do?menuId="+menuId);
 	$("#replyForm").attr("target","_self");
 	$("#replyForm").submit();
 }
@@ -179,6 +180,11 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 	$("#fileForm").submit();
 }
 </script>
+
+<style>
+.reply-btn-area {float:right;}
+.btn_blue {background: #182142!important; color: #fff!important;}
+</style>
 
 <form id="form" name="form" method="post">
 	<input type="hidden" id="bcId" name="bcId" value="${result.bcId}">
@@ -240,7 +246,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 </section>
 
 <c:if test="${result.bcId ne 'notice' and result.bcId ne 'referRoom' and result.bcId ne 'bbs_001' and result.bcId ne 'bbs_002'}">
-<section>
+<section style="margin-top:20px;">
 	<div><h2>-댓글입력란-</h2></div>
 	<form id="replyForm" name="replyForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="baId" name="baId" value="${result.baId}">
@@ -263,9 +269,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 						<td>
 							<input type="file" class="input_file" id="file_atchFileId" name="file_atchFileId" title="파일찾기">
 							<div class="text-right btn-area">
-								<button type="button" class="point">
-									<a style="color:white;" href="javascript:fn_reply_save()">댓글 입력</a>
-								</button>
+								<button type="button" class="point" style="height:36px!important;" onclick="javascript:fn_reply_save()">댓글 입력</button>
 							</div>
 						</td>
 					</tr>
@@ -273,7 +277,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 			</table>
 		</section>
 	</form>
-
+	
 	<div><h2>-댓글 목록-</h2></div>
 
 	<form id="replyFileForm" name="replyFileForm" method="post">
@@ -283,7 +287,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 	</form>
 
 	<c:forEach var="boardReplyList" items="${boardReplyList}" varStatus="status">
-		<form id="replyFunc${status.index}" name="replyFunc${status.index}" method="post" enctype="multipart/form-data">
+		<form id="replyFunc${status.index}" name="replyFunc${status.index}" method="post" enctype="multipart/form-data" style="margin-top:10px;">
 			<input type="hidden" id="brId" name="brId" value="${boardReplyList.brId}">
 			<input type="hidden" id="menuId" name="menuId" value="${menuId}">
 			<input type="hidden" id="reply_content${status.index}" name="brContent" value="">
@@ -296,33 +300,29 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 					<col width="*">
 				</colgroup>
 				<tbody>
-					<tr><th>--------------------------------------------------------</th><td>=======================================================================================</td></tr>
-					<tr>
-						<th></th>
-						<td>
-							<c:if test="${memSeq eq boardReplyList.regId}">
-								<div class="text-right btn-area">
-									<button type="button" id="test1" class="point">
-										<a style="color:white;" href="javascript:fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');" class="editBtn">댓글 수정</a>
-									</button>
-									<button type="button" class="point" onclick="fn_reply_delete('${boardReplyList.brId}');">댓글 삭제</button>
-								</div>
-							</c:if>
-						</td>
-					</tr>
-					<tr><th>댓글 순번</th><td>${boardReplyList.brId}</td></tr>
+					<tr><th>댓글 순번</th><td>${boardReplyList.brId}
+					<c:if test="${SESSION_MEM_SEQ eq boardReplyList.regId}">
+						<div class="reply-btn-area">
+							<button type="button" class="btn_blue" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">댓글 수정</button>
+							<button type="button" class="btn_blue" onclick="fn_reply_delete('${boardReplyList.brId}');">댓글 삭제</button>
+						</div>
+					</c:if>
+					</td></tr>
 					<tr><th>댓글 등록자</th><td><p>${boardReplyList.memName}</p></td></tr>
 					<tr>
 						<th>댓글 내용</th>
 						<td id="toggle_${status.index}" style="display: ">
 							<div id="div_${status.index}">${boardReplyList.brContent}</div>
 							<span style="display: none" id="span_${status.index}">
-								<div class="text-right btn-area">
+								<%-- <div class="text-right btn-area">
 									<input type="file" class="input_file" id="file_atchFileId" name="file_atchFileId" title="파일찾기">
 									<br><br>
 									<button type="button" class="point">
 										<a style="color:white" href="javascript:fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}' );" class="btn blue">수정</a>
 									</button>
+								</div> --%>
+								<div class="reply-btn-area">
+									<button type="button" class="btn_blue" onclick="fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}');">수정</button>
 								</div>
 							</span>
 						</td>

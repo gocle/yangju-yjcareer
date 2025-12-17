@@ -249,4 +249,8 @@ public class AdminBoardServiceImpl extends EgovAbstractServiceImpl implements Ad
 			
 		}
 
+		@Override
+		public BoardReplyVO selectBoardReply(BoardReplyVO boardReplyVO) throws Exception {
+			return adminBoardMapper.selectBoardReply(boardReplyVO);
+		}
 }

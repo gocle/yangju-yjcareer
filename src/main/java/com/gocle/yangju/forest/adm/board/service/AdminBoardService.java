@@ -118,5 +118,12 @@ public interface AdminBoardService {
 	int deleteBoardReply(BoardReplyVO boardReplyVO) throws Exception;
 
 	int updateBoardReply(BoardReplyVO boardReplyVO, MultipartHttpServletRequest multiRequest) throws Exception;
-
+	
+	/**
+	 * 게시글 댓글 조회
+	 * @param boardReplyVO
+	 * @return
+	 * @throws Exception
+	 */
+	BoardReplyVO selectBoardReply(BoardReplyVO boardReplyVO) throws Exception;
 }

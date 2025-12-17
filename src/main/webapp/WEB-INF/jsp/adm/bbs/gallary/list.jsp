@@ -109,7 +109,7 @@ function fn_detail( bcId , baId){
 		</c:forEach>
 		<c:if test="${fn:length(articleList) == 0}">
 			<dl>
-				<dt><i class="fa fa-search"></i> 최근 게시글이 없습니다.</dt>
+				<dt style="text-align:center;"><i class="fa fa-search"></i> 최근 게시글이 없습니다.</dt>
 			</dl>
 		</c:if>
 	</div>
