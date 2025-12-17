@@ -45,6 +45,34 @@ $(document).ready(function() {
 		$("#detailForm input[name=learnEndDtHH]").val('<fmt:formatDate value="${learnEndDtPDate}" pattern="HH" />');
 		$("#detailForm input[name=learnEndDtMI]").val('<fmt:formatDate value="${learnEndDtPDate}" pattern="mm" />');
 	}
+	
+	$("#comId").change(function() {
+		var comId = $(this).val();
+		var selLocId = "${resultMap.locId}";
+		
+		$("#locId").empty();
+		$("#locId").append('<option value="">교육장소 선택</option>');
+		
+		$.ajax({
+			url: "${contextRoot}/staff/chsearch/SearchLocationList.do",
+			type: "GET",
+			data: { comId: comId },
+			success: function(result) {
+				$.each(result, function(index, item) {
+					$("#locId").append(
+							'<option value="' + item.locId + '" ' 
+							+ (selLocId == item.locId ? 'selected="selected"' : '') 
+			            	+ '>' + item.location + '</option>'
+			        );
+				});
+			},
+			error: function() {
+				//alert("오류 발생");
+			}
+		});
+	});
+	
+	$("#comId").trigger("change");
 });
 
 function initEditor() {
@@ -75,7 +103,7 @@ function valid() {
 	var subjNm = $("#subjNm").val();
 	var comId = $("#comId").val();
 	var sessionNm = $("#sessionNm").val();
-	var eduPlace = $("#eduPlace").val();
+	var locId = $("#locId").val();
 	var data = oEditors.getById["subjPlan"].getIR();
 	$("#subjPlan").val(data);
 	
@@ -91,9 +119,9 @@ function valid() {
 		return false;
 	}
 	
-	if (eduPlace == "") {
-		alert("교육장소를 입력해주세요.");
-		eduPlace.focus();
+	if (locId == "") {
+		alert("교육장소를 선택해주세요.");
+		locId.focus();
 		return false;
 	}
 	
@@ -479,9 +507,12 @@ function fnCmdDelete() {
 	            </td>
           	</tr>
           	<tr>
-	            <th>교육장소</th>
+	            <th>교육장소<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace }"  style="width: 100%;" maxlength="100" />
+	            	<%-- <input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace }"  style="width: 100%;" maxlength="100" /> --%>
+	            	<select id="locId" name="locId" style="width: 20%" value="${resultMap.locId}">
+	            		<option value="">교육장소 선택</option>
+	            	</select>
 	            </td>
           	</tr>
           	<tr>

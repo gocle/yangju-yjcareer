@@ -45,4 +45,15 @@
 		      )
 		ORDER BY COM_ID
 	</select>
+	
+	<select id="selectLocationList" resultType="CompanyManageVo" parameterType="String">
+		SELECT cl.LOCATION as location
+              ,cl.loc_id as loc_id
+        FROM COM_COMPANY cc
+        INNER JOIN COMPANY_LOCATION cl
+        	ON cc.com_id = cl.com_id
+        WHERE 1 = 1
+        AND cc.com_id = #{comId}
+        ORDER BY cl.SEQ_NO
+	</select>
 </mapper>

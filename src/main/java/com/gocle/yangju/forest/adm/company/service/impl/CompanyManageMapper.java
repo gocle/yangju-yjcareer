@@ -23,14 +23,12 @@ public interface CompanyManageMapper {
 	int deleteBoardArticle(CompanyManageVo companyManageVo) throws Exception;
 
 	void insertCompanyLocation(CompanyManageVo companyManageVo) throws Exception;
-
+	
 	void deleteCompanyLocation(CompanyManageVo companyManageVo) throws Exception;
 
 	List<CompanyManageVo> getLocation(CompanyManageVo companyManageVo) throws Exception;
 	
-	void deleteCompanyMapping(CompanyManageVo companyManageVo) throws Exception;
-
-	void insertCompanyMapping(CompanyManageVo companyManageVo) throws Exception;
+	void updateCompanyLocation(CompanyManageVo companyManageVo) throws Exception;
 	
-	List<CompanyManageVo> getMapping(CompanyManageVo companyManageVo) throws Exception;
+	List<String> selectLocIdsCompany(CompanyManageVo companyManageVo) throws Exception;
 }

@@ -27,6 +27,7 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
     private String comTitle;
     // 교육장소
     private String eduPlace;
+    private String locId;
     // 교육대상
     private String eduTarget;
     // 모집방법
@@ -372,5 +373,10 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
 	public void setEnrollCnt(int enrollCnt) {
 		this.enrollCnt = enrollCnt;
 	}
-	
+	public String getLocId() {
+		return locId;
+	}
+	public void setLocId(String locId) {
+		this.locId = locId;
+	}
 }	

@@ -20,28 +20,6 @@ $(document).ready(function () {
         filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
         filebrowserUploadMethod: 'form'
     });
-    
-    $("input.parentChk").each(function () {
-        let parentVal = $(this).val();
-        let total = $("input.childChk[data-parent='" + parentVal + "']").length;
-        let checkedCount = $("input.childChk[data-parent='" + parentVal + "']:checked").length;
-        
-        $(this).prop("checked", total === checkedCount);
-    });
-
-    $(".parentChk").on("change", function () {
-        let parentVal = $(this).val(); // 상위 체크박스의 sgrCd
-        let checked = $(this).is(":checked");
-        $("input[type='checkbox'][data-parent='" + parentVal + "']").prop("checked", checked);
-    });
-    
-    $("input[type='checkbox'].childChk").on("change", function () {
-        let parentVal = $(this).data("parent");
-        let total = $("input.childChk[data-parent='" + parentVal + "']").length;
-        let checkedCount = $("input.childChk[data-parent='" + parentVal + "']:checked").length;
-        
-        $(".parentChk[value='" + parentVal + "']").prop("checked", total == checkedCount);
-    });
 });
 
 <!-- 기존 스마트에디터 -->
@@ -234,8 +212,8 @@ function fn_goSearchDoroCodePop(){
 			enctype="multipart/form-data">
 			<input type="hidden" id="comId" name="comId" value="${companyManageVo.comId}">
 			
-				<h3>기업 현황</h3>
-				<!-- 기업 현황 -->
+				<h3>기관 관리</h3>
+				<!-- 기관 관리 -->
 				<table class="detail">
 				  <colgroup>
 				  <col width="15%">
@@ -257,7 +235,7 @@ function fn_goSearchDoroCodePop(){
 						</td>
 					</tr>
 					<tr>
-						<th>협약 기관 주소</th>
+						<th>기관 주소</th>
 						<td>
 						<span>우편번호</span>&nbsp;&nbsp;<input type="text"  style="width: 20%" name="zipCode" id="zipCode" value="${companyManageVo.zipCode}" readonly="readonly"><br/>
 						<span>주  소</span>&nbsp;&nbsp;<input type="text" style="width: 50%" name="address" id="address" value="${companyManageVo.address}" readonly="readonly"><br/>
@@ -286,22 +264,6 @@ function fn_goSearchDoroCodePop(){
 								id="note" name="note" style="width: 100%">${companyManageVo.note}</textarea>
 						</td>
 					</tr>
-					<tr>
-						<th>과정분류</th>
-						<td colspan="3">
-							<c:forEach var="item" items="${sgrManageList}" varStatus="itemStatus">
-								<input type="checkbox" class="parentChk" value="${item.sgrCd}" />
-								&nbsp;&nbsp;<span style="font-weight: bold;">${item.sgrNm}</span><br/>
-								<c:forEach var="result" items="${resultList}" varStatus="resultStatus">
-									<c:if test="${result.sgrCd eq item.sgrCd}">
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<input type="checkbox" class="childChk" name="cateCd" value="${item.sgrCd}_${result.cateCd}" data-parent="${item.sgrCd}" ${not empty result.comId ? 'checked="checked"':''}/>
-										&nbsp;&nbsp;${result.cateNm}<br/>
-									</c:if>
-								</c:forEach>
-							</c:forEach>
-						</td>
-					</tr>
 				  </tbody>
 				</table>
 				
@@ -320,6 +282,7 @@ function fn_goSearchDoroCodePop(){
 					    <th>장소</th>
 					    <td style="display: flex; align-items: center; gap: 8px; height:auto;">
 					    <input type="text" name="location" value="" style="width:50%">
+					    <input type="hidden" name="locId" value="">
 					    <div>
 					    	<p>
 					    		<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>
@@ -334,6 +297,7 @@ function fn_goSearchDoroCodePop(){
 					    <th>장소</th>
 					    <td style="display: flex; align-items: center; gap: 8px; height:auto;">
 					    <input type="text" name="location" value="${list.location}" style="width:50%">
+					    <input type="hidden" name="locId" value="${list.locId}">
 					    <div>
 						    <p>
 								<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>
@@ -353,6 +317,7 @@ function fn_goSearchDoroCodePop(){
 					let row = '<tr>';
 					row += '<th>장소</th>';
 					row += '<td style="display: flex; align-items: center; gap: 8px; height:auto;"><input type="text" name="location" style="width:50%">';
+					row += '<input type="hidden" name="locId" value="">';
 					row += '	<div>';
 					row += '		<p>';
 					row += '			<button type="button" class="point" onclick="removeRow(this)"><i class="fa fa-remove"></i> 삭제</button>';

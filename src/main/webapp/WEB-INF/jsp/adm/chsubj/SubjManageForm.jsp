@@ -51,6 +51,34 @@ $(document).ready(function() {
 	});
 	
 	$("#sgrCd").trigger("change");
+	
+	$("#comId").change(function() {
+		var comId = $(this).val();
+		var selLocId = "${resultMap.locId}";
+		
+		$("#locId").empty();
+		$("#locId").append('<option value="">교육장소 선택</option>');
+		
+		$.ajax({
+	     	url: "${contextRoot}/adm/chsearch/SearchLocationList.do",
+	        type: "GET",
+	        data: { comId: comId },
+	        success: function(result) {
+				$.each(result, function(index, item) {
+	            	$("#locId").append(
+	            		'<option value="' + item.locId + '" ' 
+	            		+ (selLocId == item.locId ? 'selected="selected"' : '') 
+	            		+ '>' + item.location + '</option>'
+	                );
+	            });
+	        },
+	        error: function() {
+	        	//alert("오류 발생");
+	        }
+		});
+	});
+	
+	$("#comId").trigger("change");
 });
 
 function initEditor() {
@@ -82,7 +110,7 @@ function valid() {
 	var sgrCd = $("#sgrCd").val();
 	var cateCd = $("#cateCd").val();
 	var comId = $("#comId").val();
-	
+	var locId = $("#locId").val();
 	var data = oEditors.getById["subjPlan"].getIR();
 	$("#subjPlan").val(data);
 	
@@ -107,6 +135,12 @@ function valid() {
 	if (comId == "") {
 		alert("교육기관을 선택해주세요.");
 		comId.focus();
+		return false;
+	}
+	
+	if (locId == "") {
+		alert("교육장소를 선택해주세요.");
+		locId.focus();
 		return false;
 	}
 	
@@ -283,9 +317,12 @@ function fnCmdDelete() {
 	            </td>
           	</tr>
           	<tr>
-	            <th>교육장소</th>
+	            <th>교육장소<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}"  style="width: 100%;" maxlength="100"/>
+	            	<%-- <input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}"  style="width: 100%;" maxlength="100"/> --%>
+	            	<select id="locId" name="locId" style="width: 20%" value="${resultMap.locId}">
+	            		<option value="">교육장소 선택</option>
+	            	</select>
 	            </td>
           	</tr>
           	<tr>

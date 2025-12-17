@@ -105,11 +105,6 @@ public class CompanyManageController {
 		
 		returnPage = "/adm/company/form";
 		
-		SgrManageVo sgrManageVo = new SgrManageVo();
-		SubjCateManageVo subjCateManageVo = new SubjCateManageVo();
-		model.addAttribute("sgrManageList", this.sgrManageService.selectList(sgrManageVo));
-        model.addAttribute("resultList", this.subjCateManageService.selectList(subjCateManageVo));
-        
 		return returnPage;
 	}
 	
@@ -135,7 +130,7 @@ public class CompanyManageController {
 		
 		if(rs > 0){
 		
-			retMsg = "정상적으로 처리됬습니다.";
+			retMsg = "정상적으로 처리되었습니다.";
 			
 		}else{
 			
@@ -170,10 +165,6 @@ public class CompanyManageController {
 		
 		returnPage = "/adm/company/form";
 		
-		SgrManageVo sgrManageVo = new SgrManageVo();
-		model.addAttribute("sgrManageList", this.sgrManageService.selectList(sgrManageVo));
-        model.addAttribute("resultList", companyManageService.getMapping(companyManageVo));
-        
 		return returnPage;
 	}
 	
@@ -199,7 +190,7 @@ public class CompanyManageController {
 		
 		if(rs > 0){
 		
-			retMsg = "정상적으로 처리됬습니다.";
+			retMsg = "정상적으로 처리되었습니다.";
 			
 		}else{
 			
@@ -238,7 +229,7 @@ public class CompanyManageController {
 		
 		if(rs > 0){
 		
-			retMsg = "정상적으로 처리됬습니다.";
+			retMsg = "정상적으로 처리되었습니다.";
 			
 		}else{
 			

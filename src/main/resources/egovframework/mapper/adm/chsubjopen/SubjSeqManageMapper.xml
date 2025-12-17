@@ -38,6 +38,9 @@
 			AND s.sgr_cd = sc.sgr_cd
 		LEFT JOIN COM_COMPANY cc
 			ON cc.com_id = ss.com_id
+		LEFT JOIN COMPANY_LOCATION cl
+			ON cl.loc_id = ss.loc_id
+			AND cl.com_id = cc.com_id
 		WHERE 1 = 1
 		<include refid="selectSearchWhere" />
 	</select>
@@ -66,6 +69,9 @@
 			AND s.sgr_cd = sc.sgr_cd
 		LEFT JOIN COM_COMPANY cc
 			ON cc.com_id = ss.com_id
+		LEFT JOIN COMPANY_LOCATION cl
+			ON cl.loc_id = ss.loc_id
+			AND cl.com_id = cc.com_id
 		WHERE 1 = 1
 		<include refid="selectSearchWhere" />
 		ORDER BY ss.reg_dt desc, ss.seq_cd desc
@@ -93,7 +99,7 @@
 			, ss.subj_plan
 			, ss.subj_desc
 			, s.dupl_enroll_yn
-			, ss.edu_place
+			, ss.loc_id
 			, (SELECT count(*) FROM TB_ENROLL WHERE seq_cd = #{seqCd}) as enroll_cnt
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
@@ -106,6 +112,9 @@
 			AND s.sgr_cd = sc.sgr_cd
 		LEFT JOIN COM_COMPANY cc
 			ON cc.com_id = ss.com_id
+		LEFT JOIN COMPANY_LOCATION cl
+			ON cl.loc_id = ss.loc_id
+			AND cl.com_id = cc.com_id
 		WHERE 1 = 1
 			AND ss.seq_cd = #{seqCd}
 	</select>
@@ -136,7 +145,7 @@
 			, learn_start_dt
 			, learn_end_dt
 			, com_id
-			, edu_place
+			, loc_id
 			, tel
 			, enroll_type
 			, edu_target
@@ -161,7 +170,7 @@
 			, #{learnStartDt}
 			, #{learnEndDt}
 			, com_id
-			, edu_place
+			, loc_id
 			, tel
 			, enroll_type
 			, edu_target
@@ -186,7 +195,7 @@
 			, learn_start_dt = #{learnStartDt}
 			, learn_end_dt = #{learnEndDt}
 			, com_id = #{comId}
-			, edu_place = #{eduPlace}
+			, loc_id = #{locId}
 			, subj_plan = #{subjPlan}
 			, subj_desc = #{subjDesc}
 			, enroll_type = #{enrollType}

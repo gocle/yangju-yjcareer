@@ -114,7 +114,7 @@
         INSERT INTO COMPANY_LOCATION (
              com_id                 
             ,seq_no              
-            ,location                
+            ,location
         ) VALUES (
              #{comId}
             ,#{seqNo}
@@ -127,48 +127,31 @@
 	    DELETE
 	    FROM COMPANY_LOCATION
 	    WHERE com_id = #{comId}
+	    AND loc_id = #{locId}
 	</delete>
 	
 	<select id="getLocation" resultType="CompanyManageVo" parameterType="CompanyManageVo">
 		SELECT  COM_ID             
                 ,SEQ_NO             
-                ,LOCATION         
+                ,LOCATION
+                ,LOC_ID
         FROM    COMPANY_LOCATION
         WHERE   1 = 1
         AND     com_id = #{comId}
 	</select>
-	
-	<!-- 과정분류 삭제 -->
-	<delete id="deleteCompanyMapping">
-	    DELETE
-	    FROM COM_COMPANY_MAPPING
-	    WHERE com_id = #{comId}
-	</delete>
-	
-	<!-- 과정분류 등록 -->
-    <insert id="insertCompanyMapping">
-        INSERT INTO COM_COMPANY_MAPPING (
-             com_id                 
-            ,sgr_cd              
-            ,cate_cd                
-        ) VALUES (
-             #{comId}
-            ,#{sgrCd}
-            ,#{cateCd}
-        )
-    </insert>
     
-    <!-- 과정분류 조회 -->
-    <select id="getMapping" resultType="CompanyManageVo" parameterType="CompanyManageVo">
-		SELECT  cm.COM_ID             
-                ,sc.SGR_CD             
-                ,sc.CATE_CD
-                ,sc.CATE_NM       
-        FROM TB_SUBJ_CATE sc
-        LEFT JOIN COM_COMPANY_MAPPING cm
-        	ON sc.CATE_CD = cm.CATE_CD
-        	AND sc.SGR_CD = cm.SGR_CD
-        	AND cm.COM_ID = #{comId}
-        WHERE   1 = 1
+    <!-- 교육 장소 수정 -->
+	<update id="updateCompanyLocation">
+	    UPDATE COMPANY_LOCATION
+	    SET LOCATION = #{location}
+	      , SEQ_NO = #{seqNo}
+	    WHERE com_id = #{comId}
+	    AND loc_id = #{locId}
+	</update>
+	
+	<select id="selectLocIdsCompany" resultType="String" parameterType="CompanyManageVo">
+		SELECT loc_id
+		FROM COMPANY_LOCATION
+		WHERE COM_ID = #{comId}
 	</select>
 </mapper>

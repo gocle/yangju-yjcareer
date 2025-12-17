@@ -40,4 +40,13 @@ public class SearchManageController {
     public List<SubjCateManageVo> selectSearchCateCdList(@RequestParam("sgrCd") String sgrCd) throws Exception {
         return searchManageService.selectCateCdList(sgrCd);
     }
+    
+    /**
+     * 교육기관의 교육장소 목록을 조회
+     */
+    @ResponseBody
+    @RequestMapping(value = "SearchLocationList.do")
+    public List<CompanyManageVo> selectSearchLocationList(@RequestParam("comId") String comId) throws Exception {
+        return searchManageService.selectLocationList(comId);
+    }
 }

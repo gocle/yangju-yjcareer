@@ -1,5 +1,6 @@
 package com.gocle.yangju.forest.adm.company.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
@@ -37,26 +38,17 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		int data = companyManageMapper.insertBoardArticle(companyManageVo);
 		
 		String[] locations = companyManageVo.getLocation().split(",");
+		String[] locIds = companyManageVo.getLocId().split(",");
 		
 		for (int i = 0; i < locations.length; i++) {
 
 		    String loc = locations[i].trim(); // 공백 제거
 		    if (loc.isEmpty()) continue;      // 빈 값은 건너뛰기
-
+		    
 		    companyManageVo.setSeqNo(i + 1);  // i=0 → seq 1
 		    companyManageVo.setLocation(loc); // 각 location 세팅
-
+		    
 		    companyManageMapper.insertCompanyLocation(companyManageVo);
-		}
-		
-		String[] cateCds = companyManageVo.getCateCd().split(",");
-		for (int i = 0; i < cateCds.length; i++) {
-			String cc = cateCds[i].trim(); // 공백 제거
-			String sgrCd = cc.split("_")[0];
-			String cateCd = cc.split("_")[1];
-			companyManageVo.setSgrCd(sgrCd);
-			companyManageVo.setCateCd(cateCd);
-			companyManageMapper.insertCompanyMapping(companyManageVo);
 		}
 		
 		return data;
@@ -73,34 +65,45 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		
 		int data = companyManageMapper.updateBoardArticle(companyManageVo);
 		
+		List<String> existList = companyManageMapper.selectLocIdsCompany(companyManageVo);
+		List<String> newList = new ArrayList<>();
+		
+		
 		if(companyManageVo.getLocation() != null && companyManageVo.getLocation() != "") {
-			companyManageMapper.deleteCompanyLocation(companyManageVo);
+			//companyManageMapper.deleteCompanyLocation(companyManageVo);
 			
 			String[] locations = companyManageVo.getLocation().split(",");
+			String[] locIds = companyManageVo.getLocId().split(",");
 			
 			for (int i = 0; i < locations.length; i++) {
-	
 			    String loc = locations[i].trim(); // 공백 제거
 			    if (loc.isEmpty()) continue;      // 빈 값은 건너뛰기
-	
+			    
+			    String locId = (locIds != null && i < locIds.length) ? locIds[i].trim() : null;
+			    
 			    companyManageVo.setSeqNo(i + 1);  // i=0 → seq 1
 			    companyManageVo.setLocation(loc); // 각 location 세팅
-	
-			    companyManageMapper.insertCompanyLocation(companyManageVo);
+			    
+			    if(locId != null && !locId.isEmpty()) {
+			    	companyManageVo.setLocId(locId);
+			    	companyManageMapper.updateCompanyLocation(companyManageVo);
+			    	newList.add(locId);
+			    } else {
+			    	companyManageMapper.insertCompanyLocation(companyManageVo);
+			    }
+			    
+			    // companyManageMapper.insertCompanyLocation(companyManageVo);
 			}
-		}
-		
-		if(companyManageVo.getCateCd() != null && companyManageVo.getCateCd() != "") {
-			companyManageMapper.deleteCompanyMapping(companyManageVo);
-			String[] cateCds = companyManageVo.getCateCd().split(",");
-			for (int i = 0; i < cateCds.length; i++) {
-				String cc = cateCds[i].trim(); // 공백 제거
-				String sgrCd = cc.split("_")[0];
-				String cateCd = cc.split("_")[1];
-				companyManageVo.setSgrCd(sgrCd);
-				companyManageVo.setCateCd(cateCd);
-				companyManageMapper.insertCompanyMapping(companyManageVo);
-			}
+			
+
+		    if(existList != null && !existList.isEmpty()) {
+		    	for (String ex : existList) {
+		            if (!newList.contains(ex)) {
+		                companyManageVo.setLocId(ex);
+		                companyManageMapper.deleteCompanyLocation(companyManageVo);
+		            }
+		        }
+		    }
 		}
 		
 		return data;
@@ -112,7 +115,6 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		int data = companyManageMapper.deleteBoardArticle(companyManageVo);
 		
 		companyManageMapper.deleteCompanyLocation(companyManageVo);
-		companyManageMapper.deleteCompanyMapping(companyManageVo);
 		
 		return data;
 	}
@@ -123,9 +125,4 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		return companyManageMapper.getLocation(companyManageVo);
 	}
 	
-	@Override
-	public List<CompanyManageVo> getMapping(CompanyManageVo companyManageVo) throws Exception {
-		
-		return companyManageMapper.getMapping(companyManageVo);
-	}
 }

@@ -449,4 +449,16 @@
 		WHERE BC_ID = #{bcId}
 
 	</select>
+	
+	<select id="selectBoardReply" parameterType="BoardReplyVO" resultType="BoardReplyVO">
+		SELECT BR_ID
+			 , BA_ID
+			 , BR_CONTENT
+			 , ATCH_FILE_IDX
+			 , REG_ID
+		FROM COM_BOARD_REPLY
+		WHERE BR_ID = #{brId}
+		AND BA_ID = #{baId}
+		AND DELETE_YN = 'N'
+	</select>
 </mapper>

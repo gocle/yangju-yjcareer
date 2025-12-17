@@ -13,4 +13,6 @@ public interface SearchManageService {
 	 List<SubjCateManageVo> selectCateCdList(String sgrCd) throws Exception;
 	 
 	 List<CompanyManageVo> selectCompanyList(LoginVO loginVO) throws Exception;
+	 
+	 List<CompanyManageVo> selectLocationList(String comId) throws Exception;
 }

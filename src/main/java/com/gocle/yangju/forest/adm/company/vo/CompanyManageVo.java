@@ -27,9 +27,7 @@ public class CompanyManageVo extends BaseVO {
     
     private int seqNo;
     
-    private String cateCd;
-    private String sgrCd;
-    private String cateNm;
+    private String locId;			// 교육장소
     
 	public String getComId() {
 		return comId;
@@ -111,29 +109,12 @@ public class CompanyManageVo extends BaseVO {
 		this.seqNo = seqNo;
 	}
 
-	public String getCateCd() {
-		return cateCd;
+	public String getLocId() {
+		return locId;
 	}
 
-	public void setCateCd(String cateCd) {
-		this.cateCd = cateCd;
+	public void setLocId(String locId) {
+		this.locId = locId;
 	}
-
-	public String getSgrCd() {
-		return sgrCd;
-	}
-
-	public void setSgrCd(String sgrCd) {
-		this.sgrCd = sgrCd;
-	}
-
-	public String getCateNm() {
-		return cateNm;
-	}
-
-	public void setCateNm(String cateNm) {
-		this.cateNm = cateNm;
-	}
-	
 	
 }
