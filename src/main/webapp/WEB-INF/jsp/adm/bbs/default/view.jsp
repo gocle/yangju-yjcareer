@@ -42,7 +42,6 @@ function fn_editor( brId , baId , index){
 	var pathId = $("#bcId").val();
 	
       $.ajax({
-         //url:"${contextRoot}/adm/bbs/"+pathId+"/detail.do?menuId="+menuId,
          url:"${contextRoot}/adm/bbs/"+pathId+"/reply/detail.do?menuId="+menuId,
          type:"post",
          data:{
@@ -55,10 +54,21 @@ function fn_editor( brId , baId , index){
 				 $("#div_" + index).html("<textarea id='content" + index + "' name='brContent" + index + "'>" + data.brContent + "</textarea>");
 				 initEditor("content" + index);
 			     $("#span_" + index).show();
+			     
+			     $("#atchTr_" + index).show();
+			     
+			     // 첨부파일 처리
+	             if (data.atchFileIdx && data.rDeleteYn == 'N') {
+	            	 // 첨부파일이 있을 때
+	            	 $("#deleteFileBtn_" + index).show();
+	            	 $("#file_atchFileId_"+ index).hide();
+	             } else {
+	            	 // 첨부파일이 없을 때
+	            	 $("#file_atchFileId_"+ index).show();
+	             }
 			}
         },error:function(xhr,status,error){
            //alert(xhr.status);
-           //alert("등록된 아이디가 있습니다.");
         }
      });
 }
@@ -74,7 +84,6 @@ function fn_delete(){
 		$("#form").submit();
 	}
 }
-
 
 function fn_update(){
 	var bcId= "${boardConfigVO.bcId}";
@@ -178,6 +187,11 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 	$("#returnUrl").val(returnUrl);
 	$("#fileForm").attr("action", "/board/updateFile.do");
 	$("#fileForm").submit();
+}
+
+// 댓글 수정 시 첨부파일 영역
+function makeReplyFileArea () {
+	
 }
 </script>
 
@@ -328,15 +342,24 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 						</td>
 					</tr>
 					<tr><th>댓글 등록일</th><td>${boardReplyList.regDt}</td></tr>
-					<c:if test="${boardReplyList.rDeleteYn eq 'N'}">
-						<tr>
+					<%-- <c:if test="${boardReplyList.rDeleteYn eq 'N'}"> --%>
+						<tr id="atchTr_${status.index}" style="display:${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y' ? '':'none'}">
 							<th>첨부 파일</th>
-							<td>
-								<a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');" style="color:#333; background:none"><b><c:out value="${boardReplyList.orgFileName}" /></b></a>
-								<a href="javascript:fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}', '/adm/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}' )" class="btn">파일삭제</a>
+							<td class="file">
+								<%-- <a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');" style="color:#333; background:none"><b><c:out value="${boardReplyList.orgFileName}" /></b></a>
+								<a href="javascript:fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}', '/adm/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}' )" class="btn">파일삭제</a> --%>
+								
+								<c:if test="${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y'}">
+									<span id="file${boardReplyList.atchFileIdx}">
+										<a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');"><c:out value="${boardReplyList.orgFileName}" /></a>
+										<button id="deleteFileBtn_${status.index}" type="button" onclick="fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}','/adm/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}');" style="display: none">삭제</button>
+									</span>
+								</c:if>
+								
+								<input type="file" class="input_file" id="file_atchFileId_${status.index}" name="file_atchFileId" title="파일찾기" style="display: none">
 							</td>
 						</tr>
-					</c:if>
+					<%-- </c:if> --%>
 				</tbody>
 			</table>
 		</form>

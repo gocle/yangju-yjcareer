@@ -451,14 +451,17 @@
 	</select>
 	
 	<select id="selectBoardReply" parameterType="BoardReplyVO" resultType="BoardReplyVO">
-		SELECT BR_ID
-			 , BA_ID
-			 , BR_CONTENT
-			 , ATCH_FILE_IDX
-			 , REG_ID
-		FROM COM_BOARD_REPLY
-		WHERE BR_ID = #{brId}
-		AND BA_ID = #{baId}
-		AND DELETE_YN = 'N'
+		SELECT CB.BR_ID
+			 , CB.BA_ID
+			 , CB.BR_CONTENT
+			 , CB.ATCH_FILE_IDX
+			 , CB.REG_ID
+			 , IFNULL(AF.DELETE_YN, 'N') AS rDeleteYn
+		FROM COM_BOARD_REPLY CB
+		LEFT OUTER JOIN ATCH_FILE AF
+			ON CB.ATCH_FILE_IDX = AF.ATCH_FILE_IDX
+		WHERE CB.BR_ID = #{brId}
+		AND CB.BA_ID = #{baId}
+		AND CB.DELETE_YN = 'N'
 	</select>
 </mapper>
