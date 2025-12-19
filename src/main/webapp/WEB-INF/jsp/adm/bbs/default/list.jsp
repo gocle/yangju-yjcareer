@@ -101,7 +101,7 @@ function fn_detail( bcId , baId){
     <thead>
       <tr>
         <th style="width: 7%">번호</th>
-        <th style="width: 10%">제 목</th>
+        <th style="width: 30%">제 목</th>
         <th style="width: 10%">작성자</th>
         <c:if test="${not empty codeSubList}">
           <th style="width: 7%">게시 구분</th>
@@ -147,7 +147,7 @@ function fn_detail( bcId , baId){
         </tr>
       </c:forEach>
 
-      <c:if test="${fn:length(articleList) == 0}">
+      <c:if test="${fn:length(articleList) == 0 and fn:length(topNoticeList) == 0}">
         <tr>
           <td colspan="5" class="no-data"><i class="fa fa-search"></i> 최근 게시글이 없습니다.</td>
         </tr>

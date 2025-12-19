@@ -60,7 +60,8 @@ function fn_editor( brId , baId , index){
 	
 	
 	      $.ajax({
-	         url:"${contextRoot}/adm/bbs/"+pathId+"/detail.do?menuId="+menuId,
+	         //url:"${contextRoot}/adm/bbs/"+pathId+"/detail.do?menuId="+menuId,
+	       	 url:"${contextRoot}/adm/bbs/"+pathId+"/reply/detail.do?menuId="+menuId,
 	         type:"post",
 	         data:{
 	        	 "brId":brId,
@@ -69,22 +70,13 @@ function fn_editor( brId , baId , index){
 	         success:function(data){
 	
 			if(data){
-				
-			
-		        	 $("#div_"+index).empty();
-		        	    	 
-		        	 $("#div_"+index).html("<textarea id='content"+index+"' name='brContent"+index+"'>"+data+"</textarea>"); 
-		        	
-		        	 initEditor("content"+index);
-		        	
-		        	 $("#span_"+index).css("display","");
-					
-		        	 
-			
+				$("#div_"+index).empty();
+		        $("#div_" + index).html("<textarea id='content" + index + "' name='brContent" + index + "'>" + data.brContent + "</textarea>");	
+		        initEditor("content"+index);
+		        $("#span_"+index).css("display","");
 			}
 	         },error:function(xhr,status,error){
 	            //alert(xhr.status);
-	            //alert("등록된 아이디가 있습니다.");
 	         }
 	      });
 }
@@ -525,11 +517,11 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 					<input type="hidden" id="bcId" name="bcId" value="${result.bcId}">
 							<dl>
 								<dt>${boardReplyList.memName}<span>${boardReplyList.regDt}</span>
-							
+								
 								<!--현재 로그인한 세션과  글이 등록되있는 세션과 일치할때.  -->
-									<c:if test="${memSeq eq boardReplyList.regId}">
+									<c:if test="${SESSION_MEM_SEQ eq boardReplyList.regId}">
 												<!--수정 클릭시  -->
-											<button type="button" id="test1" title="삭제" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">
+											<button type="button" id="test1" title="수정" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">
 												<i class="fa fa-gear"></i>	
 											</button>
 											<button type="button" title="삭제" onclick="fn_reply_delete('${boardReplyList.brId}');">

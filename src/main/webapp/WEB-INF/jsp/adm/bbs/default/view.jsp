@@ -55,6 +55,9 @@ function fn_editor( brId , baId , index){
 				 initEditor("content" + index);
 			     $("#span_" + index).show();
 			     
+			     $("#updateEditorBtn_" + index).hide();
+			     $("#updateBtn_" + index).show();
+			     
 			     $("#atchTr_" + index).show();
 			     
 			     // 첨부파일 처리
@@ -317,7 +320,8 @@ function makeReplyFileArea () {
 					<tr><th>댓글 순번</th><td>${boardReplyList.brId}
 					<c:if test="${SESSION_MEM_SEQ eq boardReplyList.regId}">
 						<div class="reply-btn-area">
-							<button type="button" class="btn_blue" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">댓글 수정</button>
+							<button type="button" id="updateEditorBtn_${status.index}" class="btn_blue" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">댓글 수정</button>
+							<button type="button" id="updateBtn_${status.index}" class="btn_blue" onclick="fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}');" style="display:none;">댓글 수정</button>
 							<button type="button" class="btn_blue" onclick="fn_reply_delete('${boardReplyList.brId}');">댓글 삭제</button>
 						</div>
 					</c:if>
@@ -335,9 +339,6 @@ function makeReplyFileArea () {
 										<a style="color:white" href="javascript:fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}' );" class="btn blue">수정</a>
 									</button>
 								</div> --%>
-								<div class="reply-btn-area">
-									<button type="button" class="btn_blue" onclick="fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}');">수정</button>
-								</div>
 							</span>
 						</td>
 					</tr>
