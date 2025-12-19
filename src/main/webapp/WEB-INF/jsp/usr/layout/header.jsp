@@ -2,6 +2,41 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
+<script>
+function openLoginPopup() {
+	var currentUrl = window.location.pathname + window.location.search;
+	// currentUrl : /yjcareer/usr/main.do
+	$.ajax({
+        url: '${contextRoot}/usr/login/requestAuth.do',
+        method: 'GET',
+        data: { redirectUrl: currentUrl },
+        dataType: 'json',
+        success: function(data) {
+            if (!data || !data.encData) {
+                alert('인증 요청 실패');
+                return;
+            }
+
+            var form = $('<form/>', {
+                method: 'post',
+                action: 'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb',
+                target: 'popupChk'
+            }).appendTo('body');
+
+            $('<input/>', { type: 'hidden', name: 'm', value: 'checkplusService' }).appendTo(form);
+            $('<input/>', { type: 'hidden', name: 'EncodeData', value: data.encData }).appendTo(form);
+
+            window.open('', 'popupChk', 'width=500,height=550,top=100,left=100,fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=yes,location=no,scrollbar=no');
+            form.submit();
+            form.remove();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('서버 오류: ' + textStatus);
+        }
+    })
+}
+</script>
+
 <div id="wrapper">
 
 		<header id="header">
@@ -13,12 +48,16 @@
 				<div class="wrap">
 					<div class="link">
 						<ul class="link_list">
-
-							<!--<li class="link_item login"><a href="/loginForm.do?siteId=yjcareer&amp;TARGET=/yjcareer/index.do" class="link_anchor" title="로그인">로그인</a></li>-->
-							<li class="link_item logout"><a href="/logout.do?siteId=yjcareer" class="link_anchor" title="로그아웃">로그아웃</a></li>
-                            <li class="link_item mypage"><a href="/yjcareer/usr/mypage/myReservation.do" class="link_anchor">나의예약</a></li>
-
-
+							<c:choose>
+								<c:when test="${not empty sessionScope.SESSION_DI_KEY}">
+								<!--<li class="link_item login"><a href="/loginForm.do?siteId=yjcareer&amp;TARGET=/yjcareer/index.do" class="link_anchor" title="로그인">로그인</a></li>-->
+									<li class="link_item logout"><a href="/yjcareer/usr/login/logout.do" class="link_anchor" title="로그아웃">로그아웃</a></li>
+                            		<li class="link_item mypage"><a href="/yjcareer/usr/mypage/myReservation.do" class="link_anchor">나의예약</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="link_item login"><a href="javascript:void(0);" onclick="openLoginPopup();" class="link_anchor" title="로그인">로그인</a></li>
+								</c:otherwise>
+							</c:choose>
 						</ul>
 					</div>
 					<div class="site">

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gocle.yangju.forest.adm.login.vo.LoginVO;
+import com.gocle.yangju.forest.usr.login.service.UserLoginService;
 
 import egovframework.com.cmm.service.EgovProperties;
 import egovframework.com.cmm.service.Globals;
@@ -23,6 +25,9 @@ import egovframework.com.cmm.service.Globals;
 @Controller
 @RequestMapping("/usr/login/")
 public class UserLoginController {
+	
+	@Autowired
+	UserLoginService userLoginService;
 	
 	private static final String S_SITE_CODE = EgovProperties.getProperty("Globals.sSiteCode");
 	private static final String S_SITE_PASSWORD = EgovProperties.getProperty("Globals.sSitePassword");
@@ -155,6 +160,11 @@ public class UserLoginController {
     			session.setAttribute(Globals.GENDER, sGender);
     			session.setAttribute(Globals.IP, usrIP);
     			session.setAttribute("redirect_url", "");
+    			System.out.println(">>> DI: "+sDupInfo);
+    			// 본인인증 성공 시 TB_USER에서 조회
+    			if(userLoginService.selectUserLogin(loginVO) == null) {
+    				userLoginService.insertUser(loginVO);
+    			}
             }
 
         } else {
