@@ -14,8 +14,6 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String subjCd;
     // 운영과정코드
     private String seqCd;
-    // 신청 일련번호
-    private String enrollNo;
     // 교육강좌명
     private String subjNm;
     // 기수명
@@ -30,9 +28,9 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String learnStartDt;
     private String learnEndDt;
     // 신청자
-    private String memId;
+    private String memSeq;
     private String memName;
-    private String[] memIds;
+    private String[] memSeqs;
     // 성별
     private String sexdstn;
     // 연령대
@@ -133,11 +131,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setSessionNm(String sessionNm) {
 		this.sessionNm = sessionNm;
 	}
-	public String getMemId() {
-		return memId;
+	public String getMemSeq() {
+		return memSeq;
 	}
-	public void setMemId(String memId) {
-		this.memId = memId;
+	public void setMemSeq(String memSeq) {
+		this.memSeq = memSeq;
 	}
 	public String getMemName() {
 		return memName;
@@ -301,11 +299,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setLearnEndDt(String learnEndDt) {
 		this.learnEndDt = learnEndDt;
 	}
-	public String[] getMemIds() {
-		return memIds;
+	public String[] getMemSeqs() {
+		return memSeqs;
 	}
-	public void setMemIds(String[] memIds) {
-		this.memIds = memIds;
+	public void setMemSeqs(String[] memSeqs) {
+		this.memSeqs = memSeqs;
 	}
 	public String getSmsYn() {
 		return smsYn;
@@ -330,12 +328,6 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	}
 	public void setEduErrCnt(int eduErrCnt) {
 		this.eduErrCnt = eduErrCnt;
-	}
-	public String getEnrollNo() {
-		return enrollNo;
-	}
-	public void setEnrollNo(String enrollNo) {
-		this.enrollNo = enrollNo;
 	}
 	public String getForceYn() {
 		return forceYn;

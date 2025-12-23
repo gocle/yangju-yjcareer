@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gocle.yangju.forest.adm.chuser.service.impl.UsrManageMapper">
+	
+	<sql id="selectSearchWhere">
+		<if test="searchKeyword != null and searchKeyword != ''">
+			AND (
+				REPLACE(U.HP_NO, '-', '') LIKE CONCAT ('%', REPLACE(#{searchKeyword}, '-', ''), '%')
+			 OR U.MEM_NAME LIKE CONCAT ('%', #{searchKeyword}, '%')
+			)
+		</if>
+	</sql>
+	
+	<select id="selectUserSearchTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_USER U
+		LEFT JOIN TB_ENROLL E
+			ON U.MEM_SEQ = E.MEM_SEQ
+			AND E.SEQ_CD = #{seqCd}
+		WHERE 1 = 1
+			AND E.MEM_SEQ IS NULL
+		<include refid="selectSearchWhere" />
+	</select>
+	
+	<select id="selectUserSearchList" resultType="UsrManageVo" parameterType="UsrManageVo">
+		SELECT U.MEM_SEQ
+			, U.MEM_NAME
+			, U.HP_NO
+		FROM TB_USER U
+		LEFT JOIN TB_ENROLL E
+			ON U.MEM_SEQ = E.MEM_SEQ
+			AND E.SEQ_CD = #{seqCd}
+		WHERE 1 = 1
+			AND E.MEM_SEQ IS NULL
+		<include refid="selectSearchWhere" />
+	</select>
+	
+</mapper>

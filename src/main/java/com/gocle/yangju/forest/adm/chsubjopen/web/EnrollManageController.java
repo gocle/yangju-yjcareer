@@ -98,23 +98,6 @@ public class EnrollManageController {
 		return "/adm/chsubjopen/EnrollDetailManageList";
 	}
 	
-	@RequestMapping("/popup/EnrollDetailManageInsertForm.do")
-	public String EnrollManageInsertForm(@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo
-			,@ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo, ModelMap model) throws Exception {
-		model.addAttribute("cmd", "Insert");
-		model.addAttribute("resultMap", subjSeqManageService.select(subjSeqManageVo));
-		
-		CodeVO cvo = new CodeVO();
-		cvo.setCodeGroup("RESDNC_DETAIL");
-		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
-		cvo.setCodeGroup("AGE_GROUP");
-		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
-		cvo.setCodeGroup("GRADE");
-		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
-		
-		return "/adm/chsubjopen/popup/EnrollDetailManageForm";
-	}
-	
 	@RequestMapping("/popup/EnrollDetailManageUpdateForm.do")
 	public String EnrollManageUpdateForm(@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo
 			,@ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo, ModelMap model) throws Exception {

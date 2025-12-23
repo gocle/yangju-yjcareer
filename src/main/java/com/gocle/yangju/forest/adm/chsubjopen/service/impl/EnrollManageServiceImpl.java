@@ -66,12 +66,17 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 			enrollManageVo.setEnrollStatusCd("A");
 		}
 		
-		int ins = enrollManageMapper.insert(enrollManageVo);
+		int ins = 0;
 		
-		// 히스토리 저장타입 - 등록(I)
-		enrollManageVo.setConnectionType("I");
-		// 수강등록 테이블 히스토리 입력
-		enrollManageMapper.insertEnrollHistory(enrollManageVo);
+		for(String memSeq : enrollManageVo.getMemSeqs()) {
+			enrollManageVo.setMemSeq(memSeq);
+			ins = enrollManageMapper.insert(enrollManageVo);
+			
+			// 히스토리 저장타입 - 등록(I)
+			enrollManageVo.setConnectionType("I");
+			// 수강등록 테이블 히스토리 입력
+			enrollManageMapper.insertEnrollHistory(enrollManageVo);
+		}
 		
 		return ins;
 	}
@@ -91,9 +96,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	@Override
 	public int delete(EnrollManageVo enrollManageVo) throws Exception {
 		int deleteCnt = 0;
-		for(String memId : enrollManageVo.getMemIds()) {
-			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setEnrollNo(memId.split("_")[1]);
+		for(String memSeq : enrollManageVo.getMemSeqs()) {
+			enrollManageVo.setMemSeq(memSeq);
 			
 			// 히스토리 저장타입 - 삭제(D)
 			enrollManageVo.setConnectionType("D");
@@ -112,9 +116,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int dupErrCnt = 0;
 		int eduErrCnt = 0;
 		
-		for(String memId : enrollManageVo.getMemIds()) {
-			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setEnrollNo(memId.split("_")[1]);
+		for(String memSeq : enrollManageVo.getMemSeqs()) {
+			enrollManageVo.setMemSeq(memSeq);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
@@ -150,9 +153,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int dupErrCnt = 0;
 		int eduErrCnt = 0;
 		
-		for(String memId : enrollManageVo.getMemIds()) {
-			enrollManageVo.setMemId(memId.split("_")[0]);
-			enrollManageVo.setEnrollNo(memId.split("_")[1]);
+		for(String memSeq : enrollManageVo.getMemSeqs()) {
+			enrollManageVo.setMemSeq(memSeq);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);

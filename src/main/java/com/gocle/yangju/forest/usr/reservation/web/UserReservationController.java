@@ -575,4 +575,16 @@ public class UserReservationController {
 	        return resp;
 	    
 	}
+	 
+	@RequestMapping("/consulting/addCalendarView.do")
+	public String consuliting(ModelMap model) throws Exception {
+			
+		return "/usr/reservation/consulting/addCalendarView";
+	}
+	
+	@RequestMapping("/program/eduLctreNewList.do")
+	public String program(ModelMap model) throws Exception {
+			
+		return "/usr/reservation/program/eduLctreNewList";
+	}
 }

@@ -8,7 +8,7 @@
 <script type="text/javascript">
 function fn_check_all() {
     var c = $('#chkAll').is(":checked");
-    $('input[name=memIds]').prop("checked", c);
+    $('input[name=memSeqs]').prop("checked", c);
 }
 
 function fn_search(pageIndex) {
@@ -22,23 +22,22 @@ function fnCmdList() {
 	$("#listForm").submit();
 }
 
-function fnEnrollInsert () {
-	popOpenWindow("", "popEnrollDetailInsert", 650, 550);
+function fnEnrollAddUserPopup () {
+	popOpenWindow("", "popEnrollAddUser", 650, 550);
 	
-	var reqUrl =  "${contextRoot}/adm/chsubjopen/popup/EnrollDetailManageInsertForm.do";
+	var reqUrl = "${contextRoot}/adm/chsearch/popup/UsrManageSearchInsertList.do";
 	
-	$("#listForm").attr("target", "popEnrollDetailInsert");
+	$("#listForm").attr("target", "popEnrollAddUser");
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
 
-function fnEnrollUpdate(seqCd, memId, enrollNo) {
+function fnEnrollUpdate(seqCd, memSeq) {
 	popOpenWindow("", "popEnrollDetailUpdate", 650, 550);
 	
 	var reqUrl =  "${contextRoot}/adm/chsubjopen/popup/EnrollDetailManageUpdateForm.do";
 	$("#seqCd").val(seqCd);
-	$("#memId").val(memId);
-	$("#enrollNo").val(enrollNo);
+	$("#memSeq").val(memSeq);
 	
 	$("#listForm").attr("target", "popEnrollDetailUpdate");
 	$("#listForm").attr("action", reqUrl);
@@ -46,7 +45,7 @@ function fnEnrollUpdate(seqCd, memId, enrollNo) {
 }
 
 function fnEnrollDelete() {
-	if($("input[name=memIds]:checkbox:checked").length === 0) {
+	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -70,7 +69,7 @@ function fnEnrollDelete() {
 }
 
 function fnEnrollApply() {
-	if($("input[name=memIds]:checkbox:checked").length === 0) {
+	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -94,7 +93,7 @@ function fnEnrollApply() {
 }
 
 function fnEnrollApplyCancel() {
-	if($("input[name=memIds]:checkbox:checked").length === 0) {
+	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -117,12 +116,6 @@ function fnEnrollApplyCancel() {
 	});
 }
 
-function fn_search(pageIndex) {
-	let reqUrl = "${contextRoot}/adm/chsubjopen/EnrollDetailManageList.do";
-
-    $("#listForm").attr("action", reqUrl);
-    $("#listForm").submit();
-}
 </script>
 
 <style>
@@ -136,8 +129,7 @@ function fn_search(pageIndex) {
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
-		<input type="hidden" id="memId" name="memId" value="" />
-		<input type="hidden" id="enrollNo" name="enrollNo" value="" />
+		<input type="hidden" id="memSeq" name="memSeq" value="" />
 		
 		<table class="detail">
 			<colgroup>
@@ -202,7 +194,7 @@ function fn_search(pageIndex) {
 		</ul>
 		
 		<div class="btn-area" style="margin-bottom:20px;">
-			<a href="#none" class="btn_blue" onclick="javascript:fnEnrollInsert();">교육생등록</a>
+			<a href="#none" class="btn_blue" onclick="javascript:fnEnrollAddUserPopup();">교육생등록</a>
             <a href="#none" onclick="javascript:fnEnrollDelete();">교육생삭제</a>
             <a href="#none" class="btn_blue" onclick="javascript:fnEnrollApply();">교육생승인</a>
             <a href="#none" onclick="javascript:fnEnrollApplyCancel();">교육생승인취소</a>
@@ -226,9 +218,9 @@ function fn_search(pageIndex) {
 			<tbody>
 				<c:forEach var="item" items="${resultList}" varStatus="status">
 					<tr>
-						<td><input type="checkbox" name="memIds" class="all_check" value="<c:out value="${item.memId}_${item.enrollNo}"/>"></td>
+						<td><input type="checkbox" name="memSeqs" class="all_check" value="<c:out value="${item.memSeq}"/>"></td>
 						<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
-						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.memId}', '${item.enrollNo}');">${item.memName }</a></td>
+						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.memSeq}');">${item.memName }</a></td>
 						<td>${item.hpTel1 }</td>
 						<td>${item.regDt }</td>
 						<td>

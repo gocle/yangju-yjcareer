@@ -89,23 +89,6 @@ function valid() {
 	return true;
 }
 
-function fnCmdInsert() {
-	if(valid()) {
-		$.ajax({
-			type: "post",
-			url: "${contextRoot}/adm/chsubjopen/EnrollDetailManageInsert.do",
-			data: $("#detailForm").serialize(),
-			success: function(result) {
-				alert(result);
-				fnCmdClose();
-			},
-			error: function() {
-		        alert("등록 중 오류가 발생했습니다.");
-		    }
-		});
-	}
-}
-
 function fnCmdUpdate() {
 	if(valid()) {
 		$.ajax({
@@ -135,8 +118,8 @@ function fnCmdUpdate() {
 		
 			<form id="detailForm" name="detailForm" method="post">
 				<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
-				<input type="hidden" id="memId" name="memId" value="${userInfo.memId }" />
-				<input type="hidden" id="enrollNo" name="enrollNo" value="${userInfo.enrollNo }" />
+				<input type="hidden" id="memSeq" name="memSeq" value="${userInfo.memSeq }" />
+				
 				<table class="detail">
 			  		<colgroup>
 			        	<col width="15%" />
@@ -237,7 +220,6 @@ function fnCmdUpdate() {
 			      </table>
 			      
 			      <div class="text-right btn-area">
-			      	<c:if test="${cmd eq 'Insert' }"><a href="javascript:;" onclick="fnCmdInsert()">등록</a></c:if>
 			      	<c:if test="${cmd eq 'Update' }"><a href="javascript:;" onclick="fnCmdUpdate()">수정</a></c:if>
 			      	<a href="javascript:fnCmdClose();">닫기</a>
 				  </div>
