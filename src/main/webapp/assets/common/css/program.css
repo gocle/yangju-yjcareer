@@ -43,13 +43,13 @@
 }
 
 /* 통합예약 - 교육강좌 */
-.education_list .bbs_search{padding:15px 3%; text-align:left;}
-.education_list .bbs_search .listbox ul li{font-size:0;}
-.education_list .bbs_search .listbox ul li label{display:inline-block; vertical-align:middle; font-size:15px;}
+.education_list .bbs_search{padding:30px 3%; text-align:left;}
+.education_list .bbs_search .listbox ul li{font-size:20px;}
+.education_list .bbs_search .listbox ul li label{vertical-align:middle; font-size:17px;}
 .education_list .bbs_search .listbox.con01{margin-bottom:10px;}
-.education_list .bbs_search .listbox.con01 ul li{float:left; width:31.8%; margin-right:2.3%;}
+.education_list .bbs_search .listbox.con01 ul li{width : 45%;}
 .education_list .bbs_search .listbox.con01 ul li:nth-child(3n){margin-right:0;}
-.education_list .bbs_search .listbox.con01 label{width:60px; margin-right:20px;}
+.education_list .bbs_search .listbox.con01 label{}
 .education_list .bbs_search .listbox.con01 select.select{width:calc(100% - 80px);}
 .education_list .bbs_search .listbox.con02 .label{display:inline-block; width:60px; margin-right:20px; vertical-align:middle; font-size:15px;}
 .education_list .bbs_search .listbox.con02 .gap{display:inline-block; width:10px; margin:0 5px; vertical-align:middle; text-align:center; font-size:15px;}
@@ -64,14 +64,170 @@
 .education_list .education_text em span{border-bottom:2px solid #ff0000;}
 
 .education_list .bbs_search .listbox.con02 ul li.list01{float:left;}
-.education_list .bbs_search .listbox.con02 ul li.list02{float:right;}
+.education_list .bbs_search .listbox.con02 ul li.list02{margin-top: 20px;}
 .education_list .bbs_search .listbox.con02 ul li.list02 select.select{width:145px; margin-right:10px;}
-.education_list .bbs_search .listbox.con02 ul li.list02 .submitbox{display:inline-block; vertical-align:middle;}
+.education_list .bbs_search .listbox.con02 ul li.list02 .submitbox{display:inline-block; vertical-align:middle; width : 50%;}
 .education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{height:30px; margin-right:5px; font-size:14px;}
-.education_list .bbs_search .listbox.con02 input[type="submit"]{width:68px; height:34px; padding:0; background-color:#555555; border:none; color:#FFF; font-size:15px;}
-.education_list table.table.list_table th, .education_list table.table.list_table td{padding:11px 4px 9px; font-size:14px;vertical-align:middle;}
+.education_list .bbs_search .listbox.con02 input[type="submit"]{width:50%; height:34px; padding:0; background-color:#555555; border:none; color:#FFF; font-size:15px;}
+.education_list table.table.list_table th, .education_list table.table.list_table td{padding:1rem; font-size:14px;vertical-align:middle;}
 .education_list table.table.list_table a.subject{color:#000; font-size:15px;}
 .education_list table.table.list_table a.btn.small{padding:4px 10px 5px;}
+
+.li-label {
+	display: block;
+	color : #fff;
+	border-radius: 10px;
+	width: 30%;
+	text-align: center;
+	padding: 5px 0;
+	font-size: 17px;
+	margin-bottom: 10px;
+}
+
+.li-label.be {
+	background: #2dbd96
+}
+
+.li-label.ing {
+	background: #ee9600
+}
+
+.li-label.end {
+	background: #858585
+}
+
+
+.listbox .bbs-search-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;	
+}
+
+.bbs-search-radio {
+	display: flex;
+	gap: 10px;
+	align-items: center;
+}
+
+.bbs-search-radio .radio-label {
+	font-weight: 600;
+	width : 80px;
+}
+
+.bbs-search-radio input {
+  display: none;
+}
+
+.radio-btn {
+  	background: url(../../site/yjcareer/images/common/radio_button_unchecked.svg) no-repeat;
+	background-size: contain;
+	padding-left: 30px;
+	margin-right: 10px;
+}
+
+/* 선택 상태 */
+.bbs-search-radio input:checked + .radio-btn {
+  	background: url(../../site/yjcareer/images/common/radio_button_checked.svg) no-repeat;
+	background-size: contain;
+}
+
+.bbs-search-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bbs-search-checkbox input {
+  display: none;
+}
+
+.checkbox-label {
+  width : 80px;
+  font-weight: 600;
+  color: #333;
+}
+
+.checkbox-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 20px;
+  border-radius: 20px;
+  border: 2px solid #4c65d9;
+  color: #4c65d9;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* 체크 상태 */
+.bbs-search-checkbox input:checked + .checkbox-btn {
+	border: 2px solid #4c65d9;
+	background: #edf0ff;
+	color: #4c65d9;
+}
+
+.bbs_info input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-btn:hover {
+  background: #edf0ff;
+}
+
+.bbs_info .checkbox-btn {
+	border: 0;
+	color : #333;
+	font-size: 20px
+}
+
+.bbs_count strong {
+	color: #4c65d9
+}
+
+.bbs_info .checkbox-btn .text {
+	padding-left: 20px;
+}
+
+.bbs_info input:checked + .checkbox-btn {
+	background: url(../../site/yjcareer/images/common/check_circle.svg) no-repeat;
+	background-size: contain;
+}
+
+.bbs_info .checkbox-btn {
+	background: url(../../site/yjcareer/images/common/check_circle_outline.svg) no-repeat;
+	background-size: contain;
+}
+
+.bbs-search-checkbox input:checked + .checkbox-btn::before {
+    content: '';
+	background: url(../../site/yjcareer/images/common/check.png) no-repeat;
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	background-size: contain
+}
+
+/* 키보드 접근성 */
+.bbs-search-checkbox input:focus-visible + .checkbox-btn {
+  outline: 3px solid rgba(74, 143, 231, 0.4);
+  outline-offset: 2px;
+}
+
+.submitbox .reset {
+	background: url(../../site/yjcareer/images/common/reset.svg) left 50% no-repeat;
+	padding-left: 30px;
+	margin-left: 10px;
+	cursor: pointer;
+	background-size: 24px 24px;
+}
+
+.submitbox .reset:hover {
+	border-bottom : 1px solid #333;
+}
 
 .education_viewtable{border-top:#000 solid 2px; border-bottom:#d8d8d8 solid 1px;}
 .education_viewtable .titlebox{border-bottom:#d8d8d8 solid 1px; padding:19px 21px 17px; line-height:0; font-size:0;}

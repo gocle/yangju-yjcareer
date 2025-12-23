@@ -63,8 +63,8 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 
 /* 진학 프로그램 신청 리스트*/
 .education_list .bbs_search .listbox.con02 .label,
-.education_list .bbs_search .listbox ul li label{font-size: 20px;}
-.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{height: 40px; padding-left: 10px; border-color: #e9e9e9; font-size: 18px;}
+.education_list .bbs_search .listbox ul li label{font-size: 19px;}
+.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{width :50%; height: 40px; padding-left: 10px; border-color: #e9e9e9; font-size: 18px;}
 .education_list .bbs_search .listbox.con02 input[type="submit"]{width:70px; height: 40px; font-size: 18px;}
 .education_list .bbs_search select{padding-right: 30px;}
 
@@ -80,7 +80,7 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 .education_list table{margin-top: 5px;}
 .education_list table.table.list_table th,
 .education_list table.table.list_table td{font-size: 20px; text-align: center;}
-.education_list table.table.list_table a.subject{font-size: 20px; color: #4a4f66;}
+.education_list table.table.list_table a.subject{font-size: 20px; color: #4a4f66; text-align: left; font-weight: 600; width: 100%;}
 .education_list table.table.list_table a.btn.small{padding:9px 15px 10px; font-size: 20px; line-height: 24px;}
 
 @media all and (max-width: 1240px) {

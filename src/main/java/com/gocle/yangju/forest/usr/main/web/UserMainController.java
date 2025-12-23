@@ -23,6 +23,8 @@ import com.gocle.yangju.forest.usr.banner.service.UserBannerService;
 import com.gocle.yangju.forest.usr.banner.vo.BannerVO;
 import com.gocle.yangju.forest.usr.board.service.UserBoardService;
 import com.gocle.yangju.forest.usr.board.vo.BoardArticleVO;
+import com.gocle.yangju.forest.usr.chinfo.service.SubjInfoService;
+import com.gocle.yangju.forest.usr.chinfo.vo.SubjInfoVo;
 import com.gocle.yangju.forest.usr.code.service.UserCodeService;
 import com.gocle.yangju.forest.usr.code.vo.CodeVO;
 import com.gocle.yangju.forest.usr.intro.service.UserIntroService;
@@ -45,6 +47,9 @@ public class UserMainController{
 	private UserBannerService bannerService;
 	
 	@Autowired
+	SubjInfoService subjInfoService;
+	
+	@Autowired
 	UserCodeService codeService;
 	
 	/**
@@ -59,11 +64,16 @@ public class UserMainController{
 			HttpServletRequest request,
 			HttpSession session) throws Exception {
 		
-		String returnPage = "";
+		// 과정소개
+		SubjInfoVo subjInfoVo = new SubjInfoVo();
+		// 1:1 상시상담
+		subjInfoVo.setSearchSgrCd("A");
+		model.put("subjManageListA", subjInfoService.selectMainList(subjInfoVo));
+		// 꿈자람센터 프로그램
+		subjInfoVo.setSearchSgrCd("B");
+		model.put("subjManageListB", subjInfoService.selectMainList(subjInfoVo));
 		
-		returnPage = "usr/main/main";
-		
-		return returnPage;
+		return "usr/main/main";
 	}
 	
 	@RequestMapping(value = "usr/main/myReservation.do")

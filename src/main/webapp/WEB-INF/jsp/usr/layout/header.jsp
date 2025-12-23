@@ -48,9 +48,9 @@ function openLoginPopup() {
 				<div class="wrap">
 					<div class="link">
 						<ul class="link_list">
+							<li><a href="#" target="_blank" class="btn">양주시 강남인강</a></li>
 							<c:choose>
-								<c:when test="${not empty sessionScope.SESSION_DI_KEY}">
-								<!--<li class="link_item login"><a href="/loginForm.do?siteId=yjcareer&amp;TARGET=/yjcareer/index.do" class="link_anchor" title="로그인">로그인</a></li>-->
+								<c:when test="${not empty sessionScope.SESSION_DI_KEY}">						
 									<li class="link_item logout"><a href="/yjcareer/usr/login/logout.do" class="link_anchor" title="로그아웃">로그아웃</a></li>
                             		<li class="link_item mypage"><a href="/yjcareer/usr/mypage/myReservation.do" class="link_anchor">나의예약</a></li>
 								</c:when>
@@ -60,20 +60,13 @@ function openLoginPopup() {
 							</c:choose>
 						</ul>
 					</div>
-					<div class="site">
-						<ul class="site_list">
-							<li class="site_item n1"><a href="/www/index.do" class="site_anchor">양주시청</a></li>
-							<li class="site_item n2"><a href="/ytc/index.do" class="site_anchor">청소년수련원</a></li>
-							<li class="site_item n3"><a href="/yjyouth1318/index.do" class="site_anchor">청소년문화의집</a></li>
-						</ul>
-					</div>
 				</div>
 			</div>
 
 			<div class="group">
 				<div class="wrap">
 					<div class="logo">
-						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/css/usr/img/common/logo.png" alt="시민과함께 도약하는양주"><span>진로진학지원센터</span></a>
+						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/site/yjcareer/images/common/logo.png" alt="시민과함께 도약하는양주"><span>양주 진로진학교육플랫폼</span></a>
 					</div>
 				</div>
 
@@ -104,103 +97,94 @@ function openLoginPopup() {
 						</div>
 
 						<div class="wrap">
-						
-						  <c:set var="upperMenuNo" value="TOP"/>
-					      <c:set var="menuLevel" value="1"/>
-					      <c:set var="key1" value="${upperMenuNo}_${menuLevel}"/>
-					      
-						  <div class="depth depth1">
-						    <ul class="depth_list depth1_list cut">
-						      <c:forEach var="m1" items="${menuList[key1]}" varStatus="st1">
-						        <%-- 1depth URL 정규화 --%>
-						        <c:set var="raw1" value="${m1.menuUrl}" />
-						        <c:set var="path1"
-						               value="${fn:startsWith(raw1, ctx) ? fn:substring(raw1, fn:length(ctx), fn:length(raw1)) : raw1}" />
-						        <c:if test="${not fn:startsWith(path1,'/')}">
-						          <c:set var="path1" value='/${path1}'/>
-						        </c:if>
-						
-						        <c:set var="key2" value="${m1.menuId}_${m1.menuDepth + 1}" />
-						
-						        <li class="depth_item depth1_item n${st1.index + 1}">
-						          <a href="<c:url value='${path1}'/>?menuId=${m1.menuId}"
-						             target="_self"
-						             class="depth_text depth1_text">
-						            <span>${m1.menuTitle}</span>
-						          </a>
-						
-						          <c:if test="${not empty menuList[key2]}">
-						            <div class="depth depth2">
-						              <div class="depth2_content">
-						                <ul class="depth_list depth2_list cut">
-						                  <c:forEach var="m2" items="${menuList[key2]}">
-						                    <c:set var="key3" value="${m2.menuId}_${m2.menuDepth + 1}" />
-						
-						                    <%-- 2depth URL 정규화 --%>
-						                    <c:set var="raw2" value="${m2.menuUrl}" />
-						                    <c:set var="path2"
-						                           value="${fn:startsWith(raw2, ctx) ? fn:substring(raw2, fn:length(ctx), fn:length(raw2)) : raw2}" />
-						                    <c:if test="${not fn:startsWith(path2,'/')}">
-						                      <c:set var="path2" value='/${path2}'/>
-						                    </c:if>
-						
-						                    <c:choose>
-						                      <%-- 3뎁스가 있는 2뎁스 메뉴 --%>
-						                      <c:when test="${not empty menuList[key3]}">
-						                        <li class="depth_item depth2_item">
-						                          <a id="a_${m2.menuId}"
-						                             href="<c:url value='${path2}'/>?menuId=${m2.menuId}"
-						                             target="_self"
-						                             class="depth_text depth2_text">
-						                            <span>${m2.menuTitle}</span>
-						                          </a>
-						
-						                          <div class="depth depth3">
-						                            <ul class="depth_list depth3_list">
-						                              <c:forEach var="m3" items="${menuList[key3]}">
-						                                <%-- 3depth URL 정규화 --%>
-						                                <c:set var="raw3" value="${m3.menuUrl}" />
-						                                <c:set var="path3"
-						                                       value="${fn:startsWith(raw3, ctx) ? fn:substring(raw3, fn:length(ctx), fn:length(raw3)) : raw3}" />
-						                                <c:if test="${not fn:startsWith(path3,'/')}">
-						                                  <c:set var="path3" value='/${path3}'/>
-						                                </c:if>
-						
-						                                <li class="depth_item depth3_item">
-						                                  <a id="a_${m3.menuId}"
-						                                     href="<c:url value='${path3}'/>?menuId=${m3.menuId}"
-						                                     target="_self"
-						                                     class="depth_text depth3_text">
-						                                    ${m3.menuTitle}
-						                                  </a>
-						                                </li>
-						                              </c:forEach>
-						                            </ul>
-						                          </div>
-						                        </li>
-						                      </c:when>
-						
-						                      <%-- 3뎁스 없는 2뎁스 메뉴 --%>
-						                      <c:otherwise>
-						                        <li class="depth_item depth2_item">
-						                          <a id="a_${m2.menuId}"
-						                             href="<c:url value='${path2}'/>?menuId=${m2.menuId}"
-						                             target="_self"
-						                             class="depth_text depth2_text">
-						                            <span>${m2.menuTitle}</span>
-						                          </a>
-						                        </li>
-						                      </c:otherwise>
-						                    </c:choose>
-						                  </c:forEach>
-						                </ul>
-						              </div>
-						            </div>
-						          </c:if>
-						        </li>
-						      </c:forEach>
-						    </ul>
-						  </div>
+							<div class="depth depth1">
+								<ul class="depth_list depth1_list cut">
+									<li class="depth_item depth1_item n1">
+										<a href="contents_4123.html" target="_self" class="depth_text depth1_text"><span>센터 소개</span></a>
+										<div class="depth depth2">
+											<div class="depth2_content">
+												<ul class="depth_list depth2_list cut">
+													<li class="depth_item depth2_item">
+														<a href="contents_4123.html" target="_self" class="depth_text depth2_text"><span>진로진학교육플랫폼 소개</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="contents_4125.html" target="_self" class="depth_text depth2_text"><span>주요사업</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="contents_4126.html" target="_self" class="depth_text depth2_text"><span>찾아오시는 길</span></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="depth_item depth1_item n1">
+										<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do" target="_self" class="depth_text depth1_text"><span>1:1 상시 상담</span></a>
+										<div class="depth depth2">
+											<div class="depth2_content">
+												<ul class="depth_list depth2_list cut">
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do" target="_self" class="depth_text depth2_text"><span>맞춤컨설팅</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do" target="_self" class="depth_text depth2_text"><span>학습심리상담</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do" target="_self" class="depth_text depth2_text"><span>수시·정시상담</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do" target="_self" class="depth_text depth2_text"><span>면접컨설팅</span></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="depth_item depth1_item n1">
+										<a href="contents_4135.html" target="_self" class="depth_text depth1_text"><span>행사 및 강좌</span></a>
+									</li>
+									<li class="depth_item depth1_item n1">
+										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth1_text"><span>꿈자람센터 프로그램</span></a>
+										<div class="depth depth2">
+											<div class="depth2_content">
+												<ul class="depth_list depth2_list cut">
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth2_text"><span>양주진로진학지원센터 프로그램</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth2_text"><span>동부권 AI디지털 프로그램</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth2_text"><span>서부권 AI디지털 프로그램</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth2_text"><span>동부권 돌봄프로그램</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do" target="_self" class="depth_text depth2_text"><span>서부권 돌봄프로그램</span></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+									<li class="depth_item depth1_item n1">
+										<a href="/yjcareer/selectBbsNttList.do?bbsNo=530&amp;key=4145" target="_self" class="depth_text depth1_text"><span>알림마당</span></a>
+										<div class="depth depth2">
+											<div class="depth2_content">
+												<ul class="depth_list depth2_list cut">
+													<li class="depth_item depth2_item">
+														<a href="selectBbsNttList.html" target="_self" class="depth_text depth2_text"><span>공지사항</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="selectBbsNttList_4146.html" target="_self" class="depth_text depth2_text"><span>교육 자료실</span></a>
+													</li>
+													<li class="depth_item depth2_item">
+														<a href="/yjcareer/selectBbsNttList.do?bbsNo=548&amp;key=4185" target="_self" class="depth_text depth2_text"><span>교육후기</span></a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
 						</div>
 
 						<div class="menu_hide">

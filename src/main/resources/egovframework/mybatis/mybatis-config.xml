@@ -43,6 +43,7 @@
 	    <typeAlias alias="SubjSeqManageVo" type="com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo" />
 	    <typeAlias alias="EnrollManageVo" type="com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo" />
 	    <typeAlias alias="UsrManageVo" type="com.gocle.yangju.forest.adm.chuser.vo.UsrManageVo" />
+	    <typeAlias alias="SubjInfoVo" type="com.gocle.yangju.forest.usr.chinfo.vo.SubjInfoVo" />
 	</typeAliases>
 	
 </configuration>
