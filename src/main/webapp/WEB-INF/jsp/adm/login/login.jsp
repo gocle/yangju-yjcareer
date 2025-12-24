@@ -14,30 +14,28 @@
 
 		<link rel="icon" href="../assets/image/title_icon.png"/>
 		<link rel="stylesheet" type="text/css" href="../assets/css/adm/admLogin.min.css"/>
+		<link rel="stylesheet" type="text/css" href="../assets/css/adm/adm_inc.css"/>
 
 		<script type="text/javascript" src="../assets/script/jquery.min.js"></script>
 
 	</head>
 
-
-
-
-
 	<body class="login-area">
+		<h1 class="login_tit"><img src="${contextRoot}/assets/css/adm/img/logo_admin_login.png" alt="Yangju 양주시"></h1>
 		<div>
-				<fieldset>
-						<legend>양주 진로진학 관리페이지</legend>
-						
-							<label for="memId" class="fa fa-user-circle-o"></label>
-							<form name="loginForm" id="loginForm" method="post">
-								<input type="text" name="memId" id="memId" maxlength="50" placeholder="Account Name" />
-								<label for="memPassword" class="fa fa-lock"></label>
-								<input type="password" name="memPassword" id="memPassword" maxlength="50" placeholder="Password" />
-							</form>
-							<button type="button"  id="loginBtn">LOGIN</button>
-							<span class="hidden">Please insert your account ID.</span>
-						
-				</fieldset>
+			<fieldset>
+					<legend>ADMIN LOGIN</legend>
+					
+						<label for="memId" class="fa fa-user-circle-o"></label>
+						<form name="loginForm" id="loginForm" method="post">
+							<input type="text" name="memId" id="memId" maxlength="50" placeholder="Account Name" />
+							<label for="memPassword" class="fa fa-lock"></label>
+							<input type="password" name="memPassword" id="memPassword" maxlength="50" placeholder="Password" />
+						</form>
+						<button type="button"  id="loginBtn">LOGIN</button>
+						<span class="hidden">Please insert your account ID.</span>
+					
+			</fieldset>
 			
 
 			<script type="text/javascript">
@@ -94,6 +92,7 @@
 				});
 			</script>
 		</div>
+		<div id="login_footer">Copyright © 양주 진로진학플랫폼 All rights reserved.</div>
 	</body>
 </html>
 
