@@ -182,160 +182,49 @@
 
     <div class="bbs_info clearfix">
         <div class="bbs_left bbs_count">
-            <span>총 게시물  <strong>3</strong> 개</span>,
-            <span class="division_line">페이지 <strong>1</strong> / 1</span>
+            <span>총 게시물  <strong>${totalCount }</strong> 개</span>,
+            <span class="division_line">페이지 <strong>${pageIndex }</strong> / ${totalPage }</span>
         </div>
     </div>
 
 
 	<div class="bbs_gallery photo_gallery">
         <ul class="list clearfix">
-	
+			<c:forEach var="articleList" items="${articleList}" varStatus="status">
             <li>
 				<a href="/yjcareer/usr/bbs/photo/detail.do">
                     <div class="ico_group">
-						
-						
 					</div>
                     <div class="photo_group">
-				
-					
-						
-						
-							
-							
 								<span class="photobox">
 									<span class="inner_photo" style="background-image:url(/DATA/bbs/529/thumb/t_20240904025007950unJzU4.jpg);"></span>
 									<span class="photo"><img src="/DATA/bbs/529/thumb/t_20240904025007950unJzU4.jpg" alt="미래의 시작 3_언바운드랩데브 대표 조용민 &#039;AI시대, 창의적인 자기혁신법&#039; 이미지" /></span>
 								</span>
-								
-							
-						
-					
-					
-				
                         <div class="photo_info">
-							
-								
-								
-									<span class="subject">미래의 시작 3_언바운드랩데브 대표 조용민 &#039;AI시대, 창의적인 자기혁신법&#039;</span>
-									  
-										  
-											 
+									<span class="subject">${articleList.baTitle}</span>
 											<span class="date">
-													2024-09-04
-											</span>
-											
-										
-									
-									
-								
-									                            
+													${articleList.baRegdate}
+											</span>	                            
                         </div>
                     </div>
                 </a>
             </li>
-	
-            <li>
-				<a href="/yjcareer/usr/bbs/photo/detail.do">
-                    <div class="ico_group">
-						
-						
-					</div>
-                    <div class="photo_group">
-				
-					
-						
-						
-							
-							
-								<span class="photobox">
-									<span class="inner_photo" style="background-image:url(/DATA/bbs/529/thumb/t_202408140543425606s7Ud3.png);"></span>
-									<span class="photo"><img src="/DATA/bbs/529/thumb/t_202408140543425606s7Ud3.png" alt="미래의 시작 2_뇌과학자 장동선 &#039;뇌과학자가 바라보는 AI시대의 미래&#039; 이미지" /></span>
-								</span>
-								
-							
-						
-					
-					
-				
-                        <div class="photo_info">
-							
-								
-								
-									<span class="subject">미래의 시작 2_뇌과학자 장동선 &#039;뇌과학자가 바라보는 AI시대의 미래&#039;</span>
-									  
-										  
-											 
-											<span class="date">
-													2024-08-14
-											</span>
-											
-										
-									
-									
-								
-									                            
-                        </div>
-                    </div>
-                </a>
-            </li>
-	
-            <li>
-				<a href="/yjcareer/usr/bbs/photo/detail.do">
-                    <div class="ico_group">
-						
-						
-					</div>
-                    <div class="photo_group">
-				
-					
-						
-						
-							
-							
-								<span class="photobox">
-									<span class="inner_photo" style="background-image:url(/DATA/bbs/529/thumb/t_20240722061908311YOMv4n.png);"></span>
-									<span class="photo"><img src="/DATA/bbs/529/thumb/t_20240722061908311YOMv4n.png" alt="미래의 시작 1_타일러 라쉬 &#039;원하는 대로 살고 싶다면 박스를 탈출하라&#039; 이미지" /></span>
-								</span>
-								
-							
-						
-					
-					
-				
-                        <div class="photo_info">
-							
-								
-								
-									<span class="subject">미래의 시작 1_타일러 라쉬 &#039;원하는 대로 살고 싶다면 박스를 탈출하라&#039;</span>
-									  
-										  
-											 
-											<span class="date">
-													2024-07-22
-											</span>
-											
-										
-									
-									
-								
-									                            
-                        </div>
-                    </div>
-                </a>
-            </li>
-	
+            </c:forEach>
+            <c:if test="${fn:length(articleList) == 0 && fn:length(topNoticeList) == 0}">
+				<tr>
+					<td colspan="6" class="empty">등록된 게시글이 없습니다.</td>
+				</tr>
+			</c:if>
         </ul>
     </div>
 	
+    <ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 
-
-	<div class="pagination">
-		<span class="page_btn prev_group">
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
+<!-- 	<div class="pagination">
+        <span class="page_btn prev_group">
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
 </span>
 <span class="page">
 <span class="page_wrap">
@@ -343,13 +232,13 @@
 </span>
 </span>
 <span class="page_btn next_group">
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_one">다음 페이지<i></i></a>
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next">다음 10페이지 이동</a>
-<a href="./selectBbsNttList.do?key=4146&amp;bbsNo=529&amp;searchCtgry=&amp;pageUnit=9&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_end">끝 페이지로</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_one">다음 페이지<i></i></a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next">다음 10페이지 이동</a>
+<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_end">끝 페이지로</a>
 </span>
 
 
-	</div>
+    </div> -->
 
 	<div class="bbs_btn_wrap clearfix">
         <div class="bbs_left">

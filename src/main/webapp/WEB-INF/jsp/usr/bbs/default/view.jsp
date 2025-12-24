@@ -6,145 +6,314 @@
 
   <c:import url="/usr/menu/header.do" />
   
-   <script type="text/javascript">
-   
-   function fn_list(){
-		  
-		  var menuId = $("#menuId").val();
-		  
-		  $("#form").attr("action", "${contextRoot}/usr/bbs/${bcId}/list.do?menuId="+menuId);
-		  $("#form").attr("method", "get");
-		  $("#form").submit();
-	}
-   
-   //파일 다운로드
-   function fn_egov_downFile(atchFileIdx){
+     <script type="text/javascript">
+     
+     //이전 글
+     function fn_prev( preNo , menuId ){
+     	
+    		 window.location.href='/yjcareer/usr/bbs/${bcId}/detail.do?baId='+preNo+'&menuId='+menuId;
 
-  		window.open("${contextRoot}/board/FileDown.do?atchFileIdx="+atchFileIdx);
-  	}
+    	 
+     }
+     
+     
+     //다음 글
+     function fn_next( nextNo , menuId ){
+    	 
+
+    	 window.location.href='/yjcareer/usr/bbs/${bcId}/detail.do?baId='+nextNo+'&menuId='+menuId;
+    	 
+    	 
+     }
+     
+     </script>
   
-   //이전 글
-   function fn_prev( preNo , menuId , baNotice){
-   	
-  		 window.location.href='${contextRoot}/usr/bbs/${bcId}/detail.do?baId='+preNo+'&menuId='+menuId+'&baNotice='+baNotice;
-
-  	 
-   }
-   
-   
-   //다음 글
-   function fn_next( nextNo , menuId , baNotice){
-  	 
-
-  	 window.location.href='${contextRoot}/usr/bbs/${bcId}/detail.do?baId='+nextNo+'&menuId='+menuId+'&baNotice='+baNotice;
-  	 
-  	 
-   }
-   
-   function fn_update(bcId, baId) {
-	   var url = "${contextRoot}/usr/bbs/" + bcId + "/updateForm.do?baId=" + baId;
-	   location.href = url;
-   }
-   
-   function fn_delete() {
-		  var url = "${contextRoot}/usr/bbs/qna/delete.do";
-
-		  $("#form").attr("action", url);
-		  $("#form").attr("method", "post");
-		  $("#form").submit();
-		}
-  
-  </script>
-
-	<!-- 서브 배너 -->
-	<section class="sub-banner">
-		<div class="sub-banner-text">
-			<h1>${bcName}</h1>
-		</div>
-	</section>
-
-	<section class="breadcrumb">
-		<div class="hero-inner">
-			<ul>
-				<li><a href="<c:url value="/usr/main.do"/>">홈</a></li>
-				<li><a href="#">참여 마당</a></li>
-				<li><a href="<c:url value="/usr/bbs/${bcId}/list.do?menuId=${menuId}"/>">${bcName}</a></li>
-			</ul>
-		</div>
-	</section>
+    <div id="container">
+        <div class="wrap clearfix">
+            <main class="colgroup">
+                <article>
     
-    <section class="sub-section">
-		<div class="programS-form view section">
-			<div class="info-main-title flex">
-				<h2>${bcName}</h2>
-			</div>
-			<form id="form" name="form">
-				<input type="hidden" id="baId" name="baId" value="${result.baId}">
-				<input type="hidden" id="bcId" name="bcId" value="${result.bcId}">
-				<div class="view-tile table-0">
-					<h3>${result.baTitle}</h3>
-				</div>
-				
-				<div class="programS-txt">
-				
-					<div class="attachment">
-						<dl>
-							<dt>첨부파일</dt>
-							<dd>
-								<c:forEach var="fileVO" items="${fileList}" varStatus="status">
-									<c:if test="${fileVO.thumbnailCrop == 'N'}">
-										<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');">
-											<c:out value="${fileVO.orgFileName}" />&nbsp;[<c:out
-												value="${fileVO.fileSize}" />]
-										</a>
-									</c:if>
-									<br>
-								</c:forEach>
-							</dd>
-							
-						</dl>
-					</div>
-				
-					<p style="white-space: pre-wrap;">${result.baContentHtml}</p>
+                    <header class="sub_head">
+    
+                        <div class="sub_title">
+                            <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
+                            <p class="first_title">알림마당</p>
+                            
+                            <!-- 현재메뉴명 입력해주세요 -->
+                            <h2>${bcName}</h2>
+                        </div>
+                        
+                        <div class="sub_head_wrap">
+                            
 
-				</div>
+
+
+<div class="breadcrumbs">
+	<a href="./index.do" class="home">홈</a>
+	<ol class="breadcrumbs_list">
+		<li class="breadcrumbs_item">
+			<a href="" class="breadcrumbs_anchor mobile">알림마당</a>
+			<button type="button" class="breadcrumbs_select" title="목록열기">알림마당</button>
+			<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
+					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" >교육 네트워크</a></li>
+					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" class="active">알림마당</a></li>
+					<li class="tab_item"><a href="/yjcareer/sitemap.do?key=4151"  target="_self" >홈페이지 가이드</a></li>
+			</ul>
+		</li>
+
 				
-				<c:if test="${bcId eq 'review'}">
-					<div class="a-content">
-						<c:forEach var="boardReplyList" items="${boardReplyList }" varStatus="status">
-							<dl>
-								<dt>
-								<span><b>답변 내용</b></span>
-								<span>${boardReplyList.memName } &nbsp;&nbsp;</span>
-								<span>${boardReplyList.insertDate }</span>
-								</dt>
-							</dl>
-							<dd>	
-								<span>${boardReplyList.brContent}</span>
-							</dd>	
-						</c:forEach>
-					</div>
-					<br>
-				</c:if>				
 				
-				<div class="arrow-btn">
-				<c:if test="${not empty prevNext.preNo and prevNext.preNo ne 0 and not empty prevNext.preTitle}">
-					<a href="javascript:fn_prev('${prevNext.preNo}', '${menuId}', '${result.baNotice}');">이전 글</a>
-				</c:if>
-				<c:if test="${not empty prevNext.nextNo and prevNext.nextNo ne 0 and not empty prevNext.nextTitle}">
-					<a href="javascript:fn_next('${prevNext.nextNo}', '${menuId}', '${result.baNotice}');">다음 글</a>
-				</c:if>
-				</div>
-			</form>
-		</div>
-		<div class="form-btn">
-			<c:if test="${result.regId eq sessionScope.SESSION_DI_KEY}">
-				<button type="button" onclick="fn_update('${bcId}', '${result.baId}');">수정</button>
-				<button type="button" onclick="fn_delete('${bcId}', '${result.baId}');">삭제</button>
-			</c:if>
-			<button type="button" class="list" onclick="fn_list();">목록</button>
-		</div>
-    </section>
+				
+				
+				
+				
+					<li class="breadcrumbs_item">
+						<a href="" class="breadcrumbs_anchor mobile">공지사항</a>
+						<button type="button" class="breadcrumbs_select" title="목록열기">공지사항</button>
+						<ul class="breadcrumbs_panel">
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" class="active">공지사항</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=529&key=4146"  target="_self" >자료실(갤러리)</a>	</li>
+									<li class="tab_item"><a href="https://naver.me/xyTNUiV1" title="새창" target="_blank" >온라인 설문조사</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=528&key=4148"  target="_self" >자주하는 질문</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=548&key=4185"  target="_self" >학습후기</a>	</li>
+									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=527&key=4149"  target="_self" >Q&amp;A</a>	</li>
+						</ul>
+					</li>
+				
+
+	</ol>
+</div>
+            
+                            <div class="addons">
+                                <ul class="addons_list">
+                                    <li class="addons_item share">
+                                        <button type="button" class="addons_button share_show">공유하기</button>
+                                        <div class="share_panel">
+                                            <ul class="share_list clearfix">
+                                                <li class="share_item n1">
+                                                    <a href="javascript:openFacebook();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">페이스북</a>
+                                                </li>
+                                                <li class="share_item n2">
+                                                    <a href="javascript:openNaverbolg('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">블로그</a>
+                                                </li>
+                                                <li class="share_item n3">
+                                                    <a href="javascript:openKakaoStory();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">카카오</a>
+                                                </li>
+                                                <li class="share_item n4">
+                                                    <a href="javascript:openTwitter('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">트위터</a>
+                                                </li>
+                                                <li class="share_item n5">
+                                                    <a href="#n" onclick="copy()" title="새창" class="share_anchor copy_anchor">주소복사</a>
+                                                </li>
+                                                <script>
+													function openFacebook(){
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('http://www.facebook.com/sharer/sharer.php?u=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+														
+													}
+
+													function openNaverbolg(txt){
+														var _txt = encodeURIComponent(txt);
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://share.naver.com/web/shareView.nhn?url=' + _url + '&title=' + _txt, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+														
+													}
+
+													function openKakaoStory(){
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://story.kakao.com/s/share?url=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+													}
+
+													function openTwitter(txt){
+														var _txt = encodeURIComponent(txt);
+														var _url = encodeURIComponent(window.location.href);
+														openWin2('https://twitter.com/intent/tweet?text='+_txt+'&url='+_url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
+													}
+													
+													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
+														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
+															left = (window.screen.width - width ) / 2;
+															top  = (window.screen.height- height) / 2;
+														}
+
+														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
+														opening_window.focus();
+													}
+
+													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
+														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
+															left = (window.screen.width - width ) / 2;
+															top  = (window.screen.height- height) / 2;
+														}
+
+														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
+														opening_window.focus();
+													}
+
+                                                    function copy() {
+                                                        var url = '';
+                                                        var textarea = document.createElement("textarea");
+                                                        document.body.appendChild(textarea);
+                                                        url = window.document.location.href;
+                                                        textarea.value = url;
+                                                        textarea.select();
+                                                        document.execCommand("copy");
+                                                        document.body.removeChild(textarea);
+                                                        alert("URL이 복사되었습니다.")
+                                                    }
+                                                </script>
+                                            </ul>
+                                            <button type="button" class="share_hide">닫기</button>
+                                        </div>
+                                    </li>
+                                    <li class="addons_item print">
+                                        <button type="button" onclick="window.print();" class="addons_button">인쇄</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                    
+                    
+                    <div id="contents" class="cts4145">
+						<script>
+//20220804 열린시장실 포토게시판 우클릭방지
+
+
+//<![CDATA[
+	function fn_deleteBbsNtt( url ) {
+		
+
+		if( confirm("삭제하시겠습니까?") ) {
+			window.location = url;
+		}
+	}
+
+	function fn_recovryBbsNtt( url ) {
+		if( confirm("복원하시겠습니까?") ) {
+			window.location = url;
+		}
+	}
+
+	function fn_mvmnBbsNtt( frm ) {
+		if( frm.mvmnBbsNo.value == 530 ) {
+			alert('같은 게시판내에서는 이동이 안됩니다.\n다른 게시판을 선택해주세요.');
+			return false;
+		}
+
+		return true;
+	}
+//]]>
+</script>
+
+	
+
+	<div class="bbs_info clearfix">
+        <div class="bbs_left bbs_count">
+        </div>
+        <div class="bbs_right">
+        </div>
+    </div>
+
+	<table class="bbs_default view">
+        <caption>공지사항 상세보기 - 제목, 작성자, 내용, 파일 제공</caption>
+        <tbody>
+            <tr class="subject">		
+                <th scope="row">제목</th>
+					<td>
+						${result.baTitle}
+					</td>
+            </tr>
+
+            <tr >		
+                <th scope="row">작성자</th>
+
+		
+			 
+			 
+					<td>${result.memName}</td>
+			
+		
+				
+            </tr>
+
+            <tr >		
+                <th scope="row">내용</th>
+					<td title="내용" class="bbs_content">
+						${result.baContentHtml}
+					</td>
+            </tr>
+
+            <tr >		
+                <th scope="row">파일</th>
+					<td>
+						<ul class="view_attach">
+					
+						<li>
+							<div class="down_view">
+									
+								<span><img src="/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />강남인강 신청방법.jpg</span>
+							
+								<a href="/yjcareer/downloadBbsFile.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191781" title="파일 다운로드" class="file_down">다운로드</a>
+							
+							
+								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191781&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
+							
+							</div>
+						</li>
+					
+						<li>
+							<div class="down_view">
+									
+								<span><img src="/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />무료대상자.jpg</span>
+							
+								<a href="/yjcareer/downloadBbsFile.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782" title="파일 다운로드" class="file_down">다운로드</a>
+							
+							
+								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
+							
+							</div>
+						</li>
+					
+						</ul>
+					</td>					
+            </tr>
+
+			
+        </tbody>
+    </table>
+
+	<div class="bbs_btn_wrap clearfix">
+        <div class="bbs_left">
+            <a href="/yjcareer/usr/bbs/${bcId }/list.do" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
+        </div>
+        <div class="bbs_right">
+			
+        </div>
+    </div>
+
+
+   
+
+	<ul class="bbs_view_move">
+		<c:if test="${not empty prevNext.preNo and prevNext.preNo ne 0 and not empty prevNext.preTitle}">
+        <li class="prev"><strong>이전글</strong> <a href="javascript:fn_prev('${prevNext.preNo}', '${menuId}', '${result.baNotice}');">${prevNext.preTitle}</a></li>
+        </c:if>
+        <c:if test="${not empty prevNext.nextNo and prevNext.nextNo ne 0 and not empty prevNext.nextTitle}">
+        <li class="next"><strong>다음글</strong> <a href="javascript:fn_next('${prevNext.nextNo}', '${menuId}', '${result.baNotice}');">${prevNext.nextTitle}</a></li>
+        </c:if>
+    </ul>
+    
+                    </div>
+                </article>
+            </main>
+        
+        </div>
+    </div>
 
 	<c:import url="/usr/layout/footer.do" />
 	

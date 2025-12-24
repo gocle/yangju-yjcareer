@@ -20,7 +20,7 @@
                             <p class="first_title">알림마당</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>공지사항</h2>
+                            <h2>${bcName }</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -268,46 +268,15 @@ function fn_recovryBbsNtt( url ) {
     
     <ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 
-<!-- 	<div class="pagination">
-        <span class="page_btn prev_group">
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
-</span>
-<span class="page">
-<span class="page_wrap">
-<strong title="현재 1페이지">1</strong>
-</span>
-</span>
-<span class="page_btn next_group">
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_one">다음 페이지<i></i></a>
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next">다음 10페이지 이동</a>
-<a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="next_end">끝 페이지로</a>
-</span>
-
-
-    </div> -->
-
-	<div class="bbs_btn_wrap clearfix">
-        <div class="bbs_left">
-        	
-            
-        </div>
-        <div class="bbs_right">
-			
-				
-					
-					
-					
-					
-					
-					
-						<a href="/yjcareer/usr/support/form.do" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
-					
-				
-        	
-        </div>
-    </div>
+	<c:if test="${bcId eq 'review'}">
+		<div class="bbs_btn_wrap clearfix">
+	        <div class="bbs_left">
+	        </div>
+	        <div class="bbs_right">
+							<a href="/yjcareer/usr/bbs/review/form.do" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
+	        </div>
+	    </div>
+    </c:if>
                     </div>
                     
                 </article>

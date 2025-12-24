@@ -81,6 +81,10 @@ public class UserBoardServiceImpl extends EgovAbstractServiceImpl implements Use
 	public BoardArticleVO prevNext(BoardArticleVO boardArticleVO)
 			throws Exception {
 		
+		if(boardArticleVO.getBaNotice() == null) {
+			boardArticleVO.setBaNotice("0");
+		}
+		
 		BoardArticleVO data = boardMapper.prevNext(boardArticleVO);
 		
 		return data;
