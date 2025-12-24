@@ -2,160 +2,120 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-	<div class="sub-banner sub-banner-01">
-		<div class="banner-txt sub-banner-txt">	
-			<p><span>${menuVO.upMenuTitle}</span></p>
-		</div>
-	</div>
-	
-	<div class="contents-layout">
-			
-		<div class="sub-nav-menu flex">
-			<img src="/assets/cndual/image/sub_01/home.png" class="home_icon"/>
-			<ul class="flex">
-				<!-- 1레벨 메뉴 드롭박스 -->
-				<li>
-					<dl class="dropdown-wrap">
-						<dt class="btn-lang drop1" data-target="lang-drop1">${menuVO.upMenuTitle}</dt>
-						<dd class="lang-area" id="lang-drop1">
-							<c:forEach var="menu" items="${listTopMenu}">
-								<c:set var="menuPathList" value="${fn:split(menu.menuUrl, '@')}" />
-								<a href="${menuPathList[0]}?menuId=${menuPathList[1]}">${menu.menuTitle}</a>
-							</c:forEach>
-						</dd>
-					</dl>
-				</li>
-				<c:if test = "${menuInfo.menuDepth != '3'}">
-				<!-- 2레벨 메뉴 드롭박스 -->
-				<li>
-					<dl class="dropdown-wrap">
-						<dt class="btn-lang text drop2" data-target="lang-drop2">${menuVO.menuTitle}</dt>
-						<dd class="lang-area" id="lang-drop2">
-							<c:forEach var="menu" items="${listSubMenu}">
-								<a href="${menu.menuUrl}?menuId=${menu.menuId}">${menu.menuTitle}</a>
-							</c:forEach>
-						</dd>
-					</dl>
-				</li>
-				</c:if>
-				<c:if test = "${menuInfo.menuDepth == '3'}">
-				<!-- 2레벨 메뉴 드롭박스 -->
-				<li>
-					<dl class="dropdown-wrap">
-						<dt class="btn-lang drop2" data-target="lang-drop2">${menuVO.menuTitle}</dt>
-						<dd class="lang-area" id="lang-drop2">
-							<c:forEach var="menu" items="${listSubMenu}">
-								<a href="${menu.menuUrl}?menuId=${menu.menuId}">${menu.menuTitle}</a>
-							</c:forEach>
-						</dd>
-					</dl>
-				</li>
-				<!-- 3레벨 메뉴 드롭박스 -->
-				<li>
-					<dl class="dropdown-wrap">
-						<dt class="btn-lang drop3" data-target="lang-drop3">${menuInfo.menuTitle}</dt>
-						<dd class="lang-area" id="lang-drop3">
-							<c:forEach var="menu" items="${listSubSubMenu}">
-								<a href="${menu.menuUrl}?menuId=${menu.menuId}">${menu.menuTitle}</a>
-							</c:forEach>
-						</dd>
-					</dl>
-				</li>
-				</c:if>
-			</ul>
-		</div>
+<div class="breadcrumbs">
+  <a href="/yjcareer/usr/main.do" class="home">홈</a>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-	const buttons = document.querySelectorAll('.btn-lang');
+  <ol class="breadcrumbs_list">
 
-	buttons.forEach(function (btn) {
-		btn.addEventListener('click', function () {
-			const targetId = btn.getAttribute('data-target');
-			const targetEl = document.getElementById(targetId);
+    <!-- 1뎁스 (상위메뉴) -->
+    <li class="breadcrumbs_item">
+      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuVO.upMenuTitle}</a>
 
-			// 다른 드롭다운 닫기
-			document.querySelectorAll('.lang-area').forEach(function (el) {
-				if (el !== targetEl) el.style.display = 'none';
-			});
+      <button type="button"
+              class="breadcrumbs_select"
+              data-target="bc-drop1"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              title="목록열기">
+        ${menuVO.upMenuTitle}
+      </button>
 
-			// 현재 드롭다운 토글
-			if (targetEl.style.display === 'block') {
-				targetEl.style.display = 'none';
-			} else {
-				targetEl.style.display = 'block';
-			}
-		});
-	});
+      <ul class="breadcrumbs_panel" id="bc-drop1" role="listbox">
+        <c:forEach var="menu" items="${listTopMenu}">
+          <c:set var="menuPathList" value="${fn:split(menu.menuUrl, '@')}" />
+          <li class="tab_item">
+            <a href="/yjcareer/${menuPathList[0]}?menuId=${menuPathList[1]}"
+               target="_self"
+               class="${menu.menuTitle eq menuVO.upMenuTitle ? 'active' : ''}">
+              ${menu.menuTitle}
+            </a>
+          </li>
+        </c:forEach>
+      </ul>
+    </li>
 
-	// 외부 클릭 시 닫기
-	document.addEventListener('click', function (e) {
-		if (!e.target.closest('.dropdown-wrap')) {
-			document.querySelectorAll('.lang-area').forEach(function (el) {
-				el.style.display = 'none';
-			});
-		}
-	});
-});
-</script>
+    <!-- 2뎁스 (현재 메뉴가 3뎁스가 아니면: 현재메뉴 목록) -->
+    <c:if test="${menuInfo.menuDepth != '3'}">
+      <li class="breadcrumbs_item">
+        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuVO.menuTitle}</a>
 
-<style>
-/* 드롭다운 래퍼 */
-.dropdown-wrap {
-	position: relative;
-	display: inline-block;
-	font-family: inherit;
-}
+        <button type="button"
+                class="breadcrumbs_select"
+                data-target="bc-drop2"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                title="목록열기">
+          ${menuVO.menuTitle}
+        </button>
 
-/* 드롭다운 버튼 */
-.dropdown-wrap .btn-lang {
-    display: inline-block;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 4px;
-    font-size: 14px;
-    min-width: 150px;
-    white-space: nowrap;
-    background: url(/assets/cndual/image/sub_01/arrow.png) right no-repeat;
-    padding: 0 1.5rem;
-    line-height: 23px;
-    font-size: 17px;
-}
+        <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
+          <c:forEach var="menu" items="${listSubMenu}">
+            <li class="tab_item">
+              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+                 target="_self"
+                 class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+                ${menu.menuTitle}
+              </a>
+            </li>
+          </c:forEach>
+        </ul>
+      </li>
+    </c:if>
 
-/* 드롭다운 영역 */
-.dropdown-wrap .lang-area {
-	display: none; /* 기본은 닫힘 */
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: 999;
-	background-color: #fff;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-	min-width: 150px;
-	width:100%;
-	padding: 1rem 0;
-    margin-top: 5%;
-}
+    <!-- 2뎁스 + 3뎁스 (현재가 3뎁스인 경우) -->
+    <c:if test="${menuInfo.menuDepth == '3'}">
+      <!-- 2뎁스 -->
+      <li class="breadcrumbs_item">
+        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuVO.menuTitle}</a>
 
-/* 드롭다운 항목 */
-.dropdown-wrap .lang-area a {
-	display: block;
-	padding: 8px 12px;
-	text-decoration: none;
-	color: #333;
-	white-space: nowrap;
-	font-size: 14px;
-}
+        <button type="button"
+                class="breadcrumbs_select"
+                data-target="bc-drop2"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                title="목록열기">
+          ${menuVO.menuTitle}
+        </button>
 
-.dropdown-wrap .lang-area a:hover {
-	background-color: #f0f0f0;
-}
-</style>
+        <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
+          <c:forEach var="menu" items="${listSubMenu}">
+            <li class="tab_item">
+              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+                 target="_self"
+                 class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+                ${menu.menuTitle}
+              </a>
+            </li>
+          </c:forEach>
+        </ul>
+      </li>
 
+      <!-- 3뎁스 -->
+      <li class="breadcrumbs_item">
+        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuInfo.menuTitle}</a>
 
+        <button type="button"
+                class="breadcrumbs_select"
+                data-target="bc-drop3"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                title="목록열기">
+          ${menuInfo.menuTitle}
+        </button>
 
+        <ul class="breadcrumbs_panel" id="bc-drop3" role="listbox">
+          <c:forEach var="menu" items="${listSubSubMenu}">
+            <li class="tab_item">
+              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+                 target="_self"
+                 class="${menu.menuId eq menuInfo.menuId ? 'active' : ''}">
+                ${menu.menuTitle}
+              </a>
+            </li>
+          </c:forEach>
+        </ul>
+      </li>
+    </c:if>
 
- 
-
+  </ol>
+</div>

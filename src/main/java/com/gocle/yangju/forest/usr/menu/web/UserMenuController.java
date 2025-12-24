@@ -142,7 +142,7 @@ public class UserMenuController{
     }
 	
     @RequestMapping(value = "sub.do")
-    public String sub(@PathVariable("menuType") String menuType,
+    public String sub(
                       HttpServletRequest request,
                       HttpServletResponse response,
                       @RequestParam Map<String, Object> commandMap,
@@ -155,7 +155,7 @@ public class UserMenuController{
         validateInput(rootMenuId, "rootMenuId");
 
         MenuVO menu = new MenuVO();
-        menu.setMenuType(menuType);
+        menu.setMenuType("USR");
         menu.setMenuId(menuId);
 
         List<MenuVO> listTopMenu = menuService.listTopMenu(menu);

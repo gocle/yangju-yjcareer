@@ -147,9 +147,8 @@
 					 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
 					 ,  CM.DELETE_YN  /* 삭제여부 */
 					 ,  CM.SHOW_YN  /* 활성여부 */
-					 ,  CM.INSERT_USER  /* 등록자 */
-					 ,  CM.UPDATE_USER  /* 수정자 */
-					 ,  CM.SITE_ID  /* 사이트ID */
+					 ,  CM.REG_ID  /* 등록자 */
+					 ,  CM.UPD_ID  /* 수정자 */
 					 ,  (SELECT MENU_TITLE 
 				         FROM COM_MENU 
 				        WHERE MENU_ID = CM.UP_MENU_ID
@@ -208,27 +207,29 @@
 	
 	<select id="listTopMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
 		/* ====== com.gocle.yangju.forest.usr.menu.service.impl.MenuMapper.listTopMenu ====== */
-	    SELECT CM.MENU_ID, 
-			       CM.UP_MENU_ID, 
-			       CM.MENU_DEPTH, 
-			       CM.MENU_ORDER, 
-			       (SELECT ME.MENU_URL||'@'||ME.MENU_ID 
-			         FROM COM_MENU ME 
-			        WHERE ME.UP_MENU_ID = CM.MENU_ID 
-			              AND ME.DELETE_YN = 'N' 
-			              AND ME.SHOW_YN = 'Y' 
-			              AND ME.MENU_DEPTH = 2 
-			              AND ROWNUM = 1 
-			       ) MENU_URL, 
-			       CM.MENU_TITLE 
-			  FROM COM_MENU CM 
-			 WHERE CM.SITE_ID = #{siteId} 
-			       AND CM.MENU_TYPE = #{menuType}
-			       AND CM.DELETE_YN = 'N' 
-			       AND CM.SHOW_YN = 'Y' 
-			       AND MENU_DEPTH = 1 
-			       AND UP_MENU_ID = 'TOP'
-			ORDER BY MENU_ORDER 
+		SELECT
+		    CM.MENU_ID,
+		    CM.UP_MENU_ID,
+		    CM.MENU_DEPTH,
+		    CM.MENU_ORDER,
+		    (
+		        SELECT CONCAT(ME.MENU_URL, '@', ME.MENU_ID)
+		        FROM COM_MENU ME
+		        WHERE ME.UP_MENU_ID = CM.MENU_ID
+		          AND ME.DELETE_YN = 'N'
+		          AND ME.SHOW_YN = 'Y'
+		          AND ME.MENU_DEPTH = 2
+		        ORDER BY ME.MENU_ORDER
+		        LIMIT 1
+		    ) AS MENU_URL,
+		    CM.MENU_TITLE
+		FROM COM_MENU CM
+		WHERE CM.MENU_TYPE = #{menuType}
+		  AND CM.DELETE_YN = 'N'
+		  AND CM.SHOW_YN = 'Y'
+		  AND CM.MENU_DEPTH = 1
+		  AND CM.UP_MENU_ID = 'TOP'
+		ORDER BY CM.MENU_ORDER
 	</select>
 	
 	<select id="listSubMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
@@ -240,8 +241,7 @@
 			       CM.MENU_URL, 
 			       CM.MENU_TITLE  
 			  FROM COM_MENU CM 
-			 WHERE CM.SITE_ID = #{siteId} 
-			       AND CM.MENU_TYPE = #{menuType}
+			 WHERE  CM.MENU_TYPE = #{menuType}
 			       AND CM.DELETE_YN = 'N' 
 			       AND CM.SHOW_YN = 'Y' 
 			       AND MENU_DEPTH = 2 
@@ -292,9 +292,8 @@
 					 ,  CM.MENU_TITLE  /* 화면 타이틀 제목 */
 					 ,  CM.DELETE_YN  /* 삭제여부 */
 					 ,  CM.SHOW_YN  /* 활성여부 */
-					 ,  CM.INSERT_USER  /* 등록자 */
-					 ,  CM.UPDATE_USER  /* 수정자 */
-					 ,  CM.SITE_ID  /* 사이트ID */
+					 ,  CM.REG_ID  /* 등록자 */
+					 ,  CM.UPD_ID  /* 수정자 */
 					 ,  (SELECT MENU_TITLE 
 				         FROM COM_MENU 
 				        WHERE MENU_ID = CM.UP_MENU_ID

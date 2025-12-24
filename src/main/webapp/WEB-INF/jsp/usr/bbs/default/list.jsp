@@ -28,7 +28,7 @@
 
 
 
-<div class="breadcrumbs">
+<!-- <div class="breadcrumbs">
 	<a href="./index.do" class="home">홈</a>
 	<ol class="breadcrumbs_list">
 		<li class="breadcrumbs_item">
@@ -44,13 +44,6 @@
 					<li class="tab_item"><a href="/yjcareer/sitemap.do?key=4151"  target="_self" >홈페이지 가이드</a></li>
 			</ul>
 		</li>
-
-				
-				
-				
-				
-				
-				
 					<li class="breadcrumbs_item">
 						<a href="" class="breadcrumbs_anchor mobile">Q&amp;A</a>
 						<button type="button" class="breadcrumbs_select" title="목록열기">Q&amp;A</button>
@@ -63,13 +56,10 @@
 									<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=527&key=4149"  target="_self" >Q&amp;A</a>	</li>
 						</ul>
 					</li>
-				
-				
-				
-				
-
 	</ol>
-</div>
+</div> -->
+
+<c:import url="/usr/menu/sub.do" />
             
                             <div class="addons">
                                 <ul class="addons_list">
