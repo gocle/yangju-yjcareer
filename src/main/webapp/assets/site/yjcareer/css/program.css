@@ -83,17 +83,187 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 .education_list table.table.list_table a.subject{font-size: 20px; color: #4a4f66; text-align: left; font-weight: 600; width: 100%;}
 .education_list table.table.list_table a.btn.small{padding:9px 15px 10px; font-size: 20px; line-height: 24px;}
 
+.education_list table.table.list_table td.td-type span {
+    border-radius: 30px;
+    padding: 3px 20px;
+	font-size: 17px;
+}
+
+td.td-type span.type-1 {
+	border: 2px solid #4c65d9;
+	color : #4c65d9;
+}
+
+td.td-type span.type-2 {
+	border: 2px solid #ee9600;
+	color : #ee9600;
+}
+
+td.td-type span.type-3 {
+	border: 2px solid #2dbd96;
+	color : #2dbd96;
+}
+
+td.td-type span.type-4 {
+	border: 2px solid #7541d8;
+	color : #7541d8;
+}
+
+.education_list table.table.list_table td.td-type span:not(:first-child) {
+    margin-top: 5px;
+}
+
+@media all and (max-width: 1350px) {
+	.education_list .bbs_search .listbox.con01 ul li {
+		width: 100%;
+	}
+	
+	.bbs-search-radio .radio-label,.checkbox-label {
+		width: 120px;
+	}
+}
+
 @media all and (max-width: 1240px) {
     .education_list .bbs_search .listbox.con02 ul li.list02,
-    .education_list .bbs_search .listbox.con02 ul li.list01{width: 50%;}
     .education_list .bbs_search .date_wrap{width: auto;}
 }
+
 @media all and (max-width: 1000px) {
     .education_list .bbs_search .listbox.con01 select.select{width: calc(100% - 60px);}
     .education_list .bbs_search .listbox.con02 .label,
     .education_list .bbs_search .listbox.con01 label {margin-right:0;}
     .education_list .bbs_search .listbox.con02 .label,
     .education_list .bbs_search .listbox ul li label{font-size: 18px;}
+	
+	.responsive-new thead {
+		display: none;
+	}
+	
+	.responsive-new td {
+		border : 0;
+	}
+	
+	.responsive-new td.td-no {
+		display: none;
+	}
+
+	.responsive-new,
+	.responsive-new tbody,
+	.responsive-new tr,
+	.responsive-new td {
+		display: block;
+		width: 100%;
+		border-top:0;
+		border-bottom: 0;
+	}
+	
+	.responsive-new tbody {
+		display: flex;
+		flex-wrap: wrap;
+		gap : 20px;
+	}
+
+	.education_list .responsive-new tbody tr {
+		position: relative;
+		border: 1px solid #ddd;
+		border-radius: 12px;
+		margin-top: 16px;
+		background: #fff;
+		box-sizing: border-box;
+		width: calc(50% - 10px);
+		height: 100%;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td {
+		text-align: left;
+		height: auto;
+		padding: 5px 1rem;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td p span {
+		width : 80px;
+		font-weight: bold;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-date p:not(:first-child) {
+		margin-top: 10px
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-pson p {
+		display: inline-block;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-pson p span {
+		display: none
+    }
+	
+	 td[data-content].td-pson::before,td[data-content].td-cost::before,td[data-content].td-type::before {
+		content: attr(data-content);
+		font-weight: bold;
+		display: inline-block;
+		margin-bottom: 4px;
+		color: #4a4f66;
+		 width: 80px;
+	  }
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-img {
+		padding: 0;
+		overflow: hidden;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-img a { 
+		display: block;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-img img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		border-radius: 10px 10px 0 0
+	}
+	
+	.education_list table.table.responsive-new a.subject {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-subject {
+		margin: 0.5rem 0;
+	}
+	
+	.education_list table.table.responsive-new a.subject {
+		display: -webkit-box !important;   /* ⭐ flex를 이김 */
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+
+		width: 100%;
+		line-height: 1.4;
+	}
+
+	/* 버튼 */
+	.responsive-new td[data-content="수강신청"] {
+		margin-top: 12px;
+		padding: 0
+	}
+
+	.responsive-new td[data-content="수강신청"] a {
+		display: block;
+		width: 100%;
+		text-align: center;
+	}
+	
+	.li-label {
+		width: 80px;
+		padding: 3px 0;
+		font-size: 15px;
+		border-radius: 5px;
+	}
+	
+	
+	
+
 }
 @media all and (max-width: 800px) {
     .education_list .bbs_search .listbox.con02 ul li.list02,
@@ -101,7 +271,60 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 
 
     .education_list table.table.list_table.responsive tbody td{padding:6px; }
+	.education_list table.table.list_table.responsive-new tbody td{padding:5px 10px; }
 }
+
+@media all and (max-width: 720px) {
+		
+	.education_list .bbs_search .listbox.con02 ul li.list02 select.select {
+        width: 100%;
+    }
+	
+	.bbs-search-radio .radio-label, .checkbox-label {
+        width: 100%;
+        font-size: 16px;
+    }
+	
+	.bbs-search-radio,.bbs-search-checkbox {
+		flex-wrap: wrap;
+	}
+	
+	.bbs_search .listbox.con01 label {
+        width: 30%;
+    }
+	
+	.checkbox-btn {
+		justify-content: center;
+		padding: 3px 10px;
+	}
+	
+	.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox {
+		width: 100%;
+	}
+	
+	.education_list .bbs_search .listbox.con02 input[type="submit"] {
+		width: 100%;
+		font-size: 16px;
+		margin-top: 10px;
+	}
+	
+	.submitbox .reset {
+        margin-top: 20px;
+		width: fit-content;
+		float: right;
+    }
+	
+	.education_list .bbs_search .listbox.con02 ul li.list02 .submitbox {
+        width: 100%;
+    }
+	
+	.education_list table.table.list_table td.td-type span {
+		padding: 2px 15px;
+		font-size: 15px;
+	}
+
+}
+
 @media all and (max-width: 640px) {
     .education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox,
     .education_list .bbs_search input.date,
@@ -118,8 +341,43 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
     .education_list table.table.list_table td,
     .education_list table.table.list_table a.subject,
     .education_list table.table.list_table a.btn.small{font-size: 16px;}
+	
+	.education_list table.table.responsive-new a.btn.small {
+		padding: inherit
+	}
+	
+	.education_list table.table.responsive-new .td-subject a.subject {
+		font-size: 19px;
+	}
 
 }
+
+@media all and (max-width: 520px) {
+	.education_list .responsive-new tbody tr {
+		width: 100%;
+	}
+	
+	.education_list table.table.responsive-new a.btn.small {
+		padding: 9px 15px 10px;
+	}
+	
+		
+	.bbs_info {
+		margin-top: 10px;
+	}
+	
+	.education_list .responsive-new tbody tr:first-child {
+        margin-top: 5px;
+    }
+	
+	.bbs_right {
+		float: left;
+		margin-top: 30px;
+		width: 100%;
+	}
+}
+
+
 @media all and (max-width: 400px) {
     .education_list .bbs_search .date_wrap{width: calc((100% - 20px) / 2);}
     .education_list .bbs_search input.date{width: calc(100% - 40px);}

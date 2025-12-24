@@ -357,11 +357,9 @@
 		</div>
 		<!--<div class="bbs_right">TODAY : 2025-11-27</div>-->
 	</div>
-	
-	<!-- 20210617 디자인수정 -->
 		
-		<div class="table_scroll scroll both">
-		<table class="table tr_over type2 list_table responsive">
+		<div>
+		<table class="table tr_over type2 list_table responsive responsive-new">
 			<caption>교육강좌 리스트이며, No., 강좌명, 모집방법, 접수기간 교육기간, 교육일시/시간, 정원/대기, 수강료, 접수상태, 수강신청 항목에 대한 정보를 제공</caption>
 			<colgroup>
 				<col style="width:5%;" />
@@ -387,77 +385,90 @@
 			</thead>
 			<tbody class="text_center">
 				<tr>
-					<td>3</td>
-					<td>
+					<td class="td-no">3</td>
+					<td class="td-img">
 						<a href="eduLctreWebView.html" class="subject">
 							<img src="/yjcareer/assets/DATA/popupZone/7.png" />
 						</a>
 					</td>
-					<td>
+					<td class="td-subject">
 						<a href="eduLctreWebView.html" class="subject">
 							<span class="li-label be">접수예정</span>
-							원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)
+							원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)
 						</a> 
 					</td>
-					<td>
-						<p><em class="em_blue">접수 : 25.12.02~26.01.05</em></p>
-						<p>교육 : 26.01.13~26.01.13</p>
+					<td class="td-date">
+						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
+						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
 					</td>
-					<td>정원 : 0/1<br />대기 : (0/0)</td>
-					<td>무료	</td>
-					<td>학부모</td>
-					<td data-content="수강신청">
+					<td class="td-pson">
+						<p><span class="td-span">정원 : </span>0/1</p>
+						<p><span class="td-span">대기 : </span>(0/0)</p>
+					</td>
+					<td class="td-cost">무료</td>
+					<td class="td-type">
+						<span class="type-4">학부모</span>
+					</td>
+					<td>
 						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
 					</td>
 				</tr>
 				<tr>
-					<td>2</td>
-					<td>
+					<td class="td-no">2</td>
+					<td class="td-img">
 						<a href="eduLctreWebView.html" class="subject">
 							<img src="/yjcareer/assets/DATA/popupZone/6.png" />
 						</a>
 					</td>
-					<td>
+					<td class="td-subject">
 						<a href="eduLctreWebView.html" class="subject">
 							<span class="li-label ing">접수진행중</span>
 							원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)
 						</a> 
 					</td>
-					<td>
-						<p><em class="em_blue">접수 : 25.12.02~26.01.05</em></p>
-						<p>교육 : 26.01.13~26.01.13</p>
+					<td class="td-date">
+						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
+						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
 					</td>
-					<td>정원 : 0/1<br />대기 : (0/0)</td>
-					<td>무료	</td>
-					<td>초등</td>
-					<td data-content="수강신청">
+					<td class="td-pson">
+						<p><span class="td-span">정원 : </span>0/1</p>
+						<p><span class="td-span">대기 : </span>(0/0)</p>
+					</td>
+					<td class="td-cost">무료</td>
+					<td class="td-type">
+						<span class="type-1">초등</span>
+					</td>
+					<td>
 						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
 					</td>
 				</tr>
 				<tr>
-					<td>1</td>
-					<td>
+					<td class="td-no">1</td>
+					<td class="td-img">
 						<a href="eduLctreWebView.html" class="subject">
 							<img src="/yjcareer/assets/DATA/popupZone/5.png" />
 						</a>
 					</td>
-					<td>
+					<td class="td-subject">
 						<a href="eduLctreWebView.html" class="subject">
 							<span class="li-label end">접수마감</span>
 							[진로진학컨설팅]1.13.(화) 16시
 						</a> 
 					</td>
-					<td>
-						<p><em class="em_blue">접수 : 25.12.02~26.01.05</em></p>
-						<p>교육 : 26.01.13~26.01.13</p>
+					<td class="td-date">
+						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
+						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
 					</td>
-					<td>정원 : 0/1<br />대기 : (0/0)</td>
-					<td>무료	</td>
-					<td>
-						<p>중등</p>
-						<p>고등</p>
+					<td class="td-pson">
+						<p><span class="td-span">정원 : </span>0/1</p>
+						<p><span class="td-span">대기 : </span>(0/0)</p>
 					</td>
-					<td data-content="수강신청">
+					<td class="td-cost">무료</td>
+					<td class="td-type">
+						<span class="type-2">중등</span>
+						<span class="type-3">고등</span>
+					</td>
+					<td>
 						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
 					</td>
 				</tr>

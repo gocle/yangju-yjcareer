@@ -104,7 +104,7 @@ body{overflow-x:hidden; background-color:#fff; color:#26293d; font-size:22px; li
 
 /* 주메뉴 */
 .lnb{font-size:0; line-height:0}
-@media all and (min-width:1001px){
+@media all and (min-width:1301px){
 
     /* 메뉴 열기, 메뉴 닫기 */
     .lnb .menu_hide,.lnb .menu_show{display:none}
@@ -117,7 +117,7 @@ body{overflow-x:hidden; background-color:#fff; color:#26293d; font-size:22px; li
     .lnb.length7 .menu .depth1_item{width:14.28%}
     .lnb.length8 .menu .depth1_item{width:12.5%}
 }
-@media all and (max-width:1000px){
+@media all and (max-width:1300px){
 
     /* 1, 2차 메뉴 배경 */
     .menu.after:after,.menu.before:before{display:none}

@@ -106,9 +106,17 @@
                 nextArrow: $('.tab1 .counsel_next'),
                 responsive: [
                     {
-                        breakpoint: 641,
+                        breakpoint: 1300,
                         settings: { slidesToShow: 2 }
-                    }
+                    },
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 1,
+							centerMode: true,
+							centerPadding: '24px'
+						}
+					}
                 ]
             });
         }
@@ -129,9 +137,17 @@
                 nextArrow: $('.tab2 .program_next'),
                 responsive: [
                     {
-                        breakpoint: 641,
+                        breakpoint: 1300,
                         settings: { slidesToShow: 2 }
-                    }
+                    },
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 1,
+							centerMode: true,
+							centerPadding: '24px'
+						}
+					}
                 ]
             });
         }

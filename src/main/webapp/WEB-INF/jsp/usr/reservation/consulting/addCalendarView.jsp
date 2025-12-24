@@ -153,14 +153,17 @@
 				  <div class="top-date"></div>
 				  <button id="nextMonth" type="button">다음</button>
 				</div>
-				<div class="reservation_more">
-					<button class="reservation_more_btn" type="button">나의 예약현황</button>
-				</div>
-				<div class="cal-label">
-					<p>맞춤컨설팅</p>
-					<p>학습심리상담</p>
-					<p>수시·정시상담</p>
-					<p>면접컨설팅</p>
+				<div class="cal-bottom">
+					<dl class="cal-label">
+						<dt>예약 안내</dt>
+						<dd>맞춤컨설팅</dd>
+						<dd>학습심리상담</dd>
+						<dd>수시·정시상담</dd>
+						<dd>면접컨설팅</dd>
+					</dl>
+					<div class="reservation_more">
+						<button class="reservation_more_btn" type="button">나의 예약현황</button>
+					</div>
 				</div>
 				<div id="calendar"></div>
 			</div>        

@@ -77,7 +77,7 @@
 	display: block;
 	color : #fff;
 	border-radius: 10px;
-	width: 30%;
+	width: 100px;
 	text-align: center;
 	padding: 5px 0;
 	font-size: 17px;
@@ -421,7 +421,7 @@ table.myreservation_table th.subject{color:#000;}
 .education_list .bbs_search .listbox.con02 ul li.list02{width:52%;}
 .education_list .bbs_search .date_wrap{width:calc((100% - 104px) / 2);}
 .education_list .bbs_search input.date{width:calc(100% - 28px);}
-.education_list .bbs_search .listbox.con02 ul li.list02 select.select{width:32%; margin-right:2%;}
+.education_list .bbs_search .listbox.con02 ul li.list02 select.select{width:15%; margin-right:10px;}
 .education_list .bbs_search .listbox.con02 ul li.list02 .submitbox{width:66%;}
 .education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{width:calc(100% - 75px);}
 .education_list .bbs_search .listbox.con02 input[type="submit"]{width:56px;}
