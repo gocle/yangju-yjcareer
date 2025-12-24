@@ -18,6 +18,12 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
     private String menuId = "";
     // 신청상태
     private String searchEnrollStatusCd = "";
+    // 진행상태
+    private String searchStatus = "";
+    // 장소
+    private String searchEduPlace = "";
+    // 신청대상
+    private String searchEduTarget = "";
     
 	public String getSearchSgrCd() {
 		return searchSgrCd;
@@ -49,6 +55,22 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	public void setSearchEnrollStatusCd(String searchEnrollStatusCd) {
 		this.searchEnrollStatusCd = searchEnrollStatusCd;
 	}
-    
-    
+	public String getSearchStatus() {
+		return searchStatus;
+	}
+	public void setSearchStatus(String searchStatus) {
+		this.searchStatus = searchStatus;
+	}
+	public String getSearchEduPlace() {
+		return searchEduPlace;
+	}
+	public void setSearchEduPlace(String searchEduPlace) {
+		this.searchEduPlace = searchEduPlace;
+	}
+	public String getSearchEduTarget() {
+		return searchEduTarget;
+	}
+	public void setSearchEduTarget(String searchEduTarget) {
+		this.searchEduTarget = searchEduTarget;
+	}
 }

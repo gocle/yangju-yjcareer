@@ -22,6 +22,11 @@ public class SubjInfoServiceImpl extends EgovAbstractServiceImpl implements Subj
 	FileService fileService;
 	
 	@Override
+	public int selectMainTotalCount(SubjInfoVo subjInfoVo) throws Exception {
+		return subjInfoMapper.selectMainTotalCount(subjInfoVo);
+	}
+	
+	@Override
 	public List<SubjInfoVo> selectMainList(SubjInfoVo subjInfoVo) throws Exception {
 		return subjInfoMapper.selectMainList(subjInfoVo);
 	}

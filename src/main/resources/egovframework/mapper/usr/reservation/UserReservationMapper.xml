@@ -2,6 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gocle.yangju.forest.usr.reservation.service.impl.UserReservationMapper">
 
+	<sql id="selectSearchWhere">
+		<if test="searchSgrCd != null and !searchSgrCd != '' ">
+			AND SS.SGR_CD = #{searchSgrCd}
+		</if>
+		<if test="searchCateCd != null and searchCateCd != '' ">
+			<choose>
+				<when test="searchCateCd == 'BB' ">AND SS.CATE_CD IN ('BB', 'BC')</when>
+				<when test="searchCateCd == 'BD' ">AND SS.CATE_CD IN ('BD', 'BE')</when>
+				<otherwise>AND SS.CATE_CD = #{searchCateCd}</otherwise>
+			</choose>
+		</if>
+		<if test="searchKeyword != null and searchKeyword != '' ">
+			AND SS.SUBJ_NM LIKE CONCAT('%', #{searchKeyword}, '%')
+		</if>
+		<if test="searchEduTarget != null and searchEduTarget != '' ">
+			 AND (
+			        <foreach collection="searchEduTarget.split(',')" item="target" separator=" OR ">
+			            FIND_IN_SET(#{target}, SS.EDU_TARGET) > 0
+			        </foreach>
+			    )
+		</if>
+		<if test="searchEduPlace != null and searchEduPlace != '' ">
+			<if test="searchEduPlace == 'east' ">
+				AND CC.COM_TITLE LIKE CONCAT('%', '동부권', '%')
+			</if>
+			<if test="searchEduPlace == 'west' ">
+				AND CC.COM_TITLE LIKE CONCAT('%', '서부권', '%')
+			</if>
+		</if>
+		<if test="searchStatus != null and searchStatus != '' ">
+			<choose>
+				<when test="searchStatus == 'ing' ">AND NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT</when>
+				<when test="searchStatus == 'be' ">AND NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT</when>
+				<otherwise> AND NOW() > SS.ENROLL_END_DT</otherwise>
+			</choose>
+		</if>
+		
+	</sql>
+
 	<select id="selectReservationList" parameterType="UserReservationVO" resultType="UserReservationVO">
 		<include refid="kr.co.gocle.include.paging-start" />
 		SELECT
@@ -241,6 +280,61 @@
 			AND CR.PG_TYPE = 'wood'
 			AND CR.PG_ID = #{pgId}
 			AND CR.SLOT_ID = #{slotId}
+	</select>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON SS.SGR_CD = S.SGR_CD 
+			AND SS.SUBJ_CD = S.SUBJ_CD
+		LEFT JOIN COM_COMPANY CC	
+			ON CC.COM_ID = SS.COM_ID
+		WHERE 1 = 1
+			AND SS.USE_YN = 'Y'
+		<include refid="selectSearchWhere" />
+	</select>
+
+
+	<select id="selectList" resultType="EnrollManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT SS.SUBJ_NM
+			  , SS.SEQ_CD
+			  , SS.CATE_CD
+			  , SS.SGR_CD
+			  ,(
+		         SELECT AF.SAVE_FILE_NAME
+		         FROM ATCH_FILE AF
+		         WHERE AF.THUMBNAIL_CROP = 'Y'
+		         	AND AF.DELETE_YN = 'N'
+		            AND SS.SEQ_CD = AF.P_ID
+		         LIMIT 1
+		        ) AS THUMBPATH
+		      , DATE_FORMAT(SS.ENROLL_START_DT, '%y.%m.%d') AS ENROLL_START_DT
+			  , DATE_FORMAT(SS.ENROLL_END_DT, '%y.%m.%d') AS ENROLL_END_DT
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%y.%m.%d') AS LEARN_START_DT
+			  , DATE_FORMAT(SS.LEARN_END_DT, '%y.%m.%d') AS LEARN_END_DT
+			  , CASE WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT THEN 'ing'
+			  		WHEN NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT THEN 'be'
+			  		ELSE 'end'
+			  	END AS STATUS
+			  , SS.WAIT_ENROLL_CNT
+			  , SS.CAPACITY
+			  , SS.EDU_TARGET
+			  , (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B') AS ENROLL_CNT
+			  , (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A') AS WAIT_CNT
+			  , SS.REG_DT
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON SS.SGR_CD = S.SGR_CD 
+			AND SS.SUBJ_CD = S.SUBJ_CD
+		LEFT JOIN COM_COMPANY CC	
+			ON CC.COM_ID = SS.COM_ID
+		WHERE 1 = 1
+			AND SS.USE_YN = 'Y'
+		<include refid="selectSearchWhere" />
+		ORDER BY SS.ENROLL_START_DT DESC, SS.ENROLL_END_DT DESC
+		<include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	
 </mapper>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 
 <c:import url="/usr/layout/top.do" />
 	
@@ -13,7 +14,7 @@
 	$(function () {
 		  const $wrap  = $('.bbs-search-checkbox');
 		  const $all   = $wrap.find('#checkbox-1'); // 전체
-		  const $items = $wrap.find('input[type="checkbox"][name="target"]').not($all);
+		  const $items = $wrap.find('input[type="checkbox"][name="searchEduTarget"]').not($all);
 
 		  $all.on('change', function () {
 			const checked = $(this).is(':checked');
@@ -33,6 +34,29 @@
 
 		  $items.trigger('change.sync');
 	});
+	
+	function fn_search(pageIndex) {
+		$("#pageIndex").val(param1);
+		var reqUrl = "${contextRoot}/usr/reservation/program/eduLctreNewList.do";
+		$("#bbsNttSearch").attr("action", reqUrl);
+		$("#bbsNttSearch").submit();
+	}
+
+	function fn_reset() {
+		$("#pageIndex").val(1);
+		
+		// 라디오, 체크박스 해제
+		$("input[name='searchEduPlace']").prop("checked", false); // 장소
+		$("input[name='searchCateCd']").prop("checked", false); // 구분
+	    $("input[name='searchStatus']").prop("checked", false); // 진행상태
+	    $("input[name='searchEduTarget']").prop("checked", false); // 신청대상
+	    // 검색어 삭제
+	    $("#searchKeyword").val('');
+		
+		var reqUrl = "${contextRoot}/usr/reservation/program/eduLctreNewList.do";
+		$("#bbsNttSearch").attr("action", reqUrl);
+		$("#bbsNttSearch").submit();
+	}
 </script>
 
  <c:import url="/usr/menu/header.do" />
@@ -202,7 +226,7 @@
 
 
 	<div class="bbs_search">
-		<form name="bbsNttSearchForm" id="bbsNttSearch" action="./selectEduLctreWebList.do" method="get" class="boardSearchForm">
+		<form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/reservation/program/eduLctreNewList.do" method="get" class="boardSearchForm">
 		<input type="hidden" name="key" id="key" value="4130"/>	
 			<fieldset>
 				<legend>교육강좌 검색</legend>
@@ -215,19 +239,19 @@
 							<div class="bbs-search-radio">
 						  		<span class="radio-label">장소</span>		
 						  
-							  <input type="radio" id="radio-0" name="eduPlace" checked>
+							  <input type="radio" id="radio-0" name="searchEduPlace" value="" ${empty searchVo.searchEduPlace or searchVo.searchEduPlace eq '' ? 'checked' : ''}>
 							  <label for="radio-0" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">전체</span>
 							  </label>
 
-							  <input type="radio" id="radio-1" name="eduPlace">
+							  <input type="radio" id="radio-1" name="searchEduPlace" value="east" ${searchVo.searchEduPlace eq 'east' ? 'checked' : ''}>
 							  <label for="radio-1" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">동부권</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-2" name="eduPlace">
+							  <input type="radio" id="radio-2" name="searchEduPlace" value="west" ${searchVo.searchEduPlace eq 'west' ? 'checked' : ''}>
 							  <label for="radio-2" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">서부권</span>
@@ -238,25 +262,25 @@
 							<div class="bbs-search-radio">
 						  		<span class="radio-label">구분</span>		
 						  
-							  <input type="radio" id="radio-3" name="type" checked>
+							  <input type="radio" id="radio-3" name="searchCateCd" value="" ${empty searchVo.searchCateCd or searchVo.searchCateCd eq '' ? 'checked' : ''}>
 							  <label for="radio-3" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">전체</span>
 							  </label>
 
-							  <input type="radio" id="radio-4" name="type">
+							  <input type="radio" id="radio-4" name="searchCateCd" value="BA" ${searchVo.searchCateCd eq 'BA' ? 'checked' : ''}>
 							  <label for="radio-4" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">진로진학</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-5" name="type">
+							  <input type="radio" id="radio-5" name="searchCateCd" value="BB" ${searchVo.searchCateCd eq 'BB' ? 'checked' : ''}>
 							  <label for="radio-5" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">AI디지털</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-6" name="type">
+							  <input type="radio" id="radio-6" name="searchCateCd" value="BD" ${searchVo.searchCateCd eq 'BD' ? 'checked' : ''}>
 							  <label for="radio-6" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">돌봄</span>
@@ -267,25 +291,25 @@
 							<div class="bbs-search-radio">
 						  		<span class="radio-label">진행상태</span>		
 						  
-							  <input type="radio" id="radio-7" name="status" checked>
+							  <input type="radio" id="radio-7" name="searchStatus" value="" ${empty searchVo.searchStatus or searchVo.searchStatus eq '' ? 'checked' : ''}>
 							  <label for="radio-7" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">전체</span>
 							  </label>
 
-							  <input type="radio" id="radio-8" name="status">
+							  <input type="radio" id="radio-8" name="searchStatus" value="be" ${searchVo.searchStatus eq 'be' ? 'checked' : ''}>
 							  <label for="radio-8" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">접수예정</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-9" name="status">
+							  <input type="radio" id="radio-9" name="searchStatus" value="ing" ${searchVo.searchStatus eq 'ing' ? 'checked' : ''}>
 							  <label for="radio-9" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">접수진행중</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-10" name="status">
+							  <input type="radio" id="radio-10" name="searchStatus" value="end" ${searchVo.searchStatus eq 'end' ? 'checked' : ''}>
 							  <label for="radio-10" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">접수마감</span>
@@ -296,27 +320,28 @@
 							<div class="bbs-search-checkbox">
 						  		<span class="checkbox-label">신청대상</span>		
 						  
-							  <input type="checkbox" id="checkbox-1" name="target" checked>
+							  <input type="checkbox" id="checkbox-1" name="searchEduTarget" ${fn:contains(searchVo.searchEduTarget, '1') and fn:contains(searchVo.searchEduTarget, '2') 
+							  			and fn:contains(searchVo.searchEduTarget, '3') and fn:contains(searchVo.searchEduTarget, '4')}>
 							  <label for="checkbox-1" class="checkbox-btn">
 								<span class="text">전체</span>
 							  </label>
 
-							  <input type="checkbox" id="checkbox-2" name="target">
+							  <input type="checkbox" id="checkbox-2" name="searchEduTarget" value="1" ${fn:contains(searchVo.searchEduTarget, '1') ? 'checked' : ''}>
 							  <label for="checkbox-2" class="checkbox-btn">
 								<span class="text">초등</span>
 							  </label>
 							  
-							  <input type="checkbox" id="checkbox-3" name="target">
+							  <input type="checkbox" id="checkbox-3" name="searchEduTarget" value="2" ${fn:contains(searchVo.searchEduTarget, '2') ? 'checked' : ''}> 
 							  <label for="checkbox-3" class="checkbox-btn">
 								<span class="text">중등</span>
 							  </label>
 							  
-							  <input type="checkbox" id="checkbox-4" name="target">
+							  <input type="checkbox" id="checkbox-4" name="searchEduTarget" value="3" ${fn:contains(searchVo.searchEduTarget, '3') ? 'checked' : ''}>
 							  <label for="checkbox-4" class="checkbox-btn">
 								<span class="text">고등</span>
 							  </label>
 							  
-							  <input type="checkbox" id="checkbox-5" name="target">
+							  <input type="checkbox" id="checkbox-5" name="searchEduTarget" value="4" ${fn:contains(searchVo.searchEduTarget, '4') ? 'checked' : ''}>
 							  <label for="checkbox-5" class="checkbox-btn">
 								<span class="text">학부모</span>
 							  </label>
@@ -332,9 +357,9 @@
 								<option value="eduLctreSj" >교육명</option>
 							</select>
 							<div class="submitbox">
-								<input name="searchKrwd" id="searchKrwd" type="text" class="temp_textbox" title="검색" placeholder="검색어 입력" value="" />
+								<input name="searchKeyword" id="searchKeyword" type="text" class="temp_textbox" title="검색" placeholder="검색어 입력" value="${searchVo.searchKeyword }" />
 								<input type="submit" value="검색" />
-								<span class="reset">검색초기화</span>
+								<span class="reset" onclick="fn_reset()">검색초기화</span>
 							</div>
 							
 						</li>
@@ -352,8 +377,8 @@
 		  	</label>
 		</div>
 		<div class="bbs_right bbs_count">
-			<span>총 <strong>56</strong> 건</span>,
-			<span class="division_line">[<strong>1</strong> / 3 페이지]</span>
+			<span>총 <strong>${totalCount}</strong> 건</span>,
+			<span class="division_line">[<strong>${paginationInfo.currentPageNo }</strong> / ${paginationInfo.lastPageNoOnPageList } 페이지]</span>
 		</div>
 		<!--<div class="bbs_right">TODAY : 2025-11-27</div>-->
 	</div>
@@ -384,7 +409,7 @@
 			</tr>
 			</thead>
 			<tbody class="text_center">
-				<tr>
+				<!-- <tr>
 					<td class="td-no">3</td>
 					<td class="td-img">
 						<a href="eduLctreWebView.html" class="subject">
@@ -471,7 +496,58 @@
 					<td>
 						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
 					</td>
-				</tr>
+				</tr> -->
+				
+				<c:forEach var="item" items="${resultList}" varStatus="status">
+					<tr>
+						<td class="td-no"><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
+						<td class="td-img">
+							<a href="eduLctreWebView.html" class="subject">
+								<c:if test="${empty item.thumbpath}">
+									<img src="/yjcareer/assets/DATA/popupZone/7.png" />
+								</c:if>
+								<c:if test="${not empty item.thumbpath}">
+									<img src="${contextRoot}/thumbnail/${item.thumbpath}" />
+								</c:if>
+							</a>
+						</td>
+						<td class="td-subject">
+							<a href="eduLctreWebView.html" class="subject">
+								<span class="li-label ${item.status}">
+									<c:if test="${item.status eq 'ing'}">접수진행중</c:if>
+									<c:if test="${item.status eq 'be'}">접수예정</c:if>
+									<c:if test="${item.status eq 'end'}">접수마감</c:if>
+								</span>
+								${item.subjNm}
+							</a> 
+						</td>
+						<td class="td-date">
+							<p><span class="td-span">접수기간</span>${item.enrollStartDt}~${item.enrollEndDt}</p>
+							<p><span class="td-span">교육기간</span>${item.learnStartDt}~${item.learnEndDt}</p>
+						</td>
+						<td class="td-pson">
+							<p><span class="td-span">정원 : </span>${item.enrollCnt}/${item.capacity}</p>
+							<p><span class="td-span">대기 : </span>(${item.waitCnt}/${item.waitEnrollCnt})</p>
+						</td>
+						<td class="td-cost">무료</td>
+						<td class="td-type">
+							<c:forEach var="code" items="${codeList}">
+								<c:if test="${fn:contains(item.eduTarget, code.codeCode)}">
+									<span class="type-${code.codeCode}">${code.codeName }</span>
+								</c:if>
+							</c:forEach>
+						</td>
+						<td>
+							<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
+						</td>
+					</tr>
+				</c:forEach>
+				<c:if test="${totalCount eq 0}">
+					<tr>
+						<td colspan="8">검색결과가 없습니다.</td>
+					</tr>
+				</c:if>
+				
 			</tbody>
 		</table>
 		</div>
@@ -479,7 +555,7 @@
 	
 
 	<div class="pagination">
-		<span class="page_btn prev_group">
+		<!-- <span class="page_btn prev_group">
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
@@ -495,9 +571,9 @@
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=2" class="next_one">다음 페이지<i></i></a>
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next">다음 10페이지 이동</a>
 <a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next_end">끝 페이지로</a>
-</span>
-
-
+</span> -->
+	
+		<ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 	</div>
 	
 </div>

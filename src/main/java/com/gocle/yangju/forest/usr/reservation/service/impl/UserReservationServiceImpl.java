@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gocle.yangju.forest.adm.banner.service.AdminBannerService;
 import com.gocle.yangju.forest.adm.banner.vo.BannerVO;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
@@ -87,4 +88,13 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 		return userReservationMapper.selectResvCheck(userProductVO);
 	}
 
+	@Override
+	public int selectTotalCount(EnrollManageVo enrollManageVo) throws Exception {
+		return userReservationMapper.selectTotalCount(enrollManageVo);
+	}
+	
+	@Override
+	public List<EnrollManageVo> selectList(EnrollManageVo enrollManageVo) throws Exception {
+		return userReservationMapper.selectList(enrollManageVo);
+	}
 }

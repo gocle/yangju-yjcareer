@@ -28,9 +28,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageDefaultVo;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
+import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
+import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.comm.file.vo.FileVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
+import com.gocle.yangju.forest.usr.chinfo.service.SubjInfoService;
+import com.gocle.yangju.forest.usr.chinfo.vo.SubjInfoVo;
 import com.gocle.yangju.forest.usr.product.service.UserProductService;
 import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.service.UserProgramService;
@@ -63,6 +69,12 @@ public class UserReservationController {
 	
 	@Autowired
 	UserProgramTimeService userProgramTimeService;
+	
+	@Autowired
+	SubjInfoService subjInfoService;
+	
+	@Autowired
+	AdminCodeService adminCodeService;
 	
 	@InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -583,8 +595,38 @@ public class UserReservationController {
 	}
 	
 	@RequestMapping("/program/eduLctreNewList.do")
-	public String program(ModelMap model) throws Exception {
+	public String program(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
+		
+		int totalCount = 0;
+		List<EnrollManageVo> resultList = new ArrayList<>();
+		// 꿈자람센터 프로그램
+		searchVo.setSearchSgrCd("B");
+		totalCount = userReservationService.selectTotalCount(searchVo);
+		if(totalCount > 0) {
+			resultList = userReservationService.selectList(searchVo);
+		}
 			
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex =	searchVo.getPageIndex();
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+	    paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(searchVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+        
+        model.addAttribute("pageSize", pageSize);
+	    model.addAttribute("pageIndex", pageIndex);
+	    model.addAttribute("paginationInfo", paginationInfo);
+	    
+	    model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
+		
 		return "/usr/reservation/program/eduLctreNewList";
 	}
 }

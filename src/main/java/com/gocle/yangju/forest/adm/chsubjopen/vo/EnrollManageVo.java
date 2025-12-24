@@ -83,6 +83,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     // 히스토리 저장 타입
     private String connectionType;
     
+    private String thumbpath;
+    private String status;
+    private String eduTarget;
+    private String regDt;
+    
 	public String getSgrCd() {
 		return sgrCd;
 	}
@@ -359,4 +364,29 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setConnectionType(String connectionType) {
 		this.connectionType = connectionType;
 	}
+	public String getThumbpath() {
+		return thumbpath;
+	}
+	public void setThumbpath(String thumbpath) {
+		this.thumbpath = thumbpath;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getEduTarget() {
+		return eduTarget;
+	}
+	public void setEduTarget(String eduTarget) {
+		this.eduTarget = eduTarget;
+	}
+	public String getRegDt() {
+		return regDt;
+	}
+	public void setRegDt(String regDt) {
+		this.regDt = regDt;
+	}
+	
 }

@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gocle.yangju.forest.usr.chinfo.service.impl.SubjInfoMapper">
+	
+	<select id="selectMainTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON SS.SGR_CD = S.SGR_CD 
+			AND SS.SUBJ_CD = S.SUBJ_CD
+		WHERE 1 = 1
+			AND SS.USE_YN = 'Y'
+		<if test="searchSgrCd != null and !searchSgrCd != '' ">
+			AND SS.SGR_CD = #{searchSgrCd}
+		</if>
+		<if test="searchCateCd != null and searchCateCd != '' ">
+			AND SS.CATE_CD = #{searchCateCd}
+		</if>
+	</select>
+
 
 	<select id="selectMainList" resultType="SubjInfoVo">
 		SELECT SS.SUBJ_NM
@@ -15,14 +32,17 @@
 		            AND SS.SEQ_CD = AF.P_ID
 		         LIMIT 1
 		        ) AS THUMBPATH
-		      , DATE_FORMAT(SS.ENROLL_START_DT, '%Y.%m.%d') AS ENROLL_START_DT
-			  , DATE_FORMAT(SS.ENROLL_END_DT, '%Y.%m.%d') AS ENROLL_END_DT
-			  , DATE_FORMAT(SS.LEARN_START_DT, '%Y.%m.%d') AS LEARN_START_DT
-			  , DATE_FORMAT(SS.LEARN_END_DT, '%Y.%m.%d') AS LEARN_END_DT
+		      , DATE_FORMAT(SS.ENROLL_START_DT, '%y.%m.%d') AS ENROLL_START_DT
+			  , DATE_FORMAT(SS.ENROLL_END_DT, '%y.%m.%d') AS ENROLL_END_DT
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%y.%m.%d') AS LEARN_START_DT
+			  , DATE_FORMAT(SS.LEARN_END_DT, '%y.%m.%d') AS LEARN_END_DT
 			  , CASE WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT THEN 'ing'
 			  		WHEN NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT THEN 'be'
 			  		ELSE 'end'
 			  	END AS STATUS
+			  , SS.WAIT_ENROLL_CNT
+			  , SS.CAPACITY
+			  , SS.EDU_TARGET
 		FROM TB_SUBJ_SEQ SS
 		INNER JOIN TB_SUBJ S
 			ON SS.SGR_CD = S.SGR_CD 

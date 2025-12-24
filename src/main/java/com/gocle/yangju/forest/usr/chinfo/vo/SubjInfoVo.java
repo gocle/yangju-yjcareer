@@ -24,7 +24,9 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
     private String learnEndDt;
     
     private String capacity;
+    private String waitEnrollCnt;
     private String status;
+    private String eduTarget;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -97,6 +99,18 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getWaitEnrollCnt() {
+		return waitEnrollCnt;
+	}
+	public void setWaitEnrollCnt(String waitEnrollCnt) {
+		this.waitEnrollCnt = waitEnrollCnt;
+	}
+	public String getEduTarget() {
+		return eduTarget;
+	}
+	public void setEduTarget(String eduTarget) {
+		this.eduTarget = eduTarget;
 	}
 	
 	
