@@ -52,6 +52,9 @@ public class EnrollManageController {
 		Integer pageSize = searchVo.getPageSize();
 		Integer pageIndex = searchVo.getPageIndex();
 
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageSize", pageSize);
+		
 		PaginationInfo paginationInfo = new PaginationInfo();
 		paginationInfo.setCurrentPageNo(pageIndex);
         paginationInfo.setRecordCountPerPage(pageSize);

@@ -6,11 +6,6 @@
 <c:import url="/adm/menu/leftMenu.do" />
 
 <script type="text/javascript">
-
-var pageSize = '${pageSize}'; //페이지당 그리드에 조회 할 Row 갯수;
-var totalCount = '${totalCount}'; //전체 데이터 갯수
-var pageIndex = '${pageIndex}'; //현재 페이지 정보
-
 $(document).ready(function() {
 	$("#searchSgrCd").change(function() {
 		var sgrCd = $(this).val();

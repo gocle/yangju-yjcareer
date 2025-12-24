@@ -66,6 +66,8 @@ function fnEnrollUserAdd() {
 		<div id="pop-container" style="padding:10px;">
 			<h3>교육생 등록</h3>
 			<form id="listForm" name="listForm" method="post">
+				<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
+				<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" />
 				<input type="hidden" id="seqCd" name="seqCd" value="${param.seqCd }" />
 				
 				<ul class="search-box" style="margin-bottom:0px !important;">

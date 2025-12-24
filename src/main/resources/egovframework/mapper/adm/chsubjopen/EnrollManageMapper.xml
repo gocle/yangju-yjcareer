@@ -53,6 +53,7 @@
 	</select>
 	
 	<select id="selectList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
 		SELECT ss.seq_cd
 			, ss.sgr_cd
 			, ss.subj_nm
@@ -67,6 +68,7 @@
 			, DATE_FORMAT(ss.learn_end_dt, '%Y.%m.%d') AS learn_end_dt
 			, (SELECT COUNT(*) FROM TB_ENROLL e WHERE e.seq_cd = ss.seq_cd) AS enroll_cnt
 			, IFNULL(ss.capacity, 0) AS capacity
+			, ss.reg_dt
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
 			ON s.sgr_cd = ss.sgr_cd
@@ -81,6 +83,7 @@
 		WHERE 1 = 1
 		<include refid="selectSearchWhere" />
 		ORDER BY ss.reg_dt desc, ss.seq_cd desc
+		<include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	
 	<select id="selectEnrollDetailTotalCount" resultType="int">

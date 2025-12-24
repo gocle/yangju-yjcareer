@@ -23,9 +23,11 @@
 	</select>
 	
 	<select id="selectUserSearchList" resultType="UsrManageVo" parameterType="UsrManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
 		SELECT U.MEM_SEQ
 			, U.MEM_NAME
 			, U.HP_NO
+			, U.REG_DT
 		FROM TB_USER U
 		LEFT JOIN TB_ENROLL E
 			ON U.MEM_SEQ = E.MEM_SEQ
@@ -33,6 +35,7 @@
 		WHERE 1 = 1
 			AND E.MEM_SEQ IS NULL
 		<include refid="selectSearchWhere" />
+		<include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	
 </mapper>

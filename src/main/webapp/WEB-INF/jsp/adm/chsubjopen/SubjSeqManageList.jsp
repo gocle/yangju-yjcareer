@@ -75,6 +75,8 @@ function fnCmdUpdateForm(seqCd) {
 
 <section>
 	<form id="listForm" name="listForm" method="post">
+		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
+		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
 		

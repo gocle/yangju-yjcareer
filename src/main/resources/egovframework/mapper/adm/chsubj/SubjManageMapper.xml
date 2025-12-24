@@ -37,6 +37,7 @@
 	</select>
 	
 	<select id="selectList" resultType="SubjManageVo" parameterType="SgrManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
 		SELECT sb.subj_cd
 			 , sb.cate_cd
 			 , sc.cate_nm
@@ -46,6 +47,7 @@
 			 , sb.use_yn
 			 , cc.com_title
 			 , sb.enroll_type
+			 , sb.reg_dt
 		FROM TB_SUBJ sb
 		INNER JOIN TB_SGR sg
 			ON sb.sgr_cd = sg.sgr_cd
@@ -57,6 +59,7 @@
 		WHERE 1 = 1
 		<include refid="selectSearchWhere" />
 		ORDER BY sb.reg_dt DESC
+		<include refid="kr.co.gocle.include.paging-end" />
 	</select>
 	
 	<select id="selectSubjCd" resultType="String">
