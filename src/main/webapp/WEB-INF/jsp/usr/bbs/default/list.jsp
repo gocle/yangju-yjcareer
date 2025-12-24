@@ -200,21 +200,20 @@ function fn_recovryBbsNtt( url ) {
 
     <div class="bbs_info clearfix">
         <div class="bbs_left bbs_count">
-            <span>총 게시물  <strong>0</strong> 개</span>,
-            <span class="division_line">페이지 <strong>1</strong> / 1</span>
+            <span>총 게시물  <strong>${totalCount }</strong> 개</span>,
+            <span class="division_line">페이지 <strong>${pageIndex }</strong> / ${totalPage }</span>
         </div>
     </div>
 
 	<table class="bbs_default list" data-rwdb="yes">
         <caption>학습상담 목록 - 번호, 제목, 작성자, 파일, 조회수, 작성일정보 제공</caption>
         <colgroup>
-        
-                <col style="width:50px" />
-                <col  />
-                <col style="width:120px" />
-                <col style="width:60px" />
-                <col style="width:70px" />
-                <col style="width:80px" />
+					<col width="10%">
+					<col width="*">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
+					<col width="10%">
         </colgroup>
         <thead>
         <tr>
@@ -228,23 +227,48 @@ function fn_recovryBbsNtt( url ) {
         </tr>
         </thead>
         <tbody>
-
-		
-		
-		
-			<tr>
-			
-				 
-				
-					<td colspan="6" class="empty">등록된 게시물이 없습니다.</td>
-				
-			
-			</tr>
-		
+        
+        <c:forEach var="topNoticeList" items="${topNoticeList}" varStatus="status">
+						<tr>
+						 	<td data-label="번호" class="no notice"></td>
+						<td data-label="제목" class="left">
+							<a href="<c:url value="/usr/bbs/${topNoticeList.bcId }/detail.do?menuId=${menuId}&baId=${topNoticeList.baId}&baNotice=1"/>">${topNoticeList.baTitle}</a>
+						</td>
+						<td data-label="작성자">${fn:substring(topNoticeList.memName, 0, 1)}*${fn:substring(topNoticeList.memName, fn:length(topNoticeList.memName)-1, fn:length(topNoticeList.memName))}</td>
+						<td class="mo-view">
+							<a href="view0.html">상세 보기</a>
+						</td>
+						<td data-label="조회수">${topNoticeList.baHit}</td>
+						<td data-label="작성일">${topNoticeList.baRegdate}</td>
+					</tr>
+					</c:forEach>	
+					<c:forEach var="articleList" items="${articleList}" varStatus="status">
+						<tr>
+							<td data-label="번호" class="no"><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
+							<td data-label="제목" class="left">
+								<a href="<c:url value="/usr/bbs/${articleList.bcId }/detail.do?menuId=${menuId}&baId=${articleList.baId}&baNotice=0"/>">${articleList.baTitle}</a>
+							</td>
+							<td data-label="작성자">
+								${fn:substring(articleList.memName, 0, 1)}*${fn:substring(articleList.memName, fn:length(articleList.memName)-1, fn:length(articleList.memName))}
+							</td>
+							<td class="mo-view">
+								<a href="view0.html">상세 보기</a>
+							</td>
+							<td data-label="조회수">${articleList.baHit}</td>
+							<td data-label="작성일">${articleList.baRegdate}</td>
+						</tr>
+					</c:forEach>
+					<c:if test="${fn:length(articleList) == 0 && fn:length(topNoticeList) == 0}">
+						<tr>
+							<td colspan="6" class="empty">등록된 게시글이 없습니다.</td>
+						</tr>
+					</c:if>
         </tbody>
     </table>
+    
+    <ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 
-	<div class="pagination">
+<!-- 	<div class="pagination">
         <span class="page_btn prev_group">
 <a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
 <a href="./selectBbsNttList.do?key=4139&amp;bbsNo=531&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;integrDeptCode=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
@@ -262,7 +286,7 @@ function fn_recovryBbsNtt( url ) {
 </span>
 
 
-    </div>
+    </div> -->
 
 	<div class="bbs_btn_wrap clearfix">
         <div class="bbs_left">

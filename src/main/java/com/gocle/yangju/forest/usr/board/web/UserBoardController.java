@@ -164,6 +164,7 @@ public class UserBoardController {
 				Integer pageSize = boardArticleVO.getPageSize();
 				Integer pageIndex = boardArticleVO.getPageIndex();
 				
+				
 				if( 0 < resultList.size() ){ 
 					totalCnt =Integer.parseInt( resultList.get(0).getTotalCount() );
 				}
@@ -173,6 +174,10 @@ public class UserBoardController {
 			    model.addAttribute("totalCount", totalCnt);
 			    
 			    model.addAttribute("pageIndex", pageIndex);
+			    
+			    int totalPage = (int) Math.ceil((double) totalCnt / pageSize);
+			    
+			    model.addAttribute("totalPage", totalPage);
 			    
 			    PaginationInfo paginationInfo = new PaginationInfo();
 
