@@ -25,45 +25,7 @@
                         
                         <div class="sub_head_wrap">
                             
-
-
-
-<div class="breadcrumbs">
-	<a href="./index.do" class="home">홈</a>
-	<ol class="breadcrumbs_list">
-		<li class="breadcrumbs_item">
-			<a href="" class="breadcrumbs_anchor mobile">교육 네트워크</a>
-			<button type="button" class="breadcrumbs_select" title="목록열기">교육 네트워크</button>
-			<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4123"  target="_self" >진로진학교육</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4128"  target="_self" >프로그램 신청</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4135"  target="_self" >학습지원서비스</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4254"  target="_self" >JUMP UP 2025 양주 미래교육 페스타</a></li>
-					<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" class="active">교육 네트워크</a></li>
-					<li class="tab_item"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&key=4145"  target="_self" >알림마당</a></li>
-					<li class="tab_item"><a href="/yjcareer/sitemap.do?key=4151"  target="_self" >홈페이지 가이드</a></li>
-			</ul>
-		</li>
-
-				
-				
-				
-				
-				
-					<li class="breadcrumbs_item">
-						<a href="" class="breadcrumbs_anchor mobile">지역 진로교사 안내</a>
-						<button type="button" class="breadcrumbs_select" title="목록열기">지역 진로교사 안내</button>
-						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4141"  target="_self" class="active">지역 진로교사 안내</a>	</li>
-									<li class="tab_item"><a href="/yjcareer/contents.do?key=4142"  target="_self" >진로교육콘텐츠</a>	</li>
-									<li class="tab_item"><a href="https://www.ggoomgil.go.kr/front/index.do" title="새창" target="_blank" >체험처 소개(꿈길)</a>	</li>
-						</ul>
-					</li>
-				
-				
-
-	</ol>
-</div>
+<c:import url="/usr/menu/sub.do" />
             
                             <div class="addons">
                                 <ul class="addons_list">

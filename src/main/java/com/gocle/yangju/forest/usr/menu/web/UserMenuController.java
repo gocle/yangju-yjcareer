@@ -165,7 +165,7 @@ public class UserMenuController{
         MenuVO menuInfo = menuService.menuInfo(menu);
         model.addAttribute("menuInfo", menuInfo);
 
-        if ("3".equals(menuInfo.getMenuDepth())) {
+        if (menuInfo != null && "3".equals(menuInfo.getMenuDepth())) {
             List<MenuVO> listSubSubMenu = menuService.listSubSubMenu(menu);
             model.addAttribute("listSubSubMenu", listSubSubMenu);
 

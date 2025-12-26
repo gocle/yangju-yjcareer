@@ -258,8 +258,7 @@
 			       CM.MENU_URL, 
 			       CM.MENU_TITLE  
 			  FROM COM_MENU CM 
-			 WHERE CM.SITE_ID = #{siteId} 
-			       AND CM.MENU_TYPE = #{menuType}
+			 WHERE CM.MENU_TYPE = #{menuType}
 			       AND CM.DELETE_YN = 'N' 
 			       AND CM.SHOW_YN = 'Y' 
 			       AND MENU_DEPTH = 3 

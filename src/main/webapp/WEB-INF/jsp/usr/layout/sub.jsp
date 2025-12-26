@@ -24,11 +24,21 @@
         <c:forEach var="menu" items="${listTopMenu}">
           <c:set var="menuPathList" value="${fn:split(menu.menuUrl, '@')}" />
           <li class="tab_item">
-            <a href="/yjcareer/${menuPathList[0]}?menuId=${menuPathList[1]}"
-               target="_self"
-               class="${menu.menuTitle eq menuVO.upMenuTitle ? 'active' : ''}">
-              ${menu.menuTitle}
-            </a>
+           <c:choose>
+			  <c:when test="${fn:startsWith(menuPathList[0], 'http')}">
+			    <a href="${menuPathList[0]}"
+			       target="_blank"
+			       rel="noopener noreferrer">
+			      ${menu.menuTitle}
+			    </a>
+			  </c:when>
+			  <c:otherwise>
+			    <a href="/yjcareer/${menuPathList[0]}?menuId=${menuPathList[1]}"
+			       target="_self">
+			      ${menu.menuTitle}
+			    </a>
+			  </c:otherwise>
+			</c:choose>
           </li>
         </c:forEach>
       </ul>
@@ -51,11 +61,23 @@
         <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
           <c:forEach var="menu" items="${listSubMenu}">
             <li class="tab_item">
-              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
-                 target="_self"
-                 class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
-                ${menu.menuTitle}
-              </a>
+              <c:choose>
+				  <c:when test="${fn:startsWith(menu.menuUrl, 'http')}">
+				    <a href="${menu.menuUrl}"
+				       target="_blank"
+				       rel="noopener noreferrer"
+				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+				      ${menu.menuTitle}
+				    </a>
+				  </c:when>
+				  <c:otherwise>
+				    <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+				       target="_self"
+				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+				      ${menu.menuTitle}
+				    </a>
+				  </c:otherwise>
+				</c:choose>
             </li>
           </c:forEach>
         </ul>
@@ -80,11 +102,23 @@
         <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
           <c:forEach var="menu" items="${listSubMenu}">
             <li class="tab_item">
-              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
-                 target="_self"
-                 class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
-                ${menu.menuTitle}
-              </a>
+              <c:choose>
+				  <c:when test="${fn:startsWith(menu.menuUrl, 'http')}">
+				    <a href="${menu.menuUrl}"
+				       target="_blank"
+				       rel="noopener noreferrer"
+				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+				      ${menu.menuTitle}
+				    </a>
+				  </c:when>
+				  <c:otherwise>
+				    <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+				       target="_self"
+				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
+				      ${menu.menuTitle}
+				    </a>
+				  </c:otherwise>
+				</c:choose>
             </li>
           </c:forEach>
         </ul>
