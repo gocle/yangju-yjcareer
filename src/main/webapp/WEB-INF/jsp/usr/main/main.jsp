@@ -15,6 +15,7 @@
 	<meta name="description" content="양주시 양주진로진학교육플랫폼 홈페이지에 오신것을 환영합니다." />
 	<link rel="stylesheet" type="text/css" href="/yjcareer/assets/site/yjcareer/css/font.css" />
 	<link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/main.css">
+	<link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/sub.css">
 	<script src="/yjcareer/assets/site/yjcareer/js/jquery-1.12.4.min.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/plugins.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/common.js"></script>

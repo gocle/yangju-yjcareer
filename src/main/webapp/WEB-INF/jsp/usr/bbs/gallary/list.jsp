@@ -20,7 +20,7 @@
                             <p class="first_title">알림마당</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>자료실(갤러리)</h2>
+                            <h2>${bcName }</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
