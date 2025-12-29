@@ -73,6 +73,18 @@ public class UserMainController{
 		subjInfoVo.setSearchSgrCd("B");
 		model.put("subjManageListB", subjInfoService.selectMainList(subjInfoVo));
 		
+		// 메인 게시판
+		BoardArticleVO boardArticleVO = new BoardArticleVO();
+		boardArticleVO.setBaNotice("0");
+		
+		// 공지사항
+		boardArticleVO.setBcId("notice");
+		model.put("noticList", boardService.listBoardArticle(boardArticleVO));
+		
+		// 자료싫
+		boardArticleVO.setBcId("photo");
+		model.put("photoList", boardService.listBoardArticle(boardArticleVO));
+		
 		return "usr/main/main";
 	}
 	

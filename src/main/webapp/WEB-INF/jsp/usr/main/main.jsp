@@ -561,99 +561,25 @@
 								</div>
 								
 								<div class="notice_contents">
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199606" class="notice_anchor">
-											<p class="notice_title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON! JUMP UP 2025: 양주 진로진학 ON JUMP UP 2025: 양주 진로진학 ON!</p>
-											<p class="notice_date">2025.11.19</p>
-											
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199305" class="notice_anchor">
-											<p class="notice_title">[교육특구] 전문가특강 3차 이호 교수편 &#039;법의학자가 전하는 삶을 택하는 힘</p>
-											<p class="notice_date">2025.11.11</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199024" class="notice_anchor">
-											<p class="notice_title">[특강]26학년도 수능결과로 본 대입동향과 진학전략_11.22.(토) 10시 옥정호수도서관</p>
-											<p class="notice_date">2025.11.01</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=198877" class="notice_anchor">
-											<p class="notice_title">수정: [Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 운영 안내</p>
-											<p class="notice_date">2025.10.27</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=198854" class="notice_anchor">
-											<p class="notice_title">[교육특구] 전문가특강 2차 항성 강사편 &#039; 지구를 넘어서는 꿈을 위하여&#039;</p>
-											<p class="notice_date">2025.10.27</p>
-										</a>
-									</div>
-								
+									<c:forEach var="row" items="${noticList}" varStatus="i" begin="0" end="4">
+										<div class="notice_item">
+											<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
+												<p class="notice_title">${row.baTitle }</p>
+												<p class="notice_date">${row.regDate }</p>
+											</a>
+										</div>
+									</c:forEach>
 								</div>
 								
 								<div class="data_contents">
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199606" class="notice_anchor">
-											<p class="notice_title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON! JUMP UP 2025: 양주 진로진학 ON JUMP UP 2025: 양주 진로진학 ON!</p>
-											<p class="notice_date">2025.11.19</p>
-											
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199305" class="notice_anchor">
-											<p class="notice_title">[교육특구] 전문가특강 3차 이호 교수편 &#039;법의학자가 전하는 삶을 택하는 힘</p>
-											<p class="notice_date">2025.11.11</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=199024" class="notice_anchor">
-											<p class="notice_title">[특강]26학년도 수능결과로 본 대입동향과 진학전략_11.22.(토) 10시 옥정호수도서관</p>
-											<p class="notice_date">2025.11.01</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=198877" class="notice_anchor">
-											<p class="notice_title">수정: [Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 운영 안내</p>
-											<p class="notice_date">2025.10.27</p>
-										</a>
-									</div>
-									
-									<div class="notice_line"></div>
-
-									<div class="notice_item">
-										<a href="./selectBbsNttView_4145&amp;bbsNo=530&amp;nttNo=198854" class="notice_anchor">
-											<p class="notice_title">[교육특구] 전문가특강 2차 항성 강사편 &#039; 지구를 넘어서는 꿈을 위하여&#039;</p>
-											<p class="notice_date">2025.10.27</p>
-										</a>
-									</div>
-								
+									<c:forEach var="row" items="${photoList}" varStatus="i" begin="0" end="4">
+										<div class="notice_item">
+											<a href="/yjcareer/usr/bbs/photo/detail.do?menuId=2025MENU0000263&baId=${row.baId }&baNotice=0" class="notice_anchor">
+												<p class="notice_title">${row.baTitle }</p>
+												<p class="notice_date">${row.regDate }</p>
+											</a>
+										</div>
+									</c:forEach>
 								</div>
 
 

@@ -156,6 +156,7 @@
 	        CA.BA_SECRET,
 	        CA.REG_ID,
 	        CA.REG_DT,
+	        DATE_FORMAT(CA.REG_DT, '%Y-%m-%d') AS REG_DATE,
 	        CA.BA_CATEGORY1,
 	        CA.BA_NOTICE,
 	        FN_GET_CODE_NAME('BOARD_DATA', CA.BA_CATEGORY1) AS BOARD_DATA_CATEGORY1,

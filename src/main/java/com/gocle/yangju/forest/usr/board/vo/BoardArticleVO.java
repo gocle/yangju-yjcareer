@@ -1,6 +1,8 @@
 package com.gocle.yangju.forest.usr.board.vo;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import com.gocle.yangju.forest.comm.vo.BaseVO;
 
 
@@ -102,6 +104,8 @@ public class BoardArticleVO extends BaseVO implements Serializable{
     private String baThumbpath;
     
     private String processStatusArticle;
+    
+    private String regDate;
     
 	public String getBaId() {
 		return baId;
@@ -385,5 +389,10 @@ public class BoardArticleVO extends BaseVO implements Serializable{
 	public void setProcessStatusArticle(String processStatusArticle) {
 		this.processStatusArticle = processStatusArticle;
 	}
-    
+	public String getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
 }
