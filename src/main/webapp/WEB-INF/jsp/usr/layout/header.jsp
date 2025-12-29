@@ -105,13 +105,13 @@ function openLoginPopup() {
 											<div class="depth2_content">
 												<ul class="depth_list depth2_list cut">
 													<li class="depth_item depth2_item">
-														<a href="contents_4123.html" target="_self" class="depth_text depth2_text"><span>진로진학교육플랫폼 소개</span></a>
+														<a href="/yjcareer/usr/introduce/intro.do" target="_self" class="depth_text depth2_text"><span>진로진학교육플랫폼 소개</span></a>
 													</li>
 													<li class="depth_item depth2_item">
-														<a href="contents_4125.html" target="_self" class="depth_text depth2_text"><span>주요사업</span></a>
+														<a href="/yjcareer/usr/introduce/business.do" target="_self" class="depth_text depth2_text"><span>주요사업</span></a>
 													</li>
 													<li class="depth_item depth2_item">
-														<a href="contents_4126.html" target="_self" class="depth_text depth2_text"><span>찾아오시는 길</span></a>
+														<a href="/yjcareer/usr/introduce/map.do" target="_self" class="depth_text depth2_text"><span>찾아오시는 길</span></a>
 													</li>
 												</ul>
 											</div>
@@ -171,13 +171,13 @@ function openLoginPopup() {
 											<div class="depth2_content">
 												<ul class="depth_list depth2_list cut">
 													<li class="depth_item depth2_item">
-														<a href="selectBbsNttList.html" target="_self" class="depth_text depth2_text"><span>공지사항</span></a>
+														<a href="/yjcareer/usr/bbs/notice/list.do" target="_self" class="depth_text depth2_text"><span>공지사항</span></a>
 													</li>
 													<li class="depth_item depth2_item">
-														<a href="selectBbsNttList_4146.html" target="_self" class="depth_text depth2_text"><span>교육 자료실</span></a>
+														<a href="/yjcareer/usr/bbs/photo/list.do" target="_self" class="depth_text depth2_text"><span>교육 자료실</span></a>
 													</li>
 													<li class="depth_item depth2_item">
-														<a href="/yjcareer/selectBbsNttList.do?bbsNo=548&amp;key=4185" target="_self" class="depth_text depth2_text"><span>교육후기</span></a>
+														<a href="/yjcareer//usr/bbs/review/list.do" target="_self" class="depth_text depth2_text"><span>교육후기</span></a>
 													</li>
 												</ul>
 											</div>
