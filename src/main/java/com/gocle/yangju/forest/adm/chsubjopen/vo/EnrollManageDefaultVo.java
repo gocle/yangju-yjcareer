@@ -24,6 +24,8 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
     private String searchEduPlace = "";
     // 신청대상
     private String searchEduTarget = "";
+    // 캘린더
+    private String searchLearnDt = "";
     
 	public String getSearchSgrCd() {
 		return searchSgrCd;
@@ -73,4 +75,11 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	public void setSearchEduTarget(String searchEduTarget) {
 		this.searchEduTarget = searchEduTarget;
 	}
+	public String getSearchLearnDt() {
+		return searchLearnDt;
+	}
+	public void setSearchLearnDt(String searchLearnDt) {
+		this.searchLearnDt = searchLearnDt;
+	}
+	
 }

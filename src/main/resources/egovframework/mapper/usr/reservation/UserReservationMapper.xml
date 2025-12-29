@@ -39,6 +39,17 @@
 			</choose>
 		</if>
 		
+		<if test="searchLearnDt != null and searchLearnDt != '' ">
+			<!-- AND CAST(#{searchLearnDt} AS DATE) BETWEEN CAST(SS.LEARN_START_DT AS DATE) AND CAST(SS.LEARN_END_DT AS DATE) -->
+			<![CDATA[
+			AND (
+				    DATE_FORMAT(SS.LEARN_START_DT, '%Y-%m')
+				        <= #{searchLearnDt}
+				AND DATE_FORMAT(SS.LEARN_END_DT, '%Y-%m')
+				        >= #{searchLearnDt}
+				)
+			]]>
+		</if>
 	</sql>
 
 	<select id="selectReservationList" parameterType="UserReservationVO" resultType="UserReservationVO">
@@ -335,6 +346,64 @@
 		<include refid="selectSearchWhere" />
 		ORDER BY SS.ENROLL_START_DT DESC, SS.ENROLL_END_DT DESC
 		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="selectConsultingList">
+		SELECT SS.SEQ_CD
+			  , SS.SUBJ_NM
+			  , SS.CATE_CD
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%Y-%m-%d') AS LEARN_START_DT
+			  , DATE_FORMAT(SS.LEARN_END_DT, '%Y-%m-%d') AS LEARN_END_DT
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%H:%i') AS START_TIME
+    		  , DATE_FORMAT(SS.LEARN_END_DT, '%H:%i') AS END_TIME 
+			  , SS.CAPACITY
+			  , (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B') AS ENROLL_CNT
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON SS.SGR_CD = S.SGR_CD 
+			AND SS.SUBJ_CD = S.SUBJ_CD
+		WHERE 1 = 1
+			AND SS.USE_YN = 'Y'
+		<include refid="selectSearchWhere" />
+	</select>
+	
+	<select id="selectSubjSeqEduInfo" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">
+		SELECT ss.seq_cd
+			, ss.sgr_cd
+			, sg.sgr_nm
+			, ss.subj_nm
+			, ss.session_nm
+			, sc.cate_nm
+			, cc.com_title
+			, IFNULL(ss.capacity, 0) as capacity
+			, IFNULL(ss.wait_enroll_cnt, 0) as wait_enroll_cnt
+			, ss.edu_target
+			, DATE_FORMAT(ss.enroll_start_dt, '%y.%m.%d %H:%i') AS enroll_start_dt
+			, DATE_FORMAT(ss.enroll_end_dt, '%y.%m.%d %H:%i') AS enroll_end_dt
+			, DATE_FORMAT(ss.learn_start_dt, '%y.%m.%d %H:%i') AS learn_start_dt
+			, DATE_FORMAT(ss.learn_end_dt, '%y.%m.%d %H:%i') AS learn_end_dt
+			, ss.tel
+			, ss.enroll_type
+			, ss.subj_plan
+			, ss.subj_desc
+			, s.dupl_enroll_yn
+			, cl.location
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+		INNER JOIN TB_SGR sg
+			ON ss.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = ss.com_id
+		LEFT JOIN COMPANY_LOCATION cl
+			ON cl.loc_id = ss.loc_id
+			AND cl.com_id = cc.com_id
+		WHERE 1 = 1
+			AND ss.seq_cd = #{seqCd}
 	</select>
 	
 </mapper>

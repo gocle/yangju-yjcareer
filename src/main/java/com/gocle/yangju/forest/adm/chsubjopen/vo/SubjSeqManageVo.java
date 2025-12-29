@@ -78,6 +78,7 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
     private String[] learnEndDts;
     
     private int enrollCnt;
+    private String location;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -379,4 +380,10 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
 	public void setLocId(String locId) {
 		this.locId = locId;
 	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}	
 }	
