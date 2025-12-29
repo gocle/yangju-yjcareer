@@ -120,19 +120,20 @@
                     
                     <div id="contents" class="cts4146">
 						<div class="bbs_search">
-        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./selectBbsNttList.do" method="get" class="boardSearchForm">
+        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do" method="get" class="boardSearchForm">
             <fieldset>
             <legend>게시물 검색</legend>
-            <input type="hidden" name="key" value="4146"/>
-            <input type="hidden" name="bbsNo" value="529"/>
+            <input type="hidden" name="key" value="4139"/>
+            <input type="hidden" name="bbsNo" value="531"/>
             <input type="hidden" name="integrDeptCode" value=""/>
-
-            <select name="searchCnd" id="searchCnd" title="검색 영역 선택">
-				<option value="SJ" >제목</option>
-				<option value="CN" >내용</option>
+			
+			<label for="ssearchCondition" class="skip">검색 영역 선택</label>
+            <select name="searchCondition" id="searchCondition" title="검색 영역 선택">
+				<option value="BA_TITLE" <c:if test="${boardArticleVO.searchCondition == 'BA_TITLE'}">selected</c:if>> 제목</option>
+				<option value="BA_CONTENT_HTML" <c:if test="${boardArticleVO.searchCondition == 'BA_CONTENT_HTML'}">selected</c:if>> 내용</option>
             </select>
-            <label for="searchKrwd" class="skip">검색어 입력</label>
-            <input name="searchKrwd" id="searchKrwd" type="text" class="input_text" title="검색" placeholder="검색어 입력" value="" />
+            <label for="searchKeyword" class="skip">검색어 입력</label>
+            <input name="searchKeyword" id="searchKeyword" type="text" class="input_text" title="검색어 입력" placeholder="검색어 입력" value="${boardArticleVO.searchKeyword }" />
 			<input value="검색" type="submit" class="submit" />
             </fieldset>
         </form>

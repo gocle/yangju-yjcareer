@@ -173,12 +173,12 @@
 	        </if>
 	    </if>
 	
-	    <if test="searchKeyword != null and searchKeyword != ''">
+	    <!-- <if test="searchKeyword != null and searchKeyword != ''">
 	        AND (
 	            CA.BA_TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
 	            OR CA.BA_CONTENT_HTML LIKE CONCAT('%', #{searchKeyword}, '%')
 	        )
-	    </if>
+	    </if> -->
 	
 	    <if test="baCategory1 != null and baCategory1 != ''">
 	        AND CA.BA_CATEGORY1 = #{baCategory1}
