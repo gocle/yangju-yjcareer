@@ -9,6 +9,14 @@
 
 <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
 
+<style>
+.cke_notification,
+.cke_notification_warning,
+.cke_notification_message {
+  display: none !important;
+}
+</style>
+
 <script type="text/javascript">
 
 var comIntroEditor;
