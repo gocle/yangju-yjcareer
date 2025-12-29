@@ -388,5 +388,4 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setRegDt(String regDt) {
 		this.regDt = regDt;
 	}
-	
 }

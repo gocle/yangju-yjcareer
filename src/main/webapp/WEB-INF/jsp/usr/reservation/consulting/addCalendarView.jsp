@@ -161,82 +161,39 @@
 						<dd>수시·정시상담</dd>
 						<dd>면접컨설팅</dd>
 					</dl>
+					<c:if test="${not empty sessionScope.SESSION_DI_KEY}">
 					<div class="reservation_more">
-						<button class="reservation_more_btn" type="button">나의 예약현황</button>
+						<button class="reservation_more_btn" type="button" onclick="fnMyReservation();">나의 예약현황</button>
 					</div>
+					</c:if>
 				</div>
 				<div id="calendar"></div>
 			</div>        
 		</div>
 	</div>
+	
+     <form id="listForm" name="listForm" method="post">
+     	<input type="hidden" id="seqCd" name="seqCd" value="" />
+     </form>
      
     <script>
+	    function parseDate(dateStr) {
+	        const parts = dateStr.split('-');
+	        return new Date(parts[0], parts[1] - 1, parts[2]);
+		}
+    
 		$(function () {
 		  $('#calendar').evoCalendar({
 			  eventHeaderFormat: 'yyyy-MM-dd 예약현황',
-			  calendarEvents: [
-				{
-				  id: '1',
-				  name: '맞춤컨설팅',
-				  date: '2025-12-15',
-				  type: 'AA',
-				  color: '#4c65d9',
-				  description: `
-					<div class="date-time">14:00 ~ 15:00</div>
-					<div class="number">0/1</div>
-					<div class="event-btn-wrap">
-					  <button class="btn-apply" data-id="1">신청하기</button>
-					</div>
-				  `
-				},
-				{
-				  id: '2',
-				  name: '학습심리상담',
-				  date: '2025-12-15',
-				  type: 'AB',
-				  color: '#fd61a4',
-				  description: `
-					<div class="date-time">14:00 ~ 15:00</div>
-					<div class="number">0/1</div>
-					<div class="event-btn-wrap">
-					  <button class="btn-disable" data-id="1">신청불가</button>
-					</div>
-				  `
-				},
-				 {
-				  id: '3',
-				  name: '수시·정시상담',
-				  date: '2025-12-25',
-				  type: 'AC',
-				  color: '#29daaa',
-				  description: `
-					<div class="date-time">14:00 ~ 15:00</div>
-					<div class="number">0/1</div>
-					<div class="event-btn-wrap">
-					  <button class="btn-apply" data-id="1">신청하기</button>
-					</div>
-				  `
-				},
-				  {
-				  id: '4',
-				  name: '면접컨설팅',
-				  date: '2025-12-31',
-				  type: 'AD',
-				  color: '#f4bf00',
-				  description: `
-					<div class="date-time">14:00 ~ 15:00</div>
-					<div class="number">0/1</div>
-					<div class="event-btn-wrap">
-					  <button class="btn-apply" data-id="1">신청하기</button>
-					</div>
-				  `
-				}
-			  ]
-			  
+			  calendarEvents: []
 			});
 
 		  	const inst = $('#calendar')[0].evoCalendar;
 		  	
+		 	// 오늘 날짜 조회
+		    const today = new Date();
+			getConsulting(today.getFullYear(), today.getMonth() + 1);
+		    
 			markToday(inst);
 			updateTopDate(inst);
 			
@@ -268,6 +225,8 @@
 				
 				updateTopDate(inst);
 				markToday(inst);
+				
+				getConsulting(y, m+1);
 			}
 
 			  $('#prevMonth').on('click', function () {
@@ -281,7 +240,8 @@
 			  $('#calendar').on('click', '.btn-apply', function (e) {
 				e.stopPropagation();
 				const id = $(this).data('id');
-				alert('신청 클릭: ' + id);
+				//alert('신청 클릭: ' + id);
+				fnReservation(id);
 			  });
 			
 			
@@ -292,7 +252,7 @@
 		  const yyyy = today.getFullYear();
 		  const mm = String(today.getMonth() + 1).padStart(2, '0');
 		  const dd = String(today.getDate()).padStart(2, '0');
-
+		  
 		  const todayStr = `${mm}/${dd}/${yyyy}`;
 		  // ⚠️ EvoCalendar format: mm/dd/yyyy
 		 	
@@ -322,6 +282,92 @@
 		  
 		  //$('.top-date').text(`${year}년 ${month}월`);
 		  $('.top-date').text(String(year) + '년 ' + String(month) + '월');
+		}
+		
+		let currentEvents = []; // 기존 달력에 표시된 이벤트
+		
+		function getConsulting(year, month) {
+			$.ajax({
+			    url: '${contextRoot}/usr/reservation/selectConsultingList.do',
+			    type: 'GET',
+			    data: {
+		            year: year,
+		            month: month
+		        },
+			    success: function (result) {			    	
+			         const calendarEvents = [];
+			         
+			         result.forEach(function(item) {
+			                let eventColor;
+			                switch(item.CATE_CD) {
+			                    case 'AA': eventColor = '#4c65d9'; break;
+			                    case 'AB': eventColor = '#fd61a4'; break;
+			                    case 'AC': eventColor = '#29daaa'; break;
+			                    default: eventColor = '#f4bf00';
+			                }
+			                
+			                let startDate = parseDate(item.LEARN_START_DT);
+			                let endDate = parseDate(item.LEARN_END_DT);
+			                
+			                for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+			                    const y = d.getFullYear();
+			                    const m = String(d.getMonth() + 1).padStart(2, '0');
+			                    const day = String(d.getDate()).padStart(2, '0');
+			                    const dateStr = y+'-'+m+'-'+day;
+								
+			                    calendarEvents.push({
+			                        id: item.SEQ_CD + '_' + dateStr,
+			                        name: item.SUBJ_NM,
+			                        date: dateStr,
+			                        type: item.CATE_CD,
+			                        color: eventColor,
+			                        description: '<div class="date-time">' + item.START_TIME + ' ~ ' + item.END_TIME + '</div>'
+			                            + '<div class="number">' + item.ENROLL_CNT + '/' + item.CAPACITY + '</div>'
+			                            + '<div class="event-btn-wrap">'
+			                            + '<button class="btn-apply" data-id="' + item.SEQ_CD + '">신청하기</button>'
+			                            + '</div>'
+			                    });
+			                }
+			            });
+
+			            const inst = $('#calendar')[0].evoCalendar;
+
+			            // 기존 이벤트 제거
+			            if (currentEvents.length > 0) {
+			                currentEvents.forEach(id => inst.removeCalendarEvent(id));
+			            }
+
+			            // 새 이벤트 추가
+			            if (calendarEvents.length > 0) {
+			                $('#calendar').evoCalendar('addCalendarEvent', calendarEvents);
+			                currentEvents = calendarEvents.map(e => e.id); // ID 목록 갱신
+			            } else {
+			                currentEvents = [];
+			            }
+
+			            // 오늘 날짜 표시
+			            markToday(inst);
+			    }
+			});
+		}
+		
+		function fnReservation(id) {
+			if(!id){
+				alert('오류가 발생하였습니다.');
+			} else {
+				$("#seqCd").val(id);
+				let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do?seq_cd="+id;
+
+				$("#listForm").attr("action", reqUrl);
+			    $("#listForm").submit();
+			}
+		}
+		
+		function fnMyReservation() {
+			let reqUrl = "${contextRoot}/usr/mypage/myReservation.do";
+
+			$("#listForm").attr("action", reqUrl);
+		    $("#listForm").submit();
 		}
 	</script>
    

@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageDefaultVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
 import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.comm.file.service.FileService;
@@ -589,9 +590,23 @@ public class UserReservationController {
 	}
 	 
 	@RequestMapping("/consulting/addCalendarView.do")
-	public String consuliting(ModelMap model) throws Exception {
-			
+	public String consuliting(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
+		
 		return "/usr/reservation/consulting/addCalendarView";
+	}
+	
+	@RequestMapping("selectConsultingList.do")
+	@ResponseBody
+	public List<Map<String, Object>> getConsultingList(@ModelAttribute("searchVo") EnrollManageVo searchVo
+			, @RequestParam int year, @RequestParam int month) throws Exception {
+		// 1:1 상담
+		searchVo.setSearchSgrCd("A");
+		String ym = year + "-" + String.format("%02d", month); // 2025-12
+		searchVo.setSearchLearnDt(ym);
+		
+		List<Map<String, Object>> resultList = userReservationService.selectConsultingList(searchVo);
+
+		return resultList;
 	}
 	
 	@RequestMapping("/program/eduLctreNewList.do")
@@ -628,5 +643,39 @@ public class UserReservationController {
 		model.addAttribute("codeList", codeList);
 		
 		return "/usr/reservation/program/eduLctreNewList";
+	}
+	
+	@RequestMapping("eduLctreWebView.do")
+	public String eduLctreWebView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo, ModelMap model) throws Exception {
+		
+		SubjSeqManageVo resultMap = userReservationService.selectSubjSeqEduInfo(searchVo);
+		model.addAttribute("resultMap", resultMap);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
+		
+		return "/usr/reservation/eduLctreWebView";
+	}
+	
+	@RequestMapping("selectEduApplcntAgreView.do")
+	public String selectEduApplcntAgreView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo, ModelMap model) throws Exception {
+		model.addAttribute("searchVo", searchVo);
+		return "/usr/reservation/selectEduApplcntAgreView";
+	}
+	
+	@RequestMapping("addEduApplcntWebView.do")
+	public String addEduApplcntWebView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo, ModelMap model) throws Exception {
+		
+		SubjSeqManageVo resultMap = userReservationService.selectSubjSeqEduInfo(searchVo);
+		model.addAttribute("resultMap", resultMap);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
+		
+		return "/usr/reservation/addEduApplcntWebView";
 	}
 }

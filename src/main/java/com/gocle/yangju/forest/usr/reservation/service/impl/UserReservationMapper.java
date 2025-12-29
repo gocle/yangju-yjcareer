@@ -1,10 +1,12 @@
 package com.gocle.yangju.forest.usr.reservation.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
@@ -36,4 +38,8 @@ public interface UserReservationMapper {
 	int selectTotalCount(EnrollManageVo enrollManageVo) throws Exception;
 	
 	List<EnrollManageVo> selectList(EnrollManageVo enrollManageVo) throws Exception;
+	
+	List<Map<String, Object>> selectConsultingList(EnrollManageVo enrollManageVo) throws Exception;
+	
+	SubjSeqManageVo selectSubjSeqEduInfo(SubjSeqManageVo subjSeqManageVo) throws Exception;
 }

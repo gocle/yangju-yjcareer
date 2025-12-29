@@ -1,6 +1,7 @@
 package com.gocle.yangju.forest.usr.reservation.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gocle.yangju.forest.adm.banner.service.AdminBannerService;
 import com.gocle.yangju.forest.adm.banner.vo.BannerVO;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
@@ -96,5 +98,15 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 	@Override
 	public List<EnrollManageVo> selectList(EnrollManageVo enrollManageVo) throws Exception {
 		return userReservationMapper.selectList(enrollManageVo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectConsultingList(EnrollManageVo enrollManageVo) throws Exception {
+		return userReservationMapper.selectConsultingList(enrollManageVo);
+	}
+	
+	@Override
+	public SubjSeqManageVo selectSubjSeqEduInfo(SubjSeqManageVo subjSeqManageVo) throws Exception {
+		return userReservationMapper.selectSubjSeqEduInfo(subjSeqManageVo);
 	}
 }
