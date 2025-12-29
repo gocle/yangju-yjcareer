@@ -5,14 +5,13 @@
 <!DOCTYPE html>
 <html lang="ko">
 
-<!-- <head>
+<head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
 	<meta name="keywords" content="양주진로진학교육플랫폼" />
 	<meta name="description" content="양주시 양주진로진학교육플랫폼 홈페이지에 오신것을 환영합니다." />
 	<link rel="stylesheet" type="text/css" href="/yjcareer/assets/site/yjcareer/css/font.css" />
-	<link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/main.css">
 	<link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/sub.css">
 	<script src="/yjcareer/assets/site/yjcareer/js/jquery-1.12.4.min.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/plugins.js"></script>
@@ -21,8 +20,8 @@
 	<script src="/yjcareer/assets/site/yjcareer/js/sub.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/board.js"></script>
 	<title>양주진로진학교육플랫폼</title>
-</head> -->
-<head>
+</head>
+<!-- <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
@@ -35,7 +34,7 @@
 	<script src="/yjcareer/assets/site/yjcareer/js/common.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/main.js"></script>
 	<title>양주진로진학교육플랫폼</title>
-</head>
+</head> -->
 
 <body id="yjcareer">
 	<script type="text/JavaScript">
