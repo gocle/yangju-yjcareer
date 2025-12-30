@@ -9,14 +9,17 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections4.MapUtils;
 import org.apache.ibatis.annotations.Param;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -33,6 +36,7 @@ import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
 import com.gocle.yangju.forest.adm.code.vo.CodeVO;
+import com.gocle.yangju.forest.adm.login.vo.LoginVO;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.comm.file.vo.FileVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
@@ -660,8 +664,72 @@ public class UserReservationController {
 	}
 	
 	@RequestMapping("selectEduApplcntAgreView.do")
-	public String selectEduApplcntAgreView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo, ModelMap model) throws Exception {
+	public String selectEduApplcntAgreView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo
+			,@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo, ModelMap model, HttpServletRequest request) throws Exception {
 		model.addAttribute("searchVo", searchVo);
+		
+		boolean enrollIns = false;
+		String errCd = "";
+		
+		HttpSession session = request.getSession(true);
+		String di = (String) session.getAttribute("SESSION_DI_KEY");
+		enrollManageVo.setSessionMemSeq(di);
+		
+		Map<String, Object> valid = userReservationService.selectEnrollValidInfo(enrollManageVo);
+		
+		if(valid != null) {
+			// 수강신청 이력이 없는 경우
+			if("X".equals(valid.get("enrollStatusCd"))) {
+				// 중복 신청 가능한 경우
+				if(!("N".equals(valid.get("duplEnrollYn")) && MapUtils.getIntValue(valid, "subjEnrollCnt") > 0)) {
+					// 수강신청 기간인 경우
+					if("I".equals(valid.get("enrollDtStsCd"))) {
+						// 정원 check
+						if(MapUtils.getIntValue(valid, "capacity") > MapUtils.getIntValue(valid, "enrollCnt")) {
+						 	// 로그인 필요 
+							if(!StringUtils.hasText(enrollManageVo.getSessionMemSeq())) {
+								errCd = "91";
+							} else {
+								enrollIns = true;
+							}
+						} 
+						// 정원 초과
+						else {
+							// 대기자 초과
+							if(MapUtils.getIntValue(valid, "waitCnt") >= MapUtils.getIntValue(valid, "waitEnrollCnt")) {
+								errCd = "31";
+							} else {
+								enrollIns = true;
+							}
+						}
+					}
+					// 수강신청 기간 외
+					else {
+						if ("R".equals(valid.get("enrollDtStsCd"))) {
+	                        errCd = "11"; // 수강신청 예정
+	                    }
+	                    else {
+	                        errCd = "12"; // 수강신청 종료
+	                    }
+					}
+				}
+				// 중복 신청이 불가능한 경우
+				else {
+					errCd = "22";
+				}
+			} 
+			// 수강신청 이력 존재
+			else {
+				errCd = (String) valid.get("enrollStatusCd");
+			}	
+		}
+		// 과정 미존재(사용여부 N)
+		else {
+			errCd = "99";
+		}
+		model.addAttribute("errCd", errCd);
+		model.addAttribute("enrollIns", enrollIns);
+		
 		return "/usr/reservation/selectEduApplcntAgreView";
 	}
 	
@@ -672,10 +740,43 @@ public class UserReservationController {
 		model.addAttribute("resultMap", resultMap);
 		
 		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("RESDNC_DETAIL");
+		model.addAttribute("resdncList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("AGE_GROUP");
+		model.addAttribute("ageList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("GRADE");
+		model.addAttribute("gradeList", adminCodeService.selectCodeList(cvo));
 		cvo.setCodeGroup("EDU_TARGET");
 		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
 		model.addAttribute("codeList", codeList);
 		
 		return "/usr/reservation/addEduApplcntWebView";
+	}
+	
+	@ResponseBody
+	@RequestMapping("addWebEduApplcnt.do")
+	public String addWebEduApplcnt(@ModelAttribute("searchVo") SubjSeqManageVo searchVo
+			,@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo, ModelMap model, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession(true);
+		String di = (String) session.getAttribute("SESSION_DI_KEY");
+		enrollManageVo.setSessionMemSeq(di);
+	
+		userReservationService.insertEnroll(enrollManageVo);
+		
+		SubjSeqManageVo resultMap = userReservationService.selectSubjSeqEduInfo(searchVo);
+		model.addAttribute("resultMap", resultMap);
+		
+		return enrollManageVo.getErrCd();
+	}
+	
+	@RequestMapping("comptEduApplcntWebView.do")
+	public String comptEduApplcntWebView(@ModelAttribute("searchVo") SubjSeqManageVo searchVo
+			,@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo, ModelMap model) throws Exception {
+		
+		SubjSeqManageVo resultMap = userReservationService.selectSubjSeqEduInfo(searchVo);
+		model.addAttribute("resultMap", resultMap);
+		
+		return "/usr/reservation/comptEduApplcntWebView";
 	}
 }

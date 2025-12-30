@@ -23,7 +23,6 @@ function fnReservation(seqCd) {
 		$("#detailForm").submit();
 	}
 }
-
 </script>
 
 	<c:import url="/usr/menu/header.do" />
@@ -79,10 +78,10 @@ function fnReservation(seqCd) {
 						<a href="" class="breadcrumbs_anchor mobile">1:1 상담 프로그램 신청</a>
 						<button type="button" class="breadcrumbs_select" title="목록열기">1:1 상담 프로그램 신청</button>
 						<ul class="breadcrumbs_panel">
-									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" >진로진학 컨설팅 신청</a></li>
-									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4131"  target="_self" >진로 프로그램 신청</a></li>
-									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4132"  target="_self" >진학 프로그램 신청</a></li>
-									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4133"  target="_self" class="active">특별 교육 프로그램 신청</a></li>
+							<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" >진로진학 컨설팅 신청</a></li>
+							<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4131"  target="_self" >진로 프로그램 신청</a></li>
+							<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4132"  target="_self" >진학 프로그램 신청</a></li>
+							<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4133"  target="_self" class="active">특별 교육 프로그램 신청</a></li>
 						</ul>
 					</li>
 				
@@ -180,14 +179,23 @@ function fnReservation(seqCd) {
                     </header>
     
     <form id="detailForm" name="detailForm" method="post">
-		<input type="hidden" name="seqCd" id="seqCd" value="${resultMap.seqCd }" />
-	
+		<input type="hidden" name="seqCd" id="seqCd" value="${resultMap.seqCd}" />
+		<input type="hidden" name="subjCd" id="subjCd" value="${resultMap.subjCd}" />
+		<input type="hidden" name="sgrCd" id="sgrCd" value="${resultMap.sgrCd}" />
+		
 	<div id="contents" class="cts4133">
 	<div class="education_request">
 	<h3> 1:1 상담 프로그램 신청 기본정보</h3>  
 	<div class="education_viewtable">
 		<div class="titlebox">
-			<span class="state receiving">대기접수중</span>
+			<span class="state receiving">
+				<c:choose>
+					<c:when test="${resultMap.status eq 'be'}">접수예정</c:when>
+					<c:when test="${resultMap.status eq 'ing'}">접수진행중</c:when>
+					<c:when test="${resultMap.status eq 'end'}">접수마감</c:when>
+					<c:otherwise></c:otherwise>
+				</c:choose>
+			</span>
 			<span class="title">${resultMap.subjNm }</span>
 		</div>
 		<div class="conbox">
@@ -263,10 +271,17 @@ function fnReservation(seqCd) {
 	</div>
 	<div class="bbs_btn_wrap clearfix">
 		<div class="bbs_left">			
-			<a href="javascript:history.back();" class="btn type1">목록</a>
+			<a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do" class="btn type1">목록</a>
 		</div>
 		<div class="bbs_right">
-			<a href="#" onclick="fnReservation('${resultMap.seqCd}');" class="btn type2">수강신청</a>
+			<c:choose>
+				<c:when test="${resultMap.status eq 'ing'}">
+					<a href="#" onclick="fnReservation('${resultMap.seqCd}');" class="btn type2">수강신청</a>
+				</c:when>
+				<c:when test="${resultMap.status eq 'be'}"><span class="btn type4">접수예정</span></c:when>
+				<c:when test="${resultMap.status eq 'end'}"><span class="btn type4">접수마감</span></c:when>
+				<c:otherwise></c:otherwise>
+			</c:choose>
 		</div>
 	</div>
 </div>

@@ -79,6 +79,7 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
     
     private int enrollCnt;
     private String location;
+    private String status;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -385,5 +386,12 @@ public class SubjSeqManageVo extends SubjSeqManageDefaultVo {
 	}
 	public void setLocation(String location) {
 		this.location = location;
-	}	
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 }	

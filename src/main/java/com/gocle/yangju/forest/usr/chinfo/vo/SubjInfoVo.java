@@ -13,6 +13,8 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
     private String cateNm;
     // 과정코드
     private String subjCd;
+    // 운영과정코드
+    private String seqCd;
     // 교육강좌명
     private String subjNm;
     // 썸네일
@@ -111,6 +113,12 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
 	}
 	public void setEduTarget(String eduTarget) {
 		this.eduTarget = eduTarget;
+	}
+	public String getSeqCd() {
+		return seqCd;
+	}
+	public void setSeqCd(String seqCd) {
+		this.seqCd = seqCd;
 	}
 	
 	

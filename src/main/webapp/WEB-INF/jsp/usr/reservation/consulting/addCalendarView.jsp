@@ -309,6 +309,13 @@
 			                let startDate = parseDate(item.LEARN_START_DT);
 			                let endDate = parseDate(item.LEARN_END_DT);
 			                
+			                let applyBtnNm;
+			                switch(item.STATUS) {
+				                case 'disable': applyBtnNm = '신청불가'; break;
+			                    case 'apply': applyBtnNm = '신청하기'; break;
+			                    default: applyBtnNm = '신청불가';
+			                }
+			                
 			                for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
 			                    const y = d.getFullYear();
 			                    const m = String(d.getMonth() + 1).padStart(2, '0');
@@ -324,7 +331,7 @@
 			                        description: '<div class="date-time">' + item.START_TIME + ' ~ ' + item.END_TIME + '</div>'
 			                            + '<div class="number">' + item.ENROLL_CNT + '/' + item.CAPACITY + '</div>'
 			                            + '<div class="event-btn-wrap">'
-			                            + '<button class="btn-apply" data-id="' + item.SEQ_CD + '">신청하기</button>'
+			                            + '<button class="btn-'+ item.STATUS +'" data-id="' + item.SEQ_CD + '">'+applyBtnNm+'</button>'
 			                            + '</div>'
 			                    });
 			                }
@@ -340,7 +347,7 @@
 			            // 새 이벤트 추가
 			            if (calendarEvents.length > 0) {
 			                $('#calendar').evoCalendar('addCalendarEvent', calendarEvents);
-			                currentEvents = calendarEvents.map(e => e.id); // ID 목록 갱신
+			                currentEvents = calendarEvents.map(e => e.id);
 			            } else {
 			                currentEvents = [];
 			            }
@@ -356,8 +363,8 @@
 				alert('오류가 발생하였습니다.');
 			} else {
 				$("#seqCd").val(id);
-				let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do?seq_cd="+id;
-
+				let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
+				
 				$("#listForm").attr("action", reqUrl);
 			    $("#listForm").submit();
 			}

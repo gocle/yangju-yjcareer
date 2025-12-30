@@ -42,4 +42,10 @@ public interface UserReservationMapper {
 	List<Map<String, Object>> selectConsultingList(EnrollManageVo enrollManageVo) throws Exception;
 	
 	SubjSeqManageVo selectSubjSeqEduInfo(SubjSeqManageVo subjSeqManageVo) throws Exception;
+	
+	Map<String, Object> selectEnrollValidInfo(EnrollManageVo enrollManageVo) throws Exception;
+	
+	void insertEnroll(EnrollManageVo enrollManageVo) throws Exception;
+	
+	void insertEnrollHistory(EnrollManageVo enrollManageVo) throws Exception;
 }

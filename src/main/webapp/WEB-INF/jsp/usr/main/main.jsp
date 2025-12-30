@@ -140,7 +140,13 @@
 		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
 	}
 //]]>
-
+	
+	function fnDetailView(seqCd) {
+		$("#detailForm input[name=seqCd]").val(seqCd);
+		let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
+		$("#detailForm").attr("action", reqUrl);
+		$("#detailForm").submit();
+	}
 </script>
 	<!-- 레이어 팝업 시작 -->
 	<div id="divpopup1" class="main_popup" style="position:absolute; left:10rem; top:10rem; z-index:1001; visibility:visible;  width:500px; height:560px">
@@ -239,6 +245,10 @@
 					</div>
 				</div>
 				
+				<form id="detailForm" name="detailForm">
+					<input type="hidden" name="seqCd" id="seqCd" value="">
+				</form>
+				
 				<div class="rowgroup3">                
                    <div class="wrap">
 						<section class="program">
@@ -288,86 +298,13 @@
 											</div>
 											
 											<div class="counsel_list slider-list">
-												<!-- <div class="counsel_item item type_1">
-													<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/1.png" /></div>
-														<div class="item_txt">
-															<p class="staus ing">접수진행중</p>
-															<p class="program_title">[Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 2차 상담기간 운영 안내</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div>
-												<div class="counsel_item item type_2">
-													<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/2.png" /></div>
-														<div class="item_txt">
-															<p class="staus be">접수예정</p>
-															<p class="program_title">[진로진학컨설팅] 12.16.(화) 19시</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div>
-												<div class="counsel_item item type_3">
-													<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/3.png" /></div>
-														<div class="item_txt">
-															<p class="staus end">접수마감</p>
-															<p class="program_title">[Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 2차 상담기간 운영 안내</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div>
-												<div class="counsel_item item type_4">
-													<a href="#" class="program_anchor">
-													<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/4.png" /></div>
-														<div class="item_txt">
-															<p class="staus ing">접수진행중</p>
-															<p class="program_title">[진로진학컨설팅] 12.16.(화) 19시</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div>
-												<div class="counsel_item item type_2">
-													<a href="#" class="program_anchor">
-													<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/1.png" /></div>
-														<div class="item_txt">
-															<p class="staus ing">접수진행중</p>
-															<p class="program_title">[진로진학컨설팅] 12.16.(화) 19시</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div>
-												<div class="counsel_item item type_1">
-													<a href="#" class="program_anchor">
-													<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/2.png" /></div>
-														<div class="item_txt">
-															<p class="staus ing">접수진행중</p>
-															<p class="program_title">[진로진학컨설팅] 12.16.(화) 19시</p>
-															<p class="program_date">
-																<span>접수기간</span>25.11.20~25.12.17
-															</p>
-														</div>
-													</a>
-												</div> -->
-												
 												<c:forEach var="row" items="${subjManageListA}" varStatus="i">
 													<c:if test="${i.index > 0 && (i.index % 4) == 0}">
 														<c:set var="pageCnt" value="${pageCnt + 1}" />
 													</c:if>
 												
 													<div class="counsel_item item type_${row.cateCd}">
-														<a href="#" class="program_anchor">
+														<a href="#" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 														<div class="item_img">
 															<c:if test="${empty row.thumbpath}">
 																<img src="/yjcareer/assets/DATA/popupZone/2.png" />
@@ -427,67 +364,6 @@
 												</div>
 												
 												<div class="program_list slider-list">
-													<!-- <div class="program_item item p_type_1">
-														<a href="#" class="program_anchor">
-															<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/5.png" /></div>
-															<div class="item_txt">
-																<p class="staus ing">접수진행중</p>
-																<p class="program_title">[12월 학부모아카데미]겨울방학 대비 내 자녀 진로와 학습설계</p>
-																<p class="program_date">
-																	<span>접수기간</span>25.11.20~25.12.17
-																</p>
-															</div>
-														</a>
-													</div>
-													<div class="program_item item p_type_2">
-														<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/6.png" /></div>
-															<div class="item_txt">
-																<p class="staus end">접수마감</p>
-																<p class="program_title">(입시전문가와 함께 하는)학부모 입시 교육1</p>
-																<p class="program_date">
-																	<span>접수기간</span>25.11.20~25.12.17
-																</p>
-															</div>
-														</a>
-													</div>
-													<div class="program_item item p_type_3">
-														<a href="#" class="program_anchor">
-															<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/6.png" /></div>
-															<div class="item_txt">
-																<p class="staus be">접수예정</p>
-																<p class="program_title">[12월 학부모아카데미]겨울방학 대비 내 자녀 진로와 학습설계</p>
-																<p class="program_date">
-																	<span>접수기간</span>25.11.20~25.12.17
-																</p>
-															</div>
-														</a>
-													</div>
-													<div class="program_item item p_type_4">
-														<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/7.png" /></div>
-															<div class="item_txt">
-																<p class="staus ing">접수진행중</p>
-																<p class="program_title">(입시전문가와 함께 하는)학부모 입시 교육</p>
-																<p class="program_date">
-																	<span>접수기간</span>25.11.20~25.12.17
-																</p>
-															</div>
-														</a>
-													</div>
-													<div class="program_item item p_type_1">
-														<a href="#" class="program_anchor">
-														<div class="item_img"><img src="/yjcareer/assets/DATA/popupZone/8.png" /></div>
-															<div class="item_txt">
-																<p class="staus ing">접수진행중</p>
-																<p class="program_title">(입시전문가와 함께 하는)학부모 입시 교육</p>
-																<p class="program_date">
-																	<span>접수기간</span>25.11.20~25.12.17
-																</p>
-															</div>
-														</a>
-													</div> -->
-													
 													<c:forEach var="row" items="${subjManageListB}" varStatus="i">
 														<c:if test="${i.index > 0 && (i.index % 4) == 0}">
 															<c:set var="pageCnt" value="${pageCnt + 1}" />
@@ -495,7 +371,7 @@
 												
 														<div class="program_item item p_type_${row.cateCd eq 'BC' ? 'BB' : 
 																	(row.cateCd eq 'BE') ? 'BD' : row.cateCd}">
-															<a href="#" class="program_anchor">
+															<a href="#" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 																<div class="item_img">
 																	<c:if test="${empty row.thumbpath}">
 																		<img src="/yjcareer/assets/DATA/popupZone/8.png" />

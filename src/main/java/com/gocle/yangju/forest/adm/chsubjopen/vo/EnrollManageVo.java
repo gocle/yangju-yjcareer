@@ -88,6 +88,8 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String eduTarget;
     private String regDt;
     
+    private String errCd;
+    
 	public String getSgrCd() {
 		return sgrCd;
 	}
@@ -388,4 +390,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setRegDt(String regDt) {
 		this.regDt = regDt;
 	}
+	public String getErrCd() {
+		return errCd;
+	}
+	public void setErrCd(String errCd) {
+		this.errCd = errCd;
+	}
+	
 }

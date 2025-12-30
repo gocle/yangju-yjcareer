@@ -2,70 +2,16 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/usr/layout/top.do" />
-
+	
 <link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/sub.css">
-<link rel="stylesheet" href="/yjcareer/assets/site/yjcareer/css/evo-calendar.css">
 <script src="/yjcareer/assets/site/yjcareer/js/program.min.js"></script>
 <script src="/yjcareer/assets/site/yjcareer/js/sub.js"></script>
 <script src="/yjcareer/assets/common/js/board.js"></script>
 
-
-<script type="text/javascript">
-$(document).ready(function() {
-	var enrollIns = ${enrollIns};
-	if(!enrollIns) {
-		notiAlert();
-	}
-});
-
-function notiAlert() {
-	var msg = "수강신청을 진행 할 수 없습니다.";
-	
-	if("${errCd}" == "11"){
-		msg += "\n수강신청 시작일 전 입니다.";
-		msg += "\n수강신청기간 : ${resultMap.enrollStartDt} ~ ${resultMap.enrollEndDt}";
-	}else if("${errCd}" == "12"){
-		msg += "\n수강신청 기간이 종료되었습니다.";
-		msg += "\n수강신청기간 : ${resultMap.enrollStartDt} ~ ${resultMap.enrollEndDt}";
-	} else if("${errCd}" == "31"){
-		msg += "\n해당 과정의 수강신청이 마감되었습니다.";
-	} else if("${errCd}" == "22"){
-		msg += "\n중복신청이 불가능한 과정입니다.";
-	} else if("${errCd}" == "A" || "${errCd}" == "B" || "${errCd}" == "C" || "${errCd}" == "Z" ){
-		msg += "\n이미 수강 신청한 과정입니다.";
-		
-		var cdNm = "";
-		
-		if("${errCd}" == "A"){
-			cdNm = "승인대기";
-		} else if("${errCd}" == "B"){
-			cdNm = "수강승인";
-		} else if("${errCd}" == "C"){
-			cdNm = "승인취소";
-		} else if("${errCd}" == "D"){
-			cdNm = "신청취소";
-		} else if("${errCd}" == "E"){
-			cdNm = "취소완료";
-		} else {
-			cdNm = "알수 없는 상태";
-		}
-		msg += "\n현재 수강 상태 : " + cdNm;
-	} else if("${errCd}" == "99"){
-		msg += "해당 과정이 삭제되었거나 존재하지 않은 과정입니다.";
-	} else if("${errCd}" == "91"){
-		msg += "수강신청은 로그인 후 이용 가능합니다.";
-	} else {
-		msg += "시스템 장애가 발생하였습니다.\n잠시 후에 다시 시도하세요.";
-	}
-	
-	alert(msg);
-	window.location.href = history.back();
-}
+<script>
 </script>
-
 
 <c:import url="/usr/menu/header.do" />
 
@@ -86,9 +32,6 @@ function notiAlert() {
                         
                         <div class="sub_head_wrap">
                             
-
-
-
 <div class="breadcrumbs">
 	<a href="./index.do" class="home">홈</a>
 	<ol class="breadcrumbs_list">
@@ -116,13 +59,7 @@ function notiAlert() {
 									<li class="tab_item"><a href="/yjcareer/selectEduLctreWebList.do?key=4130"  target="_self" class="active">프로그램 신청</a>	</li>
 						</ul>
 					</li>
-				
-				
-				
-				
-				
 
-				
 					<li class="breadcrumbs_item">
 						<a href="" class="breadcrumbs_anchor mobile">특별 교육 프로그램 신청</a>
 						<button type="button" class="breadcrumbs_select" title="목록열기">특별 교육 프로그램 신청</button>
@@ -229,162 +166,53 @@ function notiAlert() {
                     
                     
                     <div id="contents" class="cts4133">
-						<div class="agreecontent">
-	<form name="agreeForm" id="agreeForm" method="post" action="addEduApplcntWebView.do" onsubmit="return agreeSubmit(this)">
-	<input type="hidden" name="seqCd" value="${searchVo.seqCd}"/>
-	<input type="hidden" name="subjCd" value="${searchVo.subjCd}"/>
-	<input type="hidden" name="sgrCd" value="${searchVo.sgrCd}"/>
-	<input type="hidden" name="pageUnit" value="10"/>
-	<input type="hidden" name="searchCnd" value="all"/>
-	<input type="hidden" name="searchKrwd" value=""/>
-	<input type="hidden" name="pageIndex" value="1"/>
-
-		<fieldset>
-			<legend>개인정보수집동의</legend>
-			<div class="stepbox">
-				<ol>
-					<li class="active">
-						<div class="roundbox">
-							<div class="tablebox">
-								<div class="cellbox">
-									<span class="step">STEP 01</span>
-									<p>개인정보수집동의</p>
-								</div>
-							</div>
+						<div class="request_complete">
+	<div class="stepbox">
+		<ol>
+			<li>
+				<div class="roundbox">
+					<div class="tablebox">
+						<div class="cellbox">
+							<span class="step">STEP 01</span>
+							<p>개인정보수집동의</p>
 						</div>
-					</li>
-					<li>
-						<div class="roundbox">
-							<div class="tablebox">
-								<div class="cellbox">
-									<span class="step">STEP 02</span>
-									<p>교육생 정보입력</p>
-								</div>
-							</div>
+					</div>
+				</div>
+			</li>
+			<li>
+				<div class="roundbox">
+					<div class="tablebox">
+						<div class="cellbox">
+							<span class="step">STEP 02</span>
+							<p>교육생 정보입력</p>
 						</div>
-					</li>
-					<li>
-						<div class="roundbox">
-							<div class="tablebox">
-								<div class="cellbox">
-									<span class="step">STEP 03</span>
-									<p>교육신청완료</p>
-								</div>
-							</div>
+					</div>
+				</div>
+			</li>
+			<li class="active">
+				<div class="roundbox">
+					<div class="tablebox">
+						<div class="cellbox">
+							<span class="step">STEP 03</span>
+							<p>교육신청완료</p>
 						</div>
-					</li>
-				</ol>
-			</div>
-			<div class="temp_box">
-				<div class="box_wrap">
-					<p>홈페이지 이용과 관련하여 「개인정보보호법」제15조(개인정보의 수집ㆍ이용) 및 제 22조에 따라 귀하의 개인정보를 <br />아래와 같이 수집 및 이용하고자 합니다.</p>
+					</div>
 				</div>
-			</div>
-			<h4>개인정보 수집ㆍ이용 내역 (필수사항)</h4>
-			<table class="table responsive">
-				<caption>
-					개인정보 수집ㆍ이용 내역 (필수사항) - 수집ㆍ이용 항목, 수집ㆍ이용 목적, 보유기간
-				</caption>
-				<thead>
-				<tr>
-					<th scope="col">수집 ㆍ이용하려는 개인정보의 항목</th>
-					<th scope="col">개인정보의 수집ㆍ이용 목적</th>
-					<th scope="col">개인정보 이용 및 보유기간</th>
-				</tr>
-				</thead>
-				<tbody class="text_center">
-				<tr>
-					<td style="font-weight:600">성명, 성별, 핸드폰, 주소, 수업참여 사진</td>
-					<td>
-						<ul class="bu">
-							<li>교육과정 각종 안내 및 협의에 관한 사항</li>
-							<li>만족도조사 및 설문조사를 위한 정보제공</li>
-							<li>통계자료</li>
-							<li>대면/비대면 교육운영 확인 및 수강생 출결확인</li>
-							
-						</ul>
-					</td>
-					<td style="font-weight:600">2년</td>
-				</tr>
-				</tbody>
-			</table>
-			<p class="point margin_t_15">귀하께서는 개인정보 제공 및 활용에 거부할 권리가 있습니다.<br />거부에 따른 불이익 : 위 제공사항은 프로그램 진행을 위해 필요한 사항으로 거부하실 경우 원활한 사업추진에 어려움이 있을 수 있습니다.</p>
-			<div class="linebox agreebox">
-				<p>위와 같이 개인정보를 수집ㆍ이용하는데 동의하십니까?</p>
-				<div class="input_area">
-					<span class="temp_checkbox">
-						<input type="radio" name="agree_check01" id="agree_check011" value="1" title="예" checked="checked" />
-						<label for="agree_check011">예</label>
-					</span>
-					<span class="temp_checkbox">
-						<input type="radio" name="agree_check01" id="agree_check012" value="0" title="아니오" />
-						<label for="agree_check012">아니오</label>
-					</span>
-				</div>
-			</div>
-			<h4>선택적 개인정보 수집ㆍ이용내역(동의거부 가능)</h4>
-			<table class="table responsive">
-				<caption>
-					선택적 개인정보 수집ㆍ이용내역(동의거부 가능) - 수집ㆍ이용 항목, 수집ㆍ이용 목적, 보유기간
-				</caption>
-				<thead>
-				<tr>
-					<th scope="col">수집 ㆍ이용하려는 개인정보의 항목</th>
-					<th scope="col">개인정보의 수집ㆍ이용 목적</th>
-					<th scope="col">개인정보 이용 및 보유기간</th>
-				</tr>
-				</thead>
-				<tbody class="text_center">
-				<tr>
-					<td style="font-weight:600">전화번호, 이메일</td>
-					<td>
-						<ul class="bu">
-							<li>교육과정 각종 안내 및 협의에 관한 사항</li>
-							<li>만족도조사 및 설문조사를 위한 정보제공</li>
-						</ul>
-					</td>
-					<td style="font-weight:600">2년</td>
-				</tr>
-				</tbody>
-			</table>
-			<p class="point margin_t_15">귀하께서는 개인정보 제공 및 활용에 거부할 권리가 있습니다.<br />거부에 따른 불이익 : 위 제공사항은 프로그램 진행을 위해 필요한 사항으로 거부하실 경우 원활한 사업추진에 어려움이 있을 수 있습니다.</p>
-			<div class="linebox agreebox">
-				<p>위와 같이 개인정보를 수집ㆍ이용하는데 동의하십니까?</p>
-				<div class="input_area">
-					<span class="temp_checkbox">
-						<input type="radio" name="agree_check02" id="agree_check021" value="1" title="예" checked="checked" />
-						<label for="agree_check021">예</label>
-					</span>
-					<span class="temp_checkbox">
-						<input type="radio" name="agree_check02" id="agree_check022" value="0" title="아니오" />
-						<label for="agree_check022">아니오</label>
-					</span>
-				</div>
-			</div>
-			<div class="bbs_btn_wrap clearfix">
-				<div class="bbs_left">
-					<a href="javascript:history.back();" class="btn link2 reverse list">뒤로가기</a>
-				</div>
-				<div class="bbs_right">
-					<input type="submit" class="btn type2" value="확인" />
-				</div>
-			</div>
-		</fieldset>
-	</form>
+			</li>
+		</ol>
+	</div>
+	<div class="complete_box">
+		<div class="title">귀하께서 신청하신 ${resultMap.subjNm } 교육이 <em>정상적으로 접수</em>되었습니다.</div>
+		<ul class="bu">
+			<li>수강신청이 승인되면 SMS수신여부 동의 시 별도 안내 예정입니다.</li>
+		</ul>
+		<p><em class="em_red">※ 예약 신청결과 및 취소는 "나의예약" 에서 확인하실 수 있습니다.</em></p>
+	</div>
+	<div class="buttonbox">
+		<a href="${contextRoot}/usr/mypage/myReservation.do" class="btn type6">나의예약조회</a>
+		<a href="#" class="btn type7">확인</a>
+	</div>
 </div>
-
-<script> 
-//<![CDATA[
-	function agreeSubmit(form){
-		if(form.agree_check011.checked != true){
-			alert('개인정보 수집 및 이용에 동의를 하셔야 수강신청을 할 수 있습니다.');
-			return false;
-		}
-
-		return true;
-	}
-//]]>
-</script>
                     </div>
                 </article>
             </main>
@@ -392,6 +220,56 @@ function notiAlert() {
         </div>
     </div>
 
+	<script type="text/javascript">
+	//<![CDATA[
+		window.onload = function() {
+			counter_reset();
+		}
 
+		var tid;
+		var cnt = parseInt(1800);//초기값(초단위)
+		function counter_init() {
+			tid = setInterval("counter_run()", 1000);
+		}
+
+		function counter_reset() {
+			clearInterval(tid);
+			cnt = parseInt(1800);
+			counter_init();
+		}
+
+		function counter_run() {
+			//document.getElementById("counter").innerText = time_format(cnt);
+
+			cnt--;
+			if(cnt < 0) {
+				clearInterval(tid);
+				alert("안전한 홈페이지 이용을 위해 30분 동안 \n홈페이지 미이용 상태였으므로 자동 로그아웃 됩니다.");
+				top.location = "/logout.do?siteId=yjcareer";
+			}
+		}
+		
+		function time_format(s) {
+			var nHour=0;
+			var nMin=0;
+			var nSec=0;
+			if(s>0) {
+				nMin = parseInt(s/60);
+				nSec = s%60;
+
+				if(nMin>60) {
+					nHour = parseInt(nMin/60);
+					nMin = nMin%60;
+				}
+			} 
+			if(nSec<10) nSec = "0"+nSec;
+			if(nMin<10) nMin = "0"+nMin;
+			
+			return ""+nMin+":"+nSec;
+		}
+
+		counter_init();
+	//]]>
+	</script>
 
 <c:import url="/usr/layout/footer.do" />

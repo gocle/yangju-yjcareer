@@ -86,7 +86,7 @@ function fnEnrollDetailList(seqCd) {
 				<select id="searchCateCd" name="searchCateCd" value="${searchVo.searchCateCd}" class="wid15">
 	            	<option value="">분류 선택</option>
 	            </select>
-	            <input type="text" style="width:300px" value="${searchVo.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
+	            <input type="text" style="width:300px" value="${searchVo.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="100" placeholder="검색어 입력" />
 	         </li>
 	         <li class="search-btn">
 				<button type="button" onclick="fn_search('1');">

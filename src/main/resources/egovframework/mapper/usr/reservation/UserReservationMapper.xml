@@ -358,6 +358,13 @@
     		  , DATE_FORMAT(SS.LEARN_END_DT, '%H:%i') AS END_TIME 
 			  , SS.CAPACITY
 			  , (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B') AS ENROLL_CNT
+			  , CASE WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT
+				        AND (SS.CAPACITY > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			            	OR (SS.CAPACITY <![CDATA[ <= ]]> (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			                	AND SS.WAIT_ENROLL_CNT > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A'))
+        					) THEN 'apply'
+    			ELSE 'disable'
+				END AS STATUS
 		FROM TB_SUBJ_SEQ SS
 		INNER JOIN TB_SUBJ S
 			ON SS.SGR_CD = S.SGR_CD 
@@ -365,10 +372,12 @@
 		WHERE 1 = 1
 			AND SS.USE_YN = 'Y'
 		<include refid="selectSearchWhere" />
+		ORDER BY SS.SUBJ_NM
 	</select>
 	
 	<select id="selectSubjSeqEduInfo" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">
 		SELECT ss.seq_cd
+			, ss.subj_cd
 			, ss.sgr_cd
 			, sg.sgr_nm
 			, ss.subj_nm
@@ -388,6 +397,10 @@
 			, ss.subj_desc
 			, s.dupl_enroll_yn
 			, cl.location
+			, CASE WHEN NOW() BETWEEN ss.enroll_start_dt AND ss.enroll_end_dt THEN 'ing'
+			  		WHEN NOW() <![CDATA[ < ]]> ss.enroll_start_dt THEN 'be'
+			  		ELSE 'end'
+			  	END AS status
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
 			ON s.sgr_cd = ss.sgr_cd
@@ -406,4 +419,166 @@
 			AND ss.seq_cd = #{seqCd}
 	</select>
 	
+	<select id="selectEnrollValidInfo">
+		SELECT ss.capacity
+			, ss.wait_enroll_cnt AS waitEnrollCnt
+			, IFNULL(s.dupl_enroll_yn, 'N') AS duplEnrollYn
+			, IFNULL((
+		        SELECT IFNULL(e.enroll_status_cd, 'Z') 		/* 등록되었으나 상태값이 없는 경우 : Z */
+		        FROM TB_ENROLL e
+		        WHERE e.seq_cd = #{seqCd}
+		        	AND e.mem_seq = #{sessionMemSeq}
+		     ), 'X') AS enrollStatusCd 						/* 수강신청한 이력이 없는 경우 : X */
+		    , (SELECT COUNT(e.seq_cd)
+		        FROM TB_ENROLL e
+		        WHERE e.seq_cd = #{seqCd}
+		        AND  e.enroll_status_cd = 'A'
+		     ) AS waitCnt 									/* 총 승인대기자 수 */
+		    , (SELECT COUNT(e.seq_cd)
+		        FROM TB_ENROLL e
+		        WHERE e.seq_cd = #{seqCd}
+		        AND  e.enroll_status_cd = 'B'
+		     ) AS enrollCnt 								/* 총 수강승인자 수 */
+		    , CASE
+		        WHEN ss.enroll_start_dt > NOW() THEN 'R' 	/* 대기 */
+		        WHEN NOW() > ss.enroll_end_dt THEN 'E' 		/* 종료 */
+		        ELSE 'I' 									/* 진행중 */
+		     END AS enrollDtStsCd
+		     ,(SELECT COUNT(*) 
+			   FROM TB_SUBJ_SEQ tss
+			   WHERE tss.sgr_cd = s.sgr_cd
+			   	 AND tss.subj_cd = s.subj_cd
+			     AND tss.seq_cd != ss.seq_cd
+			     AND tss.use_yn = 'Y'
+			     AND EXISTS (
+			         SELECT 1 
+			         FROM TB_ENROLL e 
+			         WHERE e.seq_cd = tss.seq_cd
+			     )) AS subjEnrollCnt						/* 같은 마스터의 운영과정 신청개수 */
+		FROM TB_SUBJ_SEQ ss
+		INNER JOIN TB_SUBJ s 
+			ON ss.sgr_cd = s.sgr_cd AND ss.subj_cd = s.subj_cd
+		WHERE ss.seq_cd = #{seqCd}
+			AND ss.use_yn = 'Y'
+	</select>
+	
+	<insert id="insertEnroll">
+		INSERT 
+		INTO TB_ENROLL (
+			 seq_cd
+			, mem_seq
+			, mem_name
+			, enroll_status_cd
+			, sms_yn
+			, age_group
+			, grade
+			, school_nm
+			, sexdstn
+			, address
+			, zipcode
+			, memo
+			, hp_tel1
+			, hp_tel2
+			, hp_tel3
+			, resdnc_detail
+			, reg_id
+			, reg_ip
+			, reg_dt
+			<if test="enrollStatusCd != null and enrollStatusCd != '' ">
+				<if test='enrollStatusCd == "B" '>
+				, enroll_app_id
+				, enroll_app_ip
+				, enroll_app_dt
+				</if>
+			</if>		
+		) VALUES (
+			 #{seqCd}
+			, #{sessionMemSeq}
+			, (SELECT MEM_NAME FROM TB_USER WHERE MEM_SEQ = #{sessionMemSeq})
+			, #{enrollStatusCd}
+			, IFNULL(#{smsYn}, 'N')
+			, #{ageGroup}
+			, #{grade}
+			, #{schoolNm}
+			, #{sexdstn}
+			, #{address}
+			, #{zipcode}
+			, #{memo}
+			, #{hpTel1}
+			, #{hpTel2}
+			, #{hpTel3}
+			, #{resdncDetail}
+			, #{sessionMemSeq}
+			, #{sessionIp}
+			, NOW()
+			<if test="enrollStatusCd != null and enrollStatusCd != '' ">
+				<if test='enrollStatusCd == "B" '>
+				, #{sessionMemSeq}
+				, #{sessionIp}
+				, NOW()
+				</if>
+			</if>
+		)
+	</insert>
+	
+	<insert id="insertEnrollHistory">
+		INSERT INTO TB_ENROLL_HIST
+		(	
+			seqno
+		  , seq_cd
+		  , mem_seq
+		  , mem_name
+		  , age_group
+		  , grade
+		  , school_nm
+		  , sexdstn
+		  , address
+		  , zipcode
+		  , memo
+		  , hp_tel1
+		  , hp_tel2
+		  , hp_tel3
+		  , resdnc_detail
+		  , enroll_status_cd
+		  , sms_yn
+		  , force_yn
+		  , reg_id
+		  , reg_ip
+		  , reg_dt
+	 	  , connection_type
+	 	  , enroll_app_id
+	 	  , enroll_app_ip
+	 	  , enroll_app_dt
+	 	  , cancel_req_dt
+		) SELECT
+		   (SELECT IFNULL(MAX(seqno), 0) + 1 FROM TB_ENROLL_HIST) AS seqno
+		  , seq_cd
+		  , mem_seq
+		  , mem_name
+		  , age_group
+		  , grade
+		  , school_nm
+		  , sexdstn
+		  , address
+		  , zipcode
+		  , memo
+		  , hp_tel1
+		  , hp_tel2
+		  , hp_tel3
+		  , resdnc_detail
+		  , enroll_status_cd
+		  , sms_yn
+		  , force_yn
+		  , #{sessionMemSeq}
+		  , #{sessionIp}
+		  , NOW()
+	 	  , #{connectionType} AS connection_type
+	 	  , enroll_app_id
+	 	  , enroll_app_ip
+	 	  , enroll_app_dt
+	 	  , cancel_req_dt
+		FROM TB_ENROLL
+		WHERE SEQ_CD = #{seqCd}
+		AND MEM_SEQ = #{sessionMemSeq}
+	</insert>
 </mapper>
