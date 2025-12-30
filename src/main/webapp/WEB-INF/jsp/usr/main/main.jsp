@@ -432,7 +432,7 @@
 										<label for="notice_tab2">자료실</label>
 									</div>
 									<div class="notice_more">
-										<a href="/yjcareer/selectBbsNttList.do?bbsNo=530&amp;key=4145" class="notice_more_btn"><span>더보기</span> </a>
+										<a href="/yjcareer/usr/bbs/notice/list.do?menuId=2025MENU0000262" class="notice_more_btn"><span>더보기</span> </a>
 									</div>
 								</div>
 								

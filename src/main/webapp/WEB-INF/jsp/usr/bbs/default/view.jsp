@@ -8,6 +8,12 @@
   
      <script type="text/javascript">
      
+     //파일 다운로드
+     function fn_egov_downFile(atchFileIdx){
+
+    		window.open("${contextRoot}/board/FileDown.do?atchFileIdx="+atchFileIdx);
+    	}
+     
      //이전 글
      function fn_prev( preNo , menuId ){
      	
@@ -212,7 +218,7 @@
 					<td>
 						<ul class="view_attach">
 					
-						<li>
+<!-- 						<li>
 							<div class="down_view">
 									
 								<span><img src="/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />강남인강 신청방법.jpg</span>
@@ -236,7 +242,24 @@
 								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
 							
 							</div>
+						</li> -->
+						
+						<c:forEach var="fileVO" items="${fileList}" varStatus="status">
+						
+						<li>
+							<div class="down_view">
+									
+								<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${fileVO.orgFileName}" /></span>
+							
+								<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
+							
+							
+								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
+							
+							</div>
 						</li>
+						
+						</c:forEach>
 					
 						</ul>
 					</td>					

@@ -257,7 +257,7 @@ function fn_validatorBbsNtt( frm ) {
 					<li>
 						<div class="attach_file">
 							<label for="atchmnfl_0" class="file_label">첨부파일_0</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_0" class="file" /></span>
+							<span class="file_input"><input type="file" name="file_atchFileId" id="file_atchFileId1" class="file" /></span>
 								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_0" value="0" /> <label for="bdtInsrtAt_0"><span class="skip">0번 첨부파일</span>본문삽입</label></span>
 						</div>
 						<div class="attach_alt">
@@ -268,7 +268,7 @@ function fn_validatorBbsNtt( frm ) {
 					<li>
 						<div class="attach_file">
 							<label for="atchmnfl_1" class="file_label">첨부파일_1</label>
-							<span class="file_input"><input type="file" name="atchmnfl" id="atchmnfl_1" class="file" /></span>
+							<span class="file_input"><input type="file" name="file_atchFileId" id="file_atchFileId2" class="file" /></span>
 								<span class="content_in"><input type="checkbox" name="bdtInsrtAt" id="bdtInsrtAt_1" value="1" /> <label for="bdtInsrtAt_1"><span class="skip">1번 첨부파일</span>본문삽입</label></span>
 						</div>
 						<div class="attach_alt">
@@ -293,7 +293,7 @@ function fn_validatorBbsNtt( frm ) {
 	<div class="bbs_btn_wrap clearfix">
         <div class="bbs_center">
 			<input type="submit" value="글등록" class="bbs_btn write">
-            <a href="/yjcareer/usr/bbs/review/list.do" class="bbs_btn"><i class="icon"></i><span>목록</span></a>
+            <a href="/yjcareer/usr/bbs/review/list.do?menuId=${menuId }" class="bbs_btn"><i class="icon"></i><span>목록</span></a>
         </div>
     </div>
 

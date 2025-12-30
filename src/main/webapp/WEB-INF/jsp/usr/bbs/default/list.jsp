@@ -229,7 +229,7 @@ function fn_recovryBbsNtt( url ) {
 	        <div class="bbs_left">
 	        </div>
 	        <div class="bbs_right">
-							<a href="/yjcareer/usr/bbs/review/form.do" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
+							<a href="/yjcareer/usr/bbs/review/form.do?menuId=${menuId }" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
 	        </div>
 	    </div>
     </c:if>
