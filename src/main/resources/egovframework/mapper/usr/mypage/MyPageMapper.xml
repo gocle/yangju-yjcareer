@@ -2,136 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gocle.yangju.forest.usr.mypage.service.impl.MyPageMapper">
 
-	<resultMap id="resvResultMap" type="UserReservationVO">
-	    <id column="RESV_ID" property="resvId"/>
-	    <result column="PG_ID" property="pgId"/>
-	    <result column="PG_TYPE" property="pgType"/>
-	    <result column="DI_KEY" property="diKey"/>
-	    <result column="NAME" property="name"/>
-	    <result column="PHONE" property="phone" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
-	    <result column="EMAIL" property="email" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
-	    <result column="AGE" property="age"/>
-	    <result column="GENDER" property="gender"/>
-	    <result column="PARENT_NAME" property="parentName"/>
-	    <result column="PARENT_PHONE" property="parentPhone" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
-	    <result column="GROUP_YN" property="groupYn"/>
-	    <result column="GROUP_NAME" property="groupName"/>
-	    <result column="GROUP_TYPE" property="groupType"/>
-	    <result column="PEOPLE_CNT" property="peopleCnt"/>
-	    <result column="APPLY_DATE" property="applyDate"/>
-	    <result column="CAR_NUM" property="carNum" typeHandler="com.gocle.yangju.forest.comm.util.AESTypeHandler"/>
-	    <result column="PRODUCT_ID" property="productId"/>
-	    <result column="OPTION_NAME" property="optionName"/>
-	    <result column="STATUS" property="status"/>
-	    <result column="NOTE" property="note"/>
-	    <result column="ATTEND_YN" property="attendYn"/>
-	    <result column="REG_DT" property="regDt"/>
-	    <result column="REG_ID" property="regId"/>
-	    <result column="SLOT_ID" property="slotId"/>
-	    <result column="SLOT_NO" property="slotNo"/>
-	    <result column="SLOT_DATE" property="slotDate"/>
-	    <result column="START_TIME" property="startTime"/>
-	    <result column="END_TIME" property="endTime"/>
-	</resultMap>
-	
-	<select id="myReservationList" resultMap="resvResultMap">
-		<include refid="kr.co.gocle.include.paging-start" />
-			SELECT
-				CR.RESV_ID,
-				CR.PG_ID,
-				CR.PG_TYPE,
-				CR.DI_KEY,
-				CR.NAME,
-				CR.PHONE,
-				CR.EMAIL,
-				CR.AGE,
-				CR.GENDER,
-				CR.PARENT_NAME,
-				CR.PARENT_PHONE,
-				CR.GROUP_YN,
-				CR.GROUP_NAME,
-				CR.GROUP_TYPE,
-		        CR.PEOPLE_CNT,
-		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
-		        CR.CAR_NUM,
-		        CR.PRODUCT_ID,
-			    CR.OPTION_NAME,
-		        CR.STATUS,
-				CR.REG_DT,
-				CR.REG_ID,
-				CR.LOCATION,
-				CR.PROGRAM_DT,
-				CPTS.SLOT_ID,
-		        CPTS.SLOT_NO,
-		        CPTS.SLOT_DATE,
-		        CPTS.START_TIME,
-		        CPTS.END_TIME,
-		        CPG.PG_NAME,
-				CPG.CLASS_TYPE,
-				CPD.PRODUCT_NAME,
-				CPD.PRICE ,
-				CPD.OPTION_PRICE 
-			FROM COM_RESERVATION CR
-			LEFT JOIN COM_PROGRAM CPG ON CR.PG_ID = CPG.PG_ID AND CPG.DELETE_YN ='N'
-			LEFT JOIN COM_PRODUCT CPD ON CR.PRODUCT_ID = CPD.PRODUCT_ID AND CPD.DELETE_YN = 'N'
-			LEFT JOIN COM_PROGRAM_TIME_SLOT CPTS 
-			ON CR.PG_ID = CPTS.PG_ID 
-				AND CR.SLOT_ID = CPTS.SLOT_ID
-				AND CPTS.DELETE_YN ='N'
-			WHERE CR.DELETE_YN = 'N'
-				AND CR.DI_KEY = #{diKey}
-		<include refid="kr.co.gocle.include.paging-end" />
-			ORDER BY APPLY_DATE DESC
-	</select>
-	
-	<select id="myReservationView" resultMap="resvResultMap">
-			SELECT
-				CR.RESV_ID,
-				CR.PG_ID,
-				CR.PG_TYPE,
-				CR.DI_KEY,
-				CR.NAME,
-				CR.PHONE,
-				CR.EMAIL,
-				CR.AGE,
-				CR.GENDER,
-				CR.PARENT_NAME,
-				CR.PARENT_PHONE,
-				CR.GROUP_YN,
-				CR.GROUP_NAME,
-				CR.GROUP_TYPE,
-		        CR.PEOPLE_CNT,
-		        DATE_FORMAT(CR.APPLY_DATE, '%Y-%m-%d %H:%i:%s') AS APPLY_DATE,
-		        CR.CAR_NUM,
-		        CR.PRODUCT_ID,
-			    CR.OPTION_NAME,
-		        CR.STATUS,
-				CR.REG_DT,
-				CR.REG_ID,
-				CR.LOCATION,
-				CR.PROGRAM_DT,
-				CPTS.SLOT_ID,
-		        CPTS.SLOT_NO,
-		        CPTS.SLOT_DATE,
-		        CPTS.START_TIME,
-		        CPTS.END_TIME,
-		        CPG.PG_NAME,
-				CPG.CLASS_TYPE,
-				CPD.PRODUCT_NAME,
-				CPD.PRICE ,
-				CPD.OPTION_PRICE 
-			FROM COM_RESERVATION CR
-			LEFT JOIN COM_PROGRAM CPG ON CR.PG_ID = CPG.PG_ID AND CPG.DELETE_YN ='N'
-			LEFT JOIN COM_PRODUCT CPD ON CR.PRODUCT_ID = CPD.PRODUCT_ID AND CPD.DELETE_YN = 'N'
-			LEFT JOIN COM_PROGRAM_TIME_SLOT CPTS 
-			ON CR.PG_ID = CPTS.PG_ID 
-				AND CR.SLOT_ID = CPTS.SLOT_ID
-				AND CPTS.DELETE_YN ='N'
-			WHERE CR.DELETE_YN = 'N'
-				AND CR.DI_KEY = #{diKey}
-				AND CR.RESV_ID = #{resvId}
-	</select>
-	
 	<update id="cancelResv">
 		UPDATE COM_RESERVATION CR
 		SET STATUS = 'CANCEL'
@@ -141,7 +11,7 @@
 		AND CR.RESV_ID = #{resvId}
 	</update>
 	
-	<select id="selectTotalCount" resultType="int">
+	<select id="myReservationCnt" resultType="int">
 		SELECT COUNT(*)
 		FROM TB_ENROLL E
 		INNER JOIN TB_SUBJ_SEQ SS
@@ -149,12 +19,13 @@
 		WHERE E.DI_KEY = #{diKey}
 	</select>
 	
-	<select id="selectList" resultType="MyPageVo" parameterType="MyPageVo">
+	<select id="myReservationList" resultType="MyPageVo" parameterType="MyPageVo">
 		<include refid="kr.co.gocle.include.paging-start" />
 		SELECT E.SEQ_CD
 			, SS.SUBJ_NM
 			, E.REG_DT
 			, E.ENROLL_STATUS_CD
+			, fn_get_code_name('ENROLL_STATUS_CD', E.ENROLL_STATUS_CD) AS ENROLL_STATUS_NM
 			, SS.ENROLL_TYPE
 		FROM TB_ENROLL E
 		INNER JOIN TB_SUBJ_SEQ SS
@@ -163,4 +34,63 @@
 		ORDER BY E.REG_DT DESC
 		<include refid="kr.co.gocle.include.paging-end" />
 	</select>
+	
+	<select id="myReservationView" resultType="MyPageVo" parameterType="MyPageVo">
+		SELECT E.SEQ_CD
+			, SS.SUBJ_NM
+			, E.REG_DT
+			, E.ENROLL_STATUS_CD
+			, fn_get_code_name('ENROLL_STATUS_CD', E.ENROLL_STATUS_CD) AS ENROLL_STATUS_NM
+			, SS.ENROLL_TYPE
+			, E.MEM_NAME
+			, E.SEXDSTN
+			, E.AGE_GROUP
+			, E.SCHOOL_NM
+			, E.GRADE
+			, E.HP_TEL1
+			, E.HP_TEL2
+			, E.HP_TEL3
+			, E.GRADE
+			, E.MEMO
+			, E.ZIPCODE
+			, E.ADDRESS
+			, E.RESDNC_DETAIL
+			, E.SMS_YN
+		FROM TB_ENROLL E
+		INNER JOIN TB_SUBJ_SEQ SS
+			ON E.SEQ_CD = SS.SEQ_CD
+		WHERE E.DI_KEY = #{diKey}
+			AND E.SEQ_CD = #{seqCd}
+	</select>
+	
+	<update id="myReservationCancl">
+		UPDATE TB_ENROLL
+		SET ENROLL_STATUS_CD = 'E'
+			, UPD_DT = NOW()
+			, UPD_ID = #{diKey}
+			, UPD_IP = #{sessionIp}
+		WHERE DI_KEY = #{diKey}
+		AND SEQ_CD = #{seqCd}
+	</update>
+	
+	<update id="myReservationUpdate">
+		UPDATE TB_ENROLL
+		SET age_group = #{ageGroup}
+		  , grade = #{grade}
+		  , school_nm = #{schoolNm}
+		  , sexdstn = #{sexdstn}
+		  , address = #{address}
+		  , zipcode = #{zipcode}
+		  , memo = #{memo}
+		  , hp_tel1 = #{hpTel1}
+		  , hp_tel2 = #{hpTel2}
+		  , hp_tel3 = #{hpTel3}
+		  , resdnc_detail = #{resdncDetail}
+		  , sms_yn = IFNULL(#{smsYn}, 'N')
+		  , upd_id = #{diKey}
+		  , upd_ip = #{sessionIp} 
+		  , upd_dt = NOW()
+	 	WHERE seq_cd = #{seqCd}
+	 	AND di_key = #{diKey}
+	</update>
 </mapper>

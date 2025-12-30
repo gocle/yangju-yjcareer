@@ -148,12 +148,11 @@ function fnCmdUpdate() {
 			          	<tr>
 			          		<th>연령대<span class="red"> *</span></th>
 				            <td colspan="3">
-				            	<select id="ageGroup" name="ageGroup" title="연령대 선택" class="select" required="required">
+								<select id="ageGroup" name="ageGroup" title="연령대 선택" class="select">
 									<option value="" ${empty userInfo.ageGroup ? 'selected="selected"' : ''}>연령대 선택</option>
-									<option value="ELE" ${userInfo.ageGroup eq 'ELE' ? 'selected="selected"' : ''}>초등</option>
-									<option value="MID" ${userInfo.ageGroup eq 'MID' ? 'selected="selected"' : ''}>중등</option>
-									<option value="HIG" ${userInfo.ageGroup eq 'HIG' ? 'selected="selected"' : ''}>고등</option>
-									<option value="ADT" ${userInfo.ageGroup eq 'ADT' ? 'selected="selected"' : ''}>성인</option>		
+									<c:forEach var="age" items="${ageList}">
+										<option value="${age.codeCode}" ${userInfo.ageGroup eq age.codeCode ? 'selected="selected"' : ''}>${age.codeName}</option>
+									</c:forEach>
 								</select>
 			          		</td>
 			          	</tr>
@@ -200,7 +199,7 @@ function fnCmdUpdate() {
 				            <th>거주지<span class="red"> *</span></th>
 				            <td colspan="3">
 				            	<select id="resdncDetail" name="resdncDetail" title="거주지 읍면동 선택" class="select" required="required">
-									<option value="" ${empty userInfo.resdncDetail ? 'selected="selected"' : ''}>거주지선택</option>
+									<option value="" ${empty userInfo.resdncDetail ? 'selected="selected"' : ''}>거주지 선택</option>
 									<c:forEach var="resdn" items="${resdncList}">
 										<option value="${resdn.codeCode}" ${userInfo.resdncDetail eq resdn.codeCode ? 'selected="selected"' : ''}>${resdn.codeName}</option>
 									</c:forEach>

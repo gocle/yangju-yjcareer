@@ -49,6 +49,7 @@ public class MyPageVo extends BaseVO implements Serializable {
     private String resdncDetail;
     // 신청상태코드
     private String enrollStatusCd;
+    private String enrollStatusNm;
     // 신청처리자 아이디
     private String enrollAppId;
     // 신청처리자 아이피
@@ -257,6 +258,12 @@ public class MyPageVo extends BaseVO implements Serializable {
 	}
 	public void setEnrollType(String enrollType) {
 		this.enrollType = enrollType;
+	}
+	public String getEnrollStatusNm() {
+		return enrollStatusNm;
+	}
+	public void setEnrollStatusNm(String enrollStatusNm) {
+		this.enrollStatusNm = enrollStatusNm;
 	}
     
     

@@ -25,7 +25,7 @@
                         
                         <div class="sub_head_wrap">
                             
-<c:import url="/usr/menu/sub.do" />
+						<c:import url="/usr/menu/sub.do" />
             
                             <div class="addons">
                                 <ul class="addons_list">
@@ -230,14 +230,7 @@
 					<td ata-content="예약일">${item.regDt}</td>
 					<td data-content="감면대상">해당없음</td>
 					<td data-content="결제금액">무료</td>
-					<td data-content="예약상태">
-						<c:choose>
-							<c:when test="${item.enrollStatusCd eq 'A'}">승인대기</c:when>
-							<c:when test="${item.enrollStatusCd eq 'B'}">승인완료</c:when>
-							<c:when test="${item.enrollStatusCd eq 'C'}">승인취소</c:when>
-							<c:otherwise>-</c:otherwise>
-						</c:choose>
-					</td>
+					<td data-content="예약상태">${item.enrollStatusNm}</td>
 					<td data-content="결제상태">
 						<span class="btn type4 small">해당없음</span>
 					</td>
@@ -267,6 +260,13 @@
 	function fn_search(pageIndex) {
 		$("#pageIndex").val(param1);
 		var reqUrl = "${contextRoot}/usr/mypage/myReservation.do";
+		$("#listForm").attr("action", reqUrl);
+		$("#listForm").submit();
+	}
+	
+	function fnDetailView(seqCd) {
+		$("#seqCd").val(seqCd);
+		var reqUrl = "${contextRoot}/usr/mypage/myReservationView.do";
 		$("#listForm").attr("action", reqUrl);
 		$("#listForm").submit();
 	}

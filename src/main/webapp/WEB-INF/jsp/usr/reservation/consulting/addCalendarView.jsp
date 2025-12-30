@@ -201,8 +201,6 @@
 				
 				updateTopDate(inst);
 				markToday(inst);
-				
-				getConsulting(y, m+1);
 			}
 
 			  $('#prevMonth').on('click', function () {

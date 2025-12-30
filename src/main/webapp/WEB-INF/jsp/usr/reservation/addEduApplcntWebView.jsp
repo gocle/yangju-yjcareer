@@ -338,11 +338,11 @@ function fnCalendarView() {
 						<td colspan="3">
 							<select id="ageGroup" name="ageGroup" title="연령대 선택" class="select" required="required">
 								<option value="">연령대 선택</option>
-								<option value="ELE">초등</option>
-								<option value="MID">중등</option>
-								<option value="HIG">고등</option>
-								<option value="ADT">성인</option>		
+								<c:forEach var="age" items="${ageList}">
+									<option value="${age.codeCode}">${age.codeName}</option>
+								</c:forEach>
 							</select>
+							
 						</td>
 					</tr>
 					<tr>
@@ -391,7 +391,7 @@ function fnCalendarView() {
 						<th scope="row"><label for="resdncDetail">거주지</label> <span class="exactly y">필수</span></th>
 						<td colspan="3">
 							<select id="resdncDetail" name="resdncDetail" title="거주지 읍면동 선택" class="select" required="required">
-								<option value="">거주지선택</option>
+								<option value="">거주지 선택</option>
 								<c:forEach var="resdn" items="${resdncList}">
 									<option value="${resdn.codeCode}">${resdn.codeName}</option>
 								</c:forEach>
