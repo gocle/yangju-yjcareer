@@ -320,11 +320,11 @@ table.list-1 a:hover {
     border-bottom: 1px solid #00a651;
 }
 
-.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+/* .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
     border-color: #00a651;
     background-color: #00a651;
 }
-
+ */
 table.detail {
 	border-top: 3px solid #1d1d1d;
 }

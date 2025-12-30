@@ -425,7 +425,7 @@
 						<td class="td-img">
 							<a href="eduLctreWebView.html" class="subject">
 								<c:if test="${empty item.thumbpath}">
-									<img src="/yjcareer/assets/DATA/popupZone/7.png" />
+									<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />
 								</c:if>
 								<c:if test="${not empty item.thumbpath}">
 									<img src="${contextRoot}/thumbnail/${item.thumbpath}" />

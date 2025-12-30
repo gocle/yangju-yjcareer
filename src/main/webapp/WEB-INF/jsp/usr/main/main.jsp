@@ -307,7 +307,7 @@
 														<a href="#" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 														<div class="item_img">
 															<c:if test="${empty row.thumbpath}">
-																<img src="/yjcareer/assets/DATA/popupZone/2.png" />
+																<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />
 															</c:if>
 															<c:if test="${not empty row.thumbpath}">
 																<img src="${contextRoot}/thumbnail/${row.thumbpath}" />

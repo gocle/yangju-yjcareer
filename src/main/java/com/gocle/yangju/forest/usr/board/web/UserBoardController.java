@@ -217,6 +217,11 @@ public class UserBoardController {
 				
 			}
 			
+			@RequestMapping( value = {"schedule/list.do"})
+			public String scheduleList(HttpSession session, ModelMap model) throws Exception {
+				return "/usr/bbs/schedule/list";
+			}
+			
 			
 			// 상세 보기   // 댓글 리스트
 			@RequestMapping( value = { "{bcId}/detail.do"})
@@ -637,4 +642,5 @@ public class UserBoardController {
 				
 				return "redirect:" +"/usr/bbs/"+boardArticleVO.getBcId()+"/list.do?menuId="+menuId;
 			}
+
 }
