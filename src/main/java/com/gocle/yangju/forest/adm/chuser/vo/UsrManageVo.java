@@ -4,20 +4,20 @@ public class UsrManageVo extends UsrManageDefaultVo {
 
 	private static final long serialVersionUID = 1L;
 	
-	private String memSeq;
+	private String diKey;
 	
 	private String memName;
 	
 	private String hpNo;
-
+	
 	private String seqCd;
 	
-	public String getMemSeq() {
-		return memSeq;
+	public String getDiKey() {
+		return diKey;
 	}
 
-	public void setMemSeq(String memSeq) {
-		this.memSeq = memSeq;
+	public void setDiKey(String diKey) {
+		this.diKey = diKey;
 	}
 
 	public String getMemName() {
@@ -43,6 +43,5 @@ public class UsrManageVo extends UsrManageDefaultVo {
 	public void setSeqCd(String seqCd) {
 		this.seqCd = seqCd;
 	}
-	
 	
 }

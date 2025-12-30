@@ -15,25 +15,25 @@
 		SELECT COUNT(*)
 		FROM TB_USER U
 		LEFT JOIN TB_ENROLL E
-			ON U.MEM_SEQ = E.MEM_SEQ
+			ON U.DI_KEY = E.DI_KEY
 			AND E.SEQ_CD = #{seqCd}
 		WHERE 1 = 1
-			AND E.MEM_SEQ IS NULL
+			AND E.DI_KEY IS NULL
 		<include refid="selectSearchWhere" />
 	</select>
 	
 	<select id="selectUserSearchList" resultType="UsrManageVo" parameterType="UsrManageVo">
 		<include refid="kr.co.gocle.include.paging-start" />
-		SELECT U.MEM_SEQ
+		SELECT U.DI_KEY
 			, U.MEM_NAME
 			, U.HP_NO
 			, U.REG_DT
 		FROM TB_USER U
 		LEFT JOIN TB_ENROLL E
-			ON U.MEM_SEQ = E.MEM_SEQ
+			ON U.DI_KEY = E.DI_KEY
 			AND E.SEQ_CD = #{seqCd}
 		WHERE 1 = 1
-			AND E.MEM_SEQ IS NULL
+			AND E.DI_KEY IS NULL
 		<include refid="selectSearchWhere" />
 		<include refid="kr.co.gocle.include.paging-end" />
 	</select>

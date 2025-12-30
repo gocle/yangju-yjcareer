@@ -8,7 +8,7 @@
 <script type="text/javascript">
 function fn_check_all() {
     var c = $('#chkAll').is(":checked");
-    $('input[name=memSeqs]').prop("checked", c);
+    $('input[name=diKeys]').prop("checked", c);
 }
 
 function fn_search(pageIndex) {
@@ -32,12 +32,12 @@ function fnCmdList() {
 	$("#listForm").submit();
 }
 
-function fnEnrollUpdate(seqCd, memSeq) {
+function fnEnrollUpdate(seqCd, diKey) {
 	popOpenWindow("", "popEnrollDetailUpdate", 650, 550);
 	
 	var reqUrl =  "${contextRoot}/staff/chsubjopen/popup/EnrollDetailManageUpdateForm.do";
 	$("#seqCd").val(seqCd);
-	$("#memSeq").val(memSeq);
+	$("#diKey").val(diKey);
 	
 	$("#listForm").attr("target", "popEnrollDetailUpdate");
 	$("#listForm").attr("action", reqUrl);
@@ -45,7 +45,7 @@ function fnEnrollUpdate(seqCd, memSeq) {
 }
 
 function fnEnrollDelete() {
-	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
+	if($("input[name=diKeys]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -69,7 +69,7 @@ function fnEnrollDelete() {
 }
 
 function fnEnrollApply() {
-	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
+	if($("input[name=diKeys]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -93,7 +93,7 @@ function fnEnrollApply() {
 }
 
 function fnEnrollApplyCancel() {
-	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
+	if($("input[name=diKeys]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -135,7 +135,7 @@ function fn_search(pageIndex) {
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
-		<input type="hidden" id="memSeq" name="memSeq" value="" />
+		<input type="hidden" id="diKey" name="diKey" value="" />
 		
 		<table class="detail">
 			<colgroup>
@@ -224,9 +224,9 @@ function fn_search(pageIndex) {
 			<tbody>
 				<c:forEach var="item" items="${resultList}" varStatus="status">
 					<tr>
-						<td><input type="checkbox" name="memSeqs" class="all_check" value="<c:out value="${item.memSeq}"/>"></td>
+						<td><input type="checkbox" name="diKeys" class="all_check" value="<c:out value="${item.diKey}"/>"></td>
 						<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
-						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.memSeq}');">${item.memName }</a></td>
+						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.diKey}');">${item.memName }</a></td>
 						<td>${item.hpTel1 }</td>
 						<td>${item.regDt }</td>
 						<td>

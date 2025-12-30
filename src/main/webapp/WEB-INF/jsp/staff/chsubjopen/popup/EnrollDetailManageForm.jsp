@@ -135,7 +135,7 @@ function fnCmdUpdate() {
 		
 			<form id="detailForm" name="detailForm" method="post">
 				<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
-				<input type="hidden" id="memSeq" name="memSeq" value="${userInfo.memSeq }" />
+				<input type="hidden" id="diKey" name="diKey" value="${userInfo.diKey }" />
 				
 				<table class="detail">
 			  		<colgroup>

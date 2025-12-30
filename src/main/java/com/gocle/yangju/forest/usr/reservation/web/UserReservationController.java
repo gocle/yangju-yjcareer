@@ -672,8 +672,8 @@ public class UserReservationController {
 		String errCd = "";
 		
 		HttpSession session = request.getSession(true);
-		String di = (String) session.getAttribute("SESSION_DI_KEY");
-		enrollManageVo.setSessionMemSeq(di);
+		String diKey = (String) session.getAttribute(Globals.DI_KEY);
+		enrollManageVo.setDiKey(diKey);
 		
 		Map<String, Object> valid = userReservationService.selectEnrollValidInfo(enrollManageVo);
 		
@@ -759,8 +759,8 @@ public class UserReservationController {
 			,@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo, ModelMap model, HttpServletRequest request) throws Exception {
 		
 		HttpSession session = request.getSession(true);
-		String di = (String) session.getAttribute("SESSION_DI_KEY");
-		enrollManageVo.setSessionMemSeq(di);
+		String diKey = (String) session.getAttribute(Globals.DI_KEY);
+		enrollManageVo.setDiKey(diKey);
 	
 		userReservationService.insertEnroll(enrollManageVo);
 		

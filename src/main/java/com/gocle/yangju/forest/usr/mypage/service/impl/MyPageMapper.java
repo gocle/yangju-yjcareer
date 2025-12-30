@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
 
 @Mapper
@@ -15,4 +16,7 @@ public interface MyPageMapper {
 
 	void cancelResv(UserReservationVO userReservationVO) throws Exception;
 
+	int selectTotalCount(MyPageVo myPageVo) throws Exception;
+	
+	List<MyPageVo> selectList(MyPageVo myPageVo) throws Exception;
 }

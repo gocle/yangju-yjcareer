@@ -68,8 +68,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		
 		int ins = 0;
 		
-		for(String memSeq : enrollManageVo.getMemSeqs()) {
-			enrollManageVo.setMemSeq(memSeq);
+		for(String diKey : enrollManageVo.getDiKeys()) {
+			enrollManageVo.setDiKey(diKey);
 			ins = enrollManageMapper.insert(enrollManageVo);
 			
 			// 히스토리 저장타입 - 등록(I)
@@ -96,8 +96,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	@Override
 	public int delete(EnrollManageVo enrollManageVo) throws Exception {
 		int deleteCnt = 0;
-		for(String memSeq : enrollManageVo.getMemSeqs()) {
-			enrollManageVo.setMemSeq(memSeq);
+		for(String diKey : enrollManageVo.getDiKeys()) {
+			enrollManageVo.setDiKey(diKey);
 			
 			// 히스토리 저장타입 - 삭제(D)
 			enrollManageVo.setConnectionType("D");
@@ -116,8 +116,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int dupErrCnt = 0;
 		int eduErrCnt = 0;
 		
-		for(String memSeq : enrollManageVo.getMemSeqs()) {
-			enrollManageVo.setMemSeq(memSeq);
+		for(String diKey : enrollManageVo.getDiKeys()) {
+			enrollManageVo.setDiKey(diKey);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
@@ -153,8 +153,8 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int dupErrCnt = 0;
 		int eduErrCnt = 0;
 		
-		for(String memSeq : enrollManageVo.getMemSeqs()) {
-			enrollManageVo.setMemSeq(memSeq);
+		for(String diKey : enrollManageVo.getDiKeys()) {
+			enrollManageVo.setDiKey(diKey);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);

@@ -14,6 +14,7 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	private String searchCateCd = "";
 	// 검색어
     private String searchKeyword = "";
+    private String searchKeyword2 = "";
     // 메뉴ID
     private String menuId = "";
     // 신청상태
@@ -81,5 +82,10 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	public void setSearchLearnDt(String searchLearnDt) {
 		this.searchLearnDt = searchLearnDt;
 	}
-	
+	public String getSearchKeyword2() {
+		return searchKeyword2;
+	}
+	public void setSearchKeyword2(String searchKeyword2) {
+		this.searchKeyword2 = searchKeyword2;
+	}
 }

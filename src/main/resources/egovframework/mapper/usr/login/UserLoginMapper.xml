@@ -3,21 +3,21 @@
 <mapper namespace="com.gocle.yangju.forest.usr.login.service.impl.UserLoginMapper">
 
 	<select id="selectUserLogin" parameterType="LoginVO" resultType="LoginVO">
-		SELECT MEM_SEQ
+		SELECT DI_KEY
 			, MEM_NAME
 			, HP_NO
 		FROM TB_USER
-		WHERE MEM_SEQ = #{memSeq}
+		WHERE DI_KEY = #{diKey}
 	</select>
 	
 	<insert id="insertUser" parameterType="LoginVO">
 		INSERT INTO TB_USER (
-			MEM_SEQ
+			DI_KEY
 			,MEM_NAME
 			,HP_NO
 			,REG_DT
 		) VALUES (
-			#{memSeq}
+			#{diKey}
 			,#{memName}
 			,#{hpNo}
 			,NOW()

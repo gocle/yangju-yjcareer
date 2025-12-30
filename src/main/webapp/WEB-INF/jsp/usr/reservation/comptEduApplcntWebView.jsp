@@ -210,7 +210,8 @@
 	</div>
 	<div class="buttonbox">
 		<a href="${contextRoot}/usr/mypage/myReservation.do" class="btn type6">나의예약조회</a>
-		<a href="#" class="btn type7">확인</a>
+		<c:if test="${resultMap.sgrCd eq 'A'}"><a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do" class="btn type7">확인</a></c:if>
+		<c:if test="${resultMap.sgrCd eq 'B'}"><a href="${contextRoot}/usr/reservation/program/eduLctreNewList.do" class="btn type7">확인</a></c:if>
 	</div>
 </div>
                     </div>

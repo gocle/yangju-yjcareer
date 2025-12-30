@@ -31,6 +31,7 @@ public class LoginVO implements Serializable {
 	private String endDate;
 	private String deptNm;
 	private String deleteYn;
+	private String diKey;
 	
 	public String getEncryptPassword() throws Exception {
 		return CommonUtil.getEncryptPassword(memPassword);
@@ -175,5 +176,11 @@ public class LoginVO implements Serializable {
 	}
 	public void setDeleteYn(String deleteYn) {
 		this.deleteYn = deleteYn;
+	}
+	public String getDiKey() {
+		return diKey;
+	}
+	public void setDiKey(String diKey) {
+		this.diKey = diKey;
 	}
 }

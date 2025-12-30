@@ -25,9 +25,9 @@
 	</sql>
 	
 	<sql id="selectSearchDetailWhere">
-		<if test="searchKeyword != null and searchKeyword != '' ">
-            AND (e.mem_name      LIKE CONCAT('%', #{searchKeyword}, '%')
-            OR  CONCAT(e.hp_tel1, e.hp_tel2, e.hp_tel3) LIKE CONCAT('%', #{searchKeyword}, '%') )
+		<if test="searchKeyword2 != null and searchKeyword2 != '' ">
+            AND (e.mem_name      LIKE CONCAT('%', #{searchKeyword2}, '%')
+            OR  CONCAT(e.hp_tel1, e.hp_tel2, e.hp_tel3) LIKE CONCAT('%', #{searchKeyword2}, '%') )
         </if>
 		<if test="searchEnrollStatusCd != null and searchEnrollStatusCd != '' ">
         	AND e.enroll_status_cd = #{searchEnrollStatusCd}
@@ -98,7 +98,7 @@
 	
 	<select id="selectEnrollDetailList" resultType="EnrollManageVo" parameterType="EnrollManageVo">
 		SELECT ss.seq_cd
-			, e.mem_seq
+			, e.di_key
 			, e.mem_name
 			, e.reg_dt
 			, e.enroll_app_dt
@@ -119,7 +119,7 @@
 		INSERT 
 		INTO TB_ENROLL (
 			 seq_cd
-			, mem_seq
+			, di_key
 			, mem_name
 			, enroll_status_cd
 			, sms_yn
@@ -136,8 +136,8 @@
 			</if>		
 		) VALUES (
 			 #{seqCd}
-			, #{memSeq}
-			, (SELECT MEM_NAME FROM TB_USER WHERE MEM_SEQ = #{memSeq})
+			, #{diKey}
+			, (SELECT MEM_NAME FROM TB_USER WHERE DI_KEY = #{diKey})
 			, #{enrollStatusCd}
 			, IFNULL(#{smsYn}, 'N')
 			, 'Y'
@@ -173,18 +173,18 @@
 		  , upd_ip = #{sessionIp} 
 		  , upd_dt = NOW()
 	 	WHERE seq_cd = #{seqCd}
-	 	AND mem_seq = #{memSeq}
+	 	AND di_key = #{diKey}
 	</update>
 	
 	<delete id="delete">
 		DELETE
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd}
-		AND MEM_SEQ = #{memSeq}
+		AND DI_KEY = #{diKey}
 	</delete>
 	
 	<select id="selectEnrollUserInfo" resultType="EnrollManageVo" parameterType="EnrollManageVo">
-		SELECT mem_seq
+		SELECT di_key
 			, mem_name
 			, seq_cd
 			, enroll_status_cd
@@ -202,7 +202,7 @@
 			, sms_yn
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd} 
-		AND MEM_SEQ = #{memSeq}
+		AND DI_KEY = #{diKey}
 	</select>
 	
 	<update id="updateEnrollApply">
@@ -215,7 +215,7 @@
 		  , upd_ip = #{sessionIp}
 		  , upd_dt = NOW()
 		WHERE SEQ_CD = #{seqCd} 
-		AND MEM_SEQ = #{memSeq}
+		AND DI_KEY = #{diKey}
 	</update>
 	
 	<update id="updateEnrollApplyCancel">
@@ -226,7 +226,7 @@
 		  , upd_ip = #{sessionIp}
 		  , upd_dt = NOW()
 		WHERE SEQ_CD = #{seqCd} 
-		AND MEM_SEQ = #{memSeq}
+		AND DI_KEY = #{diKey}
 	</update>
 	
 	<insert id="insertEnrollHistory">
@@ -234,7 +234,7 @@
 		(	
 			seqno
 		  , seq_cd
-		  , mem_seq
+		  , di_key
 		  , mem_name
 		  , age_group
 		  , grade
@@ -261,7 +261,7 @@
 		) SELECT
 		   (SELECT IFNULL(MAX(seqno), 0) + 1 FROM TB_ENROLL_HIST) AS seqno
 		  , seq_cd
-		  , mem_seq
+		  , di_key
 		  , mem_name
 		  , age_group
 		  , grade
@@ -287,6 +287,6 @@
 	 	  , cancel_req_dt
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd}
-		AND MEM_SEQ = #{memSeq}
+		AND DI_KEY = #{diKey}
 	</insert>
 </mapper>

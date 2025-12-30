@@ -1,15 +1,16 @@
-package com.gocle.yangju.forest.adm.chsubjopen.vo;
+package com.gocle.yangju.forest.usr.mypage.vo;
 
-public class EnrollManageVo extends EnrollManageDefaultVo {
+import java.io.Serializable;
+
+import com.gocle.yangju.forest.comm.vo.BaseVO;
+
+public class MyPageVo extends BaseVO implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	// 분류 코드
     private String sgrCd;
     private String sgrNm;
-    // 분류 일련번호
-    private String cateCd;
-    private String cateNm;
     // 과정코드
     private String subjCd;
     // 운영과정코드
@@ -18,10 +19,6 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String subjNm;
     // 기수명
     private String sessionNm;
-    // 교육기관
-    private String comId;
-    private String comTitle;
-    // 모집기간
     private String enrollStartDt;
     private String enrollEndDt;
     // 신청기간
@@ -30,7 +27,6 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     // 신청자
     private String diKey;
     private String memName;
-    private String[] diKeys;
     // 성별
     private String sexdstn;
     // 연령대
@@ -65,30 +61,10 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String forceYn;
     // 신청취소 일시
     private String cancelReqDt;
-    // 수료여부
-    private String completeYn;
-    // 수료일시
-    private String completeDt;
-    
-    private String enrollCnt;
-    private String waitCnt;
-    private String cancelCnt;
-    private String capacity;
-    private String waitEnrollCnt;
-    
-    private int userCnt;
-    private int dupErrCnt;
-    private int eduErrCnt;
-    
-    // 히스토리 저장 타입
-    private String connectionType;
-    
-    private String thumbpath;
-    private String status;
-    private String eduTarget;
+    // 신청일
     private String regDt;
-    
-    private String errCd;
+    // 모집방법
+    private String enrollType;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -101,18 +77,6 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	}
 	public void setSgrNm(String sgrNm) {
 		this.sgrNm = sgrNm;
-	}
-	public String getCateCd() {
-		return cateCd;
-	}
-	public void setCateCd(String cateCd) {
-		this.cateCd = cateCd;
-	}
-	public String getCateNm() {
-		return cateNm;
-	}
-	public void setCateNm(String cateNm) {
-		this.cateNm = cateNm;
 	}
 	public String getSubjCd() {
 		return subjCd;
@@ -137,6 +101,36 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	}
 	public void setSessionNm(String sessionNm) {
 		this.sessionNm = sessionNm;
+	}
+	public String getEnrollStartDt() {
+		return enrollStartDt;
+	}
+	public void setEnrollStartDt(String enrollStartDt) {
+		this.enrollStartDt = enrollStartDt;
+	}
+	public String getEnrollEndDt() {
+		return enrollEndDt;
+	}
+	public void setEnrollEndDt(String enrollEndDt) {
+		this.enrollEndDt = enrollEndDt;
+	}
+	public String getLearnStartDt() {
+		return learnStartDt;
+	}
+	public void setLearnStartDt(String learnStartDt) {
+		this.learnStartDt = learnStartDt;
+	}
+	public String getLearnEndDt() {
+		return learnEndDt;
+	}
+	public void setLearnEndDt(String learnEndDt) {
+		this.learnEndDt = learnEndDt;
+	}
+	public String getDiKey() {
+		return diKey;
+	}
+	public void setDiKey(String diKey) {
+		this.diKey = diKey;
 	}
 	public String getMemName() {
 		return memName;
@@ -234,95 +228,11 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setEnrollAppDt(String enrollAppDt) {
 		this.enrollAppDt = enrollAppDt;
 	}
-	public String getEnrollCnt() {
-		return enrollCnt;
-	}
-	public void setEnrollCnt(String enrollCnt) {
-		this.enrollCnt = enrollCnt;
-	}
-	public String getWaitCnt() {
-		return waitCnt;
-	}
-	public void setWaitCnt(String waitCnt) {
-		this.waitCnt = waitCnt;
-	}
-	public String getCancelCnt() {
-		return cancelCnt;
-	}
-	public void setCancelCnt(String cancelCnt) {
-		this.cancelCnt = cancelCnt;
-	}
-	public String getCapacity() {
-		return capacity;
-	}
-	public void setCapacity(String capacity) {
-		this.capacity = capacity;
-	}
-	public String getWaitEnrollCnt() {
-		return waitEnrollCnt;
-	}
-	public void setWaitEnrollCnt(String waitEnrollCnt) {
-		this.waitEnrollCnt = waitEnrollCnt;
-	}
-	public String getComId() {
-		return comId;
-	}
-	public void setComId(String comId) {
-		this.comId = comId;
-	}
-	public String getComTitle() {
-		return comTitle;
-	}
-	public void setComTitle(String comTitle) {
-		this.comTitle = comTitle;
-	}
-	public String getEnrollStartDt() {
-		return enrollStartDt;
-	}
-	public void setEnrollStartDt(String enrollStartDt) {
-		this.enrollStartDt = enrollStartDt;
-	}
-	public String getEnrollEndDt() {
-		return enrollEndDt;
-	}
-	public void setEnrollEndDt(String enrollEndDt) {
-		this.enrollEndDt = enrollEndDt;
-	}
-	public String getLearnStartDt() {
-		return learnStartDt;
-	}
-	public void setLearnStartDt(String learnStartDt) {
-		this.learnStartDt = learnStartDt;
-	}
-	public String getLearnEndDt() {
-		return learnEndDt;
-	}
-	public void setLearnEndDt(String learnEndDt) {
-		this.learnEndDt = learnEndDt;
-	}
 	public String getSmsYn() {
 		return smsYn;
 	}
 	public void setSmsYn(String smsYn) {
 		this.smsYn = smsYn;
-	}
-	public int getUserCnt() {
-		return userCnt;
-	}
-	public void setUserCnt(int userCnt) {
-		this.userCnt = userCnt;
-	}
-	public int getDupErrCnt() {
-		return dupErrCnt;
-	}
-	public void setDupErrCnt(int dupErrCnt) {
-		this.dupErrCnt = dupErrCnt;
-	}
-	public int getEduErrCnt() {
-		return eduErrCnt;
-	}
-	public void setEduErrCnt(int eduErrCnt) {
-		this.eduErrCnt = eduErrCnt;
 	}
 	public String getForceYn() {
 		return forceYn;
@@ -336,64 +246,18 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	public void setCancelReqDt(String cancelReqDt) {
 		this.cancelReqDt = cancelReqDt;
 	}
-	public String getCompleteYn() {
-		return completeYn;
-	}
-	public void setCompleteYn(String completeYn) {
-		this.completeYn = completeYn;
-	}
-	public String getCompleteDt() {
-		return completeDt;
-	}
-	public void setCompleteDt(String completeDt) {
-		this.completeDt = completeDt;
-	}
-	public String getConnectionType() {
-		return connectionType;
-	}
-	public void setConnectionType(String connectionType) {
-		this.connectionType = connectionType;
-	}
-	public String getThumbpath() {
-		return thumbpath;
-	}
-	public void setThumbpath(String thumbpath) {
-		this.thumbpath = thumbpath;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getEduTarget() {
-		return eduTarget;
-	}
-	public void setEduTarget(String eduTarget) {
-		this.eduTarget = eduTarget;
-	}
 	public String getRegDt() {
 		return regDt;
 	}
 	public void setRegDt(String regDt) {
 		this.regDt = regDt;
 	}
-	public String getErrCd() {
-		return errCd;
+	public String getEnrollType() {
+		return enrollType;
 	}
-	public void setErrCd(String errCd) {
-		this.errCd = errCd;
+	public void setEnrollType(String enrollType) {
+		this.enrollType = enrollType;
 	}
-	public String getDiKey() {
-		return diKey;
-	}
-	public void setDiKey(String diKey) {
-		this.diKey = diKey;
-	}
-	public String[] getDiKeys() {
-		return diKeys;
-	}
-	public void setDiKeys(String[] diKeys) {
-		this.diKeys = diKeys;
-	}
+    
+    
 }

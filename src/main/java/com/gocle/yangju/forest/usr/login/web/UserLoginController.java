@@ -149,7 +149,7 @@ public class UserLoginController {
                 LoginVO loginVO = new LoginVO();
                 loginVO.setMemName(sName);
                 loginVO.setHpNo(sMobileNo);
-                loginVO.setMemSeq(sDupInfo);
+                loginVO.setDiKey(sDupInfo);
                 
                 session.setAttribute(Globals.SESSION_USER_VO, loginVO);
                 session.setAttribute(Globals.MEM_SEQ, sDupInfo);
@@ -160,7 +160,7 @@ public class UserLoginController {
     			session.setAttribute(Globals.GENDER, sGender);
     			session.setAttribute(Globals.IP, usrIP);
     			session.setAttribute("redirect_url", "");
-    			System.out.println(">>> DI: "+sDupInfo);
+    			
     			// 본인인증 성공 시 TB_USER에서 조회
     			if(userLoginService.selectUserLogin(loginVO) == null) {
     				userLoginService.insertUser(loginVO);

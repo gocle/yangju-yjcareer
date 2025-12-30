@@ -140,4 +140,27 @@
 		WHERE CR.DI_KEY = #{diKey}
 		AND CR.RESV_ID = #{resvId}
 	</update>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_ENROLL E
+		INNER JOIN TB_SUBJ_SEQ SS
+			ON E.SEQ_CD = SS.SEQ_CD
+		WHERE E.DI_KEY = #{diKey}
+	</select>
+	
+	<select id="selectList" resultType="MyPageVo" parameterType="MyPageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT E.SEQ_CD
+			, SS.SUBJ_NM
+			, E.REG_DT
+			, E.ENROLL_STATUS_CD
+			, SS.ENROLL_TYPE
+		FROM TB_ENROLL E
+		INNER JOIN TB_SUBJ_SEQ SS
+			ON E.SEQ_CD = SS.SEQ_CD
+		WHERE E.DI_KEY = #{diKey}
+		ORDER BY E.REG_DT DESC
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
 </mapper>

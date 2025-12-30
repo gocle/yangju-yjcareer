@@ -270,8 +270,13 @@ function fnReservation(seqCd) {
 		</div>
 	</div>
 	<div class="bbs_btn_wrap clearfix">
-		<div class="bbs_left">			
-			<a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do" class="btn type1">목록</a>
+		<div class="bbs_left">
+			<c:if test="${resultMap.sgrCd eq 'A'}">
+				<a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do" class="btn type1">목록</a>
+			</c:if>
+			<c:if test="${resultMap.sgrCd eq 'B'}">
+				<a href="${contextRoot}/usr/reservation/program/eduLctreNewList.do" class="btn type1">목록</a>
+			</c:if>
 		</div>
 		<div class="bbs_right">
 			<c:choose>

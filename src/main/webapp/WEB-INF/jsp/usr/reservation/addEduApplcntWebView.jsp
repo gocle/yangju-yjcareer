@@ -453,7 +453,7 @@ function fnCalendarView() {
 			return false;
 		}
 		
-		if (form.ageGroup != 'ADT') {
+		if (form.ageGroup.value != "ADT") {
 			if( !form.schoolNm.value ) {
 				alert("학교명을 입력해주세요.");
 				form.schoolNm.focus();
@@ -461,7 +461,7 @@ function fnCalendarView() {
 			}
 			
 			if( !form.grade.value ) {
-				alert("학년를 선택해주세요.");
+				alert("학년을 선택해주세요.");
 				form.grade.focus();
 				return false;
 			}

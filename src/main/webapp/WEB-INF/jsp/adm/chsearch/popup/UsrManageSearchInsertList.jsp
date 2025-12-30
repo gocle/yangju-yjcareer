@@ -16,7 +16,7 @@
 <script type="text/javascript">
 function fn_check_all() {
     var c = $('#chkAll').is(":checked");
-    $('input[name=memSeqs]').prop("checked", c);
+    $('input[name=diKeys]').prop("checked", c);
 }
 
 function fnCmdClose(){
@@ -32,7 +32,7 @@ function fn_search(pageIndex) {
 }
 
 function fnEnrollUserAdd() {
-	if($("input[name=memSeqs]:checkbox:checked").length === 0) {
+	if($("input[name=diKeys]:checkbox:checked").length === 0) {
         alert("교육생을 선택해 주세요.");
         return false;
     }
@@ -94,7 +94,7 @@ function fnEnrollUserAdd() {
 					<tbody>
 						<c:forEach var="item" items="${resultList}" varStatus="status">
 							<tr>
-								<td><input type="checkbox" name="memSeqs" class="all_check" value="<c:out value="${item.memSeq}"/>"></td>
+								<td><input type="checkbox" name="diKeys" class="all_check" value="<c:out value="${item.diKey}"/>"></td>
 								<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
 								<td>${item.memName}</td>
 								<td>${item.hpNo}</td>

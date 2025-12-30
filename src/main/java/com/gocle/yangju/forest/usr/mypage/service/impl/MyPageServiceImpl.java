@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gocle.yangju.forest.usr.mypage.service.MyPageService;
+import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
 
 
@@ -34,4 +35,13 @@ public class MyPageServiceImpl extends EgovAbstractServiceImpl implements MyPage
 		myPageMapper.cancelResv(userReservationVO);
 	}
 	
+	@Override
+	public int selectTotalCount(MyPageVo myPageVo) throws Exception {
+		return myPageMapper.selectTotalCount(myPageVo);
+	}
+	
+	@Override
+	public List<MyPageVo> selectList(MyPageVo myPageVo) throws Exception {
+		return myPageMapper.selectList(myPageVo);
+	}
 }

@@ -325,10 +325,16 @@
 			  , DATE_FORMAT(SS.ENROLL_END_DT, '%y.%m.%d') AS ENROLL_END_DT
 			  , DATE_FORMAT(SS.LEARN_START_DT, '%y.%m.%d') AS LEARN_START_DT
 			  , DATE_FORMAT(SS.LEARN_END_DT, '%y.%m.%d') AS LEARN_END_DT
-			  , CASE WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT THEN 'ing'
-			  		WHEN NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT THEN 'be'
-			  		ELSE 'end'
-			  	END AS STATUS
+			  , <![CDATA[
+				CASE WHEN NOW() < SS.ENROLL_START_DT THEN 'be'
+					 WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT
+				        AND (SS.CAPACITY > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			            	OR (SS.CAPACITY  <= (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			                	AND SS.WAIT_ENROLL_CNT > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A'))
+        				) THEN 'ing'
+    			ELSE 'end'
+				END AS STATUS
+			 	]]> 
 			  , SS.WAIT_ENROLL_CNT
 			  , SS.CAPACITY
 			  , SS.EDU_TARGET
@@ -376,47 +382,53 @@
 	</select>
 	
 	<select id="selectSubjSeqEduInfo" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">
-		SELECT ss.seq_cd
-			, ss.subj_cd
-			, ss.sgr_cd
-			, sg.sgr_nm
-			, ss.subj_nm
-			, ss.session_nm
-			, sc.cate_nm
-			, cc.com_title
-			, IFNULL(ss.capacity, 0) as capacity
-			, IFNULL(ss.wait_enroll_cnt, 0) as wait_enroll_cnt
-			, ss.edu_target
-			, DATE_FORMAT(ss.enroll_start_dt, '%y.%m.%d %H:%i') AS enroll_start_dt
-			, DATE_FORMAT(ss.enroll_end_dt, '%y.%m.%d %H:%i') AS enroll_end_dt
-			, DATE_FORMAT(ss.learn_start_dt, '%y.%m.%d %H:%i') AS learn_start_dt
-			, DATE_FORMAT(ss.learn_end_dt, '%y.%m.%d %H:%i') AS learn_end_dt
-			, ss.tel
-			, ss.enroll_type
-			, ss.subj_plan
-			, ss.subj_desc
-			, s.dupl_enroll_yn
-			, cl.location
-			, CASE WHEN NOW() BETWEEN ss.enroll_start_dt AND ss.enroll_end_dt THEN 'ing'
-			  		WHEN NOW() <![CDATA[ < ]]> ss.enroll_start_dt THEN 'be'
-			  		ELSE 'end'
-			  	END AS status
-		FROM TB_SUBJ_SEQ ss
-		INNER JOIN TB_SUBJ s
-			ON s.sgr_cd = ss.sgr_cd
-			AND s.subj_cd = ss.subj_cd
-		INNER JOIN TB_SGR sg
-			ON ss.sgr_cd = sg.sgr_cd
-		INNER JOIN TB_SUBJ_CATE sc
-			ON sc.cate_cd = s.cate_cd
-			AND s.sgr_cd = sc.sgr_cd
-		LEFT JOIN COM_COMPANY cc
-			ON cc.com_id = ss.com_id
-		LEFT JOIN COMPANY_LOCATION cl
-			ON cl.loc_id = ss.loc_id
-			AND cl.com_id = cc.com_id
+		SELECT SS.SEQ_CD
+			, SS.SUBJ_CD
+			, SS.SGR_CD
+			, SG.SGR_NM
+			, SS.SUBJ_NM
+			, SS.SESSION_NM
+			, SC.CATE_NM
+			, CC.COM_TITLE
+			, IFNULL(SS.CAPACITY, 0) AS CAPACITY
+			, IFNULL(SS.WAIT_ENROLL_CNT, 0) AS WAIT_ENROLL_CNT
+			, SS.EDU_TARGET
+			, DATE_FORMAT(SS.ENROLL_START_DT, '%y.%m.%d %H:%i') AS ENROLL_START_DT
+			, DATE_FORMAT(SS.ENROLL_END_DT, '%y.%m.%d %H:%i') AS ENROLL_END_DT
+			, DATE_FORMAT(SS.LEARN_START_DT, '%y.%m.%d %H:%i') AS LEARN_START_DT
+			, DATE_FORMAT(SS.LEARN_END_DT, '%y.%m.%d %H:%i') AS LEARN_END_DT
+			, SS.TEL
+			, SS.ENROLL_TYPE
+			, SS.SUBJ_PLAN
+			, SS.SUBJ_DESC
+			, S.DUPL_ENROLL_YN
+			, CL.LOCATION
+			, <![CDATA[
+				CASE WHEN NOW() < SS.ENROLL_START_DT THEN 'be'
+					 WHEN NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT
+				        AND (SS.CAPACITY > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			            	OR (SS.CAPACITY  <= (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+			                	AND SS.WAIT_ENROLL_CNT > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A'))
+        				) THEN 'ing'
+    			ELSE 'end'
+				END AS STATUS
+			 ]]> 
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON S.SGR_CD = SS.SGR_CD
+			AND S.SUBJ_CD = SS.SUBJ_CD
+		INNER JOIN TB_SGR SG
+			ON SS.SGR_CD = SG.SGR_CD
+		INNER JOIN TB_SUBJ_CATE SC
+			ON SC.CATE_CD = S.CATE_CD
+			AND S.SGR_CD = SC.SGR_CD
+		LEFT JOIN COM_COMPANY CC
+			ON CC.COM_ID = SS.COM_ID
+		LEFT JOIN COMPANY_LOCATION CL
+			ON CL.LOC_ID = SS.LOC_ID
+			AND CL.COM_ID = CC.COM_ID
 		WHERE 1 = 1
-			AND ss.seq_cd = #{seqCd}
+			AND SS.SEQ_CD = #{seqCd}
 	</select>
 	
 	<select id="selectEnrollValidInfo">
@@ -427,7 +439,7 @@
 		        SELECT IFNULL(e.enroll_status_cd, 'Z') 		/* 등록되었으나 상태값이 없는 경우 : Z */
 		        FROM TB_ENROLL e
 		        WHERE e.seq_cd = #{seqCd}
-		        	AND e.mem_seq = #{sessionMemSeq}
+		        	AND e.di_key = #{diKey}
 		     ), 'X') AS enrollStatusCd 						/* 수강신청한 이력이 없는 경우 : X */
 		    , (SELECT COUNT(e.seq_cd)
 		        FROM TB_ENROLL e
@@ -466,7 +478,7 @@
 		INSERT 
 		INTO TB_ENROLL (
 			 seq_cd
-			, mem_seq
+			, di_key
 			, mem_name
 			, enroll_status_cd
 			, sms_yn
@@ -493,8 +505,8 @@
 			</if>		
 		) VALUES (
 			 #{seqCd}
-			, #{sessionMemSeq}
-			, (SELECT MEM_NAME FROM TB_USER WHERE MEM_SEQ = #{sessionMemSeq})
+			, #{diKey}
+			, (SELECT MEM_NAME FROM TB_USER WHERE DI_KEY = #{diKey})
 			, #{enrollStatusCd}
 			, IFNULL(#{smsYn}, 'N')
 			, #{ageGroup}
@@ -508,12 +520,12 @@
 			, #{hpTel2}
 			, #{hpTel3}
 			, #{resdncDetail}
-			, #{sessionMemSeq}
+			, #{diKey}
 			, #{sessionIp}
 			, NOW()
 			<if test="enrollStatusCd != null and enrollStatusCd != '' ">
 				<if test='enrollStatusCd == "B" '>
-				, #{sessionMemSeq}
+				, #{diKey}
 				, #{sessionIp}
 				, NOW()
 				</if>
@@ -526,7 +538,7 @@
 		(	
 			seqno
 		  , seq_cd
-		  , mem_seq
+		  , di_key
 		  , mem_name
 		  , age_group
 		  , grade
@@ -553,7 +565,7 @@
 		) SELECT
 		   (SELECT IFNULL(MAX(seqno), 0) + 1 FROM TB_ENROLL_HIST) AS seqno
 		  , seq_cd
-		  , mem_seq
+		  , di_key
 		  , mem_name
 		  , age_group
 		  , grade
@@ -579,6 +591,6 @@
 	 	  , cancel_req_dt
 		FROM TB_ENROLL
 		WHERE SEQ_CD = #{seqCd}
-		AND MEM_SEQ = #{sessionMemSeq}
+		AND DI_KEY = #{diKey}
 	</insert>
 </mapper>

@@ -2,6 +2,7 @@ package com.gocle.yangju.forest.usr.mypage.service;
 
 import java.util.List;
 
+import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
 
 public interface MyPageService  {
@@ -29,5 +30,9 @@ public interface MyPageService  {
 	 * @throws Exception
 	 */
 	void cancelResv(UserReservationVO userReservationVO) throws Exception;
+	
+	int selectTotalCount(MyPageVo myPageVo) throws Exception;
+	
+	List<MyPageVo> selectList(MyPageVo myPageVo) throws Exception;
 
 }

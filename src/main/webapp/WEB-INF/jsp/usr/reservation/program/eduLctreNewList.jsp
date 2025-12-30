@@ -57,6 +57,13 @@
 		$("#bbsNttSearch").attr("action", reqUrl);
 		$("#bbsNttSearch").submit();
 	}
+	
+	function fnDetailView(seqCd) {
+		$("#bbsNttSearch input[name=seqCd]").val(seqCd);
+		let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
+		$("#bbsNttSearch").attr("action", reqUrl);
+		$("#bbsNttSearch").submit();
+	}
 </script>
 
  <c:import url="/usr/menu/header.do" />
@@ -227,7 +234,10 @@
 
 	<div class="bbs_search">
 		<form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/reservation/program/eduLctreNewList.do" method="get" class="boardSearchForm">
-		<input type="hidden" name="key" id="key" value="4130"/>	
+		<input type="hidden" name="seqCd" id="seqCd" value=""/>
+		<input type="hidden" name="subjCd" id="subjCd" value=""/>
+		<input type="hidden" name="sgrCd" id="sgrCd" value="B"/>	
+		
 			<fieldset>
 				<legend>교육강좌 검색</legend>
                 
@@ -409,95 +419,6 @@
 			</tr>
 			</thead>
 			<tbody class="text_center">
-				<!-- <tr>
-					<td class="td-no">3</td>
-					<td class="td-img">
-						<a href="eduLctreWebView.html" class="subject">
-							<img src="/yjcareer/assets/DATA/popupZone/7.png" />
-						</a>
-					</td>
-					<td class="td-subject">
-						<a href="eduLctreWebView.html" class="subject">
-							<span class="li-label be">접수예정</span>
-							원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)
-						</a> 
-					</td>
-					<td class="td-date">
-						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
-						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
-					</td>
-					<td class="td-pson">
-						<p><span class="td-span">정원 : </span>0/1</p>
-						<p><span class="td-span">대기 : </span>(0/0)</p>
-					</td>
-					<td class="td-cost">무료</td>
-					<td class="td-type">
-						<span class="type-4">학부모</span>
-					</td>
-					<td>
-						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-no">2</td>
-					<td class="td-img">
-						<a href="eduLctreWebView.html" class="subject">
-							<img src="/yjcareer/assets/DATA/popupZone/6.png" />
-						</a>
-					</td>
-					<td class="td-subject">
-						<a href="eduLctreWebView.html" class="subject">
-							<span class="li-label ing">접수진행중</span>
-							원스톱 학습 코칭 2기(학습유형 검사, 대학생 학습코칭 지원)
-						</a> 
-					</td>
-					<td class="td-date">
-						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
-						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
-					</td>
-					<td class="td-pson">
-						<p><span class="td-span">정원 : </span>0/1</p>
-						<p><span class="td-span">대기 : </span>(0/0)</p>
-					</td>
-					<td class="td-cost">무료</td>
-					<td class="td-type">
-						<span class="type-1">초등</span>
-					</td>
-					<td>
-						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-no">1</td>
-					<td class="td-img">
-						<a href="eduLctreWebView.html" class="subject">
-							<img src="/yjcareer/assets/DATA/popupZone/5.png" />
-						</a>
-					</td>
-					<td class="td-subject">
-						<a href="eduLctreWebView.html" class="subject">
-							<span class="li-label end">접수마감</span>
-							[진로진학컨설팅]1.13.(화) 16시
-						</a> 
-					</td>
-					<td class="td-date">
-						<p><span class="td-span">접수기간</span>25.12.02~26.01.05</p>
-						<p><span class="td-span">교육기간</span>26.01.13~26.01.13</p>
-					</td>
-					<td class="td-pson">
-						<p><span class="td-span">정원 : </span>0/1</p>
-						<p><span class="td-span">대기 : </span>(0/0)</p>
-					</td>
-					<td class="td-cost">무료</td>
-					<td class="td-type">
-						<span class="type-2">중등</span>
-						<span class="type-3">고등</span>
-					</td>
-					<td>
-						<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
-					</td>
-				</tr> -->
-				
 				<c:forEach var="item" items="${resultList}" varStatus="status">
 					<tr>
 						<td class="td-no"><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
@@ -512,7 +433,7 @@
 							</a>
 						</td>
 						<td class="td-subject">
-							<a href="eduLctreWebView.html" class="subject">
+							<a href="#" onclick="fnDetailView('${item.seqCd}')" class="subject">
 								<span class="li-label ${item.status}">
 									<c:if test="${item.status eq 'ing'}">접수진행중</c:if>
 									<c:if test="${item.status eq 'be'}">접수예정</c:if>
@@ -538,7 +459,7 @@
 							</c:forEach>
 						</td>
 						<td>
-							<a href="selectEduApplcntAgreView.html" class="request btn type2 small">수강신청</a>
+							<a href="#" onclick="fnDetailView('${item.seqCd}')" class="request btn type2 small">수강신청</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -555,24 +476,6 @@
 	
 
 	<div class="pagination">
-		<!-- <span class="page_btn prev_group">
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_end">처음 페이지로</a>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev">이전 10페이지 이동</a>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=1" class="prev_one"><i></i>이전 페이지</a>
-</span>
-<span class="page">
-<span class="page_wrap">
-<strong title="현재 1페이지">1</strong>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=2" title="2페이지 이동">2</a>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" title="3페이지 이동">3</a>
-</span>
-</span>
-<span class="page_btn next_group">
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=2" class="next_one">다음 페이지<i></i></a>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next">다음 10페이지 이동</a>
-<a href="./selectEduLctreWebList.do?key=4130&amp;searchEduInsttNo=&amp;searchEduPlaceNo=&amp;searchEduSttus=&amp;searchRceptBgnde=&amp;searchRceptEndde=&amp;pageUnit=20&amp;searchCnd=all&amp;searchKrwd=&amp;eduCl=eduCl16&amp;rcritTrget=&amp;searchArea=&amp;lllKind=&amp;pageIndex=3" class="next_end">끝 페이지로</a>
-</span> -->
-	
 		<ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 	</div>
 	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gocle.yangju.forest.usr.mypage.service.MyPageService;
+import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
 
@@ -41,7 +42,35 @@ public class MyPageCotroller {
 	 * @throws Exception
 	 */
 	@RequestMapping("myReservation.do")
-	public String myReservation(HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
+	public String myReservation(@ModelAttribute("myPageVo") MyPageVo myPageVo, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
+		String diKey = (String) session.getAttribute(Globals.DI_KEY);
+		String retMsg = "";
+		if(diKey == null) {
+			retMsg = "로그인이 필요한 서비스입니다.";
+			redirectAttributes.addFlashAttribute("retMsg", retMsg);
+			return "redirect:/usr/main.do";
+		}
+		
+		myPageVo.setDiKey(diKey);
+		
+		int totalCount = myPageService.selectTotalCount(myPageVo);
+		Integer pageSize = myPageVo.getPageSize();
+		Integer pageIndex =	myPageVo.getPageIndex();
+		
+		model.addAttribute("pageSize", pageSize);
+		model.addAttribute("pageIndex", pageIndex);
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+	    paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(myPageVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+        
+		List<MyPageVo> resultList = myPageService.selectList(myPageVo);
+		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		model.addAttribute("paginationInfo", paginationInfo);
 		
 	    return "/usr/mypage/myReservation";
 	}
