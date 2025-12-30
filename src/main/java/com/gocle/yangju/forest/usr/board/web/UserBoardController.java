@@ -481,7 +481,7 @@ public class UserBoardController {
 				
 				int rs = boardService.insertUserBoardArticle(boardArticleVO, multiRequest);
 				
-				returnPage = "/usr/bbs/"+bcId+"/list.do";
+				returnPage = "/usr/bbs/"+bcId+"/list.do?menuId="+menuId;
 				
 				return "redirect:"+ returnPage;
 			}

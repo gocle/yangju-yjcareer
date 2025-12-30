@@ -156,7 +156,7 @@
 
 </script>
 	<!-- 레이어 팝업 시작 -->
-	<div id="divpopup1" class="main_popup" style="position:absolute; left:10rem; top:10rem; z-index:1001; visibility:visible;  width:500px; height:560px">
+<!-- 	<div id="divpopup1" class="main_popup" style="position:absolute; left:10rem; top:10rem; z-index:1001; visibility:visible;  width:500px; height:560px">
 		<div class="layer_cont">
 			<a href="/yjcareer/selectEduLctreWebList_4130" target="_blank" title="새창"><img src="/yjcareer/assets/DATA/popup/20251125030444599mSjjuX.jpg" style="width:500px; height:560px;" alt="설명회" /></a>
 		</div>
@@ -170,7 +170,7 @@
 				<div class="pop-btn"><a href="javascript:closeWind1();">닫기</a></div>
 			</div>
 		</form>
-	</div>
+	</div> -->
 	<script type="text/JavaScript">
 		//<![CDATA[
 				function closeWind1() {

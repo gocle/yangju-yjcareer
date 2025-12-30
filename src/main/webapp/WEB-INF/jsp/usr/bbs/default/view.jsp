@@ -271,7 +271,7 @@
 
 	<div class="bbs_btn_wrap clearfix">
         <div class="bbs_left">
-            <a href="/yjcareer/usr/bbs/${bcId }/list.do" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
+            <a href="/yjcareer/usr/bbs/${bcId }/list.do?menuId=${menuId}" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
         <div class="bbs_right">
 			

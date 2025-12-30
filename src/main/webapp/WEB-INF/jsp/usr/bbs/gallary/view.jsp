@@ -7,6 +7,48 @@
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
+  
+     <script type="text/javascript">
+     
+     //파일 다운로드
+     function fn_egov_downFile(atchFileIdx){
+
+    		window.open("${contextRoot}/board/FileDown.do?atchFileIdx="+atchFileIdx);
+    	}
+     
+     //이전 글
+     function fn_prev( preNo , menuId ){
+     	
+    		 window.location.href='/yjcareer/usr/bbs/${bcId}/detail.do?baId='+preNo+'&menuId='+menuId;
+
+    	 
+     }
+     
+     
+     //다음 글
+     function fn_next( nextNo , menuId ){
+    	 
+
+    	 window.location.href='/yjcareer/usr/bbs/${bcId}/detail.do?baId='+nextNo+'&menuId='+menuId;
+    	 
+    	 
+     }   
+     
+     
+     function fn_update(baId,menuId) {
+  	   var url = "/yjcareer/usr/bbs/${bcId}/updateForm.do?menuId="+menuId+"&baId=" + baId;
+  	   location.href = url;
+     }
+     
+     function fn_delete() {
+  		  var url = "/yjcareer/usr/bbs/${bcId}/delete.do";
+
+  		  $("#form").attr("action", url);
+  		  $("#form").attr("method", "post");
+  		  $("#form").submit();
+  		}
+     
+     </script>
       
     <div id="container">
         <div class="wrap clearfix">
@@ -157,6 +199,11 @@
         <div class="bbs_right">
         </div>
     </div>
+    
+    <form id="form" name="form">
+    <input type="hidden" id="baId" name="baId" value="${result.baId}">
+	<input type="hidden" id="bcId" name="bcId" value="${result.bcId}">
+	<input type="hidden" id="menuId" name="menuId" value="${menuId}">
 
 	<table class="bbs_default view">
         <caption>공지사항 상세보기 - 제목, 작성자, 내용, 파일 제공</caption>
@@ -164,7 +211,7 @@
             <tr class="subject">		
                 <th scope="row">제목</th>
 					<td>
-						[Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 2차 상담기간 운영 안내
+						${result.baTitle}
 					</td>
             </tr>
 
@@ -174,7 +221,7 @@
 		
 			 
 			 
-					<td>진로진학</td>
+					<td>${result.memName}</td>
 			
 		
 				
@@ -183,65 +230,7 @@
             <tr >		
                 <th scope="row">내용</th>
 					<td title="내용" class="bbs_content">
-						안녕하세요?
-<br/>양주시 진로진학지원센터는 올 7월에 옥정동에 개소했습니다.
-<br/>7월부터 [교육발전특구]사업의 일환으로 4차산업을 위한 AI디지털교실 프로그램 운영하고 있으며, 진로진학 상시프로그램은 11월부터 내년 1월까지 시범운영을 하게 됩니다.
-<br/>
-<br/>양주시에서 준비한 첫 번째 진로진학 상시프로그램은 1대1 맞춤형 진로진학상담입니다. 1대1 진로진학컨설팅은 초4~고3까지 대상으로 청소년 스스로의 역량을 키우고 상급학교 진학 방향성 및 이에 따른 학습방법 및 입시전략을 조언해주는 1:1 상담으로서, 경험 많은 컨설턴트 선생님과 함께 진행합니다.
-<br/>
-<br/>1대1 컨설팅을 시작으로 내년에는 학생과 학부모님들을 위한 알찬 프로그램을 기획 중에 있습니다. 앞으로도 진로진학지원센터의 다양한 진로 진학 프로그램에 관심을 가져주시기 바랍니다. 감사합니다.
-<br/>
-<br/>[1대1 맞춤형 진로진학컨설팅 안내]
-<br/>&lt;전체 안내&gt;
-<br/>-8주 기간 동안 학생 1인당 1회만 상담 가능, 비용은 없음
-<br/>-상담 1주일 전에 사전상담사가 필요한 자료를 요청드립니다.
-<br/>상담준비물 예시(학년 및 학교급에 따라 생활기록부 등) 미리 준비해두시면 더 효과적인 상담을 진행할 수 있습니다.
-<br/>
-<br/>★취소는 다른 접수자를 위해 상담일 최소 1주일 전에 취소해주세요.
-<br/>
-<br/>★★사전 연락 없이 불참하거나 6일 전 취소 시 8주 상담기간 중 상담 신청 제한(질병 등 피치 못할 사정으로 취소 시, 증빙자료 제출, 신청 제한 면제)
-<br/>*월요일 상담의 경우 전주 일요일까지 취소완료/ 화요일 상담의 경우 전주 월요일 18시까지 취소완료/ 토요상담의 경우 직전 주 일요일까지 취소완료 요망*
-<br/>-예시: 12월15일(월) 상담-12월7일(일)까지 취소, 12월20일(토)-12월14일(일)까지 취소
-<br/>
-<br/>★★★신청이 마감되더라도 중간에 취소가 나올 수 있으니 신청 페이지 모니터링 해주시면 좋습니다.★★★
-<br/>
-<br/>-일정: 2025. 11. 17.(월)~2026. 1. 13.(화) 중 8주 매주 월, 화 16시~21시(일 5회)
-<br/>※센터 사정에 따라 16:30~21:30 운영하는 날도 있음. 참고바랍니다.
-<br/>-주말집중상담 2번 운영 11.22.(토), 12.20.(토)(일 6회)
-<br/>-장소: 옥정동로7나길 18, 2층 211호 드림타워1(진로진학지원센터)
-<br/>
-<br/>◆[2차 상담 기간] 12. 15.(월)~1. 13.(화) 중 4주 운영
-<br/>
-<br/>◆[2차 상담 기간 중 주말 집중상담] 12.20.(토) 12:00~18:00(1일 6회)
-<br/>   ※12.29.~12.30. 상담 없는 주간입니다. 추후 상세안내 예정
-<br/>
-<br/>◆[2차 상담 접수] 12. 2.(화) 10시~ 선착순 접수(★학생 1인당 1회 신청★ 가능)
-<br/>
-<br/>◆[상담 신청] 진로진학플랫폼&gt;프로그램신청&gt;진로진학 컨설팅 신청
-<br/>신청바로가기 : <a href="https://www.yangju.go.kr/yjcareer/selectEduLctreWebList.do?key=4130" target="_blank" title="새창">https://www.yangju.go.kr/yjcareer/selectEduLctreWebList.do?key=4130</a>
-<br/>※사용자 편의를 고려한 홈페이지 개편이 곧 있을 예정입니다.
-<br/>불편하시더라도 프로그램 예약을 위해 페이지를 넘겨서 원하는 날짜와 시간을 확인 후 신청해주세요. 양해바랍니다:)
-<br/>
-<br/>◆◆[상담 취소] 진로진학플랫폼&gt;본인인증&gt;나의예약&gt;예약번호 클릭 후 신청취소
-
-						<div class="photo_area clearfix">
-						
-							
-							
-							
-								
-								<div class="photo_view">
-									<span class="photo_wrap">
-										<img src="/DATA/bbs/530/20251128115419274CmBtKX.jpg" alt="[Jump Up 2025 : 양주 진로진학 ON!] 1대1 맞춤형 진로진학컨설팅 2차 상담기간 운영 안내 이미지1" />
-										<span class="photo_zoom"><a href="/DATA/bbs/530/20251128115419274CmBtKX.jpg" target="_blank" title="이미지 확대보기">사진 확대보기</a></span>
-									</span>
-								</div>
-							
-						
-						</div>		
-						
-						
-
+						${result.baContentHtml}
 					</td>
             </tr>
 
@@ -250,7 +239,7 @@
 					<td>
 						<ul class="view_attach">
 					
-						<li>
+<!-- 						<li>
 							<div class="down_view">
 									
 								<span><img src="../common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />컨설팅 홍보물(수정).jpg</span>
@@ -261,7 +250,24 @@
 								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=190074&amp;nttNo=199826" title="새창" target="_blank" class="file_view">미리보기</a>
 							
 							</div>
+						</li> -->
+						
+						<c:forEach var="fileVO" items="${fileList}" varStatus="status">
+						
+						<li>
+							<div class="down_view">
+									
+								<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${fileVO.orgFileName}" /></span>
+							
+								<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
+							
+							
+								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
+							
+							</div>
 						</li>
+						
+						</c:forEach>
 					
 						</ul>
 					</td>					
@@ -270,31 +276,17 @@
 			
         </tbody>
     </table>
+    
+    </form>
 
 	<div class="bbs_btn_wrap clearfix">
         <div class="bbs_left">
-            <a href="./selectBbsNttList.do?key=4145&amp;bbsNo=530&amp;nttNo=199826&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1&amp;integrDeptCode=" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
+            <a href="./list.do?menuId=${menuId }" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
 <div class="bbs_right">
 			<!--학습후기의 경우 버튼-->
-			
-				<a href="./updateBbsNttView.do?key=4185&amp;bbsNo=548&amp;nttNo=192901&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1&amp;integrDeptCode=" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
-			
-			
-
-	
-	
-
-
-			
-				
-					
-					
-						<a href="./deleteBbsNtt.do?key=4185&amp;bbsNo=548&amp;nttNo=192901&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1&amp;integrDeptCode=" onclick="fn_deleteBbsNtt(this.href); return false;" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
-						
-					
-										
-			
+			<a href="#" onclick="fn_update('${result.baId}','${menuId}'); return false;" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
+			<a href="#" onclick="fn_delete(); return false;" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
         </div>
     </div>
 
@@ -302,8 +294,12 @@
    
 
 	<ul class="bbs_view_move">
-        <li class="prev"><strong>이전글</strong> <a href="./selectBbsNttView.do?key=4145&amp;bbsNo=530&amp;nttNo=199606&amp;searchCtgry=&amp;pageUnit=10&amp;searchCnd=all&amp;searchKrwd=&amp;pageIndex=1&amp;integrDeptCode=">[JUMP UP 2025: 양주 진로진학 ON!] 학부모아카데미</a></li>
-        <li class="next"><strong>다음글</strong> </li>
+		<c:if test="${not empty prevNext.preNo and prevNext.preNo ne 0 and not empty prevNext.preTitle}">
+        <li class="prev"><strong>이전글</strong> <a href="javascript:fn_prev('${prevNext.preNo}', '${menuId}', '${result.baNotice}');">${prevNext.preTitle}</a></li>
+        </c:if>
+        <c:if test="${not empty prevNext.nextNo and prevNext.nextNo ne 0 and not empty prevNext.nextTitle}">
+        <li class="next"><strong>다음글</strong> <a href="javascript:fn_next('${prevNext.nextNo}', '${menuId}', '${result.baNotice}');">${prevNext.nextTitle}</a></li>
+        </c:if>
     </ul>
                     </div>
                 

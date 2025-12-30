@@ -134,12 +134,10 @@ function fn_recovryBbsNtt( url ) {
 	
 	
     <div class="bbs_search">
-        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do" method="get" class="boardSearchForm">
+        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do?menuId=${menuId }" method="get" class="boardSearchForm">
             <fieldset>
             <legend>게시물 검색</legend>
-            <input type="hidden" name="key" value="4139"/>
-            <input type="hidden" name="bbsNo" value="531"/>
-            <input type="hidden" name="integrDeptCode" value=""/>
+            <input type="hidden" name="menuId" id="menuId" value="${menuId }"/>
 			
 			<label for="ssearchCondition" class="skip">검색 영역 선택</label>
             <select name="searchCondition" id="searchCondition" title="검색 영역 선택">

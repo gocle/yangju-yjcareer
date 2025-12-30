@@ -123,9 +123,7 @@
         <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do" method="get" class="boardSearchForm">
             <fieldset>
             <legend>게시물 검색</legend>
-            <input type="hidden" name="key" value="4139"/>
-            <input type="hidden" name="bbsNo" value="531"/>
-            <input type="hidden" name="integrDeptCode" value=""/>
+            <input type="hidden" name="menuId" Id="menuId" value="${menuId }"/>
 			
 			<label for="ssearchCondition" class="skip">검색 영역 선택</label>
             <select name="searchCondition" id="searchCondition" title="검색 영역 선택">
@@ -152,7 +150,7 @@
         <ul class="list clearfix">
 			<c:forEach var="articleList" items="${articleList}" varStatus="status">
             <li>
-				<a href="/yjcareer/usr/bbs/photo/detail.do">
+				<a href="/yjcareer/usr/bbs/photo/detail.do?menuId=${menuId }&baId=${articleList.baId}">
                     <div class="ico_group">
 					</div>
                     <div class="photo_group">
