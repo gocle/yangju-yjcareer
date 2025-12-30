@@ -3,6 +3,8 @@ package com.gocle.yangju.forest.usr.reservation.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.collections4.MapUtils;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
@@ -23,6 +25,8 @@ import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
+
+import egovframework.com.cmm.service.Globals;
 
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
@@ -120,7 +124,6 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 	
 	@Override
 	public void insertEnroll(EnrollManageVo enrollManageVo) throws Exception {
-		
 		boolean enrollIns = false;
 		String errCd = "";
 		
@@ -136,7 +139,7 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 						// 정원 check
 						if(MapUtils.getIntValue(valid, "capacity") > MapUtils.getIntValue(valid, "enrollCnt")) {
 						 	// 로그인 필요 
-							if(!StringUtils.hasText(enrollManageVo.getSessionMemSeq())) {
+							if(!StringUtils.hasText(enrollManageVo.getDiKey())) {
 								errCd = "91";
 							} else {
 								enrollIns = true;

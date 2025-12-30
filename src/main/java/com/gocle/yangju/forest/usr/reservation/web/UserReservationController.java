@@ -687,7 +687,7 @@ public class UserReservationController {
 						// 정원 check
 						if(MapUtils.getIntValue(valid, "capacity") > MapUtils.getIntValue(valid, "enrollCnt")) {
 						 	// 로그인 필요 
-							if(!StringUtils.hasText(enrollManageVo.getSessionMemSeq())) {
+							if(!StringUtils.hasText(enrollManageVo.getDiKey())) {
 								errCd = "91";
 							} else {
 								enrollIns = true;
