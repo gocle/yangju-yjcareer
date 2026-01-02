@@ -227,10 +227,8 @@
 		  const mm = String(today.getMonth() + 1).padStart(2, '0');
 		  const dd = String(today.getDate()).padStart(2, '0');
 		  
-		  //const todayStr = `${mm}/${dd}/${yyyy}`;
-		  // ⚠️ EvoCalendar format: mm/dd/yyyy
-		 const todayStr = mm + '/' + dd + '/' + yyyy;
-		  
+		  const todayStr = mm + "/" + dd + "/" + yyyy;
+		 	
 		  // 기존 today 클래스 제거
 		  inst.$elements.innerEl
 			.find('[data-date-val]')
@@ -238,15 +236,14 @@
 		  
 		  // 오늘 날짜에 클래스 추가
 		  inst.$elements.innerEl
-			.find('[data-date-val="'+todayStr+'"]')
+			.find('[data-date-val="' + todayStr + '"]')
 			.addClass('is-today');
 		}
 		
 		function updateTopDate(inst) {
 		  const year  = inst.$active.year;
-		  const month = inst.$active.month + 1; // 0-based
-		  
-		  //$('.top-date').text(`${year}년 ${month}월`);
+		  const month = inst.$active.month + 1;
+
 		  $('.top-date').text(String(year) + '년 ' + String(month) + '월');
 		}
 		
@@ -287,15 +284,15 @@
 			                    const m = String(d.getMonth() + 1).padStart(2, '0');
 			                    const day = String(d.getDate()).padStart(2, '0');
 			                    const dateStr = y+'-'+m+'-'+day;
-								
+
 			                    calendarEvents.push({
 			                        id: item.SEQ_CD + '_' + dateStr,
 			                        name: item.SUBJ_NM,
 			                        date: dateStr,
 			                        type: item.CATE_CD,
 			                        color: eventColor,
-			                        description: '<div class="date-time">' + item.START_TIME + ' ~ ' + item.END_TIME + '</div>'
-			                            + '<div class="number">' + item.ENROLL_CNT + '/' + item.CAPACITY + '</div>'
+			                        description: '<div class="description"><div class="date-time"><span>시간</span>' + item.START_TIME + ' ~ ' + item.END_TIME + '</div>'
+			                            + '<div class="number"><span>인원</span>' + item.ENROLL_CNT + '/' + item.CAPACITY + '</div></div>'
 			                            + '<div class="event-btn-wrap">'
 			                            + '<button class="btn-'+ item.STATUS +'" data-id="' + item.SEQ_CD + '">'+applyBtnNm+'</button>'
 			                            + '</div>'

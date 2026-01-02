@@ -64,6 +64,11 @@
 
 			const label3 = document.querySelector("label[for='notice_tab1']");
 			const label4 = document.querySelector("label[for='notice_tab2']");
+			
+			const moreLink = document.querySelector(".notice_more_btn");
+			
+			const NOTICE_URL = "/yjcareer/usr/bbs/notice/list.do?menuId=2025MENU0000262";
+			const DATA_URL   = "/yjcareer/usr/bbs/photo/list.do?menuId=2025MENU0000263";
 
 			function updateNoticeTab() {
 				if (noticeBtn1.checked) {
@@ -72,12 +77,17 @@
 
 					label3.classList.add("active");
 					label4.classList.remove("active");
+					
+					moreLink.setAttribute("href", NOTICE_URL);
+					
 				} else {
 					noticeCon1.style.display = "none";
 					noticeCon2.style.display = "block";
 
 					label3.classList.remove("active");
 					label4.classList.add("active");
+					
+					moreLink.setAttribute("href", DATA_URL);
 				}
 			}
 
@@ -232,12 +242,12 @@
 									<div class="visual-btn">
 										<span class="tit">양주진로진학지원센터</span>
 										<img src="/yjcareer/assets/site/yjcareer/images/main/sideBar_6.png"/>
-										<a href="#" class="btn" target="_blank" title="새창열림"><span>센터안내</span></a>
+										<a href="#" target="_blank" title="새창열림"><span>센터안내</span></a>
 									</div>
 									<div class="visual-btn">
 										<span class="tit">꿈자람센터</span>
 										<img src="/yjcareer/assets/site/yjcareer/images/main/sideBar_6.png"/>
-										<a href="#" class="btn" target="_blank" title="새창열림"><span>센터안내</span></a>
+										<a href="#" target="_blank" title="새창열림"><span>센터안내</span></a>
 									</div>
 								</div>
 							</div>
@@ -444,6 +454,9 @@
 												<p class="notice_date">${row.regDate }</p>
 											</a>
 										</div>
+										<c:if test="${!i.last}">
+											<div class="notice_line"></div>
+										</c:if>
 									</c:forEach>
 								</div>
 								
@@ -455,6 +468,9 @@
 												<p class="notice_date">${row.regDate }</p>
 											</a>
 										</div>
+										<c:if test="${!i.last}">
+											<div class="notice_line"></div>
+										</c:if>
 									</c:forEach>
 								</div>
 
@@ -464,7 +480,7 @@
 								<h2 class="notice_top_title">
 									<span class="title">관련 일정</span>
 									<div class="notice_more">
-										<a href="/yjcareer/selectBbsNttList.do?bbsNo=530&amp;key=4145" class="notice_more_btn"><span>더보기</span> </a>
+										<a href="/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341" class="notice_more_btn"><span>더보기</span> </a>
 									</div>
 								</h2>
 								<div class="schedule_contents">
@@ -555,32 +571,61 @@
 		</div>
 
 		<div class="footer-banner">
-			<div class="f-b-inner">
-				<div class="fBanner_control">
-					<button class="fBanner_prev">이전</button>
-				</div>
-				<div class="fBanner-list">
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_ele.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_mi.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_hi.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/adiga.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/km.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/cur.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/yangju.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_ele.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_mi.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/ebs_hi.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/adiga.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/km.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/cur.jpg" /></div>
-					<div class="fBanner-item"><img src="/yjcareer/assets/site/yjcareer/images/common/yangju.jpg" /></div>
-				</div>
-
-				<div class="fBanner_control">
-					<button class="fBanner_next">다음</button>
-				</div>
-
-			</div>
+		  <div class="f-b-inner wrap">
+		
+		    <div class="fBanner_control">
+		      <button class="fBanner_prev">이전</button>
+		    </div>
+		
+		    <div class="fBanner-list">
+		      <div class="fBanner-item">
+		        <a href="https://primary.ebs.co.kr/main/primary" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_ele.jpg" alt="EBS 초등" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://mid.ebs.co.kr/main/middle" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_mi.jpg" alt="EBS 중학" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://www.ebsi.co.kr/ebs/pot/poti/main.ebs" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_hi.jpg" alt="EBS 고등" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://www.adiga.kr" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/adiga.jpg" alt="대입정보포털 어디가" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://www.kmooc.kr/" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/km.jpg" alt="kmooc" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://www.career.go.kr/cloud/w/main/home" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/career.jpg" alt="커리어넷" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://www.yangju.go.kr" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/yangju.jpg" alt="양주시청" />
+		        </a>
+		      </div>
+		    </div>
+		
+		    <div class="fBanner_control">
+		      <button class="fBanner_next">다음</button>
+		    </div>
+		
+		  </div>
 		</div>
 		
 	<c:import url="/usr/layout/footer.do" />

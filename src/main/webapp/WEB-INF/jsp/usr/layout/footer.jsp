@@ -6,12 +6,12 @@
 				<div class="link">
 					<h2 class="skip">바로가기</h2>
 					<ul class="link_list">
-						<li class="link_item n1"><a href="/www/contents_743" class="link_anchor">개인정보처리방침</a></li>
-						<li class="link_item n2"><a href="/www/selectBbsNttList.do?bbsNo=88&key=747" class="link_anchor">영상정보처리기기 운영ㆍ관리 방침</a></li>
-						<li class="link_item n3"><a href="/www/contents_749" class="link_anchor">뷰어다운로드</a></li>
-						<li class="link_item n4"><a href="/www/selectBbsNttList.do?bbsNo=90&key=750" class="link_anchor">홈페이지 개선의견</a></li>
-						<li class="link_item n5"><a href="/www/contents_757" class="link_anchor">저작권정책</a></li>
-						<li class="link_item n6"><a href="/yjcareer/sitemap_4151" class="link_anchor">사이트맵</a></li>
+						<li class="link_item n1"><a href="https://www.yangju.go.kr/www/contents.do?key=743" class="link_anchor">개인정보처리방침</a></li>
+						<li class="link_item n2"><a href="https://www.yangju.go.kr/www/selectBbsNttList.do?bbsNo=88&key=747" class="link_anchor">영상정보처리기기 운영ㆍ관리 방침</a></li>
+						<li class="link_item n3"><a href="https://www/contents.do?key=749" class="link_anchor">뷰어다운로드</a></li>
+						<li class="link_item n4"><a href="https://www.yangju.go.kr/www/selectBbsNttList.do?bbsNo=90&key=750" class="link_anchor">홈페이지 개선의견</a></li>
+						<li class="link_item n5"><a href="https://www.yangju.go.kr/www/contents.do?key=757" class="link_anchor">저작권정책</a></li>
+						<li class="link_item n6"><a href="/yjcareer/usr/introduce/sitemap.do?key=4151" class="link_anchor">사이트맵</a></li>
 					</ul>
 				</div>
 

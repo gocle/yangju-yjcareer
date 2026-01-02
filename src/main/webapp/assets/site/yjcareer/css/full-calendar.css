@@ -316,6 +316,10 @@
 	color : #fff;
 }
 
+.fc .fc-daygrid-day-frame {
+  min-height: 130px;
+}
+
 .search_tab {
   display: flex;
   flex-wrap: wrap;
@@ -462,6 +466,7 @@
         font-size: 12px;
         width: 30px;
         height: 30px;
+        text-align: center;
 	}
 	
 	.fc .fc-daygrid-day-number {
@@ -491,6 +496,10 @@
 	
 	.fc-daygrid-event .fc-event-title {
 	    font-size: 13px;
+	}
+	
+	.fc .fc-daygrid-day-frame {
+	  min-height: 100px;
 	}
 
 }

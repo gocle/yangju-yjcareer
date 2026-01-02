@@ -189,7 +189,7 @@
 
     // v1.0.0 - Limit title (...)
     EvoCalendar.prototype.limitTitle = function(title, limit) {
-        var newTitle = [];
+        /*var newTitle = [];
         limit = limit === undefined ? 18 : limit;
         if ((title).split(' ').join('').length > limit) {
             var t = title.split(' ');
@@ -199,7 +199,7 @@
                 }
             }
             return newTitle.join(' ') + '...'
-        }
+        }*/
         return title;
     }
 

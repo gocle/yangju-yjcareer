@@ -41,6 +41,12 @@ public class UserIntroduceController {
 		return "/usr/introduce/map";
 	}
 	
+	@RequestMapping("sitemap.do")
+	public String sitemap(ModelMap model) throws Exception {
+		
+		return "/usr/introduce/sitemap";
+	}
+	
 
 	@RequestMapping("woodCenter.do")
 	public String woodCenter(ModelMap model) throws Exception {

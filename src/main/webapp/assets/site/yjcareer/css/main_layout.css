@@ -52,7 +52,7 @@
 }
 
 .pop-btn a {
-	color: #fff;
+	color: #fff!important;
 }
 
 
@@ -874,7 +874,7 @@
 }
 
 .schedule_contents {
-	height: 365px;
+	height: 369px;
     border-radius: 20px;
 	background: #e8f7f0;
 }
@@ -1044,6 +1044,7 @@ input[type="number"] {
     width: 17px;
     height: 17px;
 	font-size: 0;
+	border: 0;
 }
 
 
@@ -1350,6 +1351,7 @@ input[type="number"] {
 	    left: 0!important;
     	top: 5rem!important;
     	width : 100%!important;
+    	height: 100%!important;
 	}
 	
 	.main_popup a {

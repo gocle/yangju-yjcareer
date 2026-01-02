@@ -554,17 +554,17 @@ tr.calendar-body .calendar-day .day[disabled] {
     width: 30px;
 }
 .event-container > .event-info {
-    width: 100%;
+    width: 70%;
     display: flex;
 	justify-content: space-between;
-    align-items: center;
-	padding-left: 20px;
+	padding: 10px 0 10px 20px;
+	flex-direction: column;
 }
 
 .event-container > .event-info > div {
     margin: 0;
     color: #333;
-	width: 60%;
+	width: 100%;
     display: flex;
 	justify-content: space-between;
     align-items: center;
@@ -574,20 +574,38 @@ tr.calendar-body .calendar-day .day[disabled] {
 	margin-right: -1px;
 }
 
-.event-container .event-desc .number {
-	width: 10%;
+.description {
+	width : 70%;
+	display: flex;
 }
 
-.event-container .event-desc .date-time {
-	width: 30%;
+.description > div > span {
+	color: #666;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+
+.description > div.number {
+	margin-left : 20px;
+}
+
+.event-btn-wrap {
+	position: absolute;
+	top : 0;
+	right : 0;
+	height: 100%;
+	display: flex
 }
 
 .event-container > .event-info > p.event-title {
     position: relative;
     font-size: 17px;
     font-weight: 500;
-	width : 35%;
-	color: #333;
+    width: 100%;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .event-container > .event-info > p.event-title > span {
     position: absolute;
@@ -753,6 +771,12 @@ button.icon-button > span.chevron-arrow-right {
 		left: 0;
 		bottom: 0;
 		width: 100%;
+		display: unset;
+		top: calc(100% - 39px);
+	}
+	
+	.event-container > .event-info {
+		width : 100%;
 	}
 	
 	.event-container > .event-info > p.event-title,.event-container .event-desc .date-time,.event-container .event-desc .number {
@@ -760,19 +784,11 @@ button.icon-button > span.chevron-arrow-right {
 	}
 	
 	.event-container > .event-info > div {
-		width: 68%;
+		width:  100%;
 	}
 	
 	.event-container > .event-info > p.event-title {
-		width: 32%;
-	}
-	
-	.event-container .event-desc .date-time {
-		width: 50%;
-	}
-	
-	.event-container .event-desc .number {
-		width : 30%;
+		width: 100%;
 	}
 	
 	.event-btn-wrap .btn-apply:hover {
@@ -915,17 +931,7 @@ button.icon-button > span.chevron-arrow-right {
 }
 
 @media screen and (max-width: 1000px) {
-	.event-container > .event-info > div {
-		width: 65%;
-	}
-	
-	.event-container .event-desc .date-time {
-		width: 50%;
-	}
-	
-	.event-container .event-desc .number {
-		width : 20%;
-	}
+
 }
 
 /* sm */
