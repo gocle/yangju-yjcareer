@@ -227,27 +227,19 @@
 		  const mm = String(today.getMonth() + 1).padStart(2, '0');
 		  const dd = String(today.getDate()).padStart(2, '0');
 		  
-		  const todayStr = `${mm}/${dd}/${yyyy}`;
+		  //const todayStr = `${mm}/${dd}/${yyyy}`;
 		  // ⚠️ EvoCalendar format: mm/dd/yyyy
-		 	
+		 const todayStr = mm + '/' + dd + '/' + yyyy;
+		  
 		  // 기존 today 클래스 제거
 		  inst.$elements.innerEl
 			.find('[data-date-val]')
 			.removeClass('is-today');
 		  
 		  // 오늘 날짜에 클래스 추가
-		  /*inst.$elements.innerEl
-			.find(`[data-date-val="${todayStr}"]`)
-			.addClass('is-today');*/
-		  
-		  // 오늘 날짜 includes로 확인
 		  inst.$elements.innerEl
-		  	.find('[data-date-val]').each(function() {
-		        const val = $(this).attr('data-date-val');
-		        if (val.includes(mm) && val.includes(dd) && val.includes(yyyy)) {
-		            $(this).addClass('is-today');
-		        }
-		    });
+			.find('[data-date-val="'+todayStr+'"]')
+			.addClass('is-today');
 		}
 		
 		function updateTopDate(inst) {

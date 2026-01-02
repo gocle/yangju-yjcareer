@@ -564,7 +564,7 @@ tr.calendar-body .calendar-day .day[disabled] {
 .event-container > .event-info > div {
     margin: 0;
     color: #333;
-	width: 72%;
+	width: 60%;
     display: flex;
 	justify-content: space-between;
     align-items: center;
@@ -586,7 +586,7 @@ tr.calendar-body .calendar-day .day[disabled] {
     position: relative;
     font-size: 17px;
     font-weight: 500;
-	width : 28%;
+	width : 35%;
 	color: #333;
 }
 .event-container > .event-info > p.event-title > span {
