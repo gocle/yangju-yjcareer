@@ -24,6 +24,28 @@
         </if>
 	</sql>
 	
+	<sql id="selectSearchWhereA">
+		<if test="searchSgrCd != null and searchSgrCd != '' and searchSgrCd != 'ALL' ">
+            AND s.sgr_cd       = #{searchSgrCd}
+        </if>
+        <if test="searchCateCd != null and searchCateCd != '' and searchCateCd != 'ALL' ">
+            AND s.cate_cd       = #{searchCateCd}
+        </if>
+		<if test="searchKeyword != null and searchKeyword != '' ">
+            AND (s.subj_cd    LIKE CONCAT('%', #{searchKeyword}, '%')
+            OR  s.subj_nm     LIKE CONCAT('%', #{searchKeyword}, '%') )
+        </if>
+        <if test="sessionMemType != null and sessionMemType != '' ">
+        	<if test="sessionMemType == 'STAFF' ">
+        		AND s.com_id = (
+        			SELECT com_id
+        			FROM COM_MEMBER
+        			WHERE MEM_SEQ = #{sessionMemSeq}
+        		)
+        	</if>
+        </if>
+	</sql>
+	
 	<sql id="selectSearchDetailWhere">
 		<if test="searchKeyword2 != null and searchKeyword2 != '' ">
             AND (e.mem_name      LIKE CONCAT('%', #{searchKeyword2}, '%')
@@ -34,6 +56,60 @@
         </if>
 	</sql>
 	
+	<select id="selectTotalCountA" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ s
+		INNER JOIN TB_SGR sg
+			ON s.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = s.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhereA" />
+	</select>
+	
+	<select id="selectListA" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		<include refid="kr.co.gocle.include.paging-start" />
+		SELECT s.subj_cd
+			, s.sgr_cd
+			, s.subj_nm
+			, cc.com_title
+			, s.use_yn
+			, sc.cate_nm
+			, s.enroll_type
+			, s.reg_dt
+			, (SELECT COUNT(*) 
+				FROM TB_SUBJ_SEQ ss 
+				WHERE ss.subj_cd = s.subj_cd 
+				AND ss.sgr_cd = s.sgr_cd 
+				AND ss.use_yn = 'Y') AS seq_cnt
+			, (SELECT SUM(COALESCE(ss.capacity, 0))
+				FROM TB_SUBJ_SEQ ss 
+				WHERE ss.subj_cd = s.subj_cd 
+				AND ss.sgr_cd = s.sgr_cd 
+				AND ss.use_yn = 'Y') AS capacity
+			, (SELECT COUNT(*) 
+				FROM TB_ENROLL e 
+				INNER JOIN TB_SUBJ_SEQ ss
+				ON e.seq_cd = ss.seq_cd
+				WHERE ss.subj_cd = s.subj_cd 
+				AND ss.sgr_cd = s.sgr_cd 
+				AND ss.use_yn = 'Y') AS enroll_cnt
+		FROM TB_SUBJ s
+		INNER JOIN TB_SGR sg
+			ON s.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = s.com_id
+		WHERE 1 = 1
+		<include refid="selectSearchWhereA" />
+		ORDER BY s.reg_dt desc, s.subj_cd desc
+		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
 	
 	<select id="selectTotalCount" resultType="int">
 		SELECT COUNT(*)
@@ -84,6 +160,47 @@
 		<include refid="selectSearchWhere" />
 		ORDER BY ss.reg_dt desc, ss.seq_cd desc
 		<include refid="kr.co.gocle.include.paging-end" />
+	</select>
+	
+	<select id="selectEnrollDetailTotalCountA" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_SUBJ s
+		INNER JOIN TB_SUBJ_SEQ ss
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+			AND ss.use_yn = 'Y'
+		INNER JOIN TB_ENROLL e
+			ON ss.seq_cd = e.seq_cd
+		WHERE 1 = 1
+		AND s.subj_cd = #{subjCd}
+		<include refid="selectSearchDetailWhere" />
+	</select>
+	
+	<select id="selectEnrollDetailListA" resultType="EnrollManageVo" parameterType="EnrollManageVo">
+		SELECT s.subj_cd 
+			, ss.seq_cd
+			, ss.subj_nm
+			, ss.session_nm
+			, e.di_key
+			, e.mem_name
+			, e.reg_dt
+			, e.enroll_app_dt
+			, e.enroll_status_cd
+			, fn_get_code_name('ENROLL_STATUS_CD', e.enroll_status_cd) AS enroll_status_nm
+			, e.force_yn
+			, e.complete_yn
+			, CONCAT(e.hp_tel1, '-', e.hp_tel2, '-', e.hp_tel3) as hp_tel1
+		FROM TB_SUBJ s
+		INNER JOIN TB_SUBJ_SEQ ss
+			ON s.sgr_cd = ss.sgr_cd
+			AND s.subj_cd = ss.subj_cd
+			AND ss.use_yn = 'Y'
+		INNER JOIN TB_ENROLL e
+			ON ss.seq_cd = e.seq_cd
+		WHERE 1 = 1
+		AND s.subj_cd = #{subjCd}
+		<include refid="selectSearchDetailWhere" />
+		ORDER BY ss.seq_cd desc, e.reg_dt desc
 	</select>
 	
 	<select id="selectEnrollDetailTotalCount" resultType="int">

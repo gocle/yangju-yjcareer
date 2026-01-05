@@ -53,6 +53,7 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private String resdncDetail;
     // 신청상태코드
     private String enrollStatusCd;
+    private String enrollStatusNm;
     // 신청처리자 아이디
     private String enrollAppId;
     // 신청처리자 아이피
@@ -79,6 +80,7 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
     private int userCnt;
     private int dupErrCnt;
     private int eduErrCnt;
+    private int seqCnt;
     
     // 히스토리 저장 타입
     private String connectionType;
@@ -395,5 +397,17 @@ public class EnrollManageVo extends EnrollManageDefaultVo {
 	}
 	public void setDiKeys(String[] diKeys) {
 		this.diKeys = diKeys;
+	}
+	public int getSeqCnt() {
+		return seqCnt;
+	}
+	public void setSeqCnt(int seqCnt) {
+		this.seqCnt = seqCnt;
+	}
+	public String getEnrollStatusNm() {
+		return enrollStatusNm;
+	}
+	public void setEnrollStatusNm(String enrollStatusNm) {
+		this.enrollStatusNm = enrollStatusNm;
 	}
 }

@@ -144,7 +144,7 @@ public class SubjManageController {
         }
 		 
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/adm/chsubj/SubjManageList.do";
+		return "redirect:/adm/chsubj/SubjManageList.do?menuId="+subjManageVo.getMenuId();
 	}
 	
 	@RequestMapping(value = "SubjManageUpdateForm.do")
@@ -219,7 +219,7 @@ public class SubjManageController {
         }
 		 
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/adm/chsubj/SubjManageList.do";
+		return "redirect:/adm/chsubj/SubjManageList.do?menuId="+subjManageVo.getMenuId();
 	}
 	
 	@ResponseBody

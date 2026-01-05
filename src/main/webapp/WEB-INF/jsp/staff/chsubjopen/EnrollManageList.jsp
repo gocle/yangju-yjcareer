@@ -34,23 +34,13 @@ $(document).ready(function() {
 
 function fn_search(pageIndex) {
 	$("#pageIndex").val(pageIndex);
-
-    let reqUrl = "${contextRoot}/staff/chsubjopen/";
-    
-    if($("#searchSgrCd").val() == "A") {
-		reqUrl += "EnrollManageListA.do";
-	} else {
-		reqUrl += "EnrollManageListB.do";
-	}
-
-    $("#listForm").attr("action", reqUrl);
+	$("#listForm").attr("action", "EnrollManageList.do");
     $("#listForm").submit();
 }
 
 function fnCmdUpdateForm(seqCd) {
 	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqManageForm.do?menuId="+menuId;
+	var reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqManageForm.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
@@ -58,8 +48,7 @@ function fnCmdUpdateForm(seqCd) {
 
 function fnEnrollDetailList(seqCd) {
 	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/staff/chsubjopen/EnrollDetailManageList.do?menuId="+menuId;
+	var reqUrl = "${contextRoot}/staff/chsubjopen/EnrollDetailManageList.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();

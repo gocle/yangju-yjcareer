@@ -86,4 +86,35 @@ public class StaffSearchManageController {
 		
     	return "staff/chsearch/popup/UsrManageSearchInsertList";
     }
+    
+    /**
+     * 1:1 상담 교육생 검색 팝업
+     */
+    @RequestMapping(value ="/popup/UsrManageSearchInsertListA.do")
+    public String selectUsrManageSearchInsertListA(@ModelAttribute("searchVo") UsrManageVo searchVo, ModelMap model) throws Exception {
+    	
+    	model.addAttribute("subjSeqList", searchManageService.selectSubjSeqList(searchVo.getSubjCd()));
+    	
+    	int totalCount = this.usrManageService.selectUserSearchTotalCount(searchVo);
+		List<UsrManageVo> resultList = this.usrManageService.selectUserSearchList(searchVo);
+		
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex = searchVo.getPageIndex();
+
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(searchVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+		
+        model.addAttribute("paginationInfo", paginationInfo);
+        model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageSize", pageSize);
+		
+		model.addAttribute("searchVo", searchVo);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		
+    	return "staff/chsearch/popup/UsrManageSearchInsertListA";
+    }
 }

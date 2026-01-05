@@ -107,21 +107,32 @@
 	</insert>
 	
 	<select id="select" resultType="SubjManageVo" parameterType="SubjManageVo">
-		SELECT sgr_cd
-			, cate_cd
-			, subj_cd
-			, subj_nm
-			, use_yn
-			, tel
-			, subj_plan
-			, subj_desc
-			, enroll_type
-			, com_id
-			, edu_target
-			, loc_id
-			, dupl_enroll_yn
-		FROM TB_SUBJ
-		WHERE subj_cd = #{subjCd}
+		SELECT s.sgr_cd
+			, sg.sgr_nm
+			, s.cate_cd
+			, sc.cate_nm
+			, s.subj_cd
+			, s.subj_nm
+			, s.use_yn
+			, s.tel
+			, s.subj_plan
+			, s.subj_desc
+			, s.enroll_type
+			, s.com_id
+			, s.edu_target
+			, s.loc_id
+			, s.dupl_enroll_yn
+			, cc.com_title
+		FROM TB_SUBJ s
+		INNER JOIN TB_SGR sg
+			ON s.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = s.cate_cd
+			AND s.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = s.com_id
+		WHERE 1 = 1
+		AND subj_cd = #{subjCd}
 	</select>
 	
 	<update id="update">

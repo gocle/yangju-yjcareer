@@ -6,6 +6,7 @@ public class SubjManageVo extends SubjManageDefaultVo {
 	
 	// 교육사이트 코드
     private String sgrCd;
+    private String sgrNm;
     // 분류 일련번호
     private String cateCd;
     private String cateNm;
@@ -129,5 +130,11 @@ public class SubjManageVo extends SubjManageDefaultVo {
 	}
 	public void setLocId(String locId) {
 		this.locId = locId;
+	}
+	public String getSgrNm() {
+		return sgrNm;
+	}
+	public void setSgrNm(String sgrNm) {
+		this.sgrNm = sgrNm;
 	}
 }

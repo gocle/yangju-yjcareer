@@ -52,8 +52,7 @@ function fnCmdInsertForm() {
 		return false;
 	}
 	
-	var menuId = $("#menuId").val();
-	let reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqInsertManageForm.do?menuId="+menuId;
+	let reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqInsertManageForm.do";
 
 	$("#listForm").attr("action", reqUrl);
     $("#listForm").submit();
@@ -61,8 +60,8 @@ function fnCmdInsertForm() {
 
 function fnCmdUpdateForm(seqCd) {
 	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqManageForm.do?menuId="+menuId;
+	
+	var reqUrl = "${contextRoot}/staff/chsubjopen/SubjSeqManageForm.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();

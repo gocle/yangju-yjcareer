@@ -13,21 +13,21 @@ function fn_check_all() {
 
 function fn_search(pageIndex) {
 	$("#pageIndex").val(pageIndex);
-	$("#listForm").attr("action", "EnrollDetailManageList.do");
+	$("#listForm").attr("action", "${contextRoot}/staff/chsubjopen/EnrollDetailManageListA.do");
 	$("#listForm").submit();
 }
 
 function fnCmdList() {
-	$("#listForm").attr("action", "EnrollManageList.do");
+	$("#listForm").attr("action", "EnrollManageListA.do");
 	$("#listForm").submit();
 }
 
 function fnEnrollAddUserPopup () {
-	popOpenWindow("", "popEnrollAddUser", 650, 550);
+	popOpenWindow("", "popEnrollAddUserA", 650, 550);
 	
-	var reqUrl = "${contextRoot}/staff/chsearch/popup/UsrManageSearchInsertList.do";
+	var reqUrl = "${contextRoot}/staff/chsearch/popup/UsrManageSearchInsertListA.do";
 	
-	$("#listForm").attr("target", "popEnrollAddUser");
+	$("#listForm").attr("target", "popEnrollAddUserA");
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
@@ -115,13 +115,6 @@ function fnEnrollApplyCancel() {
 	    }
 	});
 }
-
-function fn_search(pageIndex) {
-	let reqUrl = "${contextRoot}/staff/chsubjopen/EnrollDetailManageList.do";
-
-    $("#listForm").attr("action", reqUrl);
-    $("#listForm").submit();
-}
 </script>
 
 <style>
@@ -133,7 +126,8 @@ function fn_search(pageIndex) {
 	<form id="listForm" name="listForm" method="post">
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
-		<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
+		<input type="hidden" id="seqCd" name="seqCd" value="" />
+		<input type="hidden" id="subjCd" name="subjCd" value="${resultMap.subjCd }" />
 		<input type="hidden" id="sgrCd" name=""sgrCd"" value="${resultMap.sgrCd }" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
 		<input type="hidden" id="diKey" name="diKey" value="" />
@@ -149,8 +143,8 @@ function fn_search(pageIndex) {
 				<tr>
 	            	<th>교육강좌명</th>
 	            	<td>${resultMap.subjNm }</td>
-	            	<th>운영과정코드</th>
-	            	<td>${resultMap.seqCd }</td>
+	            	<th>과정코드</th>
+	            	<td>${resultMap.subjCd }</td>
           		</tr>
           		<tr>
 	            	<th>분류</th>
@@ -172,12 +166,6 @@ function fn_search(pageIndex) {
 	            		<c:if test="${resultMap.enrollType eq '1'}">선착순</c:if>
 	            		<c:if test="${resultMap.enrollType eq '2'}">승인</c:if>
 	            	</td>
-	            </tr>
-	            <tr>
-	            	<th>모집인원</th>
-	            	<td>${resultMap.capacity } 명</td>
-	            	<th>대기인원</th>
-	            	<td>${resultMap.waitEnrollCnt } 명</td>
 	            </tr>
 			</tbody>
 		</table>
@@ -213,31 +201,30 @@ function fn_search(pageIndex) {
 				<tr>
 					<th style="width: 5%"><input type="checkbox" name="chkAll" id="chkAll" class="all_check" onclick="javascript:fn_check_all();"></th>
 					<th style="width: 5%">No</th>
-					<th style="width: 10%">이름</th>
+					<th style="width: 8%">과정운영코드</th>
+					<th style="width: 15%">교육강좌명</th>
+					<th style="width: 5%">기수</th>
+					<th style="width: 8%">이름</th>
 					<th style="width: 10%">휴대전화</th>
-					<th style="width: 15%">신청일자</th>
-					<th style="width: 15%">신청상태</th>
-					<th style="width: 15%">승인일자</th>
-					<th style="width: 8%">관리자 등록여부</th>
-					<th style="width: 7%">수료여부</th>
+					<th style="width: 10%">신청일자</th>
+					<th style="width: 8%">신청상태</th>
+					<th style="width: 10%">승인일자</th>
+					<th style="width: 5%">관리자 등록여부</th>
+					<th style="width: 5%">수료여부</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="item" items="${resultList}" varStatus="status">
 					<tr>
-						<td><input type="checkbox" name="diKeys" class="all_check" value="${item.seqCd}_${item.diKey}"></td>
+						<td><input type="checkbox" name="diKeys" class="all_check" value="<c:out value="${item.diKey}"/>"></td>
 						<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
+						<td>${item.seqCd }</td>
+						<td>${item.subjNm }</td>
+						<td>${item.sessionNm }</td>
 						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.diKey}');">${item.memName }</a></td>
 						<td>${item.hpTel1 }</td>
 						<td>${item.regDt }</td>
-						<td>
-							<c:choose>
-								<c:when test="${item.enrollStatusCd eq 'A'}">승인대기</c:when>
-								<c:when test="${item.enrollStatusCd eq 'B'}">수강승인</c:when>
-								<c:when test="${item.enrollStatusCd eq 'C'}">승인취소</c:when>
-								<c:otherwise></c:otherwise>
-							</c:choose>
-						</td>
+						<td>${item.enrollStatusNm }</td>
 						<td>
 							<c:if test="${item.enrollStatusCd eq 'B'}">
 								${item.enrollAppDt }
@@ -249,7 +236,7 @@ function fn_search(pageIndex) {
 				</c:forEach>
 				<c:if test="${fn:length(resultList) == 0}">
 					<tr>
-						<td colspan="9" class="no-data">
+						<td colspan="12" class="no-data">
 							<i class="fa fa-search"></i> 등록된 교육생이 없습니다.
 						</td>
 					</tr>

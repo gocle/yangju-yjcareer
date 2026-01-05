@@ -56,4 +56,18 @@
         AND cc.com_id = #{comId}
         ORDER BY cl.SEQ_NO
 	</select>
+	
+	<select id="selectSubjSeqList" resultType="SubjSeqManageVo" parameterType="String">
+		SELECT ss.subj_nm
+			  , ss.session_nm
+              , ss.seq_cd
+        FROM TB_SUBJ s
+        INNER JOIN TB_SUBJ_SEQ ss
+        	ON ss.sgr_cd = s.sgr_cd
+        	AND ss.subj_cd = s.subj_cd
+        WHERE 1 = 1
+        AND ss.subj_cd = #{subjCd}
+        AND ss.use_yn = 'Y'
+        ORDER BY ss.session_nm DESC
+	</select>
 </mapper>

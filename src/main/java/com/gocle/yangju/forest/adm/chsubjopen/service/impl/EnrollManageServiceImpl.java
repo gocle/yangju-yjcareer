@@ -22,6 +22,16 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	SubjSeqManageMapper subjSeqManageMapper;
 	
 	@Override
+	public int selectTotalCountA(EnrollManageVo enrollManageVo) throws Exception {
+		return enrollManageMapper.selectTotalCountA(enrollManageVo);
+	}
+	
+	@Override
+	public List<EnrollManageVo> selectListA(EnrollManageVo enrollManageVo) throws Exception {
+		return enrollManageMapper.selectListA(enrollManageVo);
+	}
+	
+	@Override
 	public int selectTotalCount(EnrollManageVo enrollManageVo) throws Exception {
 		return enrollManageMapper.selectTotalCount(enrollManageVo);
 	}
@@ -29,6 +39,16 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	@Override
 	public List<EnrollManageVo> selectList(EnrollManageVo enrollManageVo) throws Exception {
 		return enrollManageMapper.selectList(enrollManageVo);
+	}
+	
+	@Override
+	public int selectEnrollDetailTotalCountA(EnrollManageVo enrollManageVo) throws Exception {
+		return enrollManageMapper.selectEnrollDetailTotalCountA(enrollManageVo);
+	}
+	
+	@Override
+	public List<EnrollManageVo> selectEnrollDetailListA(EnrollManageVo enrollManageVo) throws Exception {
+		return enrollManageMapper.selectEnrollDetailListA(enrollManageVo);
 	}
 	
 	@Override
@@ -42,7 +62,10 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	}
 	
 	@Override
-	public int insert(EnrollManageVo enrollManageVo) throws Exception {
+	public void insert(EnrollManageVo enrollManageVo) throws Exception {
+		
+		int userCnt = 0;
+		int dupErrCnt = 0;
 		
 		SubjSeqManageVo subjSeqManageVo = new SubjSeqManageVo();
 		subjSeqManageVo.setSeqCd(enrollManageVo.getSeqCd());
@@ -66,19 +89,29 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 			enrollManageVo.setEnrollStatusCd("A");
 		}
 		
-		int ins = 0;
-		
 		for(String diKey : enrollManageVo.getDiKeys()) {
 			enrollManageVo.setDiKey(diKey);
-			ins = enrollManageMapper.insert(enrollManageVo);
 			
-			// 히스토리 저장타입 - 등록(I)
-			enrollManageVo.setConnectionType("I");
-			// 수강등록 테이블 히스토리 입력
-			enrollManageMapper.insertEnrollHistory(enrollManageVo);
+			// 현재 신청상태
+			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
+			
+			if(enroll != null) {
+				// 이미 등록된 사용자
+				dupErrCnt++;
+			} else {
+				enrollManageMapper.insert(enrollManageVo);
+				
+				// 히스토리 저장타입 - 등록(I)
+				enrollManageVo.setConnectionType("I");
+				// 수강등록 테이블 히스토리 입력
+				enrollManageMapper.insertEnrollHistory(enrollManageVo);
+				
+				userCnt++;
+			}
 		}
 		
-		return ins;
+		enrollManageVo.setUserCnt(userCnt);
+		enrollManageVo.setDupErrCnt(dupErrCnt);
 	}
 	
 	@Override
@@ -97,7 +130,10 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 	public int delete(EnrollManageVo enrollManageVo) throws Exception {
 		int deleteCnt = 0;
 		for(String diKey : enrollManageVo.getDiKeys()) {
-			enrollManageVo.setDiKey(diKey);
+			String[] parts = diKey.split("_");
+		    
+			enrollManageVo.setSeqCd(parts[0]);
+			enrollManageVo.setDiKey(parts[1]);
 			
 			// 히스토리 저장타입 - 삭제(D)
 			enrollManageVo.setConnectionType("D");
@@ -117,7 +153,10 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int eduErrCnt = 0;
 		
 		for(String diKey : enrollManageVo.getDiKeys()) {
-			enrollManageVo.setDiKey(diKey);
+		    String[] parts = diKey.split("_");
+		    
+			enrollManageVo.setSeqCd(parts[0]);
+			enrollManageVo.setDiKey(parts[1]);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);
@@ -154,7 +193,10 @@ public class EnrollManageServiceImpl extends EgovAbstractServiceImpl implements 
 		int eduErrCnt = 0;
 		
 		for(String diKey : enrollManageVo.getDiKeys()) {
-			enrollManageVo.setDiKey(diKey);
+			String[] parts = diKey.split("_");
+		    
+			enrollManageVo.setSeqCd(parts[0]);
+			enrollManageVo.setDiKey(parts[1]);
 			
 			// 현재 신청상태
 			EnrollManageVo enroll = enrollManageMapper.selectEnrollUserInfo(enrollManageVo);

@@ -15,6 +15,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import com.gocle.yangju.forest.adm.chsearch.service.SearchManageService;
 import com.gocle.yangju.forest.adm.chsubj.service.SubjManageService;
+import com.gocle.yangju.forest.adm.chsubj.vo.SubjManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.service.EnrollManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.service.SubjSeqManageService;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
@@ -58,8 +59,8 @@ public class StaffEnrollManageController {
 		String sessionMemSeq = (String) session.getAttribute(Globals.MEM_SEQ);
 		searchVo.setSessionMemSeq(sessionMemSeq);
 		
-		int totalCount = this.enrollManageService.selectTotalCount(searchVo);
-		List<EnrollManageVo> resultList = enrollManageService.selectList(searchVo);
+		int totalCount = this.enrollManageService.selectTotalCountA(searchVo);
+		List<EnrollManageVo> resultList = enrollManageService.selectListA(searchVo);
 		
 		Integer pageSize = searchVo.getPageSize();
 		Integer pageIndex = searchVo.getPageIndex();
@@ -80,13 +81,13 @@ public class StaffEnrollManageController {
 		model.addAttribute("menuId", searchVo.getMenuId());
 		model.addAttribute("searchVo", searchVo);
 		
-		return "/staff/chsubjopen/EnrollManageList";
+		return "/staff/chsubjopen/EnrollManageListA";
 	}
 	
 	/**
 	 * 꿈자람센터 수강신청관리
 	 */
-	@RequestMapping(value = "EnrollManageListB.do")
+	@RequestMapping(value = "EnrollManageList.do")
 	public String EnrollManageListB(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
 		
 		searchVo.setSearchSgrCd("B");
@@ -116,6 +117,47 @@ public class StaffEnrollManageController {
 		return "/staff/chsubjopen/EnrollManageList";
 	}
 	
+	/**
+	 * 1:1 상담 수강신청관리 상세
+	 */
+	@RequestMapping(value = "EnrollDetailManageListA.do")
+	public String EnrollDetailManageListA(@ModelAttribute("enrollManageVo") EnrollManageVo searchVo
+			, @ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo
+			, @ModelAttribute("subjManageVo") SubjManageVo subjManageVo
+			, ModelMap model) throws Exception {
+		
+		model.addAttribute("menuId", searchVo.getMenuId());
+		model.addAttribute("resultMap", subjManageService.select(subjManageVo));
+		
+		int totalCount = this.enrollManageService.selectEnrollDetailTotalCountA(searchVo);
+		List<EnrollManageVo> resultList = this.enrollManageService.selectEnrollDetailListA(searchVo);
+		
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex = searchVo.getPageIndex();
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(searchVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+		
+        model.addAttribute("searchVo", searchVo);
+        model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageSize", pageSize);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("ENROLL_STATUS_CD");
+		model.addAttribute("enrollStatusList", adminCodeService.selectCodeList(cvo));
+		
+		return "/staff/chsubjopen/EnrollDetailManageListA";
+	}
+	
+	/**
+	 * 꿈자람센터 수강신청관리 상세
+	 */
 	@RequestMapping(value = "EnrollDetailManageList.do")
 	public String EnrollDetailManageList(@ModelAttribute("enrollManageVo") EnrollManageVo searchVo
 			, @ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo, ModelMap model) throws Exception {
@@ -141,6 +183,10 @@ public class StaffEnrollManageController {
 		model.addAttribute("resultList", resultList);
 		model.addAttribute("pageIndex", pageIndex);
 		model.addAttribute("pageSize", pageSize);
+		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("ENROLL_STATUS_CD");
+		model.addAttribute("enrollStatusList", adminCodeService.selectCodeList(cvo));
 		
 		return "/staff/chsubjopen/EnrollDetailManageList";
 	}
@@ -189,14 +235,25 @@ public class StaffEnrollManageController {
 		LoginInfo loginInfo = new LoginInfo();
 		loginInfo.putSessionToVo(enrollManageVo);
 		
-		int result = enrollManageService.insert(enrollManageVo);
+		enrollManageService.insert(enrollManageVo);
 		
-		if (result > 0) {
-            retMsg = "등록되었습니다.";
-            status.setComplete();
-        } else {
-            retMsg = "등록에 실패했습니다.";
-        }
+		// 등록처리된 수강생이 1명 이상인 경우
+		if(enrollManageVo.getUserCnt() > 0) {
+			if (enrollManageVo.getEduErrCnt() > 0 || enrollManageVo.getDupErrCnt() > 0) {
+				status.setComplete();
+				retMsg = enrollManageVo.getUserCnt() + "명 등록되었습니다.\n"
+						+ enrollManageVo.getDupErrCnt() + "명은 이미 등록상태입니다.";
+			} else {
+				status.setComplete();
+				retMsg = enrollManageVo.getUserCnt() + "명 등록되었습니다.";
+			}
+		} else {
+			if (enrollManageVo.getEduErrCnt() > 0 || enrollManageVo.getDupErrCnt() > 0) {
+				retMsg = enrollManageVo.getDupErrCnt() + "명은 이미 등록상태입니다.";
+			} else {
+				retMsg = "등록에 실패 하였습니다.";
+			}
+		}
 		
 		return retMsg;
 	}

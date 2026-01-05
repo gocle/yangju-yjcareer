@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gocle.yangju.forest.adm.chsearch.service.SearchManageService;
 import com.gocle.yangju.forest.adm.chsubj.vo.SubjCateManageVo;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.company.vo.CompanyManageVo;
 import com.gocle.yangju.forest.adm.login.vo.LoginVO;
 
@@ -37,5 +38,10 @@ public class SearchManageServiceImpl extends EgovAbstractServiceImpl implements 
 	@Override
 	public List<CompanyManageVo> selectLocationList(String comId) throws Exception {
 		return searchManageMapper.selectLocationList(comId);
+	}
+	
+	@Override
+	public List<SubjSeqManageVo> selectSubjSeqList(String subjCd) throws Exception {
+		return searchManageMapper.selectSubjSeqList(subjCd);
 	}
 }

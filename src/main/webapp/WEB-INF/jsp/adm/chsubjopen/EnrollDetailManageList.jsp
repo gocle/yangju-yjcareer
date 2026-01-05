@@ -18,15 +18,7 @@ function fn_search(pageIndex) {
 }
 
 function fnCmdList() {
-	let reqUrl = "";
-	
-	if($("#sgrCd").val() == "A") {
-		reqUrl = "EnrollManageListA.do";
-	} else {
-		reqUrl = "EnrollManageListB.do";
-	}
-	
-	$("#listForm").attr("action", reqUrl);
+	$("#listForm").attr("action", "EnrollManageList.do");
 	$("#listForm").submit();
 }
 
@@ -189,9 +181,9 @@ function fnEnrollApplyCancel() {
 				<label><i class="fa fa-angle-right"></i> 검색조건</label>
 				<select id="searchEnrollStatusCd" name="searchEnrollStatusCd" title="신청상태" value="${searchVo.searchEnrollStatusCd}" style="width:150px;">
 					<option value="">신청상태 전체</option>
-					<option value="A" ${searchVo.searchEnrollStatusCd eq 'A' ? 'selected="selected"':''}>승인대기</option>
-					<option value="B" ${searchVo.searchEnrollStatusCd eq 'B' ? 'selected="selected"':''}>수강승인</option>
-					<option value="C" ${searchVo.searchEnrollStatusCd eq 'C' ? 'selected="selected"':''}>승인취소</option>
+					<c:forEach var="item" items="${enrollStatusList}">
+						<option value="${item.codeCode }" <c:if test="${searchVo.searchEnrollStatusCd eq item.codeCode}">selected="selected"</c:if>>${item.codeName }</option>
+					</c:forEach>
 				</select>
 				<input type="text" style="width:300px" value="${searchVo.searchKeyword2}" name="searchKeyword2" id="searchKeyword2" maxlength="10" placeholder="검색어 입력" />
 			</li>
@@ -227,7 +219,7 @@ function fnEnrollApplyCancel() {
 			<tbody>
 				<c:forEach var="item" items="${resultList}" varStatus="status">
 					<tr>
-						<td><input type="checkbox" name="diKeys" class="all_check" value="<c:out value="${item.diKey}"/>"></td>
+						<td><input type="checkbox" name="diKeys" class="all_check" value="${item.seqCd}_${item.diKey}"></td>
 						<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
 						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.diKey}');">${item.memName }</a></td>
 						<td>${item.hpTel1 }</td>

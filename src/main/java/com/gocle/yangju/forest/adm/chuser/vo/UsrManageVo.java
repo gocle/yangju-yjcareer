@@ -12,6 +12,8 @@ public class UsrManageVo extends UsrManageDefaultVo {
 	
 	private String seqCd;
 	
+	private String subjCd;
+	
 	public String getDiKey() {
 		return diKey;
 	}
@@ -43,5 +45,14 @@ public class UsrManageVo extends UsrManageDefaultVo {
 	public void setSeqCd(String seqCd) {
 		this.seqCd = seqCd;
 	}
+
+	public String getSubjCd() {
+		return subjCd;
+	}
+
+	public void setSubjCd(String subjCd) {
+		this.subjCd = subjCd;
+	}
+	
 	
 }

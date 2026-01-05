@@ -118,7 +118,7 @@ public class StaffSubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/staff/chsubjopen/SubjSeqManageList.do";
+		return "redirect:/staff/chsubjopen/SubjSeqManageList.do?menuId="+searchVo.getMenuId();
 	}
 	
 	@RequestMapping(value = "SubjSeqManageForm.do")
@@ -190,7 +190,7 @@ public class StaffSubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/staff/chsubjopen/SubjSeqManageList.do";
+		return "redirect:/staff/chsubjopen/SubjSeqManageList.do?menuId="+subjSeqManageVo.getMenuId();
 	}
 	
 	@RequestMapping(value = "SubjSeqManageDelete.do", method = RequestMethod.POST)
@@ -208,6 +208,6 @@ public class StaffSubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-        return "redirect:/staff/chsubjopen/SubjSeqManageList.do";
+        return "redirect:/staff/chsubjopen/SubjSeqManageList.do?menuId="+subjSeqManageVo.getMenuId();
 	}
 }

@@ -34,23 +34,21 @@ $(document).ready(function() {
 
 function fn_search(pageIndex) {
 	$("#pageIndex").val(pageIndex);
-    $("#listForm").attr("action", "EnrollManageList.do");
+    $("#listForm").attr("action", "${contextRoot}/adm/chsubjopen/EnrollManageListA.do");
     $("#listForm").submit();
 }
 
-function fnCmdUpdateForm(seqCd) {
-	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/adm/chsubjopen/SubjSeqManageForm.do?menuId="+menuId;
+function fnCmdUpdateForm(subjCd) {
+	$("#subjCd").val(subjCd);
+	var reqUrl = "${contextRoot}/adm/chsubj/SubjManageUpdateForm.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
 
-function fnEnrollDetailList(seqCd) {
-	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/adm/chsubjopen/EnrollDetailManageList.do?menuId="+menuId;
+function fnEnrollDetailList(subjCd) {
+	$("#subjCd").val(subjCd);
+	var reqUrl = "${contextRoot}/adm/chsubjopen/EnrollDetailManageListA.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
@@ -65,9 +63,9 @@ function fnEnrollDetailList(seqCd) {
 	<form id="listForm" name="listForm" method="post">
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" />
-		<input type="hidden" id="seqCd" name="seqCd" value="" />
+		<input type="hidden" id="subjCd" name="subjCd" value="" />
 		<input type="hidden" id="searchSgrCd" name="searchSgrCd" value="${searchVo.searchSgrCd}" />
-		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
+		<input type="hidden" id="menuId" name="menuId" value="${searchVo.menuId }" />
 		
 		<ul class="search-box">
 			<li>
@@ -90,12 +88,10 @@ function fnEnrollDetailList(seqCd) {
 					<th style="width: 5%">No</th>
 					<th style="width: 12%">교육기관</th>
 					<th style="width: 12%">분류</th>
-					<th style="width: 8%">과정기수코드</th>
+					<th style="width: 8%">과정코드</th>
 					<th style="width: 25%">교육강좌명</th>
-					<th style="width: 5%">기수</th>
+					<th style="width: 5%">사용기수</th>
 					<th style="width: 8%">신청인원</th>
-					<th style="width: 12%">모집기간</th>
-					<th style="width: 12%">교육기간</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -104,17 +100,15 @@ function fnEnrollDetailList(seqCd) {
 						<td><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
 						<td>${item.comTitle}</td>
 						<td>${item.cateNm}</td>
-						<td><a href="javascript:fnCmdUpdateForm('${item.seqCd}');">${item.seqCd}</a></td>
-						<td style="text-align:left;"><a href="javascript:fnCmdUpdateForm('${item.seqCd}');">${item.subjNm}</a></td>
-						<td>${item.sessionNm}</td>
-						<td><a href="javascript:fnEnrollDetailList('${item.seqCd}');">${item.enrollCnt} 명</a> / ${item.capacity} 명</td>
-						<td>${item.enrollStartDt} ~ ${item.enrollEndDt}</td>
-						<td>${item.learnStartDt} ~ ${item.learnEndDt}</td>
+						<td><a href="javascript:fnCmdUpdateForm('${item.subjCd}');">${item.subjCd}</a></td>
+						<td style="text-align:left;"><a href="javascript:fnCmdUpdateForm('${item.subjCd}');">${item.subjNm}</a></td>
+						<td><a href="javascript:fnEnrollDetailList('${item.subjCd}');">${item.seqCnt }</a> 개</td>
+						<td><a href="javascript:fnEnrollDetailList('${item.subjCd}');">${item.enrollCnt} 명</a> / ${item.capacity} 명</td>
 					</tr>
 				</c:forEach>
 				<c:if test="${fn:length(resultList) == 0}">
 					<tr>
-						<td colspan="9" class="no-data">
+						<td colspan="7" class="no-data">
 							<i class="fa fa-search"></i> 등록된 과정이 없습니다.
 						</td>
 					</tr>

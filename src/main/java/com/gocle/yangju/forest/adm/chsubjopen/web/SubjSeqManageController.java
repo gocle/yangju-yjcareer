@@ -110,7 +110,7 @@ public class SubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/adm/chsubjopen/SubjSeqManageList.do";
+		return "redirect:/adm/chsubjopen/SubjSeqManageList.do?menuId="+searchVo.getMenuId();
 	}
 	
 	@RequestMapping(value = "SubjSeqManageForm.do")
@@ -182,7 +182,7 @@ public class SubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-		return "redirect:/adm/chsubjopen/SubjSeqManageList.do";
+		return "redirect:/adm/chsubjopen/SubjSeqManageList.do?menuId="+subjSeqManageVo.getMenuId();
 	}
 	
 	@RequestMapping(value = "SubjSeqManageDelete.do", method = RequestMethod.POST)
@@ -200,6 +200,6 @@ public class SubjSeqManageController {
         }
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
-        return "redirect:/adm/chsubjopen/SubjSeqManageList.do";
+        return "redirect:/adm/chsubjopen/SubjSeqManageList.do?menuId="+subjSeqManageVo.getMenuId();
 	}
 }

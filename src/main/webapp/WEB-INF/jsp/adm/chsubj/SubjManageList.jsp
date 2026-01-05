@@ -52,8 +52,7 @@ function fn_search(pageIndex){
 
 function fnCmdUpdateForm(subjCd) {
 	$("#subjCd").val(subjCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/adm/chsubj/SubjManageUpdateForm.do?menuId="+menuId;
+	var reqUrl = "${contextRoot}/adm/chsubj/SubjManageUpdateForm.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
