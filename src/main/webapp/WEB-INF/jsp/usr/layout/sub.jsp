@@ -9,7 +9,7 @@
 
     <!-- 1뎁스 (상위메뉴) -->
     <li class="breadcrumbs_item">
-      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuVO.upMenuTitle}</a>
+      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile"> ${not empty menuVO.upMenuTitle ? menuVO.upMenuTitle : menuVO.menuTitle}</a>
 
       <button type="button"
               class="breadcrumbs_select"
@@ -17,7 +17,7 @@
               aria-haspopup="listbox"
               aria-expanded="false"
               title="목록열기">
-        ${menuVO.upMenuTitle}
+        ${not empty menuVO.upMenuTitle ? menuVO.upMenuTitle : menuVO.menuTitle}
       </button>
 
       <ul class="breadcrumbs_panel" id="bc-drop1" role="listbox">
@@ -47,7 +47,7 @@
     <!-- 2뎁스 (현재 메뉴가 3뎁스가 아니면: 현재메뉴 목록) -->
     <c:if test="${menuInfo.menuDepth != '3'}">
       <li class="breadcrumbs_item">
-        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuVO.menuTitle}</a>
+        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuInfo.menuDepth == '1' ? listSubMenu[0].menuTitle : menuVO.menuTitle}</a>
 
         <button type="button"
                 class="breadcrumbs_select"
@@ -55,7 +55,7 @@
                 aria-haspopup="listbox"
                 aria-expanded="false"
                 title="목록열기">
-          ${menuVO.menuTitle}
+          ${menuInfo.menuDepth == '1' ? listSubMenu[0].menuTitle : menuVO.menuTitle}
         </button>
 
         <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">

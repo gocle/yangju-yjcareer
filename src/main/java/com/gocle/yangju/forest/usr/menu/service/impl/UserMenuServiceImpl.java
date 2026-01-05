@@ -140,4 +140,10 @@ public class UserMenuServiceImpl extends EgovAbstractServiceImpl implements User
 		MenuVO data = menuMapper.menuInfo(menu);
 		return data;
 	}
+	
+	@Override
+	public List<MenuVO> listTopSubMenu(MenuVO menuVO) throws Exception {
+		List<MenuVO> data = menuMapper.listTopSubMenu(menuVO);
+		return data;
+	}
 }

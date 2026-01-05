@@ -176,7 +176,11 @@ public class UserMenuController{
             menu = menuService.getMenu(menu);
             model.addAttribute("menuId", menuId);
         }
-
+        
+        if (menuInfo != null && "1".equals(menuInfo.getMenuDepth())) {
+        	listSubMenu = menuService.listTopSubMenu(menu);
+        }
+        
         model.addAttribute("menuVO", menu);
         model.addAttribute("listTopMenu", listTopMenu);
         model.addAttribute("listSubMenu", listSubMenu);

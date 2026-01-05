@@ -83,4 +83,6 @@ public interface UserMenuMapper {
 	List<MenuVO> listSubSubMenu(MenuVO menuVO) throws Exception;
 	
 	MenuVO menuInfo(MenuVO menu) throws Exception;
+	
+	List<MenuVO> listTopSubMenu(MenuVO menuVO) throws Exception;
 }

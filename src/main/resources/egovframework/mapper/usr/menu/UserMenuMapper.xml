@@ -304,4 +304,20 @@
 				AND CM.DELETE_YN='N'
 				AND CM.SHOW_YN='Y'
 	</select>
+	
+	<select id="listTopSubMenu" parameterType="com.gocle.yangju.forest.usr.menu.vo.MenuVO" resultType="com.gocle.yangju.forest.usr.menu.vo.MenuVO">
+	    SELECT CM.MENU_ID, 
+			       CM.UP_MENU_ID, 
+			       CM.MENU_DEPTH, 
+			       CM.MENU_ORDER, 
+			       CM.MENU_URL, 
+			       CM.MENU_TITLE  
+			  FROM COM_MENU CM 
+			 WHERE  CM.MENU_TYPE = #{menuType}
+			       AND CM.DELETE_YN = 'N' 
+			       AND CM.SHOW_YN = 'Y' 
+			       AND MENU_DEPTH = 2 
+			       AND CM.UP_MENU_ID = #{menuId}
+			ORDER BY MENU_ORDER 
+	</select>
 </mapper>
