@@ -245,9 +245,9 @@ function fnCmdDelete() {
 
       <!-- 계속등록 (신규일 때만) -->
       <c:if test="${cmd eq 'Insert'}">
-        <button type="button" onclick="fnCmdKeep();">
+        <!-- <button type="button" onclick="fnCmdKeep();">
           계속등록
-        </button>
+        </button> -->
       </c:if>
 
       <!-- 삭제 (수정일 때만) -->

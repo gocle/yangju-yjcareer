@@ -14,19 +14,17 @@
 
 		<link rel="icon" href="../assets/image/title_icon.png"/>
 		<link rel="stylesheet" type="text/css" href="../assets/css/adm/admLogin.min.css"/>
-
+		<link rel="stylesheet" type="text/css" href="../assets/css/adm/adm_inc.css"/>
+		
 		<script type="text/javascript" src="../assets/script/jquery.min.js"></script>
 
 	</head>
 
-
-
-
-
 	<body class="login-area">
+		<h1 class="login_tit"><img src="${contextRoot}/assets/css/adm/img/logo_admin_login.png" alt="Yangju 양주시"></h1>
 		<div>
 				<fieldset>
-						<legend>양주 진로진학 관리페이지</legend>
+						<legend>ADMIN LOGIN</legend>
 						
 							<label for="memPassword" class="fa fa-lock"></label>
 							<form name="form" id="form" method="post">

@@ -2,6 +2,7 @@ package com.gocle.yangju.forest.staff.chsubjopen.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
@@ -88,9 +89,15 @@ public class StaffEnrollManageController {
 	 * 꿈자람센터 수강신청관리
 	 */
 	@RequestMapping(value = "EnrollManageList.do")
-	public String EnrollManageListB(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
+	public String EnrollManageListB(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model, HttpServletRequest request) throws Exception {
 		
 		searchVo.setSearchSgrCd("B");
+
+		HttpSession session = request.getSession(true);
+		String memType = (String) session.getAttribute(Globals.MEM_TYPE);
+		String memSeq = (String) session.getAttribute(Globals.MEM_SEQ);
+		searchVo.setSessionMemType(memType);
+		searchVo.setSessionMemSeq(memSeq);
 		
 		int totalCount = this.enrollManageService.selectTotalCount(searchVo);
 		List<EnrollManageVo> resultList = enrollManageService.selectList(searchVo);

@@ -240,7 +240,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 </section>
 
 <c:if test="${result.bcId ne 'notice' and result.bcId ne 'referRoom' and result.bcId ne 'bbs_001' and result.bcId ne 'bbs_002'}">
-<section>
+<section style="margin-top:20px;">
 	<div><h2>-댓글입력란-</h2></div>
 	<form id="replyForm" name="replyForm" method="post" enctype="multipart/form-data">
 		<input type="hidden" id="baId" name="baId" value="${result.baId}">
@@ -263,9 +263,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 						<td>
 							<input type="file" class="input_file" id="file_atchFileId" name="file_atchFileId" title="파일찾기">
 							<div class="text-right btn-area">
-								<button type="button" class="point">
-									<a style="color:white;" href="javascript:fn_reply_save()">댓글 입력</a>
-								</button>
+								<button type="button" class="point" style="height:36px!important;" onclick="javascript:fn_reply_save()">댓글 입력</button>
 							</div>
 						</td>
 					</tr>
