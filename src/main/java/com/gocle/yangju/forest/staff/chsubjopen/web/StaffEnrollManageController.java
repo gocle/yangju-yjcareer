@@ -43,9 +43,14 @@ public class StaffEnrollManageController {
 	@Autowired
 	AdminCodeService adminCodeService;
 	
-	@RequestMapping(value = "EnrollManageList.do")
-	public String EnrollManageList(@ModelAttribute("searchVo") EnrollManageVo searchVo
+	/**
+	 * 1:1 상담 수강신청관리
+	 */
+	@RequestMapping(value = "EnrollManageListA.do")
+	public String EnrollManageListA(@ModelAttribute("searchVo") EnrollManageVo searchVo
 			, HttpSession session, ModelMap model) throws Exception {
+		
+		searchVo.setSearchSgrCd("A");
 		
 		String sessionMemType = (String) session.getAttribute(Globals.MEM_TYPE);
 		searchVo.setSessionMemType(sessionMemType);
@@ -73,7 +78,39 @@ public class StaffEnrollManageController {
 		model.addAttribute("resultList", resultList);
 		
 		model.addAttribute("menuId", searchVo.getMenuId());
-		model.addAttribute("sgrManageList", searchManageService.selectSgrList());
+		model.addAttribute("searchVo", searchVo);
+		
+		return "/staff/chsubjopen/EnrollManageList";
+	}
+	
+	/**
+	 * 꿈자람센터 수강신청관리
+	 */
+	@RequestMapping(value = "EnrollManageListB.do")
+	public String EnrollManageListB(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
+		
+		searchVo.setSearchSgrCd("B");
+		
+		int totalCount = this.enrollManageService.selectTotalCount(searchVo);
+		List<EnrollManageVo> resultList = enrollManageService.selectList(searchVo);
+		
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex = searchVo.getPageIndex();
+
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageSize", pageSize);
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(searchVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+        
+        model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		
+		model.addAttribute("menuId", searchVo.getMenuId());
 		model.addAttribute("searchVo", searchVo);
 		
 		return "/staff/chsubjopen/EnrollManageList";

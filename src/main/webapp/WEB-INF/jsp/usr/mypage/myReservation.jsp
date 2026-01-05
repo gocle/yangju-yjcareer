@@ -180,7 +180,7 @@
 			<span>총 <strong>${totalCount}</strong> 건</span>,
 			<span class="division_line">[<strong>${paginationInfo.currentPageNo }</strong> / ${paginationInfo.lastPageNoOnPageList } 페이지]</span>
 		</div>
-		<div class="bbs_right"><em class="em_blue">예약번호를 클릭하시면 상세 내역을 확인할 수 있습니다.</em></div>
+		<div class="bbs_right"><em class="em_blue">교육강좌명를 클릭하시면 상세 내역을 확인할 수 있습니다.</em></div>
 	</div>
 	<form id="listForm" name="listForm">
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
@@ -188,29 +188,21 @@
 		<input type="hidden" id="seqCd" name="seqCd" value="" />
 	<div class="table_scroll scroll both">
 	<table class="table responsive check_reservation">
-		<caption>나의 예약현황(교육강좌)에 대한 표이며, No., 예약번호, 교육강좌명, 모집방법, 접수상태, 수료증, 감면대상, 결제금액, 예약상태, 결제상태 항목에 대한 정보를 제공</caption>
+		<caption>나의 예약현황(교육강좌)에 대한 표이며, No., 교육강좌명, 모집방법, 접수상태, 수료증, 예약상태, 결제상태 항목에 대한 정보를 제공</caption>
 		<colgroup>
 			<col width="8%" />
-			<col width="12%" />
 			<col width="20%" />
 			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
-			<col width="10%" />
 			<col width="15%" />
+			<col width="10%" />
 		</colgroup>
 		<thead>
 			<tr>
 				<th scope="col">No.</th>
-				<th scope="col">예약번호</th>
 				<th scope="col">교육강좌명</th>
 				<th scope="col">모집방법</th>
 				<th scope="col">예약일</th>
-				<th scope="col">감면대상</th>
-				<th scope="col">결제금액</th>
 				<th scope="col">예약상태</th>
-				<th scope="col">결제상태</th>
 			</tr>
 		</thead>
 		<tbody class="text_center">
@@ -219,26 +211,18 @@
 					<td data-content="No.">
 						<c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/>
 					</td>
-					<td data-content="예약번호">
-						<a href="#" onclick="fnDetailView('${item.seqCd}');">${item.seqCd }</a>
-					</td>
-					<td data-content="교육강좌명">${item.subjNm}</td>
+					<td data-content="교육강좌명"><a href="#" onclick="fnDetailView('${item.seqCd}');">${item.subjNm}</a></td>
 					<td data-content="모집방법">
 						<c:if test="${item.enrollType eq '1'}">선착순</c:if>
 						<c:if test="${item.enrollType eq '2'}">승인</c:if>
 					</td>
 					<td ata-content="예약일">${item.regDt}</td>
-					<td data-content="감면대상">해당없음</td>
-					<td data-content="결제금액">무료</td>
 					<td data-content="예약상태">${item.enrollStatusNm}</td>
-					<td data-content="결제상태">
-						<span class="btn type4 small">해당없음</span>
-					</td>
 				</tr>
 			</c:forEach>
 			<c:if test="${totalCount eq 0}">
 				<tr>
-					<td colspan="9" class="empty">신청한 교육프로그램이 없습니다.</td>
+					<td colspan="5" class="empty">신청한 교육프로그램이 없습니다.</td>
 				</tr>
 			</c:if>
 		</tbody>

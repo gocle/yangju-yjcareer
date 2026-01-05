@@ -7,38 +7,41 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#searchSgrCd").change(function() {
-		var sgrCd = $(this).val();
-		var selCateCd = "${searchVo.searchCateCd}";
-		
-		$("#searchCateCd").empty();
-		$("#searchCateCd").append('<option value="">분류 선택</option>');
-		
-		$.ajax({
-	     	url: "${contextRoot}/staff/chsearch/SearchCateCdList.do",
-	        type: "GET",
-	        data: { sgrCd: sgrCd },
-	        success: function(result) {
-				$.each(result, function(index, item) {
-	            	$("#searchCateCd").append(
-	            		'<option value="' + item.cateCd + '" ' 
-	            		+ (selCateCd == item.cateCd ? 'selected="selected"' : '') 
-	            		+ '>' + item.cateNm + '</option>'
-	                );
-	            });
-	        },
-	        error: function() {
-	        	//alert("오류 발생");
-	        }
-		});
-	});
-	$("#searchSgrCd").trigger("change");
+	var selSgrCd = "${searchVo.searchSgrCd}";
+    var selCateCd = "${searchVo.searchCateCd}";
+    
+    $("#searchCateCd").empty();
+	$("#searchCateCd").append('<option value="">분류 선택</option>');
+	
+    $.ajax({
+        url: "${contextRoot}/staff/chsearch/SearchCateCdList.do",
+        type: "GET",
+        data: { sgrCd: selSgrCd },
+        success: function(result) {
+            $.each(result, function(index, item) {
+                $("#searchCateCd").append(
+                    '<option value="' + item.cateCd + '" ' 
+                    + (selCateCd == item.cateCd ? 'selected="selected"' : '') 
+                    + '>' + item.cateNm + '</option>'
+                );
+            });
+        },
+        error: function() {
+            //alert("오류 발생");
+        }
+    });
 });
 
 function fn_search(pageIndex) {
 	$("#pageIndex").val(pageIndex);
 
-    let reqUrl = "${contextRoot}/staff/chsubjopen/EnrollManageList.do";
+    let reqUrl = "${contextRoot}/staff/chsubjopen/";
+    
+    if($("#searchSgrCd").val() == "A") {
+		reqUrl += "EnrollManageListA.do";
+	} else {
+		reqUrl += "EnrollManageListB.do";
+	}
 
     $("#listForm").attr("action", reqUrl);
     $("#listForm").submit();
@@ -72,17 +75,12 @@ function fnEnrollDetailList(seqCd) {
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" />
 		<input type="hidden" id="seqCd" name="seqCd" value="" />
+		<input type="hidden" id="searchSgrCd" name="searchSgrCd" value="${searchVo.searchSgrCd}" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
 		
 		<ul class="search-box">
 			<li>
 				<label><i class="fa fa-angle-right"></i> 검색조건</label>
-				<select id="searchSgrCd" name="searchSgrCd" title="대분류" value="${searchVo.searchSgrCd}" class="wid15">
-					<option value="">분류 전체</option>
-					<c:forEach var="item" items="${sgrManageList}">
-	            		<option value="${item.sgrCd}" <c:if test="${searchVo.searchSgrCd eq item.sgrCd}">selected="selected"</c:if>>${item.sgrNm}</option>
-	            	</c:forEach>
-				</select>
 				<select id="searchCateCd" name="searchCateCd" value="${searchVo.searchCateCd}" class="wid15">
 	            	<option value="">분류 선택</option>
 	            </select>

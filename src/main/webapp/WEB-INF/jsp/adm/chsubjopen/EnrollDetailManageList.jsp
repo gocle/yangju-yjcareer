@@ -18,7 +18,15 @@ function fn_search(pageIndex) {
 }
 
 function fnCmdList() {
-	$("#listForm").attr("action", "EnrollManageList.do");
+	let reqUrl = "";
+	
+	if($("#sgrCd").val() == "A") {
+		reqUrl = "EnrollManageListA.do";
+	} else {
+		reqUrl = "EnrollManageListB.do";
+	}
+	
+	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
 
@@ -128,6 +136,7 @@ function fnEnrollApplyCancel() {
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="${resultMap.seqCd }" />
+		<input type="hidden" id="sgrCd" name=""sgrCd"" value="${resultMap.sgrCd }" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
 		<input type="hidden" id="diKey" name="diKey" value="" />
 		
