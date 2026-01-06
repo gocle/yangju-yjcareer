@@ -295,7 +295,6 @@ p.caution_call span:before{display: block; position: absolute; left: 0; bottom: 
 
 @media all and (min-width:641px){
     /* hover */
-    .btn:hover{background:#d5d7dd; color: #000;}
     .btn.type2:hover{background:#0a1e7a; border-color:#0a1e7a; color: #fff;}
 }
 @media all and (max-width:640px){

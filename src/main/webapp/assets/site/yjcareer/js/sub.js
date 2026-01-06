@@ -16,7 +16,11 @@
 		var $breadcrumbs = $container.find('.breadcrumbs'),
 			$breadcrumbsSelect = $breadcrumbs.find('.breadcrumbs_select');
 
-		$breadcrumbsSelect.on('click', function(){
+		$breadcrumbsSelect.off('click').on('click', function(e){
+		
+			e.preventDefault();
+		    e.stopPropagation();
+		    
 			var $this = $(this);
 
 			if(!$this.parent().is('.active')){
@@ -28,7 +32,6 @@
 					.parent().removeClass('active').end().next().slideUp('300');
 			}
 		});
-
 
 		//sns공유
 		$('.addons .share_show').on('click', function(){

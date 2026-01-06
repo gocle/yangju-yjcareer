@@ -1,5 +1,6 @@
 package com.gocle.yangju.forest.usr.reservation.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +111,22 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 	@Override
 	public List<Map<String, Object>> selectConsultingList(EnrollManageVo enrollManageVo) throws Exception {
 		return userReservationMapper.selectConsultingList(enrollManageVo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> selectProgramList(EnrollManageVo enrollManageVo) throws Exception {
+
+		String searchCateCd = enrollManageVo.getSearchCateCd();
+
+	    if (searchCateCd != null && !searchCateCd.trim().isEmpty()) {
+	        enrollManageVo.setSearchCateCdList(
+	            Arrays.asList(searchCateCd.split(","))
+	        );
+	    } else {
+	        enrollManageVo.setSearchCateCdList(null);
+	    }
+
+		return userReservationMapper.selectProgramList(enrollManageVo);
 	}
 	
 	@Override

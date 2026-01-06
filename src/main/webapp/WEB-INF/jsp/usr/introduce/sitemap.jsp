@@ -24,8 +24,8 @@
                         </div>
                         
                         <div class="sub_head_wrap">
-                            
-<c:import url="/usr/menu/sub.do" />
+						<c:import url="/usr/menu/sub.do" />
+						
             
                             <div class="addons">
                                 <ul class="addons_list">
@@ -118,571 +118,89 @@
                     </header>
                     
                     
-<div id="contents" class="cts4151">
+					<div id="contents" class="cts4151">
 						<div id="sitemap">
-	<div class="sitemap_wrap clearfix">
+							<div class="sitemap_wrap clearfix">
+								<c:set var="upperMenuNo" value="TOP"/>
+								<c:set var="menuLevel" value="1"/>
+								<c:set var="key1" value="${upperMenuNo}_${menuLevel}"/>
+								
+						         <c:forEach var="m1" items="${menuList[key1]}" varStatus="st1">
+							        <div class="type1">
+				         				<c:set var="menuPathList" value="${fn:split(menu.menuUrl, '@')}" />
+				         				<%-- 1depth URL 정규화 --%>
+								        <c:set var="raw1" value="${m1.menuUrl}" />
+								        <c:set var="path1"
+								               value="${fn:startsWith(raw1, ctx) ? fn:substring(raw1, fn:length(ctx), fn:length(raw1)) : raw1}" />
+								        <c:if test="${not fn:startsWith(path1,'/')}">
+								          <c:set var="path1" value='/${path1}'/>
+							        	</c:if>
+					
+					        			<c:set var="key2" value="${m1.menuId}_${m1.menuDepth + 1}" />
+					        
+					  					<h3>
+								           	 <a href="<c:url value='${path1}'/>?menuId=${m1.menuId}">
+									            ${m1.menuTitle}
+									          </a>
+										</h3>
+										
+										<c:if test="${not empty menuList[key2]}">
+											<div class="sitemap_row clearfix">
+												<c:forEach var="m2" items="${menuList[key2]}">
+							
+								                    <c:set var="key3" value="${m2.menuId}_${m2.menuDepth + 1}" />
+								
+								                    <%-- 2depth URL 정규화 --%>
+								                    <c:set var="raw2" value="${m2.menuUrl}" />
+								                    <c:set var="path2"
+								                           value="${fn:startsWith(raw2, ctx) ? fn:substring(raw2, fn:length(ctx), fn:length(raw2)) : raw2}" />
+								                    <c:if test="${not fn:startsWith(path2,'/')}">
+								                      <c:set var="path2" value='/${path2}'/>
+								                    </c:if>
+								                    
+								                    
+														<div class="sitemap_item">
+															<h4 class="h0">
+																<a href="<c:url value='${path2}'/>?menuId=${m2.menuId}">${m2.menuTitle}</a>
+															</h4>
+															<c:if test="${not empty menuList[key3]}">
+															<ul class="bu">
+																<c:forEach var="m3" items="${menuList[key3]}">
+								
+									                              <%-- 3depth URL 정규화 --%>
+									                              <c:set var="raw3" value="${m3.menuUrl}" />
+									                              <c:set var="path3"
+									                                     value="${fn:startsWith(raw3, ctx) ? fn:substring(raw3, fn:length(ctx), fn:length(raw3)) : raw3}" />
+									                              <c:if test="${not fn:startsWith(path3,'/')}">
+									                                <c:set var="path3" value='/${path3}'/>
+									                              </c:if>
+									
+									                              <li>
+									                                <a href="<c:url value='${path3}'/>?menuId=${m3.menuId}"
+									                                   target="_self">
+									                                  ${m3.menuTitle}
+									                                </a>
+									                              </li>
+									                              </c:forEach>
+									                              </ul>
+															</c:if>
 		
-			<div class="type1">
-				<h3><a href="/yjcareer/contents.do?key=4123" target="_self">진로진학교육</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4123" target="_self">인사말</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4124" target="_self">비전 및 목표</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4125" target="_self">주요사업</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4126" target="_self">찾아오시는 길</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-			<div class="type1">
-				<h3><a href="/yjcareer/contents.do?key=4128" target="_self">프로그램 신청</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4128" target="_self">프로그램 신청 안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectEduLctreWebList.do?key=4130" target="_self">프로그램 신청</a></h4>
-											
-											<ul class="bu">
-												
-													
-													<li><a href="/yjcareer/selectEduLctreWebList.do?key=4130" target="_self">진로진학 컨설팅 신청</a>
-														
-													</li>
-													
-												
-													
-													<li><a href="/yjcareer/selectEduLctreWebList.do?key=4131" target="_self">진로 프로그램 신청</a>
-														
-													</li>
-													
-												
-													
-													<li><a href="/yjcareer/selectEduLctreWebList.do?key=4132" target="_self">진학 프로그램 신청</a>
-														
-													</li>
-													
-												
-													
-													<li><a href="/yjcareer/selectEduLctreWebList.do?key=4133" target="_self">특별 교육 프로그램 신청</a>
-														
-													</li>
-													
-												
-											</ul>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-			<div class="type1">
-				<h3><a href="/yjcareer/contents.do?key=4135" target="_self">학습지원서비스</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4135" target="_self">학습지원서비스안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="https://study4way.com/intro" target="_blank">학습유형 검사</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=531&amp;key=4139" target="_self">학습 상담</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-			<div class="type1">
-				<h3><a href="/yjcareer/contents.do?key=4254" target="_self">JUMP UP 2025 양주 미래교육 페스타</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4254" target="_self">행사안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4256" target="_self">진로박람회 부스 안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4257" target="_self">오시는 길 안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-			<div class="type1">
-				<h3><a href="/yjcareer/contents.do?key=4141" target="_self">교육 네트워크</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4141" target="_self">지역 진로교사 안내</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/contents.do?key=4142" target="_self">진로교육콘텐츠</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="https://www.ggoomgil.go.kr/front/index.do" target="_blank">체험처 소개(꿈길)</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-			<div class="type1">
-				<h3><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&amp;key=4145" target="_self">알림마당</a></h3>
-					
-						<div class="sitemap_row clearfix">
-							<div class="sitemap_item">
-								
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=530&amp;key=4145" target="_self">공지사항</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=529&amp;key=4146" target="_self">자료실(갤러리)</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="https://naver.me/xyTNUiV1" target="_blank">온라인 설문조사</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=528&amp;key=4148" target="_self">자주하는 질문</a></h4>
-											
-										
-										  </div>
-										  <div class="sitemap_item">
-									   
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=548&amp;key=4185" target="_self">학습후기</a></h4>
-											
-										
-									   
-										  </div>
-										  </div>
-										  <div class="sitemap_row clearfix">
-										  <div class="sitemap_item">
-									   
-										
-									
-								
-									
-										<h4 class="h0"><a href="/yjcareer/selectBbsNttList.do?bbsNo=527&amp;key=4149" target="_self">Q&amp;A</a></h4>
-											
-										
-									   
-										
-									
-								
-							</div>
-						</div>
-					
-			</div>
-		
-	</div>
-</div>
-                    </div>
-                    
-                 
-					
+														</div>
+							                    </c:forEach>
+						                    </div>
+						                    
+										</c:if>
+									</div>
 
+			        			</c:forEach>
+				        	</div>
+				      	</div>
+				   </div>
 
-
-
-
-
-	
-
-
-
-                
                 </article>
             </main>
         
         </div>
     </div>
     
-        <c:import url="/usr/layout/footer.do" />
+    <c:import url="/usr/layout/footer.do" />

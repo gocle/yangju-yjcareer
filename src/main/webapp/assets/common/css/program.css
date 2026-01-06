@@ -671,7 +671,7 @@ table.myreservation_table th.subject{color:#000;}
 #sitemap h4 {margin:0; padding:12px 0; border:1px solid #d2d2d2; font-size:16px; text-align:center; box-sizing:border-box;}
 #sitemap h4 a:link {color:#252525;}
 #sitemap .sitemap_row {display:block; margin:10px 0;}
-#sitemap .sitemap_row .sitemap_item {display:block; float:left;width:19%; margin-left:1%;}
+#sitemap .sitemap_row .sitemap_item {display:block; float:left;width:19%;}
 #sitemap .sitemap_row .sitemap_item:first-child{margin-left:0;}
 #sitemap .sitemap_item > ul {margin:10px 0;}
 #sitemap .sitemap_item > ul > li > a {display:block; position:relative; margin:5px 0; padding-left:15px; line-height:25px; letter-spacing:-0.01em;}

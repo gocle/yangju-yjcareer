@@ -11,7 +11,7 @@
 						<li class="link_item n3"><a href="https://www/contents.do?key=749" class="link_anchor">뷰어다운로드</a></li>
 						<li class="link_item n4"><a href="https://www.yangju.go.kr/www/selectBbsNttList.do?bbsNo=90&key=750" class="link_anchor">홈페이지 개선의견</a></li>
 						<li class="link_item n5"><a href="https://www.yangju.go.kr/www/contents.do?key=757" class="link_anchor">저작권정책</a></li>
-						<li class="link_item n6"><a href="/yjcareer/usr/introduce/sitemap.do?key=4151" class="link_anchor">사이트맵</a></li>
+						<li class="link_item n6"><a href="/yjcareer/usr/menu/sitemap.do?key=4151" class="link_anchor">사이트맵</a></li>
 					</ul>
 				</div>
 

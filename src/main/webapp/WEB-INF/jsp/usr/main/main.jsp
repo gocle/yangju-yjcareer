@@ -139,6 +139,80 @@
 		  initFn();
 
 		}
+		
+		let currentMonth = new Date().toISOString().slice(0, 7);
+
+		function loadSchedule(month) {
+			  $.ajax({
+			    url: "/yjcareer/usr/loadSchedule.do",
+			    type: "get",
+			    data: { searchScheduleDt: month },
+			    success: function (list) {
+			      renderSchedule(list, month);
+			    },
+			    error: function () {
+			      alert("일정을 불러오지 못했습니다.");
+			    }
+			  });
+			}
+
+		function renderSchedule(list, month) {
+			  const wrap = $("#scheduleTimeline");
+			  wrap.empty();
+
+			  if (!list || list.length === 0) {
+			    wrap.append(
+			    		'<div class="day-block">' +
+				          '<div class="events">' +
+				            '<div class="event">' +
+				              '<span class="event-title">등록된 일정이 없습니다.</span>' +
+				            '</div>' +
+				          '</div>' +
+				        '</div>'
+			    		);
+			  } else {
+			    $.each(list, function (i, item) {
+			      wrap.append(
+			        '<div class="day-block">' +
+			          '<div class="events">' +
+			            '<div class="event">' +
+			              '<span class="day-number">' + item.LEARN_START_DAY + '</span>' +
+			              '<span class="event-title">' + item.SUBJ_NM + '</span>' +
+			            '</div>' +
+			          '</div>' +
+			        '</div>'
+			      );
+			    });
+			  }
+
+			  $(".month-title").text(month.replace("-", "."));
+			}
+		
+		function moveMonth(diff) {
+			  const arr = currentMonth.split("-");
+			  const d = new Date(arr[0], arr[1] - 1 + diff, 1);
+
+			  currentMonth =
+			    d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+
+			  loadSchedule(currentMonth);
+			}
+
+			$(function () {
+			  loadSchedule(currentMonth);
+
+			  $(".notice_prev").on("click", function () {
+			    moveMonth(-1);
+			  });
+
+			  $(".notice_next").on("click", function () {
+			    moveMonth(1);
+			  });
+			});
+			
+			$(document).on("click", ".events", function () {
+				  location.href = "/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341";
+				});
 
 	</script>
 
@@ -158,40 +232,62 @@
 		$("#detailForm").submit();
 	}
 </script>
-	<!-- 레이어 팝업 시작 -->
-	<div id="divpopup1" class="main_popup" style="position:absolute; left:10rem; top:10rem; z-index:1001; visibility:visible;  width:500px; height:560px">
-		<div class="layer_cont">
-			<a href="/yjcareer/selectEduLctreWebList_4130" target="_blank" title="새창"><img src="/yjcareer/assets/DATA/popup/20251125030444599mSjjuX.jpg" style="width:500px; height:560px;" alt="설명회" /></a>
-		</div>
 
-		<form name="notice_form1">
-			<div class="layer_put">
-				<div>
-					<input type="checkbox" name="chkbox1" id="chkbox1" value="checkbox" />
-					<label for="chkbox1">오늘하루동안보지않기</label>
-				</div>
-				<div class="pop-btn"><a href="javascript:closeWind1();">닫기</a></div>
-			</div>
-		</form>
-	</div>
-	<script type="text/JavaScript">
-		//<![CDATA[
-				function closeWind1() {
-					if ( document.notice_form1.chkbox1.checked ){
-						setCookie( "maindiv1", "done" , 1 );
-					}
-					document.all['divpopup1'].style.visibility = "hidden";
-				}
-	
-				cookiedata = document.cookie;
-				if ( cookiedata.indexOf("maindiv1=done") < 0 ){
-					document.all['divpopup1'].style.visibility = "visible";
-				}
-				else {
-					document.all['divpopup1'].style.visibility = "hidden";
-				}
-			//]]>
-			</script>
+	<!-- 레이어 팝업 시작 -->
+<c:forEach var="bn" items="${popupBannerList}" varStatus="status">
+    <div id="divpopup${status.index}"
+         class="main_popup"
+         style="
+            position:absolute;
+            left:${bn.BN_LEFT}px;
+            top:${bn.BN_TOP}px;
+            z-index:1001;
+            visibility:hidden;
+            width:${bn.BN_WIDTH}px;
+            height:${bn.BN_HEIGHT}px
+         ">
+
+        <div class="layer_cont">
+            <a href="${bn.BN_LINK}"
+               <c:if test="${bn.BN_NEW_WIN eq 'Y'}">target="_blank"</c:if>
+               title="새창">
+                <img src="/yjcareer/assets/DATA/popup/${bn.BN_THUMB}"
+                     style="width:${bn.BN_WIDTH}px; height:${bn.BN_HEIGHT}px;"
+                     alt="${bn.BN_NAME}" />
+            </a>
+        </div>
+
+        <form name="notice_form${status.index}">
+            <div class="layer_put">
+                <div>
+                    <input type="checkbox"
+                           id="chkbox${status.index}" />
+                    <label for="chkbox${status.index}">
+                        오늘하루동안보지않기
+                    </label>
+                </div>
+                <div class="pop-btn">
+                    <a href="javascript:closeWind${status.index}();">닫기</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function closeWind${status.index}() {
+            if (document.getElementById("chkbox${status.index}").checked) {
+                setCookie("popup_${bn.BN_ID}", "done", 1);
+            }
+            document.getElementById("divpopup${status.index}").style.visibility = "hidden";
+        }
+
+        (function () {
+            if (document.cookie.indexOf("popup_${bn.BN_ID}=done") < 0) {
+                document.getElementById("divpopup${status.index}").style.visibility = "visible";
+            }
+        })();
+    </script>
+</c:forEach>
 	<!-- 레이어 팝업 종료 -->
 
   <c:import url="/usr/menu/header.do" />
@@ -494,70 +590,7 @@
 											</div>
 										</div>
 										
-										<div class="timeline-inner">
-
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event blue">
-													<span class="day-number">12</span>
-													<span class="event-title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON!</span>
-												</div>
-											</div>
-										</div>
-
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event yellow">
-													<span class="day-number">17</span>
-													<span class="event-title">[특강]26학년도 수능결과로 본 대입동향과 진학전략_11.22.(토) 10시 옥정호수도서관</span>
-												</div>
-											</div>
-										</div>
-
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event pink">
-													<span class="day-number">28</span>
-													<span class="event-title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON!</span>
-												</div>
-											</div>
-										</div>
-										
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event blue">
-													<span class="day-number">12</span>
-													<span class="event-title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON!</span>
-												</div>
-											</div>
-										</div>
-
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event yellow">
-													<span class="day-number">17</span>
-													<span class="event-title">[특강]26학년도 수능결과로 본 대입동향과 진학전략_11.22.(토) 10시 옥정호수도서관</span>
-												</div>
-											</div>
-										</div>
-
-										<!-- Day block -->
-										<div class="day-block">
-											<div class="events">
-												<div class="event pink">
-													<span class="day-number">28</span>
-													<span class="event-title">[학부모아카데미] JUMP UP 2025: 양주 진로진학 ON!</span>
-												</div>
-											</div>
-										</div>
-
-
-										</div>
+										<div class="timeline-inner" id="scheduleTimeline"></div>
 									</div>
 								</div>
 							</div>

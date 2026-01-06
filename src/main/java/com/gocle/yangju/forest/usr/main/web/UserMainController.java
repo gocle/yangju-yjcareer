@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.usr.banner.service.UserBannerService;
 import com.gocle.yangju.forest.usr.banner.vo.BannerVO;
 import com.gocle.yangju.forest.usr.board.service.UserBoardService;
@@ -72,6 +74,8 @@ public class UserMainController{
 		// 꿈자람센터 프로그램
 		subjInfoVo.setSearchSgrCd("B");
 		model.put("subjManageListB", subjInfoService.selectMainList(subjInfoVo));
+
+		model.put("popupList", subjInfoService.selectPopupList(subjInfoVo));
 		
 		// 메인 게시판
 		BoardArticleVO boardArticleVO = new BoardArticleVO();
@@ -86,6 +90,17 @@ public class UserMainController{
 		model.put("photoList", boardService.listBoardArticle(boardArticleVO));
 		
 		return "usr/main/main";
+	}
+	
+	@RequestMapping("usr/loadSchedule.do")
+	@ResponseBody
+	public List<Map<String, Object>> loadSchedule(@ModelAttribute("searchVo") EnrollManageVo searchVo) throws Exception {
+		
+		searchVo.setSearchSgrCd("B");
+
+		List<Map<String, Object>> resultList = userReservationService.selectProgramList(searchVo);
+
+		return resultList;
 	}
 	
 	@RequestMapping(value = "usr/main/myReservation.do")

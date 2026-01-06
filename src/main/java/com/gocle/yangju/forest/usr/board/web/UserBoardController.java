@@ -1,6 +1,8 @@
 package com.gocle.yangju.forest.usr.board.web;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,10 +22,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gocle.yangju.forest.adm.board.service.AdminBoardService;
+import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.comm.file.service.FileService;
 import com.gocle.yangju.forest.comm.file.vo.FileVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
 import com.gocle.yangju.forest.usr.code.vo.CodeVO;
+import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
+import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
+import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
 import com.gocle.yangju.forest.usr.board.service.UserBoardService;
 import com.gocle.yangju.forest.usr.board.vo.BoardArticleVO;
 import com.gocle.yangju.forest.usr.board.vo.BoardConfigVO;
@@ -41,6 +47,9 @@ public class UserBoardController {
 	
 	@Autowired
 	UserCodeService codeService;
+	
+	@Autowired
+	private UserReservationService userReservationService;
 	
 	@Autowired
 	private FileService fileService;
@@ -220,6 +229,17 @@ public class UserBoardController {
 			@RequestMapping( value = {"schedule/list.do"})
 			public String scheduleList(HttpSession session, ModelMap model) throws Exception {
 				return "/usr/bbs/schedule/list";
+			}
+			
+			@RequestMapping("selectProgramList.do")
+			@ResponseBody
+			public List<Map<String, Object>> selectProgramList(@ModelAttribute("searchVo") EnrollManageVo searchVo) throws Exception {
+				
+				searchVo.setSearchSgrCd("B");
+				
+				List<Map<String, Object>> resultList = userReservationService.selectProgramList(searchVo);
+
+				return resultList;
 			}
 			
 			

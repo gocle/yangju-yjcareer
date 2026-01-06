@@ -187,6 +187,55 @@ public class UserMenuController{
 
         return "usr/layout/sub";
     }
+    
+    @RequestMapping("sitemap.do")
+    public String sitemap(HttpServletRequest request,
+                      HttpServletResponse response,
+                      @RequestParam Map<String, Object> commandMap,
+                      ModelMap model) throws Exception {
+
+     HttpSession session = request.getSession();
+     String rootMenuId = StringUtils.defaultIfBlank((String) commandMap.get("rootMenuId"), (String) model.get("rootMenuId"));
+     String menuId = StringUtils.defaultIfBlank((String) commandMap.get("menuId"), (String) model.get("menuId"));
+
+     rootMenuId = StringUtils.defaultIfBlank(rootMenuId, (String) session.getAttribute("rootMenuId"));
+     menuId = StringUtils.defaultIfBlank(menuId, (String) session.getAttribute("menuId"));
+
+     validateInput(menuId, "menuId");
+     validateInput(rootMenuId, "rootMenuId");
+
+     HashMap<String, Object> menuList = new HashMap<>();
+     MenuVO menu = new MenuVO();
+     menu.setMenuType("USR");
+     List<MenuVO> menuStructureList = menuService.listMenuTree(menu);
+
+     for( MenuVO menuVO : menuStructureList ) {
+			
+			String upperMenuNo = menuVO.getUpMenuId();
+			String menuLevel = menuVO.getMenuDepth();
+			String key = upperMenuNo + "_" +  menuLevel;
+
+			List<MenuVO> list =  (List<MenuVO>)menuList.get(key);
+			
+			if(list == null)
+				list =  new ArrayList<MenuVO>();
+			
+			list.add( menuVO);
+			
+			menuList.put( key, list);
+
+
+			if( menuVO.getMenuId().equals( menuId ) ){
+
+			    model.addAttribute( "menuPathLeafNode", menuVO.getMenuPathLeafNode() );
+			    model.addAttribute( "menuIdPathLeafNode", menuVO.getMenuIdPathLeafNode());
+			}
+		}
+
+     model.addAttribute("menuList", menuList);
+
+     return "/usr/introduce/sitemap";
+    }   
 	
 	
 	/**

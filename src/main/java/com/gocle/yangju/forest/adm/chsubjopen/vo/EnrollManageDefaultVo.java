@@ -1,6 +1,7 @@
 package com.gocle.yangju.forest.adm.chsubjopen.vo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.gocle.yangju.forest.comm.vo.BaseVO;
 
@@ -12,6 +13,8 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	private String searchSgrCd = "";
 	// 검색 소분류
 	private String searchCateCd = "";
+	private List<String> searchCateCdList;
+	private String searchScheduleDt = "";
 	// 검색어
     private String searchKeyword = "";
     private String searchKeyword2 = "";
@@ -39,6 +42,19 @@ public class EnrollManageDefaultVo extends BaseVO implements Serializable {
 	}
 	public void setSearchCateCd(String searchCateCd) {
 		this.searchCateCd = searchCateCd;
+	}
+	public List<String> getSearchCateCdList() {
+		return searchCateCdList;
+	}
+	public void setSearchCateCdList(List<String> searchCateCdList) {
+		this.searchCateCdList = searchCateCdList;
+	}
+	
+	public String getSearchScheduleDt() {
+		return searchScheduleDt;
+	}
+	public void setSearchScheduleDt(String searchScheduleDt) {
+		this.searchScheduleDt = searchScheduleDt;
 	}
 	public String getSearchKeyword() {
 		return searchKeyword;

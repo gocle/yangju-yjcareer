@@ -116,7 +116,8 @@
 	            </header>
 	            
 	            <script>
-					//이벤트 연결
+					let calendar;
+					
 					document.addEventListener('DOMContentLoaded', function() {
 						
 					    var initialLocaleCode = 'ko';  
@@ -128,7 +129,7 @@
 					    //오늘 시간
 					    let today = new Date();   
 					
-					    var calendar = new FullCalendar.Calendar(calendarEl, {
+					    calendar = new FullCalendar.Calendar(calendarEl, {
 					      headerToolbar: {
 					        left: 'today prev',
 					        center: 'title',
@@ -162,84 +163,80 @@
 					    	  $('#modalTitle').text(e.title);
 					    	  
 					    	  $('#modalTime').text(p.startTime + ' ~ ' + p.endTime);  
-					    	  $('#modalDate').text(e.startStr);
+					    	  $('#modalDate').text(e.startStr + ' ~ ' + e.endStr);
 
 					    	  var tyTxt = '';
 
-					    	  if(p.scTyCd == 'AA') {tyTxt = '<dd class="AA">맞춤컨설팅</dd>'}
-					    	  if(p.scTyCd == 'AB') {tyTxt = '<dd class="AB">학습심리상담</dd>'}
-					    	  if(p.scTyCd == 'AC') {tyTxt = '<dd class="AC">수시·정시상담</dd>'}
-					    	  if(p.scTyCd == 'AD') {tyTxt = '<dd class="AD">면접컨설팅</dd>'}
+					    	  if(p.scTyCd == 'BA') {tyTxt = '<dd class="AC">진로진학</dd>'}
+					    	  if(p.scTyCd == 'BB' || p.scTyCd == "BC" ) {tyTxt = '<dd class="AB">AI디지털</dd>'}
+					    	  if(p.scTyCd == 'BD' || p.scTyCd == "BE" ) {tyTxt = '<dd class="AA">돌봄</dd>'}
 					    	  $('.cal-label').html(tyTxt);
 				
 					    	  $('.modal').fadeIn(100);
 					    	},
 				
-					      /* 등록된 스케줄 목록 */
-					     events: function (data, successCallback) {
+					    	/* 등록된 스케줄 목록 */
+						     events: function (data, successCallback) {
+						    	 
+						    	 const checkedCnt = $("input[name=searchCateCd]:checked")
+						    	    .not("#cbx_chkAll")
+						    	    .length;
 
-							  var events = [];
-							
-							  events.push({
-							    id: 'evt_1',
-							    title: '맞춤컨설팅 일정 테스트 첫번째 일정',
-							    start: '2025-12-30',
-							    classNames: ['dot-blue'],
-							    extendedProps: {
-							      scTyCd: 'AA',
-							      startTime: '10:00',
-							      endTime: '11:00'
-							    }
-							  });
-							
-							  events.push({
-							    id: 'evt_2',
-							    title: '[학습심리상담] 2025-12-29 1차',
-							    start: '2025-12-04',
-							    classNames: ['dot-pink'],
-							    extendedProps: {
-							      scTyCd: 'AB',
-							      startTime: '10:00',
-							      endTime: '11:00'
-							    }
-							  });
-							
-							  events.push({
-							    id: 'evt_3',
-							    title: '3차 수시·정시상담',
-							    start: '2025-12-05',
-							    end: '2025-12-07',
-							    allDay: true,
-							    classNames: ['dot-green'],
-							    extendedProps: {
-							      scTyCd: 'AC',
-							      startTime: '10:00',
-							      endTime: '11:00'
-							    }
-							  });
-							
-							  events.push({
-							    id: 'evt_4',
-							    title: '면접컨설팅',
-							    start: '2025-12-06',
-							    classNames: ['dot-orange'],
-							    extendedProps: {
-							      scTyCd: 'AD',
-							      startTime: '10:00',
-							      endTime: '11:00'
-							    }
-							  });
-							
-							  successCallback(events);
-							}
-				
-					    });
-					    
-					    //tab 검색
-				    	$(document).on("click","input[name=searchScTyCd]",function(){
-				  	    	calendar.refetchEvents();
-					    })
-				
+							     if (checkedCnt === 0) {
+							    	 alert("3")
+							         successCallback([]);
+							         return;
+							     }
+						    	 
+						  			var params = $("#searchForm").serialize();
+
+						  			$.ajax({
+						  		 		
+						  				url: '${contextRoot}/usr/bbs/selectProgramList.do',
+						  		 		type : "POST",
+						  		 		dataType:"json",
+						  		 		data : params,
+						  		 		success : function(data){	
+
+						  		 			var events = [];
+						  		 			var classNames = "";
+						  		 			
+						  		 			
+						  		 			$.each(data, function(index, value) {
+						  		 				
+						  		 				if(value.CATE_CD == "BA") {classNames = 'dot-green'}
+						  		 				if(value.CATE_CD == "BB" || value.CATE_CD == "BC" ) {classNames = 'dot-pink'}
+						  		 				if(value.CATE_CD == "BD" || value.CATE_CD == "BE" ) {classNames = 'dot-blue'}
+						  							
+						  							 events.push({
+														    id: value.SEQ_CD,
+														    title: value.SUBJ_NM,
+														    start: value.LEARN_START_DT,
+														    end : value.LEARN_END_DT,
+														    classNames: classNames,
+														    extendedProps: {
+														      scTyCd: value.CATE_CD,
+														      startTime: value.START_TIME,
+														      endTime: value.END_TIME
+														    }
+														  });
+
+						  		 			});
+						  		 			
+						  		 			successCallback(events);
+
+						  		 		},
+						  		 	     error:function(request,status,error){
+						  			 	        alert("code = "+ request.status + " message = " + request.responseText + " error = " + error); // 실패 시 처리
+						  			 	    },
+						  			 	    
+						  			    }) 
+
+
+								}
+					
+						    });
+								
 					    calendar.render();
 
 					  });
@@ -258,22 +255,45 @@
 						 });
 
 						  $("#cbx_chkAll").prop("checked", true);
-						  $("input[name=searchScTyCd]").not("#cbx_chkAll").prop("checked", true);
+						  $("input[name=searchCateCd]").not("#cbx_chkAll").prop("checked", true);
 						
 
-						// 전체 체크
-						$("#cbx_chkAll").on("change", function () {
-						  const isChecked = $(this).is(":checked");
-						  $("input[name=searchScTyCd]").not(this).prop("checked", isChecked);
-						});
+						  const $form = $("#searchForm");
+						  const $all = $("#cbx_chkAll");
+						  const $items = $form.find("input[name=searchCateCd]").not("#cbx_chkAll");
 
-						// 개별 체크
-						$("input[name=searchScTyCd]").not("#cbx_chkAll").on("change", function () {
-						  const total = $("input[name=searchScTyCd]").not("#cbx_chkAll").length;
-						  const checked = $("input[name=searchScTyCd]:checked").not("#cbx_chkAll").length;
+						  function getCheckedCnt() {
+						    return $items.filter(":checked").length;
+						  }
 
-						  $("#cbx_chkAll").prop("checked", total === checked);
-						});
+						  // 전체 체크
+						  $all.on("change", function () {
+						    const isChecked = this.checked;
+
+						    $items.prop("checked", isChecked);
+
+						    if (getCheckedCnt() === 0) {
+						      calendar.removeAllEvents();
+						      return;
+						    }
+
+						    calendar.refetchEvents();
+						  });
+
+						  // 개별 체크
+						  $items.on("change", function () {
+						    const total = $items.length;
+						    const checked = getCheckedCnt();
+
+						    $all.prop("checked", checked === total);
+
+						    if (checked === 0) {
+						      calendar.removeAllEvents();
+						      return;
+						    }
+
+						    calendar.refetchEvents();
+						  });
 				
 					})
 					
@@ -297,35 +317,30 @@
 						<div class="calendar_searchBox">
 						  <div class="tab_left">
 						    <div class="search_tab">
+						    	
 						
 						      <label class="chk-circle">
-						        <input type="checkbox" name="searchScTyCd" id="cbx_chkAll" value="">
+						        <input type="checkbox" id="cbx_chkAll">
 						        <span class="chk-ui"></span>
 						        <span class="chk-text">전체</span>
 						      </label>
 						
 						      <label class="chk-circle">
-						        <input type="checkbox" name="searchScTyCd" id="chk00" value="AA">
+						        <input type="checkbox" name="searchCateCd" id="chk00" value="BA">
 						        <span class="chk-ui"></span>
-						        <span class="chk-text">맞춤컨설팅</span>
+						        <span class="chk-text">진로진학</span>
 						      </label>
 						
 						      <label class="chk-circle">
-						        <input type="checkbox" name="searchScTyCd" id="chk01" value="AB">
+						        <input type="checkbox" name="searchCateCd" id="chk01" value="BB,BC">
 						        <span class="chk-ui"></span>
-						        <span class="chk-text">학습심리상담</span>
+						        <span class="chk-text">AI디지털</span>
 						      </label>
 						
 						      <label class="chk-circle">
-						        <input type="checkbox" name="searchScTyCd" id="chk02" value="AC">
+						        <input type="checkbox" name="searchCateCd" id="chk02" value="BD,BE">
 						        <span class="chk-ui"></span>
-						        <span class="chk-text">수시·정시상담</span>
-						      </label>
-						
-						      <label class="chk-circle">
-						        <input type="checkbox" name="searchScTyCd" id="chk03" value="AD">
-						        <span class="chk-ui"></span>
-						        <span class="chk-text">면접컨설팅</span>
+						        <span class="chk-text">돌봄</span>
 						      </label>
 						
 						    </div>
@@ -344,7 +359,7 @@
 <div class="modal">
 	<div class="modal-inner">
 		<h3 id="modalTitle"></h3>
-		<p>날짜: <span id="modalDate"></span></p>
+		<p>기간: <span id="modalDate"></span></p>
 		<p>시간: <span id="modalTime"></span></p>
 		<p id="modalDesc">
 			<dl class="cal-label"></dl>

@@ -6,12 +6,30 @@
 		<if test="searchSgrCd != null and !searchSgrCd != '' ">
 			AND SS.SGR_CD = #{searchSgrCd}
 		</if>
-		<if test="searchCateCd != null and searchCateCd != '' ">
-			<choose>
-				<when test="searchCateCd == 'BB' ">AND SS.CATE_CD IN ('BB', 'BC')</when>
-				<when test="searchCateCd == 'BD' ">AND SS.CATE_CD IN ('BD', 'BE')</when>
-				<otherwise>AND SS.CATE_CD = #{searchCateCd}</otherwise>
-			</choose>
+		<if test="(searchCateCdList == null or searchCateCdList.size() == 0)
+		          and searchCateCd != null and searchCateCd != ''">
+		  <choose>
+		    <when test="searchCateCd == 'BB'">
+		      AND SS.CATE_CD IN ('BB', 'BC')
+		    </when>
+		    <when test="searchCateCd == 'BD'">
+		      AND SS.CATE_CD IN ('BD', 'BE')
+		    </when>
+		    <otherwise>
+		      AND SS.CATE_CD = #{searchCateCd}
+		    </otherwise>
+		  </choose>
+		</if>
+		
+		<if test="searchCateCdList != null and searchCateCdList.size() > 0">
+		  AND SS.CATE_CD IN
+		  <foreach collection="searchCateCdList"
+		           item="cd"
+		           open="("
+		           separator=","
+		           close=")">
+		    #{cd}
+		  </foreach>
 		</if>
 		<if test="searchKeyword != null and searchKeyword != '' ">
 			AND SS.SUBJ_NM LIKE CONCAT('%', #{searchKeyword}, '%')
@@ -49,6 +67,13 @@
 				        >= #{searchLearnDt}
 				)
 			]]>
+		</if>
+		
+		<if test="searchScheduleDt != null and searchScheduleDt != ''">
+		  <![CDATA[
+		    AND SS.LEARN_START_DT <  DATE_ADD(CONCAT(#{searchScheduleDt}, '-01'), INTERVAL 1 MONTH)
+		    AND SS.LEARN_END_DT   >= CONCAT(#{searchScheduleDt}, '-01')
+		  ]]>
 		</if>
 	</sql>
 
@@ -378,6 +403,32 @@
 		WHERE 1 = 1
 			AND SS.USE_YN = 'Y'
 		<include refid="selectSearchWhere" />
+		ORDER BY SS.SUBJ_NM
+	</select>
+	
+	<select id="selectProgramList">
+		SELECT SS.SEQ_CD
+			  , SS.SUBJ_NM
+			  , SS.CATE_CD
+			  , SC.CATE_NM
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%Y-%m-%d') AS LEARN_START_DT
+			  , DATE_FORMAT(SS.LEARN_END_DT, '%Y-%m-%d') AS LEARN_END_DT
+			  , DATE_FORMAT(SS.LEARN_START_DT, '%H:%i') AS START_TIME
+    		  , DATE_FORMAT(SS.LEARN_END_DT, '%H:%i') AS END_TIME 
+    		  , DATE_FORMAT(SS.LEARN_START_DT, '%d') AS LEARN_START_DAY 
+			  , SS.CAPACITY
+			  , (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B') AS ENROLL_CNT
+				,SS.SGR_CD
+		FROM TB_SUBJ_SEQ SS
+		INNER JOIN TB_SUBJ S
+			ON SS.SGR_CD = S.SGR_CD 
+			AND SS.SUBJ_CD = S.SUBJ_CD
+		INNER JOIN TB_SUBJ_CATE SC
+			ON SC.CATE_CD = S.CATE_CD
+			AND S.SGR_CD = SC.SGR_CD
+		WHERE 1 = 1
+			AND SS.USE_YN = 'Y'
+			<include refid="selectSearchWhere" />
 		ORDER BY SS.SUBJ_NM
 	</select>
 	
