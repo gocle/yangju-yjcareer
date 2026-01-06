@@ -19,9 +19,7 @@ html, body {
     padding: 0;
     margin: 0;
 }
-body {
-    font-family: 'Source Sans Pro';
-}
+
 input:focus, textarea:focus, button:focus {
     outline: none;
 }
@@ -345,11 +343,12 @@ tr.calendar-body .calendar-day .day[disabled] {
 	display: block;
     opacity: 0;
     position: absolute;
-    top: 23px;
+    top: 50%;
+    transform:translateY(-50%);
     left: 120px;
     width: 16px;
     height: 25px;
-    background: url(../images/main/right_arrow_p.png) no-repeat;
+    background: url(../images/main/right_arrow_p.png) 50% no-repeat;
     background-size: 60%;
     transition: all 0.3s;
     transition-timing-function: ease-in-out;

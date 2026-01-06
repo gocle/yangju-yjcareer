@@ -9,37 +9,6 @@
         //visual
         var $VisualTitleList = $('.rowgroup');
         $VisualTitleList.addClass('time_ani')
-
-        //footer 슬릭
-        var $footerList = $('.footer-banner').find('.fBanner-list'),
-            $footerPrev = $('.footer-banner').find('.fBanner_prev'),
-            $footerNext = $('.footer-banner').find('.fBanner_next');
-
-        $footerList.slick({
-            rows: 1,
-            draggable: false,
-            infinite: true,
-            variableWidth: false,
-            slidesToShow: 6,
-            slidesToScroll: 1,
-            autoplay: false,
-            autoplaySpeed: 3000,
-            prevArrow: $footerPrev,
-            nextArrow: $footerNext,
-            // autoArrow: $noticeAuto,
-            // pauseText: '정지',
-            // playText: '재생',
-            centerMode: false,
-            responsive: [
-                {
-                    breakpoint: 641,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 1
-                    }
-                }
-            ]
-        });
 		
         //popup 슬릭
         var $popup = $container.find('.popup'),
@@ -178,26 +147,41 @@
 	
 });
 
-$(window).on('load resize', function () {
+$(window).on('load', function () {
 
-    // footer slick
-    if ($('.footer-banner .fBanner-list').hasClass('slick-initialized')) {
-        $('.footer-banner .fBanner-list').slick('setPosition');
-    }
+  var $footerList = $('.footer-banner .fBanner-list'),
+      $footerPrev = $('.footer-banner .fBanner_prev'),
+      $footerNext = $('.footer-banner .fBanner_next');
 
-    // popup slick
-    if ($('.popup .popup_list').hasClass('slick-initialized')) {
-        $('.popup .popup_list').slick('setPosition');
-    }
+  if (!$footerList.length) return;
 
-    // tab slick (둘 다 대비)
-    if ($('.tab1 .counsel_list').hasClass('slick-initialized')) {
-        $('.tab1 .counsel_list').slick('setPosition');
-    }
+  // 혹시 남아있을 경우 대비
+  if ($footerList.hasClass('slick-initialized')) {
+    $footerList.slick('unslick');
+  }
 
-    if ($('.tab2 .program_list').hasClass('slick-initialized')) {
-        $('.tab2 .program_list').slick('setPosition');
-    }
+  $footerList.slick({
+    rows: 1,
+    draggable: false,
+    infinite: true,
+    variableWidth: false,
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 3000,
+    prevArrow: $footerPrev,
+    nextArrow: $footerNext,
+    centerMode: false,
+    responsive: [
+      {
+        breakpoint: 641,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  });
 
 });
 	

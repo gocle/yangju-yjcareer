@@ -302,7 +302,7 @@
 }
 
 /* 하단 바로가기 */
-#footer{display: block; position: relative; padding: 42px 0; border-top: 1px solid #d5d7dd;}
+#footer{display: block; position: relative; padding: 42px 0; border-top: 1px solid #d5d7dd; background: #f4f5f6;}
 #footer .link{position:relative; font-size:0; line-height:0}
 #footer .link_list{padding-top:20px; padding-bottom:20px}
 #footer .link_item{display:inline-block; position:relative; padding-right:14px; padding-left:23px}

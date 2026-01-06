@@ -45,7 +45,7 @@
     </li>
 
     <!-- 2뎁스 (현재 메뉴가 3뎁스가 아니면: 현재메뉴 목록) -->
-    <c:if test="${menuInfo.menuDepth != '3'}">
+    <c:if test="${menuInfo.menuDepth != '3' and not empty listSubMenu}">
       <li class="breadcrumbs_item">
         <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${menuInfo.menuDepth == '1' ? listSubMenu[0].menuTitle : menuVO.menuTitle}</a>
 

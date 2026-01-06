@@ -162,8 +162,8 @@
 				
 					    	  $('#modalTitle').text(e.title);
 					    	  
-					    	  $('#modalTime').text(p.startTime + ' ~ ' + p.endTime);  
-					    	  $('#modalDate').text(e.startStr + ' ~ ' + e.endStr);
+					    	  $('#modalTime').text(p.startTime);  
+					    	  $('#modalDate').text(e.startStr);
 
 					    	  var tyTxt = '';
 
@@ -212,7 +212,6 @@
 														    id: value.SEQ_CD,
 														    title: value.SUBJ_NM,
 														    start: value.LEARN_START_DT,
-														    end : value.LEARN_END_DT,
 														    classNames: classNames,
 														    extendedProps: {
 														      scTyCd: value.CATE_CD,

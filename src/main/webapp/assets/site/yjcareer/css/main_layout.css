@@ -31,11 +31,6 @@
     overflow: hidden;
     width: 34.072%;
 }
-
-.main_popup {
-	box-shadow: 0 2px 6px rgba(0, 0, 0, .15);
-}
-
 .main_popup .layer_put {
 	height: 70px;
 	background: #fff;
@@ -55,6 +50,11 @@
 	color: #fff!important;
 }
 
+.layer_put label {
+	font-size: 17px;
+    vertical-align: top;
+}
+
 
 .layer_put input[type="checkbox"] {
   appearance: none;
@@ -66,7 +66,7 @@
   background: url(../images/common/check_circle_outline.svg) no-repeat center;
   background-size: contain;
   cursor: pointer;
-	margin-top: -3px;
+	margin-top: -4px;
 }
 
 .layer_put input[type="checkbox"]:checked {

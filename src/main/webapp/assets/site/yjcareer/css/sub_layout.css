@@ -23,7 +23,7 @@
 .sub_head .sub_title{display:block; position:relative; z-index:1; height:390px; padding-top:119px; text-align: left;}
 .sub_head .sub_title:before{display: block; position: absolute; bottom: 0; right: -195px; width: 1002px; height: 334px; background: url("../images/sub/sub_visual.png") no-repeat;}
 .sub_head .sub_title .first_title{font-family: 'Cafe24Air'; font-size: 24px; line-height: 26px; letter-spacing: 0; color: #26293d;}
-.sub_head .sub_title h2{position:relative; margin-top: 21px; font-family: 'WAGURI'; font-size:60px; line-height: 65px; color: #26293d; letter-spacing: 0; font-weight: 500;}
+.sub_head .sub_title h2{position:relative; margin-top: 21px; font-family: 'WAGURI'; font-size:55px; line-height: 65px; color: #26293d; letter-spacing: 0; font-weight: 500;}
 
 @media all and (min-width:1001px){
     .sub_head .sub_title h2{left: -3px;}

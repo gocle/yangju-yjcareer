@@ -157,6 +157,7 @@
 	
      <form id="listForm" name="listForm" method="post">
      	<input type="hidden" id="seqCd" name="seqCd" value="" />
+     	<input type="hidden" name="menuId" value="${param.menuId}">
      </form>
      
     <script>

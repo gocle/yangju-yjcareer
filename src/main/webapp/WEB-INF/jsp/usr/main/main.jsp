@@ -250,6 +250,12 @@
 			$("#detailForm").submit();
 		}
 	</script>
+	
+	<style>
+		.layer_cont p > br {
+		  display: none;
+		}
+	</style>
 
 	<!-- 레이어 팝업 시작 -->
 	<c:forEach var="bn" items="${popupList}" varStatus="status">
