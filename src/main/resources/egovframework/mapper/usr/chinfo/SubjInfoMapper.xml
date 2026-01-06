@@ -64,4 +64,37 @@
 		ORDER BY SS.ENROLL_START_DT DESC, SS.ENROLL_END_DT DESC
 	</select>
 	
+	<select id="selectPopupList" resultType="SubjInfoVo">
+		SELECT
+		    BN_ID,
+		    BN_TYPE,
+		    BN_ORDER,
+		    BN_NAME,
+		    BN_DESCRIPTION,
+		    BN_LINK,
+		    BN_NEW_WIN,
+		    BN_START_DATE,
+		    BN_END_DATE,
+		    BN_USE,
+		    BN_EXT,
+		    BN_WIDTH,
+		    BN_HEIGHT,
+		    BN_TOP,
+		    BN_LEFT,
+		    BN_THUMB,
+		    BN_DISPLAY_TYPE,
+		    REG_DT,
+		    REG_ID,
+		    UPD_DT,
+		    UPD_ID
+		FROM COM_BANNER
+		WHERE DELETE_YN = 'N'
+		  AND BN_USE = 'Y'
+		  AND BN_TYPE = 'POPUP'
+		  AND (BN_START_DATE IS NULL OR BN_START_DATE <![CDATA[ <= ]]> NOW())
+			AND (BN_END_DATE   IS NULL OR BN_END_DATE   >= NOW())
+		ORDER BY BN_ORDER ASC, REG_DT DESC
+	
+	</select>
+	
 </mapper>

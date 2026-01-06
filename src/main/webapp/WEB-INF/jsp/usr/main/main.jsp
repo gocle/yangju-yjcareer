@@ -234,60 +234,60 @@
 </script>
 
 	<!-- 레이어 팝업 시작 -->
-<c:forEach var="bn" items="${popupBannerList}" varStatus="status">
-    <div id="divpopup${status.index}"
-         class="main_popup"
-         style="
-            position:absolute;
-            left:${bn.BN_LEFT}px;
-            top:${bn.BN_TOP}px;
-            z-index:1001;
-            visibility:hidden;
-            width:${bn.BN_WIDTH}px;
-            height:${bn.BN_HEIGHT}px
-         ">
-
-        <div class="layer_cont">
-            <a href="${bn.BN_LINK}"
-               <c:if test="${bn.BN_NEW_WIN eq 'Y'}">target="_blank"</c:if>
-               title="새창">
-                <img src="/yjcareer/assets/DATA/popup/${bn.BN_THUMB}"
-                     style="width:${bn.BN_WIDTH}px; height:${bn.BN_HEIGHT}px;"
-                     alt="${bn.BN_NAME}" />
-            </a>
-        </div>
-
-        <form name="notice_form${status.index}">
-            <div class="layer_put">
-                <div>
-                    <input type="checkbox"
-                           id="chkbox${status.index}" />
-                    <label for="chkbox${status.index}">
-                        오늘하루동안보지않기
-                    </label>
-                </div>
-                <div class="pop-btn">
-                    <a href="javascript:closeWind${status.index}();">닫기</a>
-                </div>
-            </div>
-        </form>
-    </div>
-
-    <script>
-        function closeWind${status.index}() {
-            if (document.getElementById("chkbox${status.index}").checked) {
-                setCookie("popup_${bn.BN_ID}", "done", 1);
-            }
-            document.getElementById("divpopup${status.index}").style.visibility = "hidden";
-        }
-
-        (function () {
-            if (document.cookie.indexOf("popup_${bn.BN_ID}=done") < 0) {
-                document.getElementById("divpopup${status.index}").style.visibility = "visible";
-            }
-        })();
-    </script>
-</c:forEach>
+	<c:forEach var="bn" items="${popupBannerList}" varStatus="status">
+	    <div id="divpopup${status.index}"
+	         class="main_popup"
+	         style="
+	            position:absolute;
+	            left:${bn.BN_LEFT}px;
+	            top:${bn.BN_TOP}px;
+	            z-index:1001;
+	            visibility:hidden;
+	            width:${bn.BN_WIDTH}px;
+	            height:${bn.BN_HEIGHT}px
+	         ">
+	
+	        <div class="layer_cont">
+	            <a href="${bn.BN_LINK}"
+	               <c:if test="${bn.BN_NEW_WIN eq 'Y'}">target="_blank"</c:if>
+	               title="새창">
+	                <img src="/yjcareer/assets/DATA/popup/${bn.BN_THUMB}"
+	                     style="width:${bn.BN_WIDTH}px; height:${bn.BN_HEIGHT}px;"
+	                     alt="${bn.BN_NAME}" />
+	            </a>
+	        </div>
+	
+	        <form name="notice_form${status.index}">
+	            <div class="layer_put">
+	                <div>
+	                    <input type="checkbox"
+	                           id="chkbox${status.index}" />
+	                    <label for="chkbox${status.index}">
+	                        오늘하루동안보지않기
+	                    </label>
+	                </div>
+	                <div class="pop-btn">
+	                    <a href="javascript:closeWind${status.index}();">닫기</a>
+	                </div>
+	            </div>
+	        </form>
+	    </div>
+	
+	    <script>
+	        function closeWind${status.index}() {
+	            if (document.getElementById("chkbox${status.index}").checked) {
+	                setCookie("popup_${bn.BN_ID}", "done", 1);
+	            }
+	            document.getElementById("divpopup${status.index}").style.visibility = "hidden";
+	        }
+	
+	        (function () {
+	            if (document.cookie.indexOf("popup_${bn.BN_ID}=done") < 0) {
+	                document.getElementById("divpopup${status.index}").style.visibility = "visible";
+	            }
+	        })();
+	    </script>
+	</c:forEach>
 	<!-- 레이어 팝업 종료 -->
 
   <c:import url="/usr/menu/header.do" />

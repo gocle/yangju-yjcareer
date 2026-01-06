@@ -30,4 +30,9 @@ public class SubjInfoServiceImpl extends EgovAbstractServiceImpl implements Subj
 	public List<SubjInfoVo> selectMainList(SubjInfoVo subjInfoVo) throws Exception {
 		return subjInfoMapper.selectMainList(subjInfoVo);
 	}
+	
+	@Override
+	public List<SubjInfoVo> selectPopupList(SubjInfoVo subjInfoVo) throws Exception {
+		return subjInfoMapper.selectPopupList(subjInfoVo);
+	}
 }

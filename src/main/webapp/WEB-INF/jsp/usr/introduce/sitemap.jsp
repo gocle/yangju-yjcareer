@@ -24,7 +24,46 @@
                         </div>
                         
                         <div class="sub_head_wrap">
-						<c:import url="/usr/menu/sub.do" />
+						<div class="breadcrumbs">
+  							<a href="/yjcareer/usr/main.do" class="home">홈</a>
+
+							  <ol class="breadcrumbs_list">
+							
+							    <!-- 1뎁스 (상위메뉴) -->
+							    <li class="breadcrumbs_item">
+							      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">사이트맵</a>
+							      <button type="button" class="breadcrumbs_select" data-target="bc-drop1" aria-haspopup="listbox" aria-expanded="false" title="목록열기">사이트맵</button>
+							
+							      <ul class="breadcrumbs_panel" id="bc-drop1" role="listbox">
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/introduce/intro.do?menuId=2025MENU0000145" target="_self">
+										      센터 소개
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000151" target="_self">
+										      1:1 상시 상담
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer/?menuId=" target="_self">
+										      행사 및 강좌
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000147" target="_self">
+										      꿈자람센터 프로그램
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/bbs/notice/list.do?menuId=2025MENU0000262" target="_self">
+										      알림마당
+										    </a>
+							          </li>
+							      </ul>
+							    </li>
+							  </ol>
+						</div>
 						
             
                             <div class="addons">

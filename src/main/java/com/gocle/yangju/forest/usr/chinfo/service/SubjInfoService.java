@@ -9,4 +9,6 @@ public interface SubjInfoService {
 	int selectMainTotalCount(SubjInfoVo subjInfoVo) throws Exception;
 	
 	List<SubjInfoVo> selectMainList(SubjInfoVo subjInfoVo) throws Exception;
+
+	List<SubjInfoVo> selectPopupList(SubjInfoVo subjInfoVo) throws Exception;
 }
