@@ -177,7 +177,31 @@
 
 	
 });
+
+$(window).on('load resize', function () {
+
+    // footer slick
+    if ($('.footer-banner .fBanner-list').hasClass('slick-initialized')) {
+        $('.footer-banner .fBanner-list').slick('setPosition');
+    }
+
+    // popup slick
+    if ($('.popup .popup_list').hasClass('slick-initialized')) {
+        $('.popup .popup_list').slick('setPosition');
+    }
+
+    // tab slick (둘 다 대비)
+    if ($('.tab1 .counsel_list').hasClass('slick-initialized')) {
+        $('.tab1 .counsel_list').slick('setPosition');
+    }
+
+    if ($('.tab2 .program_list').hasClass('slick-initialized')) {
+        $('.tab2 .program_list').slick('setPosition');
+    }
+
+});
 	
 	
 	
 })(window.jQuery);
+

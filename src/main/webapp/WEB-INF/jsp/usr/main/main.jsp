@@ -127,6 +127,23 @@
 				$slider.slick('slickGoTo', 0);
 
 			  });
+			
+			
+			// 신청가기 탭 변경 url
+			const $moreBtn = $('.program_more_btn');
+
+			function updateMoreLink() {
+			    if ($('#tabmenu1').is(':checked')) {
+			        $moreBtn.attr('href', '/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143'); // 1:1 상시상담
+			    } else if ($('#tabmenu2').is(':checked')) {
+			        $moreBtn.attr('href', '/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142'); // 꿈자람센터 프로그램
+			    }
+			}
+
+			updateMoreLink();
+			$('#tabmenu1, #tabmenu2').on('change', function () {
+			    updateMoreLink();
+			});
 
 
 		});
@@ -140,6 +157,7 @@
 
 		}
 		
+		//관련일정 js
 		let currentMonth = new Date().toISOString().slice(0, 7);
 
 		function loadSchedule(month) {
@@ -189,71 +207,69 @@
 			}
 		
 		function moveMonth(diff) {
-			  const arr = currentMonth.split("-");
-			  const d = new Date(arr[0], arr[1] - 1 + diff, 1);
+		  const arr = currentMonth.split("-");
+		  const d = new Date(arr[0], arr[1] - 1 + diff, 1);
 
-			  currentMonth =
-			    d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
+		  currentMonth =
+		    d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0");
 
-			  loadSchedule(currentMonth);
-			}
+		  loadSchedule(currentMonth);
+		}
+		
+		
+		$(function () {
+		  loadSchedule(currentMonth);
 
-			$(function () {
-			  loadSchedule(currentMonth);
+		  $(".notice_prev").on("click", function () {
+		    moveMonth(-1);
+		  });
 
-			  $(".notice_prev").on("click", function () {
-			    moveMonth(-1);
-			  });
-
-			  $(".notice_next").on("click", function () {
-			    moveMonth(1);
-			  });
-			});
-			
-			$(document).on("click", ".events", function () {
-				  location.href = "/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341";
-				});
+		  $(".notice_next").on("click", function () {
+		    moveMonth(1);
+		  });
+		});
+		
+		// 관련일정 clik
+		$(document).on("click", ".events", function () {
+		  location.href = "/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341";
+		});
 
 	</script>
 
 	<script type="text/JavaScript">
-		//<![CDATA[
-	function setCookie( name, value, expiredays ) {
-		var todayDate = new Date();
-		todayDate.setDate( todayDate.getDate() + expiredays );
-		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
-	}
-//]]>
-	
-	function fnDetailView(seqCd) {
-		$("#detailForm input[name=seqCd]").val(seqCd);
-		let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
-		$("#detailForm").attr("action", reqUrl);
-		$("#detailForm").submit();
-	}
-</script>
+		function setCookie( name, value, expiredays ) {
+			var todayDate = new Date();
+			todayDate.setDate( todayDate.getDate() + expiredays );
+			document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+		}
+		
+		function fnDetailView(seqCd) {
+			$("#detailForm input[name=seqCd]").val(seqCd);
+			let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
+			$("#detailForm").attr("action", reqUrl);
+			$("#detailForm").submit();
+		}
+	</script>
 
 	<!-- 레이어 팝업 시작 -->
-	<c:forEach var="bn" items="${popupBannerList}" varStatus="status">
+	<c:forEach var="bn" items="${popupList}" varStatus="status">
 	    <div id="divpopup${status.index}"
 	         class="main_popup"
 	         style="
 	            position:absolute;
-	            left:${bn.BN_LEFT}px;
-	            top:${bn.BN_TOP}px;
+	            left:${bn.bnLeft}px;
+	            top:${bn.bnTop}px;
 	            z-index:1001;
 	            visibility:hidden;
-	            width:${bn.BN_WIDTH}px;
-	            height:${bn.BN_HEIGHT}px
+	            width:${bn.bnWidth}px;
+	            height:${bn.bnHeight}px
 	         ">
 	
 	        <div class="layer_cont">
-	            <a href="${bn.BN_LINK}"
-	               <c:if test="${bn.BN_NEW_WIN eq 'Y'}">target="_blank"</c:if>
+	            <a href="${bn.bnLink}"
+	               <c:if test="${bn.bnNewWin eq 'Y'}">target="_blank"</c:if>
 	               title="새창">
-	                <img src="/yjcareer/assets/DATA/popup/${bn.BN_THUMB}"
-	                     style="width:${bn.BN_WIDTH}px; height:${bn.BN_HEIGHT}px;"
-	                     alt="${bn.BN_NAME}" />
+	                ${bn.bnDescription}
 	            </a>
 	        </div>
 	
@@ -276,13 +292,13 @@
 	    <script>
 	        function closeWind${status.index}() {
 	            if (document.getElementById("chkbox${status.index}").checked) {
-	                setCookie("popup_${bn.BN_ID}", "done", 1);
+	                setCookie("popup_${bn.bnId}", "done", 1);
 	            }
 	            document.getElementById("divpopup${status.index}").style.visibility = "hidden";
 	        }
 	
 	        (function () {
-	            if (document.cookie.indexOf("popup_${bn.BN_ID}=done") < 0) {
+	            if (document.cookie.indexOf("popup_${bn.bnId}=done") < 0) {
 	                document.getElementById("divpopup${status.index}").style.visibility = "visible";
 	            }
 	        })();

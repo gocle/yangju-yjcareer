@@ -30,6 +30,19 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
     private String status;
     private String eduTarget;
     
+    //popup
+    private String bnLeft;
+    private String bnTop;
+    private String bnLink;
+    private String bnWidth;
+    private String bnHeight;
+    private String bnNewWin;
+    private String bnThumb;
+    private String bnName;
+    private String bnId;
+    private String bnDescription;
+    
+    
 	public String getSgrCd() {
 		return sgrCd;
 	}
@@ -120,6 +133,68 @@ public class SubjInfoVo extends SubjInfoDefaultVo {
 	public void setSeqCd(String seqCd) {
 		this.seqCd = seqCd;
 	}
+	public String getBnLeft() {
+		return bnLeft;
+	}
+	public void setBnLeft(String bnLeft) {
+		this.bnLeft = bnLeft;
+	}
+	public String getBnTop() {
+		return bnTop;
+	}
+	public void setBnTop(String bnTop) {
+		this.bnTop = bnTop;
+	}
+	public String getBnLink() {
+		return bnLink;
+	}
+	public void setBnLink(String bnLink) {
+		this.bnLink = bnLink;
+	}
+	public String getBnWidth() {
+		return bnWidth;
+	}
+	public void setBnWidth(String bnWidth) {
+		this.bnWidth = bnWidth;
+	}
+	public String getBnHeight() {
+		return bnHeight;
+	}
+	public void setBnHeight(String bnHeight) {
+		this.bnHeight = bnHeight;
+	}
+	public String getBnNewWin() {
+		return bnNewWin;
+	}
+	public void setBnNewWin(String bnNewWin) {
+		this.bnNewWin = bnNewWin;
+	}
+	public String getBnThumb() {
+		return bnThumb;
+	}
+	public void setBnThumb(String bnThumb) {
+		this.bnThumb = bnThumb;
+	}
+	public String getBnName() {
+		return bnName;
+	}
+	public void setBnName(String bnName) {
+		this.bnName = bnName;
+	}
+	public String getBnId() {
+		return bnId;
+	}
+	public void setBnId(String bnId) {
+		this.bnId = bnId;
+	}
+	public String getBnDescription() {
+		return bnDescription;
+	}
+	public void setBnDescription(String bnDescription) {
+		this.bnDescription = bnDescription;
+	}
+	
+	
 	
 	
 }
