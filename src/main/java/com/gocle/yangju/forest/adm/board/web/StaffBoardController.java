@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -497,7 +498,7 @@ public class StaffBoardController {
 	//////////
 	//댓글 삭제//
 	//////////
-	@RequestMapping(value = { "{bcId}/replyDelete.do "} , method = RequestMethod.POST)
+	@RequestMapping(value = { "{bcId}/replyDelete.do"} , method = RequestMethod.POST)
 	public String replyDeleteGet(
 		@PathVariable("bcId") String bcId,
 		@ModelAttribute("form")BoardArticleVO boardArticleVO,
@@ -551,7 +552,7 @@ public class StaffBoardController {
 	/////////////
 	//댓글 수정 처리//
 	/////////////
-	@RequestMapping( value = { "{bcId}/replyUpdate.do "} , method = RequestMethod.POST)
+	@RequestMapping( value = { "{bcId}/replyUpdate.do"} , method = RequestMethod.POST)
 	public String updateReplyPost(
 		@PathVariable("bcId") String bcId,
 		BoardConfigVO boardConfigVO,
@@ -602,5 +603,38 @@ public class StaffBoardController {
 	
 	return "redirect:"+returnPage;
 	
+	}
+	
+	@RequestMapping("{bcId}/reply/detail.do")
+	@ResponseBody
+	public BoardReplyVO replyEditor(@PathVariable("bcId")String bcId
+			, @RequestParam("brId") String brId
+		    , @RequestParam("baId") String baId
+			, BoardConfigVO boardConfigVO
+			, @ModelAttribute("form")BoardArticleVO boardArticleVO
+			, @ModelAttribute("replyForm")BoardReplyVO boardReplyVO
+			, @ModelAttribute("replyFileForm")FileVO fileVO, ModelMap model) throws Exception {
+		
+		String menuId = boardArticleVO.getMenuId();
+		
+		LoginInfo loginInfo = new LoginInfo();
+		loginInfo.putSessionToVo(boardArticleVO);
+		
+		boardConfigVO = adminBoardService.selectBoardConfig(boardConfigVO);
+		
+		boardArticleVO.setBcId(bcId);
+		BoardArticleVO result = adminBoardService.selectBoardArticle(boardArticleVO);
+		
+		boardReplyVO.setBaId(result.getBaId());
+		
+		BoardReplyVO boardReply = adminBoardService.selectBoardReply(boardReplyVO);
+		
+		model.addAttribute("boardConfigVO", boardConfigVO);
+		
+		model.addAttribute("result",result);
+		model.addAttribute("boardReply", boardReply);
+		model.addAttribute("menuId", menuId);
+		
+		return boardReply;
 	}
 }

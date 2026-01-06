@@ -93,7 +93,7 @@ function fn_update(){
 	var baId= "${result.baId}";	
 	var menuId = "${menuId}";
 	
-	$("#form").attr("action", "${contextRoot}/adm/bbs/"+bcId+"/updateForm.do " );
+	$("#form").attr("action", "${contextRoot}/adm/bbs/"+bcId+"/updateForm.do" );
 	$("#form").attr("method", "get");
 	$("#form").submit();
 }
@@ -332,24 +332,13 @@ function makeReplyFileArea () {
 						<td id="toggle_${status.index}" style="display: ">
 							<div id="div_${status.index}">${boardReplyList.brContent}</div>
 							<span style="display: none" id="span_${status.index}">
-								<%-- <div class="text-right btn-area">
-									<input type="file" class="input_file" id="file_atchFileId" name="file_atchFileId" title="파일찾기">
-									<br><br>
-									<button type="button" class="point">
-										<a style="color:white" href="javascript:fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}' );" class="btn blue">수정</a>
-									</button>
-								</div> --%>
 							</span>
 						</td>
 					</tr>
 					<tr><th>댓글 등록일</th><td>${boardReplyList.regDt}</td></tr>
-					<%-- <c:if test="${boardReplyList.rDeleteYn eq 'N'}"> --%>
 						<tr id="atchTr_${status.index}" style="display:${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y' ? '':'none'}">
 							<th>첨부 파일</th>
 							<td class="file">
-								<%-- <a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');" style="color:#333; background:none"><b><c:out value="${boardReplyList.orgFileName}" /></b></a>
-								<a href="javascript:fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}', '/adm/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}' )" class="btn">파일삭제</a> --%>
-								
 								<c:if test="${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y'}">
 									<span id="file${boardReplyList.atchFileIdx}">
 										<a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');"><c:out value="${boardReplyList.orgFileName}" /></a>
@@ -360,7 +349,6 @@ function makeReplyFileArea () {
 								<input type="file" class="input_file" id="file_atchFileId_${status.index}" name="file_atchFileId" title="파일찾기" style="display: none">
 							</td>
 						</tr>
-					<%-- </c:if> --%>
 				</tbody>
 			</table>
 		</form>

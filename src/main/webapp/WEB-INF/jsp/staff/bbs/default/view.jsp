@@ -42,7 +42,7 @@ function fn_editor( brId , baId , index){
 	var pathId = $("#bcId").val();
 	
       $.ajax({
-         url:"${contextpath}/staff/bbs/"+pathId+"/detail.do?menuId="+menuId,
+         url:"${contextRoot}/staff/bbs/"+pathId+"/reply/detail.do?menuId="+menuId,
          type:"post",
          data:{
         	 "brId":brId,
@@ -50,10 +50,25 @@ function fn_editor( brId , baId , index){
          },
         success:function(data){
 			if(data){
-		       	 $("#div_"+index).empty();
-		       	 $("#div_"+index).html("<textarea id='content"+index+"' name='brContent"+index+"'>"+data+"</textarea>"); 
-		       	 initEditor("content"+index);
-		       	 $("#span_"+index).css("display","");
+				 $("#div_" + index).empty();
+				 $("#div_" + index).html("<textarea id='content" + index + "' name='brContent" + index + "'>" + data.brContent + "</textarea>");
+				 initEditor("content" + index);
+			     $("#span_" + index).show();
+			     
+			     $("#updateEditorBtn_" + index).hide();
+			     $("#updateBtn_" + index).show();
+			     
+			     $("#atchTr_" + index).show();
+			     
+			     // 첨부파일 처리
+	             if (data.atchFileIdx && data.rDeleteYn == 'N') {
+	            	 // 첨부파일이 있을 때
+	            	 $("#deleteFileBtn_" + index).show();
+	            	 $("#file_atchFileId_"+ index).hide();
+	             } else {
+	            	 // 첨부파일이 없을 때
+	            	 $("#file_atchFileId_"+ index).show();
+	             }
 			}
         },error:function(xhr,status,error){
            //alert(xhr.status);
@@ -80,7 +95,7 @@ function fn_update(){
 	var baId= "${result.baId}";	
 	var menuId = "${menuId}";
 	
-	$("#form").attr("action", "${contextRoot}/staff/bbs/"+bcId+"/updateForm.do " );
+	$("#form").attr("action", "${contextRoot}/staff/bbs/"+bcId+"/updateForm.do" );
 	$("#form").attr("method", "get");
 	$("#form").submit();
 }
@@ -179,6 +194,11 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 	$("#fileForm").submit();
 }
 </script>
+
+<style>
+.reply-btn-area {float:right;}
+.btn_blue {background: #182142!important; color: #fff!important;}
+</style>
 
 <form id="form" name="form" method="post">
 	<input type="hidden" id="bcId" name="bcId" value="${result.bcId}">
@@ -281,7 +301,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 	</form>
 
 	<c:forEach var="boardReplyList" items="${boardReplyList}" varStatus="status">
-		<form id="replyFunc${status.index}" name="replyFunc${status.index}" method="post" enctype="multipart/form-data">
+		<form id="replyFunc${status.index}" name="replyFunc${status.index}" method="post" enctype="multipart/form-data" style="margin-top:10px;">
 			<input type="hidden" id="brId" name="brId" value="${boardReplyList.brId}">
 			<input type="hidden" id="menuId" name="menuId" value="${menuId}">
 			<input type="hidden" id="reply_content${status.index}" name="brContent" value="">
@@ -294,47 +314,37 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 					<col width="*">
 				</colgroup>
 				<tbody>
-					<tr><th>--------------------------------------------------------</th><td>=======================================================================================</td></tr>
-					<tr>
-						<th></th>
-						<td>
-							<c:if test="${memSeq eq boardReplyList.regId}">
-								<div class="text-right btn-area">
-									<button type="button" id="test1" class="point">
-										<a style="color:white;" href="javascript:fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');" class="editBtn">댓글 수정</a>
-									</button>
-									<button type="button" class="point" onclick="fn_reply_delete('${boardReplyList.brId}');">댓글 삭제</button>
-								</div>
-							</c:if>
-						</td>
-					</tr>
-					<tr><th>댓글 순번</th><td>${boardReplyList.brId}</td></tr>
+					<tr><th>댓글 순번</th><td>${boardReplyList.brId}
+					<c:if test="${SESSION_MEM_SEQ eq boardReplyList.regId}">
+						<div class="reply-btn-area">
+							<button type="button" id="updateEditorBtn_${status.index}" class="btn_blue" onclick="fn_editor('${boardReplyList.brId}','${result.baId}','${status.index}');">댓글 수정</button>
+							<button type="button" id="updateBtn_${status.index}" class="btn_blue" onclick="fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}');" style="display:none;">댓글 수정</button>
+							<button type="button" class="btn_blue" onclick="fn_reply_delete('${boardReplyList.brId}');">댓글 삭제</button>
+						</div>
+					</c:if>
+					</td></tr>
 					<tr><th>댓글 등록자</th><td><p>${boardReplyList.memName}</p></td></tr>
 					<tr>
 						<th>댓글 내용</th>
 						<td id="toggle_${status.index}" style="display: ">
 							<div id="div_${status.index}">${boardReplyList.brContent}</div>
-							<span style="display: none" id="span_${status.index}">
-								<div class="text-right btn-area">
-									<input type="file" class="input_file" id="file_atchFileId" name="file_atchFileId" title="파일찾기">
-									<br><br>
-									<button type="button" class="point">
-										<a style="color:white" href="javascript:fn_reply_update('${status.index}','${boardReplyList.brId}','${boardReplyList.atchFileIdx}' );" class="btn blue">수정</a>
-									</button>
-								</div>
-							</span>
+							<span style="display: none" id="span_${status.index}"></span>
 						</td>
 					</tr>
 					<tr><th>댓글 등록일</th><td>${boardReplyList.regDt}</td></tr>
-					<c:if test="${boardReplyList.rDeleteYn eq 'N'}">
-						<tr>
+						<tr id="atchTr_${status.index}" style="display:${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y' ? '':'none'}">
 							<th>첨부 파일</th>
-							<td>
-								<a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');" style="color:#333; background:none"><b><c:out value="${boardReplyList.orgFileName}" /></b></a>
-								<a href="javascript:fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}', '/staff/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}' )" class="btn">파일삭제</a>
+							<td class="file">
+								<c:if test="${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y'}">
+									<span id="file${boardReplyList.atchFileIdx}">
+										<a href="javascript:fn_egov_replyDownFile('${boardReplyList.atchFileIdx}');"><c:out value="${boardReplyList.orgFileName}" /></a>
+										<button id="deleteFileBtn_${status.index}" type="button" onclick="fn_egov_replyDeleteFile('${boardReplyList.atchFileIdx}','/staff/bbs/${result.bcId}/detail.do?baId=${boardReplyList.baId}&menuId=${menuId}');" style="display: none">삭제</button>
+									</span>
+								</c:if>
+								
+								<input type="file" class="input_file" id="file_atchFileId_${status.index}" name="file_atchFileId" title="파일찾기" style="display: none">
 							</td>
 						</tr>
-					</c:if>
 				</tbody>
 			</table>
 		</form>
