@@ -73,6 +73,7 @@ public class MyPageCotroller {
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("resultList", resultList);
 		model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("menuId", myPageVo.getMenuId());
 		
 	    return "/usr/mypage/myReservation";
 	}

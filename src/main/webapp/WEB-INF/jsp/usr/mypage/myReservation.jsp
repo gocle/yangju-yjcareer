@@ -17,7 +17,7 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">홈페이지 가이드</p>
+                            <p class="first_title">진로진학교육</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
                             <h2>나의 예약</h2>
@@ -25,8 +25,49 @@
                         
                         <div class="sub_head_wrap">
                             
-						<c:import url="/usr/menu/sub.do" />
-            
+						<%-- <c:import url="/usr/menu/sub.do" /> --%>
+            			<div class="breadcrumbs">
+  							<a href="/yjcareer/usr/main.do" class="home">홈</a>
+
+							  <ol class="breadcrumbs_list">
+							
+							    <!-- 1뎁스 (상위메뉴) -->
+							    <li class="breadcrumbs_item">
+							      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">나의 예약</a>
+							      <button type="button" class="breadcrumbs_select" data-target="bc-drop1" aria-haspopup="listbox" aria-expanded="false" title="목록열기">나의 예약</button>
+							
+							      <ul class="breadcrumbs_panel" id="bc-drop1" role="listbox">
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/introduce/intro.do?menuId=2025MENU0000145" target="_self">
+										      센터 소개
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000151" target="_self">
+										      1:1 상시 상담
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer/?menuId=" target="_self">
+										      행사 및 강좌
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000147" target="_self">
+										      꿈자람센터 프로그램
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/bbs/notice/list.do?menuId=2025MENU0000262" target="_self">
+										      알림마당
+										    </a>
+							          </li>
+							      </ul>
+							    </li>
+							  </ol>
+						</div>
+            			
+            			
                             <div class="addons">
                                 <ul class="addons_list">
                                     <li class="addons_item share">
@@ -186,6 +227,7 @@
 		<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="" />
+		<input type="hidden" id="menuId" name="menuId" value="${menuId}" />
 	<div class="table_scroll scroll both">
 	<table class="table responsive check_reservation">
 		<caption>나의 예약현황(교육강좌)에 대한 표이며, No., 교육강좌명, 모집방법, 접수상태, 수료증, 예약상태, 결제상태 항목에 대한 정보를 제공</caption>

@@ -62,7 +62,7 @@
                             <p class="first_title">알림마당</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>공지사항</h2>
+                            <h2>교육 자료실</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -260,9 +260,6 @@
 								<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${fileVO.orgFileName}" /></span>
 							
 								<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
-							
-							
-								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
 							
 							</div>
 						</li>

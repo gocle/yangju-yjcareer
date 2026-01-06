@@ -131,7 +131,9 @@ function fn_recovryBbsNtt( url ) {
 //]]>
 </script>
 
-	
+	<style>
+	.left {text-align:left !important;}
+	</style>
 	
     <div class="bbs_search">
         <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do?menuId=${menuId }" method="get" class="boardSearchForm">
@@ -206,7 +208,14 @@ function fn_recovryBbsNtt( url ) {
 								${fn:substring(articleList.memName, 0, 1)}*${fn:substring(articleList.memName, fn:length(articleList.memName)-1, fn:length(articleList.memName))}
 							</td>
 							<td class="mo-view">
-								<a href="view0.html">상세 보기</a>
+								<c:choose>
+									<c:when test="${articleList.fileCnt >= 2}">
+										<img src="/yjcareer/assets/common/images/board/file/ico_folder.gif" alt="다중파일" />
+									</c:when>
+									<c:when test="${articleList.fileCnt == 1}">
+										<img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />
+									</c:when>
+								</c:choose>
 							</td>
 							<td data-label="조회수">${articleList.baHit}</td>
 							<td data-label="작성일">${articleList.baRegdate}</td>

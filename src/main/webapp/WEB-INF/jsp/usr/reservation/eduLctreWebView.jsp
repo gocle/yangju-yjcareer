@@ -37,14 +37,147 @@ function fnReservation(seqCd) {
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">프로그램 신청</p>
+                            <p class="first_title">${resultMap.sgrNm }</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>1:1 상담 프로그램 신청</h2>
+                            <h2>${resultMap.cateNm }</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
-                            <c:import url="/usr/menu/sub.do" />
+                            <div class="breadcrumbs">
+  							<a href="/yjcareer/usr/main.do" class="home">홈</a>
+
+							  <ol class="breadcrumbs_list">
+							
+							    <!-- 1뎁스 (상위메뉴) -->
+							    <li class="breadcrumbs_item">
+							      <a href="javascript:void(0);" class="breadcrumbs_anchor mobile">${resultMap.sgrNm }</a>
+							      <button type="button" class="breadcrumbs_select" data-target="bc-drop1" aria-haspopup="listbox" aria-expanded="false" title="목록열기">${resultMap.sgrNm }</button>
+							
+							      <ul class="breadcrumbs_panel" id="bc-drop1" role="listbox">
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/introduce/intro.do?menuId=2025MENU0000145" target="_self">
+										      센터 소개
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000151" target="_self">
+										      1:1 상시 상담
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer/?menuId=" target="_self">
+										      행사 및 강좌
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000147" target="_self">
+										      꿈자람센터 프로그램
+										    </a>
+							          </li>
+							          <li class="tab_item">
+										    <a href="/yjcareer//usr/bbs/notice/list.do?menuId=2025MENU0000262" target="_self">
+										      알림마당
+										    </a>
+							          </li>
+							      </ul>
+							    </li>
+							    
+							    <li class="breadcrumbs_item">
+							        <a href="javascript:void(0);" class="breadcrumbs_anchor mobile"> ${resultMap.cateNm}</a>
+							
+							        <button type="button"
+							                class="breadcrumbs_select"
+							                data-target="bc-drop2"
+							                aria-haspopup="listbox"
+							                aria-expanded="false"
+							                title="목록열기">
+							          ${resultMap.cateNm}
+							        </button>
+
+							        <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
+							          <c:choose>
+							          	<c:when test="${resultMap.sgrCd eq 'A' }">
+							          		<li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000151"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>맞춤컨설팅</span>
+						                      </a>
+						                    </li>
+						                    
+						                    <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000152"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>학습심리상담</span>
+						                      </a>
+						                    </li>
+						
+											<li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000153"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>수시·정시상담</span>
+						                      </a>
+						                    </li>
+						                    
+						                     <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000334"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>면접컨설팅</span>
+						                      </a>
+						                    </li>
+							          	</c:when>
+							          	<c:otherwise>
+							          		 <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000147"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>양주진로진학지원센터 프로그램</span>
+						                      </a>
+						                    </li>
+
+						                    <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000148"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>동부권 AI디지털 프로그램</span>
+						                      </a>
+						                    </li>
+						
+						                    <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000331"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>서부권 AI디지털 프로그램</span>
+						                      </a>
+						                    </li>
+						
+						                    <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000332"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>동부권 돌봄프로그램</span>
+						                      </a>
+						                    </li>
+						
+						                    <li class="depth_item depth2_item">
+						                      <a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000333"
+						                         target="_self"
+						                         class="depth_text depth2_text">
+						                        <span>서부권 돌봄프로그램</span>
+						                      </a>
+						                    </li>
+							          	</c:otherwise>
+							          </c:choose>
+							        </ul>
+							      </li>
+							  </ol>
+						</div>
+                            <%-- <c:import url="/usr/menu/sub.do" /> --%>
+                            
                             <div class="addons">
                                 <ul class="addons_list">
                                     <li class="addons_item share">
@@ -142,7 +275,7 @@ function fnReservation(seqCd) {
 		
 	<div id="contents" class="cts4133">
 	<div class="education_request">
-	<h3> 1:1 상담 프로그램 신청 기본정보</h3>  
+	<h3>프로그램 기본정보</h3>  
 	<div class="education_viewtable">
 		<div class="titlebox">
 			<span class="state receiving">
@@ -229,10 +362,10 @@ function fnReservation(seqCd) {
 	<div class="bbs_btn_wrap clearfix">
 		<div class="bbs_left">
 			<c:if test="${resultMap.sgrCd eq 'A'}">
-				<a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do" class="btn type1">목록</a>
+				<a href="${contextRoot}/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143" class="btn type1">목록</a>
 			</c:if>
 			<c:if test="${resultMap.sgrCd eq 'B'}">
-				<a href="${contextRoot}/usr/reservation/program/eduLctreNewList.do" class="btn type1">목록</a>
+				<a href="${contextRoot}/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142" class="btn type1">목록</a>
 			</c:if>
 		</div>
 		<div class="bbs_right">

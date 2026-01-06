@@ -33,10 +33,20 @@
 		  });
 
 		  $items.trigger('change.sync');
+		  
+		// 내가 신청한 프로그램 보기 체크박스 클릭
+		  $('#checkbox-00').click(function() {
+			  if ($('#checkbox-00').prop('checked')) {
+				  $("#searchMyProgram").val("Y");
+		      } else {
+		    	  $("#searchMyProgram").val("");
+		      }
+			  fn_search(1);
+		  });
 	});
 	
 	function fn_search(pageIndex) {
-		$("#pageIndex").val(param1);
+		$("#pageIndex").val(pageIndex);
 		var reqUrl = "${contextRoot}/usr/reservation/program/eduLctreNewList.do";
 		$("#bbsNttSearch").attr("action", reqUrl);
 		$("#bbsNttSearch").submit();
@@ -77,10 +87,18 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">프로그램 신청</p>
+                            <p class="first_title">꿈자람센터 프로그램</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>진로진학 컨설팅 신청</h2>
+                            <h2>
+                            	<c:choose>
+                            		<c:when test="${searchVo.menuId eq '2025MENU0000148'}">동부권 AI디지털 프로그램</c:when>
+                            		<c:when test="${searchVo.menuId eq '2025MENU0000331'}">서부권 AI디지털 프로그램</c:when>
+                            		<c:when test="${searchVo.menuId eq '2025MENU0000332'}">동부권 돌봄프로그램</c:when>
+                            		<c:when test="${searchVo.menuId eq '2025MENU0000333'}">서부권 돌붐프로그램</c:when>
+                            		<c:otherwise>양주진로진학지원센터 프로그램</c:otherwise>
+                            	</c:choose>
+                            </h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -191,7 +209,8 @@
 		<input type="hidden" name="seqCd" id="seqCd" value=""/>
 		<input type="hidden" name="subjCd" id="subjCd" value=""/>
 		<input type="hidden" name="sgrCd" id="sgrCd" value="B"/>	
-		
+		<input type="hidden" id="searchMyProgram" name="searchMyProgram" value="${searchVo.searchMyProgram}" />
+		<input type="hidden" name="menuId" id="menuId" value="${searchVo.menuId}"/>	
 			<fieldset>
 				<legend>교육강좌 검색</legend>
                 
@@ -334,12 +353,14 @@
 	</div>
 
 	<div class="bbs_info clearfix">
+		<c:if test="${not empty sessionScope.SESSION_DI_KEY}">
 		<div class="bbs_left">
-			<input type="checkbox" id="checkbox-00" name="myProgram" checked>
+			<input type="checkbox" id="checkbox-00" name="myProgram" ${searchVo.searchMyProgram eq 'Y' ? 'checked' : ''}>
 		  	<label for="checkbox-00" class="checkbox-btn">
 				<span class="text">내가 신청한 프로그램 보기</span>
 		  	</label>
 		</div>
+		</c:if>
 		<div class="bbs_right bbs_count">
 			<span>총 <strong>${totalCount}</strong> 건</span>,
 			<span class="division_line">[<strong>${paginationInfo.currentPageNo }</strong> / ${paginationInfo.lastPageNoOnPageList } 페이지]</span>
@@ -354,7 +375,7 @@
 				<col style="width:5%;" />
 				<col style="width:20%;" />
 				<col style="width:20%;" />
-				<col style="width:15%;" />
+				<col style="width:17%;" />
 				<col style="width:8%;" />
 				<col style="width:8%;" />
 				<col style="width:8%;" />
@@ -397,8 +418,8 @@
 							</a> 
 						</td>
 						<td class="td-date">
-							<p><span class="td-span">접수기간</span>${item.enrollStartDt}~${item.enrollEndDt}</p>
-							<p><span class="td-span">교육기간</span>${item.learnStartDt}~${item.learnEndDt}</p>
+							<p><span class="td-span">접수기간&nbsp;</span>${item.enrollStartDt}~${item.enrollEndDt}</p>
+							<p><span class="td-span">교육기간&nbsp;</span>${item.learnStartDt}~${item.learnEndDt}</p>
 						</td>
 						<td class="td-pson">
 							<p><span class="td-span">정원 : </span>${item.enrollCnt}/${item.capacity}</p>

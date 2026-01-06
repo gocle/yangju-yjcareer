@@ -21,10 +21,17 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">프로그램 신청</p>
+                            <p class="first_title">1:1 상시 상담</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>프로그램 신청 안내</h2>
+                            <h2>
+                            	<c:choose>
+                            		<c:when test="${menuId eq '2025MENU0000152' }">학습심리상담</c:when>
+                            		<c:when test="${menuId eq '2025MENU0000153' }">수시·정시상담</c:when>
+                            		<c:when test="${menuId eq '2025MENU0000334' }">면접컨설팅</c:when>
+                            		<c:otherwise>맞춤컨설팅</c:otherwise>
+                            	</c:choose>
+                            </h2>
                         </div>
                         
                         <div class="sub_head_wrap">

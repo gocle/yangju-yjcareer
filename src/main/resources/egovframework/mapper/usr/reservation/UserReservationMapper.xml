@@ -326,8 +326,13 @@
 			AND SS.SUBJ_CD = S.SUBJ_CD
 		LEFT JOIN COM_COMPANY CC	
 			ON CC.COM_ID = SS.COM_ID
+		LEFT JOIN TB_ENROLL E
+			ON E.SEQ_CD = SS.SEQ_CD
 		WHERE 1 = 1
 			AND SS.USE_YN = 'Y'
+		<if test="searchMyProgram != null and searchMyProgram != '' ">
+		    AND E.DI_KEY = #{diKey}
+		</if>
 		<include refid="selectSearchWhere" />
 	</select>
 
@@ -372,8 +377,13 @@
 			AND SS.SUBJ_CD = S.SUBJ_CD
 		LEFT JOIN COM_COMPANY CC	
 			ON CC.COM_ID = SS.COM_ID
+		LEFT JOIN TB_ENROLL E
+			ON E.SEQ_CD = SS.SEQ_CD
 		WHERE 1 = 1
 			AND SS.USE_YN = 'Y'
+		<if test="searchMyProgram != null and searchMyProgram != '' ">
+		    AND E.DI_KEY = #{diKey}
+		</if>
 		<include refid="selectSearchWhere" />
 		ORDER BY SS.ENROLL_START_DT DESC, SS.ENROLL_END_DT DESC
 		<include refid="kr.co.gocle.include.paging-end" />

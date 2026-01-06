@@ -17,7 +17,7 @@
     
                         <div class="sub_title">
                             <!-- 현재 메뉴명의 1차 메뉴명넣어주세요-->
-                            <p class="first_title">진로진학교육</p>
+                            <p class="first_title">센터 소개</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
                             <h2>주요사업</h2>

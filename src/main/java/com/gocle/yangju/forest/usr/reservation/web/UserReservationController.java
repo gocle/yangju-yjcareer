@@ -595,7 +595,7 @@ public class UserReservationController {
 	 
 	@RequestMapping("/consulting/addCalendarView.do")
 	public String consuliting(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
-		
+		model.addAttribute("menuId", searchVo.getMenuId());
 		return "/usr/reservation/consulting/addCalendarView";
 	}
 	
@@ -614,7 +614,11 @@ public class UserReservationController {
 	}
 	
 	@RequestMapping("/program/eduLctreNewList.do")
-	public String program(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
+	public String program(@ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model, HttpServletRequest request) throws Exception {
+		
+		HttpSession session = request.getSession(true);
+		String diKey = (String) session.getAttribute(Globals.DI_KEY);
+		searchVo.setDiKey(diKey);
 		
 		int totalCount = 0;
 		List<EnrollManageVo> resultList = new ArrayList<>();
@@ -637,7 +641,7 @@ public class UserReservationController {
         model.addAttribute("pageSize", pageSize);
 	    model.addAttribute("pageIndex", pageIndex);
 	    model.addAttribute("paginationInfo", paginationInfo);
-	    
+	    model.addAttribute("searchVo", searchVo);
 	    model.addAttribute("totalCount", totalCount);
 		model.addAttribute("resultList", resultList);
 		
@@ -729,6 +733,9 @@ public class UserReservationController {
 		}
 		model.addAttribute("errCd", errCd);
 		model.addAttribute("enrollIns", enrollIns);
+		
+		SubjSeqManageVo resultMap = userReservationService.selectSubjSeqEduInfo(searchVo);
+		model.addAttribute("resultMap", resultMap);
 		
 		return "/usr/reservation/selectEduApplcntAgreView";
 	}
