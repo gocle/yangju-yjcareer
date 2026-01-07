@@ -25,90 +25,10 @@
                         
                         <div class="sub_head_wrap">
                             
-<c:import url="/usr/menu/sub.do" />
+							<c:import url="/usr/menu/sub.do" />
             
                             <div class="addons">
                                 <ul class="addons_list">
-                                    <li class="addons_item share">
-                                        <button type="button" class="addons_button share_show">공유하기</button>
-                                        <div class="share_panel">
-                                            <ul class="share_list clearfix">
-                                                <li class="share_item n1">
-                                                    <a href="javascript:openFacebook();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">페이스북</a>
-                                                </li>
-                                                <li class="share_item n2">
-                                                    <a href="javascript:openNaverbolg('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">블로그</a>
-                                                </li>
-                                                <li class="share_item n3">
-                                                    <a href="javascript:openKakaoStory();" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">카카오</a>
-                                                </li>
-                                                <li class="share_item n4">
-                                                    <a href="javascript:openTwitter('여주시청');" target="_blank" title="새창" rel="noopener noreferrer" class="share_anchor">트위터</a>
-                                                </li>
-                                                <li class="share_item n5">
-                                                    <a href="#n" onclick="copy()" title="새창" class="share_anchor copy_anchor">주소복사</a>
-                                                </li>
-                                                <script>
-													function openFacebook(){
-														var _url = encodeURIComponent(window.location.href);
-														openWin2('http://www.facebook.com/sharer/sharer.php?u=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
-														
-													}
-
-													function openNaverbolg(txt){
-														var _txt = encodeURIComponent(txt);
-														var _url = encodeURIComponent(window.location.href);
-														openWin2('https://share.naver.com/web/shareView.nhn?url=' + _url + '&title=' + _txt, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
-														
-													}
-
-													function openKakaoStory(){
-														var _url = encodeURIComponent(window.location.href);
-														openWin2('https://story.kakao.com/s/share?url=' + _url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
-													}
-
-													function openTwitter(txt){
-														var _txt = encodeURIComponent(txt);
-														var _url = encodeURIComponent(window.location.href);
-														openWin2('https://twitter.com/intent/tweet?text='+_txt+'&url='+_url, '', 1000, 800, 0, 0, 1, 1, 0, 0, 0, (screen.width/2), (screen.height/2), 1);
-													}
-													
-													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
-														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
-															left = (window.screen.width - width ) / 2;
-															top  = (window.screen.height- height) / 2;
-														}
-
-														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
-														opening_window.focus();
-													}
-
-													function openWin2(url, winname, width, height, tbar, mbar, sbar, loc, status, resizable, fscreen, left, top, cflag) {
-														if(cflag == 'yes' || cflag == 'y' || cflag == '1') {
-															left = (window.screen.width - width ) / 2;
-															top  = (window.screen.height- height) / 2;
-														}
-
-														opening_window = window.open(url, winname, 'width=' + width + ', height=' + height + ', toolbar=' + tbar + ', menubar=' + mbar + ', scrollbars=' + sbar + ', location=' + loc + ', status=' + status + ', resizable=' + resizable + ', fullscreen=' + fscreen + ', left=' + left + ', top=' + top);
-														opening_window.focus();
-													}
-
-                                                    function copy() {
-                                                        var url = '';
-                                                        var textarea = document.createElement("textarea");
-                                                        document.body.appendChild(textarea);
-                                                        url = window.document.location.href;
-                                                        textarea.value = url;
-                                                        textarea.select();
-                                                        document.execCommand("copy");
-                                                        document.body.removeChild(textarea);
-                                                        alert("URL이 복사되었습니다.")
-                                                    }
-                                                </script>
-                                            </ul>
-                                            <button type="button" class="share_hide">닫기</button>
-                                        </div>
-                                    </li>
                                     <li class="addons_item print">
                                         <button type="button" onclick="window.print();" class="addons_button">인쇄</button>
                                     </li>

@@ -164,6 +164,16 @@ table.bbs_default.list .notice .noticeItem{}
 table.bbs_default.list .empty{padding:40px 0;text-align:center;}
 table.bbs_default.list .delete .delete_info{font-size:0.9em;color:#2e84d1}
 
+
+table.bbs_default.list .notice .label{
+    text-align: center;
+    background: #333;
+    color: #fff;
+    border-radius: 20px;
+    padding: 2px 20px;
+    font-size: 14px;
+}
+
 @media only screen and (max-width:640px){
     .bbs_explain_top ul{margin-left:0;}
     .bbs_explain_bottom ul{margin-left:0;}
@@ -197,7 +207,7 @@ table.bbs_default.view .subject td{font-weight:700}
 table.bbs_default.view .subject.delete .subject_text{font-weight:400;color:#888}
 table.bbs_default.view .delete .delete_info{font-size:0.9em;color:#2e84d1}
 table.bbs_default.view .bbs_content {min-height:150px;text-align:left}
-table.bbs_default.view .bbs_content img{max-width:640px;height:auto;}
+table.bbs_default.view .bbs_content img{max-width:640px;height:auto!important; width: 100% !important;}
 table.bbs_default.view .bbs_content .photo_area{margin-bottom:25px;text-align:center;}
 table.bbs_default.view .bbs_content .photo_view{position:relative;width:auto;margin:15px auto;font-size:0;line-height: 0;}
 table.bbs_default.view .bbs_content .photo_view .photo_wrap{display:inline-block;position:relative; max-width:713px; padding:5px;border:1px solid #eee; line-height:0;}

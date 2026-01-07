@@ -118,7 +118,7 @@
 .addons a:before{display:block; position:absolute; top:0; left:0; right:0; bottom:0; margin: auto; background-image:url('../images/sub/sub_sprite.png'); background-repeat:no-repeat;}
 .addons .addons_item{display:inline-block; position:relative; padding: 0 5px; vertical-align:top;}
 .addons .addons_item:last-child{padding-right: 0;}
-.addons .share{position:relative;}
+.addons .share{position:relative; display: none}
 .addons .share .addons_button:before{width:18px; height:19px;background-position:left -239px;}
 .addons .share_panel{opacity:0; visibility:hidden; position:absolute; top:51px; left:-217px; z-index:1; width: 196px; height: 231px; padding:25px 40px 15px 32px; border:1px solid #dbdfe8; border-radius:15px; background-color:#fff; box-shadow:8px 6px 20px 0 rgba(32,54,121,0.07);  white-space:nowrap; transition-property:opacity,visibility,right; transition-duration:.25s; transition-timing-function:ease-in-out;}
 .addons .share_item{display: block; position: relative;}
