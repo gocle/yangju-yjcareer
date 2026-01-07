@@ -13,7 +13,7 @@
 <script>
 	$(function () {
 		  const $wrap  = $('.bbs-search-checkbox');
-		  const $all   = $wrap.find('#checkbox-1'); // 전체
+		  const $all   = $wrap.find('#checkbox-0'); // 전체
 		  const $items = $wrap.find('input[type="checkbox"][name="searchEduTarget"]').not($all);
 
 		  $all.on('change', function () {
@@ -221,33 +221,21 @@
 						</li>
 						<li>
 							<div class="bbs-search-checkbox">
-						  		<span class="checkbox-label">신청대상</span>		
-						  
-							  <input type="checkbox" id="checkbox-1" name="searchEduTarget" ${fn:contains(searchVo.searchEduTarget, '1') and fn:contains(searchVo.searchEduTarget, '2') 
-							  			and fn:contains(searchVo.searchEduTarget, '3') and fn:contains(searchVo.searchEduTarget, '4')}>
-							  <label for="checkbox-1" class="checkbox-btn">
+						  		<span class="checkbox-label">신청대상</span>	
+
+							  <input type="checkbox" id="checkbox-0" name="searchEduTarget">
+							  <label for="checkbox-0" class="checkbox-btn">
 								<span class="text">전체</span>
 							  </label>
-
-							  <input type="checkbox" id="checkbox-2" name="searchEduTarget" value="1" ${fn:contains(searchVo.searchEduTarget, '1') ? 'checked' : ''}>
-							  <label for="checkbox-2" class="checkbox-btn">
-								<span class="text">초등</span>
-							  </label>
 							  
-							  <input type="checkbox" id="checkbox-3" name="searchEduTarget" value="2" ${fn:contains(searchVo.searchEduTarget, '2') ? 'checked' : ''}> 
-							  <label for="checkbox-3" class="checkbox-btn">
-								<span class="text">중등</span>
-							  </label>
+							   <c:forEach var="code" items="${codeList}">
+								  <input type="checkbox" id="checkbox-${code.codeCode}" name="searchEduTarget" value="${code.codeCode}" 
+								  ${searchVo.searchEduTarget ne null and fn:contains(searchVo.searchEduTarget, code.codeCode) ? 'checked="checked"' : ''}>
+								  <label for="checkbox-${code.codeCode}" class="checkbox-btn">
+									<span class="text">${code.codeName }</span>
+								  </label>
+								</c:forEach>
 							  
-							  <input type="checkbox" id="checkbox-4" name="searchEduTarget" value="3" ${fn:contains(searchVo.searchEduTarget, '3') ? 'checked' : ''}>
-							  <label for="checkbox-4" class="checkbox-btn">
-								<span class="text">고등</span>
-							  </label>
-							  
-							  <input type="checkbox" id="checkbox-5" name="searchEduTarget" value="4" ${fn:contains(searchVo.searchEduTarget, '4') ? 'checked' : ''}>
-							  <label for="checkbox-5" class="checkbox-btn">
-								<span class="text">학부모</span>
-							  </label>
 							</div>
 						</li>
 					</ul>
@@ -318,7 +306,7 @@
 					<tr>
 						<td class="td-no"><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
 						<td class="td-img">
-							<a href="eduLctreWebView.html" class="subject">
+							<a href="#" onclick="fnDetailView('${item.seqCd}')" class="subject">
 								<c:if test="${empty item.thumbpath}">
 									<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />
 								</c:if>

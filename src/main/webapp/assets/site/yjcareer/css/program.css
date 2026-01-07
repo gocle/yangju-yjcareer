@@ -109,13 +109,22 @@ td.td-type span.type-4 {
 	color : #7541d8;
 }
 
+td.td-type span.type-5 {
+	border: 2px solid #00a3d0;
+	color : #00a3d0;
+}
+
 .education_list table.table.list_table td.td-type span:not(:first-child) {
     margin-top: 5px;
 }
 
-@media all and (max-width: 1350px) {
-	.education_list .bbs_search .listbox.con01 ul li {
-		width: 100%;
+@media all and (max-width: 1540px) {
+	.education_list .bbs_search .listbox.con01 ul li:nth-child(odd) {
+		width: 100%
+	}
+	
+	.education_list .bbs_search .listbox.con01 ul li:nth-child(even) {
+	  	width : 100%;
 	}
 	
 	.bbs-search-radio .radio-label,.checkbox-label {
