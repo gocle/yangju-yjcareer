@@ -117,73 +117,45 @@
         <tbody>
             <tr class="subject">		
                 <th scope="row">제목</th>
-					<td>
-						${result.baTitle}
-					</td>
+				<td>${result.baTitle}</td>
             </tr>
 
-            <tr >		
+            <tr>		
                 <th scope="row">작성자</th>
-
-		
-			 
-			 
-					<td>${result.memName}</td>
-			
-		
-				
+				<td>${result.memName}</td>
             </tr>
 
-            <tr >		
+            <tr>		
                 <th scope="row">내용</th>
-					<td title="내용" class="bbs_content">
-						${result.baContentHtml}
-					</td>
+				<td title="내용" class="bbs_content">
+				${result.baContentHtml}
+				<c:forEach var="fileVO" items="${fileList}" varStatus="status">
+					<c:if test="${fileVO.fileExtn eq 'mp4'}">
+						<br>
+						<video controls preload="auto" width="800">
+						  <source src="/yjcareer/fileStore/${fileVO.saveFileName}" type="video/mp4" />
+						  이 브라우저는 video 태그를 지원하지 않습니다.
+						</video>
+					</c:if>
+				</c:forEach>
+				</td>
             </tr>
-
-            <tr >		
+            <tr>		
                 <th scope="row">파일</th>
 					<td>
 						<ul class="view_attach">
-					
-<!-- 						<li>
-							<div class="down_view">
-									
-								<span><img src="/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />강남인강 신청방법.jpg</span>
-							
-								<a href="/yjcareer/downloadBbsFile.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191781" title="파일 다운로드" class="file_down">다운로드</a>
-							
-							
-								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191781&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
-							
-							</div>
-						</li>
-					
-						<li>
-							<div class="down_view">
-									
-								<span><img src="/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />무료대상자.jpg</span>
-							
-								<a href="/yjcareer/downloadBbsFile.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782" title="파일 다운로드" class="file_down">다운로드</a>
-							
-							
-								<a href="/yjcareer/previewUrl.do?key=4145&amp;bbsNo=530&amp;atchmnflNo=191782&amp;nttNo=201112" title="새창" target="_blank" class="file_view">미리보기</a>
-							
-							</div>
-						</li> -->
 						
 						<c:forEach var="fileVO" items="${fileList}" varStatus="status">
-						
-						<li>
-							<div class="down_view">
+							<c:if test="${fileVO.fileExtn ne 'mp4'}">
+								<li>
+									<div class="down_view">
+										<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${fileVO.orgFileName}" /></span>
 									
-								<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${fileVO.orgFileName}" /></span>
-							
-								<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
-							
-							</div>
-						</li>
-						
+										<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
+									
+									</div>
+								</li>
+							</c:if>
 						</c:forEach>
 					
 						</ul>

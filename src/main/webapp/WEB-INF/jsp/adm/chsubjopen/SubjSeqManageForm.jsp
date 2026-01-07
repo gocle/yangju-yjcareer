@@ -483,6 +483,7 @@ function fnCmdDelete() {
 		            		<input type="file" class="input_file" id="file_thumbFileId1" name="file_thumbFileId" title="이미지 찾기" />
 		            	</c:if>
 	            	</c:if>
+	            	<br/><b style="font-size:12px;">권장 사이즈: 520 × 300 px (최소 312 × 180 px)</b>
 	            	<br/><b style="font-size:12px; color:red;">* 이미지 미등록 시 기본이미지가 노출됩니다.</b>
 	            </td>
           	</tr>
