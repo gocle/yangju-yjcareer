@@ -120,7 +120,10 @@
 			,MEM_TYPE = #{memType}
 		<if test="permitIp != null and permitIp != '' ">
 			,PERMIT_IP = #{permitIp}
-		</if>	
+		</if>
+		<if test="permitIp == null or permitIp == '' ">
+			,PERMIT_IP = NULL
+		</if>
 			,DEPT_NM = #{deptNm}
 		<if test="startDate != null and startDate != '' ">
 			,START_DATE = #{startDate}
