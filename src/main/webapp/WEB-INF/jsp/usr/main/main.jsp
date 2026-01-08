@@ -432,7 +432,7 @@
 													</c:if>
 												
 													<div class="counsel_item item type_${row.cateCd}">
-														<a href="#" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
+														<a href="javascript:;" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 														<div class="item_img">
 															<c:if test="${empty row.thumbpath}">
 																<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />

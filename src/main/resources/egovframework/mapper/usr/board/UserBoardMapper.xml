@@ -213,6 +213,13 @@
 		              AND CA.BA_ID = AF.BOARD_IDX
 		            LIMIT 1
 		        ) AS BA_THUMBPATH,
+		        (
+		        	SELECT COUNT(*)
+					FROM ATCH_FILE 
+					WHERE BOARD_IDX = CA.BA_ID
+					AND DELETE_YN = 'N'
+					AND THUMBNAIL_CROP = 'N'
+				) AS FILE_CNT,
 		        CM.MEM_NAME,
 		        CA.BA_HIT,
 		        CA.BA_SECRET,
