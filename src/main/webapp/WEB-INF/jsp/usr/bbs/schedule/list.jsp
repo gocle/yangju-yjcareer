@@ -6,7 +6,7 @@
 
 <c:import url="/usr/layout/top.do" />
 <c:import url="/usr/menu/header.do" />
-      
+
 <div id="container">
 	<div class="wrap clearfix">
 	    <main class="colgroup">
@@ -35,8 +35,18 @@
 	                </div>
 	            </header>
 	            
+	            <div class="yt-skeleton" id="calendarSkeleton">
+					<div class="header-box">
+					  <div class="yt-block header-left"></div>
+					  <div class="yt-block header"></div>
+					  <div class="yt-block header-right"></div>
+					</div>
+				  <div class="yt-block row"></div>
+				</div>
+	            
 	            <script>
 					let calendar;
+					let isFirstLoad = true;
 					
 					document.addEventListener('DOMContentLoaded', function() {
 						
@@ -143,6 +153,7 @@
 						  		 			});
 						  		 			
 						  		 			successCallback(events);
+						
 
 						  		 		},
 						  		 	     error:function(request,status,error){
@@ -152,7 +163,22 @@
 						  			    }) 
 
 
-								}
+								},
+								loading: function (isLoading) {
+									  const skeleton = document.getElementById('calendarSkeleton');
+									  const calendarEl = document.getElementById('calendar');
+
+									  if (isFirstLoad) {
+									    if (isLoading) {
+									      skeleton.style.display = 'block';
+									      calendarEl.style.display = 'none';
+									    } else {
+									      skeleton.style.display = 'none';
+									      calendarEl.style.display = 'block';
+									      isFirstLoad = false;
+									    }
+									  }
+									}
 					
 						    });
 								
@@ -266,7 +292,7 @@
 						  </div>
 						</div>
 					</form>
-					<div id='calendar'></div>
+					<div id='calendar' style="display: none;"></div>
 				
 				</div>
 	        </article>

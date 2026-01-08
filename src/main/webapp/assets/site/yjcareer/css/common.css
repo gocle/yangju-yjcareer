@@ -338,3 +338,80 @@
     #footer .info_tel{margin-left: 0;}
     #footer .info_copyright{margin-top:19px; font-size: 15px;}
 }
+
+/* 스켈레톤 로더 */
+.yt-skeleton {
+  width: min(85%, 1200px);
+  margin: 4rem auto;
+}
+
+.yt-block {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.yt-block::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  
+  background: linear-gradient(
+    90deg,
+    rgba(236,235,235,0.35) 0%,
+    rgba(236,235,235,0.45) 30%,
+    rgba(236,235,235,0.55) 50%,
+    rgba(236,235,235,0.45) 70%,
+    rgba(236,235,235,0.35) 100%
+  );
+
+  background-size: 300% 100%;
+  background-position: 0% 0;
+
+  animation: yt-shimmer 2s ease-in-out infinite;
+  pointer-events: none;
+  
+  display: flex;
+}
+
+.header-box {
+  width : 100%;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.yt-block.header {
+	width : 15%;
+	height: 70px;
+}
+
+.yt-block.header-left {
+	margin-right: 20px;
+	border-radius: 70px;
+	width : 70px;
+	height: 70px;
+}
+
+.yt-block.header-right {
+	margin-left: 20px;
+	border-radius: 70px;
+	width : 70px;
+	height: 70px;
+}
+
+.yt-block.row {
+  height: 800px;
+}
+
+@keyframes yt-shimmer {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 300% 0;
+  }
+}
