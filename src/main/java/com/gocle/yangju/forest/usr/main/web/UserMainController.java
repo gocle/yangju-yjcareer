@@ -55,6 +55,14 @@ public class UserMainController{
 	UserCodeService codeService;
 	
 	/**
+	 * 메인(index)
+	 */
+	@RequestMapping(value = "index.do")
+	public String index() throws Exception {
+		return "redirect:/usr/main.do";
+	}
+			
+	/**
 	 * 메인
 	 * @param discussVO
 	 * @return DiscussVO
