@@ -372,4 +372,44 @@ public class StaffEnrollManageController {
 		
 		return retMsg;
 	}
+	
+	/**
+	 * 행사 및 강좌 수강신청관리
+	 */
+	@RequestMapping(value = "EnrollManageListC.do")
+	public String EnrollManageListC(@ModelAttribute("searchVo") EnrollManageVo searchVo
+			, HttpSession session, ModelMap model) throws Exception {
+		
+		searchVo.setSearchSgrCd("C");
+		
+		String sessionMemType = (String) session.getAttribute(Globals.MEM_TYPE);
+		searchVo.setSessionMemType(sessionMemType);
+		
+		String sessionMemSeq = (String) session.getAttribute(Globals.MEM_SEQ);
+		searchVo.setSessionMemSeq(sessionMemSeq);
+		
+		int totalCount = this.enrollManageService.selectTotalCount(searchVo);
+		List<EnrollManageVo> resultList = enrollManageService.selectList(searchVo);
+		
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex = searchVo.getPageIndex();
+
+		model.addAttribute("pageIndex", pageIndex);
+		model.addAttribute("pageSize", pageSize);
+		
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(pageIndex);
+        paginationInfo.setRecordCountPerPage(pageSize);
+        paginationInfo.setPageSize(searchVo.getPageUnit());
+        paginationInfo.setTotalRecordCount(totalCount);
+        
+        model.addAttribute("paginationInfo", paginationInfo);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("resultList", resultList);
+		
+		model.addAttribute("menuId", searchVo.getMenuId());
+		model.addAttribute("searchVo", searchVo);
+		
+		return "/staff/chsubjopen/EnrollManageList";
+	}
 }
