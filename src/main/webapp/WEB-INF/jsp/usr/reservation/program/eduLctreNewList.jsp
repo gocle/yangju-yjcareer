@@ -285,7 +285,7 @@
 				<col style="width:20%;" />
 				<col style="width:17%;" />
 				<col style="width:8%;" />
-				<col style="width:8%;" />
+				<col style="width:5%;" />
 				<col style="width:8%;" />
 				<col style="width:8%;" />
 			</colgroup>
@@ -326,12 +326,12 @@
 							</a> 
 						</td>
 						<td class="td-date">
-							<p><span class="td-span">접수기간&nbsp;</span>${item.enrollStartDt}~${item.enrollEndDt}</p>
-							<p><span class="td-span">교육기간&nbsp;</span>${item.learnStartDt}~${item.learnEndDt}</p>
+							<p><span class="td-span">접수기간</span>${item.enrollStartDt}~${item.enrollEndDt}</p>
+							<p><span class="td-span">교육기간</span>${item.learnStartDt}~${item.learnEndDt}</p>
 						</td>
 						<td class="td-pson">
-							<p><span class="td-span">정원 : </span>${item.enrollCnt}/${item.capacity}</p>
-							<p><span class="td-span">대기 : </span>(${item.waitCnt}/${item.waitEnrollCnt})</p>
+							<p><span class="td-span">정원</span>${item.enrollCnt}/${item.capacity}</p>
+							<p><span class="td-span">대기</span>(${item.waitCnt}/${item.waitEnrollCnt})</p>
 						</td>
 						<td class="td-cost">무료</td>
 						<td class="td-type">

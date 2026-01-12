@@ -190,6 +190,11 @@ public class UserReservationController {
 		model.addAttribute("pgCode", reservationVO.getPgCode());
 		model.addAttribute("searchYn", reservationVO.getSearchYn());
 		
+		CodeVO cvo = new CodeVO();
+		cvo.setCodeGroup("EDU_TARGET");
+		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
+		model.addAttribute("codeList", codeList);
+		
 		return "/usr/reservation/" + pgType + "/list";
 	}
 	

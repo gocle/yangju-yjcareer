@@ -43,26 +43,38 @@
 }
 
 /* 통합예약 - 교육강좌 */
-.education_list .bbs_search{padding:30px 3%; text-align:left;}
-.education_list .bbs_search .listbox ul li{font-size:20px;}
-.education_list .bbs_search .listbox ul li label{vertical-align:middle; font-size:17px;}
-.education_list .bbs_search .listbox.con01{margin-bottom:10px;}
-.education_list .bbs_search .listbox.con01 ul li:nth-child(3n){margin-right:0;}
-.education_list .bbs_search .listbox.con01 label{}
-.education_list .bbs_search .listbox.con01 select.select{width:calc(100% - 80px);}
-.education_list .bbs_search .listbox.con02 .label{display:inline-block; width:60px; margin-right:20px; vertical-align:middle; font-size:15px;}
-.education_list .bbs_search .listbox.con02 .gap{display:inline-block; width:10px; margin:0 5px; vertical-align:middle; text-align:center; font-size:15px;}
-.education_list .bbs_search .date_wrap{display:inline-block;border:1px solid #e9e9e9; background-color:#FFF; vertical-align:middle;}
-.education_list .bbs_search input.date{width:88px; height:30px; border:none; text-align:center; font-size:14px;}
-.education_list .bbs_search .ico_calenedar,.bbs_search .date_wrap .ico_calenedar{display:inline-block;width:20px;height:20px;margin:0 3px;background:url(../images/board/bbs_icon.png) no-repeat -48px -48px; vertical-align:middle;}
-.education_list .bbs_search .ico_calenedar button,.ico_calenedar button{display:inline-block;width:20px;height:20px;font-size:0;}
+.bbs_search{padding:30px 3%; text-align:left;}
+.bbs_search .listbox ul li{font-size:20px;}
+.bbs_search .listbox ul li label{vertical-align:middle; font-size:17px;}
+.bbs_search .listbox.con01{margin-bottom:10px;}
+.bbs_search .listbox.con01 ul li:nth-child(3n){margin-right:0;}
+.bbs_search .listbox.con01 label{}
+.bbs_search .listbox.con01 select.select{width:calc(100% - 80px);}
+.bbs_search .listbox.con02 .label{display:inline-block; width:60px; margin-right:20px; vertical-align:middle; font-size:15px;}
+.bbs_search .listbox.con02 .gap{display:inline-block; width:10px; margin:0 5px; vertical-align:middle; text-align:center; font-size:15px;}
+.bbs_search .date_wrap{display:inline-block;border:1px solid #e9e9e9; background-color:#FFF; vertical-align:middle;}
+.bbs_search input.date{width:88px; height:30px; border:none; text-align:center; font-size:14px;}
+.bbs_search .ico_calenedar,.bbs_search .date_wrap .ico_calenedar{display:inline-block;width:20px;height:20px;margin:0 3px;background:url(../images/board/bbs_icon.png) no-repeat -48px -48px; vertical-align:middle;}
+.bbs_search .ico_calenedar button,.ico_calenedar button{display:inline-block;width:20px;height:20px;font-size:0;}
 
-.education_list .bbs_search .listbox.con01 ul li:nth-child(odd) {
+.bbs_search .listbox.con01 ul li:nth-child(odd) {
 	width: 38%
 }
 
-.education_list .bbs_search .listbox.con01 ul li:nth-child(even) {
+.bbs_search .listbox.con01 ul li:nth-child(even) {
   	width : 60%;
+}
+
+.event-search .listbox.con01 ul li:nth-child(odd) {
+	width: 50%
+}
+
+.event-search .listbox.con01 ul li:nth-child(even) {
+  	width : 38%;
+}
+
+.bbs_search.event-search .listbox.con01 ul .list04 {
+  	width : 100%;
 }
 
 
@@ -71,12 +83,12 @@
 .education_list .education_text em{font-size:17px; color:#ff0000;}
 .education_list .education_text em span{border-bottom:2px solid #ff0000;}
 
-.education_list .bbs_search .listbox.con02 ul li.list01{float:left;}
-.education_list .bbs_search .listbox.con02 ul li.list02{margin-top: 20px;}
-.education_list .bbs_search .listbox.con02 ul li.list02 select.select{width:145px; margin-right:10px;}
-.education_list .bbs_search .listbox.con02 ul li.list02 .submitbox{display:inline-block; vertical-align:middle; width : 50%;}
-.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{height:30px; margin-right:5px; font-size:14px;}
-.education_list .bbs_search .listbox.con02 input[type="submit"]{width:50%; height:34px; padding:0; background-color:#555555; border:none; color:#FFF; font-size:15px;}
+.bbs_search .listbox.con02 ul li.list01{float:left;}
+.bbs_search .listbox.con02 ul li.list02{margin-top: 20px;}
+.bbs_search .listbox.con02 ul li.list02 select.select{width:145px; margin-right:10px;}
+.bbs_search .listbox.con02 ul li.list02 .submitbox{display:inline-block; vertical-align:middle; width : 50%;}
+.bbs_search .listbox.con02 input[type="text"].temp_textbox{height:30px; margin-right:5px; font-size:14px;}
+.bbs_search .listbox.con02 input[type="submit"]{width:50%; height:34px; padding:0; background-color:#555555; border:none; color:#FFF; font-size:15px;}
 .education_list table.table.list_table th, .education_list table.table.list_table td{padding:1rem; font-size:14px;vertical-align:middle;}
 .education_list table.table.list_table a.subject{color:#000; font-size:15px;}
 .education_list table.table.list_table a.btn.small{padding:4px 10px 5px;}

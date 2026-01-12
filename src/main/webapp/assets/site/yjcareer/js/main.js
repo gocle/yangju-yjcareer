@@ -51,12 +51,15 @@
     // --- TAB 구조 ---
     const $tab1 = $('.tab1');
     const $tab2 = $('.tab2');
+    const $tab3 = $('.tab3');
     const $btnTab1 = $('#tabmenu1');
     const $btnTab2 = $('#tabmenu2');
+    const $btnTab3 = $('#tabmenu3');
 
     // --- SLICK 대상 ---
     const $counselList = $('.tab1 .counsel_list');
     const $programList = $('.tab2 .program_list');
+    const $eventList = $('.tab3 .event_list');
 
     // --- SLICK 초기화 함수 ---
     function initCounselSlider() {
@@ -121,19 +124,69 @@
             });
         }
     }
-
-    // --- 탭 전환 ---
-    function updateTab() {
-        if ($btnTab1.is(':checked')) {
-            $tab1.addClass('active');
-            $tab2.removeClass('active');
-            initCounselSlider();   // 🔥 tab1 열릴 때만 slick 생성
-        } else {
-            $tab1.removeClass('active');
-            $tab2.addClass('active');
-            initProgramSlider();   // 🔥 tab2 열릴 때만 slick 생성
+    
+    function initEventSlider() {
+		
+        if (!$eventList.hasClass('slick-initialized')) {
+            $eventList.slick({
+                rows: 1,
+                draggable: false,
+                infinite: false,
+                variableWidth: false,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                autoplay: false,
+                prevArrow: $('.tab3 .event_prev'),
+                nextArrow: $('.tab3 .event_next'),
+                responsive: [
+                    {
+                        breakpoint: 1300,
+                        settings: { slidesToShow: 2 }
+                    },
+					{
+						breakpoint: 600,
+						settings: {
+							slidesToShow: 1,
+							centerMode: true,
+							centerPadding: '24px'
+						}
+					}
+                ]
+            });
         }
     }
+    
+    function safeSetPosition($slider){
+	  setTimeout(function(){
+	    if ($slider && $slider.length && $slider.hasClass('slick-initialized')) {
+	      $slider.slick('setPosition');
+	    }
+	  }, 50);
+	}
+
+	function updateTab() {
+	  if ($btnTab1.is(':checked')) {
+	    $tab1.addClass('active');
+	    $tab2.removeClass('active');
+	    $tab3.removeClass('active');
+	    initCounselSlider();
+	    safeSetPosition($counselList);
+	
+	  } else if ($btnTab2.is(':checked')) {
+	    $tab1.removeClass('active');
+	    $tab2.addClass('active');
+	    $tab3.removeClass('active');
+	    initProgramSlider();
+	    safeSetPosition($programList);
+	
+	  } else if ($btnTab3.is(':checked')) {
+	    $tab1.removeClass('active');
+	    $tab2.removeClass('active');
+	    $tab3.addClass('active');
+	    initEventSlider();
+	    safeSetPosition($eventList);
+	  }
+	}
 
     // --- 초기 실행 ---
     updateTab();
@@ -141,6 +194,7 @@
     // --- 탭 변경 이벤트 ---
     $btnTab1.on('change', updateTab);
     $btnTab2.on('change', updateTab);
+    $btnTab3.on('change', updateTab);
 
 
 

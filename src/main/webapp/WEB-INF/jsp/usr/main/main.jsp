@@ -27,32 +27,43 @@
 	<script type="text/JavaScript">
 		document.addEventListener("DOMContentLoaded", () => {
 
-			/* ========= 메인 프로그램 탭 ========= */
-			const tab1 = document.querySelector(".tab1");
-			const tab2 = document.querySelector(".tab2");
-			const tabBtn1 = document.getElementById("tabmenu1");
-			const tabBtn2 = document.getElementById("tabmenu2");
+			/* ========= 신청하기 탭 ========= */
+			var tabs = [
+			  document.querySelector(".tab1"),
+			  document.querySelector(".tab2"),
+			  document.querySelector(".tab3")
+			];
 
-			const label1 = document.querySelector("label[for='tabmenu1']");
-			const label2 = document.querySelector("label[for='tabmenu2']");
+			var tabBtns = [
+			  document.getElementById("tabmenu1"),
+			  document.getElementById("tabmenu2"),
+			  document.getElementById("tabmenu3")
+			];
+
+			var labels = [];
+			for (var i = 0; i < tabBtns.length; i++) {
+			  labels.push(document.querySelector("label[for='" + tabBtns[i].id + "']"));
+			}
 
 			function updateMainTab() {
-				if (tabBtn1.checked) {
-					tab1.classList.add("active");
-					tab2.classList.remove("active");
-					label1.classList.add("active");
-					label2.classList.remove("active");
-				} else {
-					tab1.classList.remove("active");
-					tab2.classList.add("active");
-					label1.classList.remove("active");
-					label2.classList.add("active");
-				}
+			  for (var i = 0; i < tabBtns.length; i++) {
+			    var isActive = tabBtns[i].checked;
+
+			    if (isActive) {
+			      tabs[i].classList.add("active");
+			      labels[i].classList.add("active");
+			    } else {
+			      tabs[i].classList.remove("active");
+			      labels[i].classList.remove("active");
+			    }
+			  }
 			}
 
 			updateMainTab();
-			tabBtn1.addEventListener("change", updateMainTab);
-			tabBtn2.addEventListener("change", updateMainTab);
+
+			for (var i = 0; i < tabBtns.length; i++) {
+			  tabBtns[i].addEventListener("change", updateMainTab);
+			}
 
 
 			/* ========= 공지사항 / 자료실 탭 ========= */
@@ -108,7 +119,8 @@
 				$('.counsel_item.type_' + typeNum).show();
 			  }
 				
-				$slider.slick('slickGoTo', 0);
+			  $slider.slick('slickGoTo', 0);
+			  $slider.slick('setPosition');
 
 			});
 			
@@ -125,6 +137,24 @@
 				}
 				
 				$slider.slick('slickGoTo', 0);
+				$slider.slick('setPosition');
+
+			  });
+			
+			$(document).on('click', 'label[for^="event_"]', function () {
+				const id = $(this).attr('for');
+				const $slider = $('.event_list');
+
+				if (id === 'event_all') {
+				  $('.event_item').show();
+				} else {
+				  const typeNum = id.split('_')[1];
+				  $('.event_item').hide();
+				  $('.event_item.e_type_' + typeNum).show();
+				}
+				
+				$slider.slick('slickGoTo', 0);
+				$slider.slick('setPosition');
 
 			  });
 			
@@ -137,11 +167,13 @@
 			        $moreBtn.attr('href', '/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143'); // 1:1 상시상담
 			    } else if ($('#tabmenu2').is(':checked')) {
 			        $moreBtn.attr('href', '/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142'); // 꿈자람센터 프로그램
+			    } else {
+			    	$moreBtn.attr('href', '/yjcareer/usr/support/intro.do?menuId=2025MENU0000144'); // 행사 및 강좌
 			    }
 			}
 
 			updateMoreLink();
-			$('#tabmenu1, #tabmenu2').on('change', function () {
+			$('#tabmenu1, #tabmenu2 , #tabmenu3').on('change', function () {
 			    updateMoreLink();
 			});
 
@@ -387,6 +419,8 @@
 									<label for="tabmenu1">1:1 상시상담</label>
 									<input type="radio" name="tabmenu" id="tabmenu2">
 									<label for="tabmenu2">꿈자람센터 프로그램</label>
+									<input type="radio" name="tabmenu" id="tabmenu3">
+									<label for="tabmenu3">행사 및 강좌</label>
 								</div>
 								<div class="program_more">
 									<a href="#" class="program_more_btn"><span>더보기</span></a>
@@ -421,8 +455,8 @@
 											
 											<div class="program-item-area">
 											
-											<div class="counsel_control">
-												<button class="counsel_prev">이전</button>
+											<div class="counsel_control program-control-btn-area">
+												<button class="counsel_prev btn_prev">이전</button>
 											</div>
 											
 											<div class="counsel_list slider-list">
@@ -457,15 +491,14 @@
 												</c:forEach>
 											</div>
 											
-											<div class="counsel_control">
-												<button class="counsel_next">다음</button>
+											<div class="counsel_control program-control-btn-area">
+												<button class="counsel_next btn-next">다음</button>
 											</div>
 											
 											</div>
 										</div>
 									</div>
 									<!-- /tab1-->
-
 									<!--tab2-->
 									<div class="tab2">
 										<div class="tabCon2">
@@ -487,8 +520,8 @@
 											
 											<div class="program-item-area">
 											
-												<div class="program_control">
-													<button class="program_prev">이전</button>
+												<div class="program_control program-control-btn-area">
+													<button class="program_prev btn_prev">이전</button>
 												</div>
 												
 												<div class="program_list slider-list">
@@ -499,10 +532,10 @@
 												
 														<div class="program_item item p_type_${row.cateCd eq 'BC' ? 'BB' : 
 																	(row.cateCd eq 'BE') ? 'BD' : row.cateCd}">
-															<a href="#" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
+															<a href="javascript:;" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 																<div class="item_img">
 																	<c:if test="${empty row.thumbpath}">
-																		<img src="/yjcareer/assets/DATA/popupZone/8.png" />
+																		<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />
 																	</c:if>
 																	<c:if test="${not empty row.thumbpath}">
 																		<img src="${contextRoot}/thumbnail/${row.thumbpath}" />
@@ -524,17 +557,81 @@
 													</c:forEach>
 												</div>
 												
-												<div class="program_control">
-													<button class="program_next">다음</button>
+												<div class="program_control program-control-btn-area">
+													<button class="program_next btn-next">다음</button>
 												</div>
 											
+											</div>
 										</div>
 									</div>
 									<!-- /tab2-->
-								
-								</div>
+									<!--tab3-->
+									<div class="tab3">
+										<div class="tabCon3">
+											<div class="program-control">
+												<div class="radio-group">
+													<input type="radio" id="event_all" name="event" checked>
+													<label for="event_all">전체</label>
+
+													<input type="radio" id="event_BA" name="event">
+													<label for="event_BA">진로진학아카데미</label>
+
+													<input type="radio" id="event_BB" name="event">
+													<label for="event_BB">입시 설명회</label>
+
+													<input  type="radio" id="event_BC" name="event">
+													<label for="event_BC">전공 멘토링</label>
+												</div>	
+											</div>
+											
+											<div class="program-item-area">
+											
+												<div class="event_control program-control-btn-area">
+													<button class="event_prev btn_prev">이전</button>
+												</div>
+												
+												<div class="event_list slider-list">
+													<c:forEach var="row" items="${subjManageListB}" varStatus="i">
+														<c:if test="${i.index > 0 && (i.index % 4) == 0}">
+															<c:set var="pageCnt" value="${pageCnt + 1}" />
+														</c:if>
+												
+														<div class="event_item item e_type_${row.cateCd eq 'BC' ? 'BB' : 
+																	(row.cateCd eq 'BE') ? 'BD' : row.cateCd}">
+															<a href="javascript:;" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
+																<div class="item_img">
+																	<c:if test="${empty row.thumbpath}">
+																		<img src="/yjcareer/assets/DATA/popupZone/no-img.png" />
+																	</c:if>
+																	<c:if test="${not empty row.thumbpath}">
+																		<img src="${contextRoot}/thumbnail/${row.thumbpath}" />
+																	</c:if>
+																</div>
+																<div class="item_txt">
+																	<p class="staus ${row.status}">
+																		<c:if test="${row.status eq 'ing'}">접수진행중</c:if>
+																		<c:if test="${row.status eq 'be'}">접수예정</c:if>
+																		<c:if test="${row.status eq 'end'}">접수마감</c:if>
+																	</p>
+																	<p class="program_title">${row.subjNm }</p>
+																	<p class="program_date">
+																		<span>접수기간</span>${row.enrollStartDt }~${row.enrollEndDt }
+																	</p>
+																</div>
+															</a>
+														</div>
+													</c:forEach>
+												</div>
+												
+												<div class="event_control program-control-btn-area">
+													<button class="event_next btn-next">다음</button>
+												</div>
+											
+											</div>
+										</div>
+									</div>
+									<!-- /tab3-->
 							
-							</div>
 							</div>
 							
 						</section>

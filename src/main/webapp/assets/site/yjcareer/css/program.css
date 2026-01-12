@@ -62,14 +62,14 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 
 
 /* 진학 프로그램 신청 리스트*/
-.education_list .bbs_search .listbox.con02 .label,
-.education_list .bbs_search .listbox ul li label{font-size: 19px;}
-.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox{width :50%; height: 40px; padding-left: 10px; border-color: #e9e9e9; font-size: 18px;}
-.education_list .bbs_search .listbox.con02 input[type="submit"]{width:70px; height: 40px; font-size: 18px;}
-.education_list .bbs_search select{padding-right: 30px;}
+.bbs_search .listbox.con02 .label,
+.bbs_search .listbox ul li label{font-size: 19px;}
+.bbs_search .listbox.con02 input[type="text"].temp_textbox{width :50%; height: 40px; padding-left: 10px; border-color: #e9e9e9; font-size: 18px;}
+.bbs_search .listbox.con02 input[type="submit"]{width:70px; height: 40px; font-size: 18px;}
+.bbs_search select{padding-right: 30px;}
 
-.education_list .bbs_search .date_wrap{height: 40px;}
-.education_list .bbs_search input.date{width:100px; height: 38px; font-size: 18px;}
+.bbs_search .date_wrap{height: 40px;}
+.bbs_search input.date{width:100px; height: 38px; font-size: 18px;}
 .bbs_search .date_wrap .ico_calenedar{margin-right:10px; background:none; line-height: 0;}
 .education_list .education_text{padding-top: 0;}
 .education_text ul li{font-size: 20px;}
@@ -83,10 +83,19 @@ table.bbs_default.view .file_down{height:22px; font-size: 16px;}
 .education_list table.table.list_table a.subject{font-size: 20px; color: #4a4f66; text-align: left; font-weight: 600; width: 100%;}
 .education_list table.table.list_table a.btn.small{padding:9px 15px 10px; font-size: 20px; line-height: 24px;}
 
+
+.education_list table tr {
+    height: 201.69px;
+}
+
+.list_type table tr {
+	height: 150px;
+}
+
 .education_list table.table.list_table td.td-type span {
-    border-radius: 30px;
-    padding: 3px 20px;
-	font-size: 17px;
+    border-radius: 7px;
+    padding: 1px 20px;
+    font-size: 17px;
 }
 
 td.td-type span.type-1 {
@@ -118,31 +127,41 @@ td.td-type span.type-5 {
     margin-top: 5px;
 }
 
+.education_list table.table.list_table.responsive-new tbody td p span {
+	font-weight: 600;
+    margin-right: 10px;
+    text-align: center;
+}
+
 @media all and (max-width: 1540px) {
-	.education_list .bbs_search .listbox.con01 ul li:nth-child(odd) {
+	.bbs_search .listbox.con01 ul li:nth-child(odd) {
 		width: 100%
 	}
 	
-	.education_list .bbs_search .listbox.con01 ul li:nth-child(even) {
+	.bbs_search .listbox.con01 ul li:nth-child(even) {
 	  	width : 100%;
 	}
 	
 	.bbs-search-radio .radio-label,.checkbox-label {
 		width: 120px;
 	}
+	
+	.education_list table.table.list_table.responsive-new tbody td p span {
+	    display: none;
+	}
 }
 
 @media all and (max-width: 1240px) {
-    .education_list .bbs_search .listbox.con02 ul li.list02,
-    .education_list .bbs_search .date_wrap{width: auto;}
+    .bbs_search .listbox.con02 ul li.list02,
+    .bbs_search .date_wrap{width: auto;}
 }
 
 @media all and (max-width: 1000px) {
-    .education_list .bbs_search .listbox.con01 select.select{width: calc(100% - 60px);}
-    .education_list .bbs_search .listbox.con02 .label,
-    .education_list .bbs_search .listbox.con01 label {margin-right:0;}
-    .education_list .bbs_search .listbox.con02 .label,
-    .education_list .bbs_search .listbox ul li label{font-size: 18px;}
+    .bbs_search .listbox.con01 select.select{width: calc(100% - 60px);}
+    .bbs_search .listbox.con02 .label,
+    .bbs_search .listbox.con01 label {margin-right:0;}
+    .bbs_search .listbox.con02 .label,
+    .bbs_search .listbox ul li label{font-size: 18px;}
 	
 	.responsive-new thead {
 		display: none;
@@ -171,6 +190,10 @@ td.td-type span.type-5 {
 		flex-wrap: wrap;
 		gap : 20px;
 	}
+	
+	.education_list table.table.list_table.responsive-new tbody td p span {
+	    display: inline-block;
+	}
 
 	.education_list .responsive-new tbody tr {
 		position: relative;
@@ -192,6 +215,8 @@ td.td-type span.type-5 {
 	.education_list table.table.list_table.responsive-new tbody td p span {
 		width : 80px;
 		font-weight: bold;
+		text-align: left;
+		margin-right: 0px;
 	}
 	
 	.education_list table.table.list_table.responsive-new tbody td.td-date p:not(:first-child) {
@@ -206,7 +231,7 @@ td.td-type span.type-5 {
 		display: none
     }
 	
-	 td[data-content].td-pson::before,td[data-content].td-cost::before,td[data-content].td-type::before {
+	 td[data-content].td-pson::before,td[data-content].td-cost::before,.list_type table td[data-content].td-date::before {
 		content: attr(data-content);
 		font-weight: bold;
 		display: inline-block;
@@ -214,6 +239,36 @@ td.td-type span.type-5 {
 		color: #4a4f66;
 		 width: 80px;
 	  }
+	  
+	
+	  
+	td[data-content].td-type::before {
+		content: '';
+		font-weight: 600;
+		display: inline-block;
+		margin-bottom: 4px;
+		color: #4a4f66;
+		width: 100%;
+		border-bottom : 1px solid #ccc;
+		font-size: 17px;
+		margin-bottom: 0.5rem;
+		padding-bottom: 0.5rem
+	}
+	
+	.responsive-new td.td-cate {
+		display: flex;
+	    align-items: center;
+	}
+	
+	.td-cate::before {
+		content: '';
+		display: inline-block;
+		background: #2dbd96;
+		width : 7px;
+		height: 7px;
+		border-radius: 50px;
+		margin-right: 5px;
+	}
 	
 	.education_list table.table.list_table.responsive-new tbody td.td-img {
 		padding: 0;
@@ -237,12 +292,22 @@ td.td-type span.type-5 {
 		flex-direction: column;
 	}
 	
+	.education_list table.table.responsive-new .td-status {
+		display: flex;
+		margin: unset;
+	}
+	
+	.education_list table.table.list_table.responsive-new tbody td.td-type {
+		padding-bottom: 20px;
+	}
+	
+	
 	.education_list table.table.list_table.responsive-new tbody td.td-subject {
 		margin: 0.5rem 0;
 	}
 	
 	.education_list table.table.responsive-new a.subject {
-		display: -webkit-box !important;   /* ⭐ flex를 이김 */
+		display: -webkit-box !important;
 		-webkit-box-orient: vertical;
 		-webkit-line-clamp: 2;
 		overflow: hidden;
@@ -270,13 +335,27 @@ td.td-type span.type-5 {
 		border-radius: 5px;
 	}
 	
+	.list_type .li-label {
+	    margin: inherit;
+	    margin-top: 1rem
+	}
 	
+	.bbs_right,
+    .bbs_count.bbs_left,
+    .education_list table.table.list_table th,
+    .education_list table.table.list_table td,
+    .education_list table.table.list_table a.subject,
+    .education_list table.table.list_table a.btn.small{font-size: 16px;}
+    
+     .education_list table.table.responsive-new .td-subject a.subject {
+        font-size: 19px;
+    }
 	
 
 }
 @media all and (max-width: 800px) {
-    .education_list .bbs_search .listbox.con02 ul li.list02,
-    .education_list .bbs_search .listbox.con02 ul li.list01{width: 100%;}
+    .bbs_search .listbox.con02 ul li.list02,
+    .bbs_search .listbox.con02 ul li.list01{width: 100%;}
 
 
     .education_list table.table.list_table.responsive tbody td{padding:6px; }
@@ -285,7 +364,7 @@ td.td-type span.type-5 {
 
 @media all and (max-width: 720px) {
 		
-	.education_list .bbs_search .listbox.con02 ul li.list02 select.select {
+	.bbs_search .listbox.con02 ul li.list02 select.select {
         width: 100%;
     }
 	
@@ -307,11 +386,11 @@ td.td-type span.type-5 {
 		padding: 3px 10px;
 	}
 	
-	.education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox {
+	.bbs_search .listbox.con02 input[type="text"].temp_textbox {
 		width: 100%;
 	}
 	
-	.education_list .bbs_search .listbox.con02 input[type="submit"] {
+	.bbs_search .listbox.con02 input[type="submit"] {
 		width: 100%;
 		font-size: 16px;
 		margin-top: 10px;
@@ -323,7 +402,7 @@ td.td-type span.type-5 {
 		float: right;
     }
 	
-	.education_list .bbs_search .listbox.con02 ul li.list02 .submitbox {
+	.bbs_search .listbox.con02 ul li.list02 .submitbox {
         width: 100%;
     }
 	
@@ -335,22 +414,15 @@ td.td-type span.type-5 {
 }
 
 @media all and (max-width: 640px) {
-    .education_list .bbs_search .listbox.con02 input[type="text"].temp_textbox,
-    .education_list .bbs_search input.date,
-    .education_list .bbs_search .listbox.con02 .label,
-    .education_list .bbs_search .listbox ul li label{font-size: 16px;}
-    .education_list .bbs_search input.date{width: 94px;}
+    .bbs_search .listbox.con02 input[type="text"].temp_textbox,
+    .bbs_search input.date,
+    .bbs_search .listbox.con02 .label,
+    .bbs_search .listbox ul li label{font-size: 16px;}
+    .bbs_search input.date{width: 94px;}
 
     .education_text ul li{font-size: 16px; word-break: keep-all;}
     .education_text ul li:before{top: 7px;}
 
-    .bbs_right,
-    .bbs_count.bbs_left,
-    .education_list table.table.list_table th,
-    .education_list table.table.list_table td,
-    .education_list table.table.list_table a.subject,
-    .education_list table.table.list_table a.btn.small{font-size: 16px;}
-	
 	.education_list table.table.responsive-new a.btn.small {
 		padding: inherit
 	}
@@ -388,8 +460,8 @@ td.td-type span.type-5 {
 
 
 @media all and (max-width: 400px) {
-    .education_list .bbs_search .date_wrap{width: calc((100% - 20px) / 2);}
-    .education_list .bbs_search input.date{width: calc(100% - 40px);}
+    .bbs_search .date_wrap{width: calc((100% - 20px) / 2);}
+    .bbs_search input.date{width: calc(100% - 40px);}
 }
 
 /* 진학 프로그램 신청 기본정보*/
