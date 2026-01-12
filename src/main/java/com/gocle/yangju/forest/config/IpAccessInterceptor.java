@@ -30,11 +30,11 @@ public class IpAccessInterceptor implements HandlerInterceptor {
         if (clientIp == null) clientIp = request.getRemoteAddr();
 
         try {
-			List<String> resultList = adminIpService.selectAccessAllIpList();
+			/*List<String> resultList = adminIpService.selectAccessAllIpList();
 			if (!resultList.contains(clientIp)) {
 	            response.sendError(HttpServletResponse.SC_FORBIDDEN, "접근할 수 없는 IP입니다: " + clientIp);
 	            return false;
-	        }
+	        }*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
