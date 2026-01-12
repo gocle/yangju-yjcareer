@@ -1,6 +1,7 @@
 package com.gocle.yangju.forest.config;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.gocle.yangju.forest.adm.ip.service.AdminIpService;
 import com.gocle.yangju.forest.comm.util.IpAccessCache;
 
 @Component
@@ -16,6 +18,9 @@ public class IpAccessInterceptor implements HandlerInterceptor {
 
     @Autowired
     private IpAccessCache ipAccessCache;
+    
+    @Autowired
+    AdminIpService	adminIpService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -24,10 +29,15 @@ public class IpAccessInterceptor implements HandlerInterceptor {
     	String clientIp = getClientIp(request);
         if (clientIp == null) clientIp = request.getRemoteAddr();
 
-        if (!ipAccessCache.isAllowed(clientIp)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "접근할 수 없는 IP입니다: " + clientIp);
-            return false;
-        }
+        try {
+			List<String> resultList = adminIpService.selectAccessAllIpList();
+			if (!resultList.contains(clientIp)) {
+	            response.sendError(HttpServletResponse.SC_FORBIDDEN, "접근할 수 없는 IP입니다: " + clientIp);
+	            return false;
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
         return true;
     }

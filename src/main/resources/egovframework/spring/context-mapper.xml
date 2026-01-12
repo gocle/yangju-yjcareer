@@ -10,14 +10,24 @@
         <property name="configLocation" value="classpath:egovframework/mybatis/mybatis-config.xml" />
         <property name="mapperLocations" value="classpath:egovframework/mapper/**/*.xml" />
     </bean>
-
+    
     <!-- SqlSessionTemplate (Spring에서 트랜잭션 제어와 함께 사용) -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <constructor-arg ref="sqlSessionFactory"/>
     </bean>
     
+    <!-- SMS -->
+    <bean id="smsSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	    <property name="dataSource" ref="smsDataSource"/>
+	    <property name="mapperLocations" value="classpath:egovframework/mapper/sms/**/*.xml"/>
+	</bean>
+	<bean id="smsSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	    <constructor-arg ref="smsSqlSessionFactory"/>
+	</bean>
+    
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	    <property name="basePackage" value="com.gocle.*.service.impl, com.gocle.*.*.service.impl, com.gocle.*.*.*.service.impl, com.gocle.*.*.*.*.service.impl"/>
+	    <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
 	</bean>
 
 </beans>

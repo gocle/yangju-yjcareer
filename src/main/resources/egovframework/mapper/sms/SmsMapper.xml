@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gocle.yangju.yjcareer.sms.dao.SmsMapper">
+
+    <insert id="sendSms" parameterType="com.gocle.yangju.yjcareer.sms.vo.SmsVO">
+
+        INSERT INTO SC_TRAN
+        (
+            TR_SENDDATE,
+            TR_SENDSTAT,
+            TR_MSGTYPE,
+            TR_PHONE,
+            TR_MSG,
+            TR_CALLBACK,
+            TR_ID,
+            TR_ETC5
+        )
+        VALUES
+        (
+            NOW(),
+            '0',
+            '0',
+            #{trPhone},
+            #{trMsg},
+            #{trCallback},
+            #{trId},
+            '1'
+        )
+
+    </insert>
+    
+    <insert id="sendMms" parameterType="com.gocle.yangju.yjcareer.sms.vo.MmsMsgVO">
+        INSERT INTO mms_msg
+        (
+            subject,
+            phone,
+            callback,
+            status,
+            reqdate,
+            msg,
+            type,
+            id,
+            file_cnt
+        )
+        VALUES
+        (
+            #{subject},
+            #{phone},
+            #{callback},
+            '0',
+            NOW(),
+            #{msg},
+            #{type},
+            #{id},
+            IFNULL(#{fileCnt}, 0)
+        )
+    </insert>
+
+</mapper>
