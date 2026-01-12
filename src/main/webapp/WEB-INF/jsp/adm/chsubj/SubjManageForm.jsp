@@ -45,6 +45,17 @@ $(document).ready(function() {
         filebrowserUploadMethod: 'form'
     });
 	
+	$.fn.numberOnly = function() {
+	    $(this).keyup(function() {
+	        this.value = this.value.replace(/[^0-9\.\-]/g, '');
+	    });
+	    $(this).blur(function() {
+	        this.value = this.value.replace(/[^0-9\.\-]/g, '');
+	    });
+	}
+	
+	$(".numberOnly").numberOnly();
+	
 	$("#sgrCd").change(function() {
 		var sgrCd = $(this).val();
 		var selCateCd = "${resultMap.cateCd}";
@@ -184,13 +195,20 @@ function valid() {
     }
 	document.detailForm.eduTarget.value = selected.join(",");
 	
+	if($.trim($("#detailForm input[name=tel1]").val()) == "" || $.trim($("#detailForm input[name=tel2]").val()) == "" || $.trim($("#detailForm input[name=tel3]").val()) == ""){
+		alert("전화번호를 입력해주세요.");
+		return false;
+	}
+	
 	return true;
 }
 
 function fnCmdSave() {
 	if(valid()) {
+		// 전화번호
+		$("#detailForm input[name=tel]").val($("#detailForm input[name=tel1]").val() + "-" + $("#detailForm input[name=tel2]").val() + "-" + $("#detailForm input[name=tel3]").val());
+		
 		$("#detailForm").attr("action", "${cmdUrl}");
-		/* $("#detailForm").attr("target", "_self"); */
 		$("#detailForm").submit();
 	}
 }
@@ -364,9 +382,14 @@ function fnCmdDelete() {
 	            </td>
           	</tr>
           	<tr>
-	            <th>전화번호</th>
+	            <th>전화번호<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<input type="text" id="tel" name="tel" value="${resultMap.tel}" maxlength="20" style="width: 20%;" placeholder="031-0000-0000"/>
+	            	<input type="hidden" id="tel" name="tel" />
+	            	<input type="text" id="tel1" name="tel1" size="3" maxlength="3" value="${resultMap.tel1}" class="numberOnly" placeholder="031"/>
+				    -
+				    <input type="text" id="tel2" name="tel2" size="4" maxlength="4" value="${resultMap.tel2}" class="numberOnly" placeholder="0000"/>
+				    -
+				    <input type="text" id="tel3" name="tel3" size="4" maxlength="4" value="${resultMap.tel3}" class="numberOnly" placeholder="0000"/>
 	            </td>
           	</tr>
           	<tr>

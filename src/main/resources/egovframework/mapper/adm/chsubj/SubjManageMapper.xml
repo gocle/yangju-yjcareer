@@ -123,6 +123,9 @@
 			, s.loc_id
 			, s.dupl_enroll_yn
 			, cc.com_title
+			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 1) AS tel1
+  			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 2) AS tel2
+  			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 3) AS tel3
 		FROM TB_SUBJ s
 		INNER JOIN TB_SGR sg
 			ON s.sgr_cd = sg.sgr_cd
