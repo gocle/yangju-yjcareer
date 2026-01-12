@@ -8,7 +8,16 @@
 <!--일단 추가 추후에 common으로옮기던가  -->
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
+
 <style>
+.cke_notification,
+.cke_notification_warning,
+.cke_notification_message {
+  display: none !important;
+}
+
 img.ui-datepicker-trigger {
     margin-left:5px; vertical-align:middle; cursor:pointer;
 }
@@ -16,7 +25,18 @@ img.ui-datepicker-trigger {
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 
-var oEditors = [];
+var ckEditor;
+
+$(document).ready(function () {
+    ckEditor = CKEDITOR.replace('content', {
+        height: 300,                // 필요시 조절
+        // 이미지 업로드용
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+    });
+});
+
+/* var oEditors = [];
  $(document).ready(function() {
     	initEditor();
  });
@@ -35,13 +55,14 @@ function initEditor() {
 			},
 			fCreator: "createSEditor2"
 		});
-} 
+}  */
 
 //등록하기
 function fn_save(){
 	var bnType = $('#bnType').val();
 	var bnName = $("#bnName").val();
-	var data =oEditors.getById["content"].getIR();
+	
+/* 	var data =oEditors.getById["content"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	if(bnName == ""){
 		alert('제목을 입력해주세요');
@@ -51,7 +72,19 @@ function fn_save(){
 		alert("내용을 입력 하세요.");
 		oEditors.getById["content"].exec("FOCUS"); 
 		return false;
+	} */
+	
+	var data = ckEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    ckEditor.focus();   // 포커스
+	    return false;
 	}
+	
+	$("#content").val(data);
+	
 
 	$("#content").val(data);
 	$("#form").attr("action", "${contextRoot}/adm/banner/"+bnType+"/insert.do");
@@ -63,14 +96,25 @@ function fn_save(){
 function fn_update( bnId ){ 
 	var bnType = $('#bnType').val();
 	var bnId = $('#bnId').val(bnId);
-	var data =oEditors.getById["content"].getIR();
+/* 	var data =oEditors.getById["content"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("내용을 입력 하세요.");
 		oEditors.getById["content"].exec("FOCUS"); 
 		return false;
-	}
+	} */
+	
+	var data = ckEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    ckEditor.focus();   // 포커스
+	    return false;
+	}	
+	
+	$("#content").val(data);
 
 	$("#content").val(data);
 	$("#form").attr("action", "${contextRoot}/adm/banner/"+bnType+"/update.do");

@@ -19,10 +19,20 @@
 
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
-var oEditors = [];
+
+var ckEditor;
+
+/* var oEditors = []; */
 
 $(document).ready(function() {
-	initEditor();
+	/* initEditor(); */
+	
+	ckEditor = CKEDITOR.replace('subjPlan', {
+        height: 300,                // 필요시 조절
+        // 이미지 업로드용
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+    });
 	
 	$("#sgrCd").change(function() {
 		var sgrCd = $(this).val();
@@ -111,8 +121,12 @@ function valid() {
 	var cateCd = $("#cateCd").val();
 	var comId = $("#comId").val();
 	var locId = $("#locId").val();
-	var data = oEditors.getById["subjPlan"].getIR();
-	$("#subjPlan").val(data);
+	
+	/* 	var data = oEditors.getById["subjPlan"].getIR();
+	$("#subjPlan").val(data); */
+	
+	var data = ckEditor.getData();
+	$("#content").val(data);
 	
 	if (subjNm == "") {
 		alert("교육강좌명을 입력해주세요.");

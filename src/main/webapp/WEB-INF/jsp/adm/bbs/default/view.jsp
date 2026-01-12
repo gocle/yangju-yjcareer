@@ -6,8 +6,31 @@
 <c:import url="/adm/menu/leftMenu.do" />
 
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
+
+<style>
+.cke_notification,
+.cke_notification_warning,
+.cke_notification_message {
+  display: none !important;
+}
+</style>
+
 <script type="text/javascript">
-var oEditors = [];
+
+var ckEditor;
+var replyEditors = {};
+
+$(document).ready(function () {
+	  ckEditor = CKEDITOR.replace('content', {
+	    height: 300,
+	    filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+	    filebrowserUploadMethod: 'form'
+	  });
+	});
+
+/* var oEditors = [];
 
 $(document).ready(function() {
 	initEditor("");
@@ -33,47 +56,58 @@ function initEditor(contentId) {
 		},
 		fCreator: "createSEditor2"
 	});
-} 
+}  */
 
 //댓글 수정 하기
-function fn_editor( brId , baId , index){
-	
-	var menuId = $("#menuId").val();
-	var pathId = $("#bcId").val();
-	
-      $.ajax({
-         url:"${contextRoot}/adm/bbs/"+pathId+"/reply/detail.do?menuId="+menuId,
-         type:"post",
-         data:{
-        	 "brId":brId,
-        	 "baId":baId
-         },
-        success:function(data){
-			if(data){
-				 $("#div_" + index).empty();
-				 $("#div_" + index).html("<textarea id='content" + index + "' name='brContent" + index + "'>" + data.brContent + "</textarea>");
-				 initEditor("content" + index);
-			     $("#span_" + index).show();
-			     
-			     $("#updateEditorBtn_" + index).hide();
-			     $("#updateBtn_" + index).show();
-			     
-			     $("#atchTr_" + index).show();
-			     
-			     // 첨부파일 처리
-	             if (data.atchFileIdx && data.rDeleteYn == 'N') {
-	            	 // 첨부파일이 있을 때
-	            	 $("#deleteFileBtn_" + index).show();
-	            	 $("#file_atchFileId_"+ index).hide();
-	             } else {
-	            	 // 첨부파일이 없을 때
-	            	 $("#file_atchFileId_"+ index).show();
-	             }
-			}
-        },error:function(xhr,status,error){
-           //alert(xhr.status);
-        }
-     });
+function fn_editor(brId, baId, index) {
+  var menuId = $("#menuId").val();
+  var pathId = $("#bcId").val();
+
+  $.ajax({
+    url: "${contextRoot}/adm/bbs/" + pathId + "/reply/detail.do?menuId=" + menuId,
+    type: "post",
+    data: { "brId": brId, "baId": baId },
+    success: function (data) {
+      if (!data) return;
+
+      // 기존 화면 교체
+      $("#div_" + index).empty();
+      $("#div_" + index).html(
+        "<textarea id='content" + index + "' name='brContent" + index + "'>" +
+        (data.brContent || "") +
+        "</textarea>"
+      );
+
+      // 이미 인스턴스 있으면 제거
+      if (replyEditors[index]) {
+        try { replyEditors[index].destroy(true); } catch(e) {}
+        delete replyEditors[index];
+      }
+      if (CKEDITOR.instances["content" + index]) {
+        try { CKEDITOR.instances["content" + index].destroy(true); } catch(e) {}
+      }
+
+      // CKEditor 붙이기
+      replyEditors[index] = CKEDITOR.replace("content" + index, {
+        height: 200,
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+      });
+
+      $("#span_" + index).show();
+      $("#updateEditorBtn_" + index).hide();
+      $("#updateBtn_" + index).show();
+      $("#atchTr_" + index).show();
+
+      // 첨부파일 처리(기존 로직 유지)
+      if (data.atchFileIdx && data.rDeleteYn == 'N') {
+        $("#deleteFileBtn_" + index).show();
+        $("#file_atchFileId_" + index).hide();
+      } else {
+        $("#file_atchFileId_" + index).show();
+      }
+    }
+  });
 }
 
 function fn_delete(){
@@ -111,8 +145,7 @@ function fn_list(){
 //저장 
 function fn_reply_save(){
 	
-	var data =oEditors.getById["content"].getIR();
-	
+/* 	var data =oEditors.getById["content"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("내용을 입력 하세요.");
@@ -120,7 +153,19 @@ function fn_reply_save(){
 		return false;
 	}
 	
-	$("#content").val(data);
+	$("#content").val(data); */
+	
+	var data = ckEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    ckEditor.focus();   // 포커스
+	    return false;
+	}
+	
+	$("#content").val(data);		
+	
 	var pathBcId = $("#bcId").val();
 	var pathBaId = $("#baId").val();
 	var menuId = $("#menuId").val();
@@ -134,14 +179,32 @@ function fn_reply_update(index , brId, atchFileIdx){
 	
 	var pathBcId = $("#bcId").val();
 	var menuId = $("#menuId").val();
-	var data =oEditors.getById["content"+index].getIR();
+	
+/* 	var data =oEditors.getById["content"+index].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("내용을 입력 하세요.");
 		oEditors.getById["content"+index].exec("FOCUS"); 
 		return false;
-	}
+	} */
+	
+	  var editor = replyEditors[index]; // 댓글 수정 에디터
+	  if (!editor) {
+	    alert("에디터가 초기화되지 않았습니다. 먼저 '댓글 수정'을 눌러주세요.");
+	    return false;
+	  }
+
+	  var data = editor.getData();
+	  var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	  if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    editor.focus();
+	    return false;
+	  }
+	
+	$("#content").val(data);		
 	
 	$("#reply_content"+index).val(data);
 	$("#reply_file"+index).val(atchFileIdx);

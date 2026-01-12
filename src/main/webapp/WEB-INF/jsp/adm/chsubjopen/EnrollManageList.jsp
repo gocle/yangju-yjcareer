@@ -34,7 +34,11 @@ $(document).ready(function() {
 
 function fn_search(pageIndex) {
 	$("#pageIndex").val(pageIndex);
-    $("#listForm").attr("action", "EnrollManageList.do");
+	if($("#searchSgrCd").val() == 'B') {
+		$("#listForm").attr("action", "EnrollManageList.do");
+	}else {
+		$("#listForm").attr("action", "EnrollManageListC.do");
+	}
     $("#listForm").submit();
 }
 
