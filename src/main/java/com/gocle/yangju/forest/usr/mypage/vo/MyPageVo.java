@@ -66,6 +66,7 @@ public class MyPageVo extends BaseVO implements Serializable {
     private String regDt;
     // 모집방법
     private String enrollType;
+    private String tel;
     
 	public String getSgrCd() {
 		return sgrCd;
@@ -265,6 +266,10 @@ public class MyPageVo extends BaseVO implements Serializable {
 	public void setEnrollStatusNm(String enrollStatusNm) {
 		this.enrollStatusNm = enrollStatusNm;
 	}
-    
-    
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
 }

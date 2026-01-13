@@ -168,7 +168,7 @@
 			    } else if ($('#tabmenu2').is(':checked')) {
 			        $moreBtn.attr('href', '/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142'); // 꿈자람센터 프로그램
 			    } else {
-			    	$moreBtn.attr('href', '/yjcareer/usr/support/intro.do?menuId=2025MENU0000144'); // 행사 및 강좌
+			    	$moreBtn.attr('href', '/yjcareer/usr/reservation/event/list.do?menuId=2025MENU0000144'); // 행사 및 강좌
 			    }
 			}
 
@@ -573,14 +573,14 @@
 													<input type="radio" id="event_all" name="event" checked>
 													<label for="event_all">전체</label>
 
-													<input type="radio" id="event_BA" name="event">
-													<label for="event_BA">진로진학아카데미</label>
+													<input type="radio" id="event_CA" name="event">
+													<label for="event_CA">진로진학아카데미</label>
 
-													<input type="radio" id="event_BB" name="event">
-													<label for="event_BB">입시 설명회</label>
+													<input type="radio" id="event_CB" name="event">
+													<label for="event_CB">입시 설명회</label>
 
-													<input  type="radio" id="event_BC" name="event">
-													<label for="event_BC">전공 멘토링</label>
+													<input  type="radio" id="event_CC" name="event">
+													<label for="event_CC">전공 멘토링</label>
 												</div>	
 											</div>
 											
@@ -591,13 +591,12 @@
 												</div>
 												
 												<div class="event_list slider-list">
-													<c:forEach var="row" items="${subjManageListB}" varStatus="i">
+													<c:forEach var="row" items="${subjManageListC}" varStatus="i">
 														<c:if test="${i.index > 0 && (i.index % 4) == 0}">
 															<c:set var="pageCnt" value="${pageCnt + 1}" />
 														</c:if>
 												
-														<div class="event_item item e_type_${row.cateCd eq 'BC' ? 'BB' : 
-																	(row.cateCd eq 'BE') ? 'BD' : row.cateCd}">
+														<div class="event_item item e_type_${row.cateCd}">
 															<a href="javascript:;" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 																<div class="item_img">
 																	<c:if test="${empty row.thumbpath}">

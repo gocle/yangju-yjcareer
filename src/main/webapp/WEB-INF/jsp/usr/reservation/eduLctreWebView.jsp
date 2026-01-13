@@ -287,6 +287,9 @@ function fnReservation(seqCd) {
 			<c:if test="${resultMap.sgrCd eq 'B'}">
 				<a href="${contextRoot}/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142" class="btn type1">목록</a>
 			</c:if>
+			<c:if test="${resultMap.sgrCd eq 'C'}">
+				<a href="${contextRoot}/usr/reservation/event/list.do?menuId=2025MENU0000144" class="btn type1">목록</a>
+			</c:if>
 		</div>
 		<div class="bbs_right">
 			<c:choose>

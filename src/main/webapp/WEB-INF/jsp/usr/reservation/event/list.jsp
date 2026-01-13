@@ -4,6 +4,8 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:import url="/usr/layout/top.do" />
+
 <script>
 $(function () {
 	  const $wrap  = $('.bbs-search-checkbox');
@@ -28,9 +30,36 @@ $(function () {
 
 	  $items.trigger('change.sync');
 })
-</script>
 
-<c:import url="/usr/layout/top.do" />
+function fn_search(pageIndex) {
+	$("#pageIndex").val(pageIndex);
+	var reqUrl = "${contextRoot}/usr/reservation/event/list.do";
+	$("#bbsNttSearch").attr("action", reqUrl);
+	$("#bbsNttSearch").submit();
+}
+
+function fn_reset() {
+	$("#pageIndex").val(1);
+	
+	// 라디오, 체크박스 해제
+	$("input[name='searchCateCd']").prop("checked", false); // 구분
+	$("input[name='searchStatus']").prop("checked", false); // 진행상태
+	$("input[name='searchEduTarget']").prop("checked", false); // 신청대상
+	// 검색어 삭제
+	$("#searchKeyword").val('');
+		
+	var reqUrl = "${contextRoot}/usr/reservation/event/list.do";
+	$("#bbsNttSearch").attr("action", reqUrl);
+	$("#bbsNttSearch").submit();
+}
+
+function fnDetailView(seqCd) {
+	$("#bbsNttSearch input[name=seqCd]").val(seqCd);
+	let reqUrl = "${contextRoot}/usr/reservation/eduLctreWebView.do";
+	$("#bbsNttSearch").attr("action", reqUrl);
+	$("#bbsNttSearch").submit();
+}
+</script>
 
   <c:import url="/usr/menu/header.do" />
     
@@ -68,11 +97,10 @@ $(function () {
                     	<div class="education_list list_type">
                     
 		                    <div class="bbs_search event-search">
-								<form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/reservation/program/eduLctreNewList.do" method="get" class="boardSearchForm">
+								<form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/reservation/event/list.do" method="get" class="boardSearchForm">
 									<input type="hidden" name="seqCd" id="seqCd" value=""/>
 									<input type="hidden" name="subjCd" id="subjCd" value=""/>
-									<input type="hidden" name="sgrCd" id="sgrCd" value="B"/>	
-									<input type="hidden" id="searchMyProgram" name="searchMyProgram" value="${searchVo.searchMyProgram}" />
+									<input type="hidden" name="sgrCd" id="sgrCd" value="C"/>	
 									<input type="hidden" name="menuId" id="menuId" value="${searchVo.menuId}"/>	
 							
 									<fieldset>
@@ -90,19 +118,19 @@ $(function () {
 														<span class="text">전체</span>
 														 </label>
 														
-														<input type="radio" id="radio-4" name="searchCateCd" value="BA" ${searchVo.searchCateCd eq 'BA' ? 'checked' : ''}>
+														<input type="radio" id="radio-4" name="searchCateCd" value="CA" ${searchVo.searchCateCd eq 'CA' ? 'checked' : ''}>
 														<label for="radio-4" class="radio-btn">
 														<span class="icon"></span>
 														<span class="text">진로진학아카데미</span>
 														</label>
 														 
-														<input type="radio" id="radio-5" name="searchCateCd" value="BB" ${searchVo.searchCateCd eq 'BB' ? 'checked' : ''}>
+														<input type="radio" id="radio-5" name="searchCateCd" value="CB" ${searchVo.searchCateCd eq 'CB' ? 'checked' : ''}>
 														<label for="radio-5" class="radio-btn">
 														<span class="icon"></span>
 														<span class="text">입시 설명회</span>
 														</label>
 														 
-														<input type="radio" id="radio-6" name="searchCateCd" value="BD" ${searchVo.searchCateCd eq 'BD' ? 'checked' : ''}>
+														<input type="radio" id="radio-6" name="searchCateCd" value="CC" ${searchVo.searchCateCd eq 'CC' ? 'checked' : ''}>
 														<label for="radio-6" class="radio-btn">
 														<span class="icon"></span>
 														<span class="text">전공 멘토링</span>
@@ -212,64 +240,40 @@ $(function () {
 									</tr>
 								</thead>
 								<tbody class="text_center">
+									<c:forEach var="item" items="${resultList}" varStatus="status">
 									<tr>
-										<td class="td-no">2</td>
+										<td class="td-no"><c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/></td>
 										<td class="td-subject">
-											<span class="li-label end">접수마감</span>
+											<span class="li-label ${item.status}">
+												<c:if test="${item.status eq 'ing'}">접수진행중</c:if>
+												<c:if test="${item.status eq 'be'}">접수예정</c:if>
+												<c:if test="${item.status eq 'end'}">접수마감</c:if>
+											</span>
 											<a href="#" onclick="fnDetailView('${item.seqCd}')" class="subject">
-												[고교진학과 학교생활]2024년 하반기 진로진학 아카데미 하반기 진로진학 아카데미 하반기 진로진학 아카데미
+												${item.subjNm }
 											</a> 
 										</td>
-										<td class="td-cate">진로진학아카데미</td>
+										<td class="td-cate">${item.cateNm }</td>
 										<td class="td-date">
-											<p>2025-12-08 ~ 2025-12-16</p>
+											<p>${item.enrollStartDt } ~ ${item.enrollEndDt }</p>
 										</td>
 										<td class="td-date">
-											<p>2025년 12월 16일부터 총 1회</p>
+											<p>${item.learnStartDt } ~ ${item.learnEndDt }</p>
 										</td>
 										<td class="td-type">
-											<span class="type-4">학부모</span>
+											<c:forEach var="code" items="${codeList}">
+												<c:if test="${fn:contains(item.eduTarget, code.codeCode)}">
+													<span class="type-${code.codeCode}">${code.codeName }</span>
+												</c:if>
+											</c:forEach>
 										</td>
 									</tr>
-									<tr>
-										<td class="td-no">1</td>
-										<td class="td-subject">
-											<span class="li-label ing">접수진행중</span>
-											<a href="#" onclick="fnDetailView('${item.seqCd}')" class="subject">
-												2026학년도 정시 지원전략 설명회
-											</a> 
-										</td>
-										<td class="td-cate">입시 설명회</td>
-										<td class="td-date">
-											<p>2025-12-08 ~ 2025-12-16</p>
-										</td>
-										<td class="td-date">
-											<p>2025년 12월 16일부터 총 1회</p>
-										</td>
-										<td class="td-type">
-											<span class="type-2">중등</span>
-											<span class="type-3">고등</span>
-										</td>
-									</tr>
-									<%--<c:forEach var="item" items="${resultList}" varStatus="status">
-										<tr>
-											<td data-content="No.">
-												<c:out value="${totalCount - ((pageIndex-1) * pageSize + status.index)}"/>
-											</td>
-											<td data-content="교육강좌명"><a href="#" onclick="fnDetailView('${item.seqCd}');">${item.subjNm}</a></td>
-											<td data-content="모집방법">
-												<c:if test="${item.enrollType eq '1'}">선착순</c:if>
-												<c:if test="${item.enrollType eq '2'}">승인</c:if>
-											</td>
-											<td ata-content="예약일">${item.regDt}</td>
-											<td data-content="예약상태">${item.enrollStatusNm}</td>
-										</tr>
 									</c:forEach>
-									 <c:if test="${totalCount eq 0}">
+									<c:if test="${totalCount eq 0}">
 										<tr>
-											<td colspan="5" class="empty">신청한 교육프로그램이 없습니다.</td>
+											<td colspan="6">검색결과가 없습니다.</td>
 										</tr>
-									</c:if> --%>
+									</c:if>
 								</tbody>
 							</table>
 							<div class="pagination">

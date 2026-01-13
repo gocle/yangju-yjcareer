@@ -278,14 +278,13 @@
 		
 		<div>
 		<table class="table tr_over type2 list_table responsive responsive-new">
-			<caption>교육강좌 리스트이며, No., 강좌명, 모집방법, 접수기간 교육기간, 교육일시/시간, 정원/대기, 수강료, 접수상태, 수강신청 항목에 대한 정보를 제공</caption>
+			<caption>교육강좌 리스트이며, No., 강좌명, 모집방법, 접수기간 교육기간, 교육일시/시간, 정원/대기, 접수상태, 수강신청 항목에 대한 정보를 제공</caption>
 			<colgroup>
 				<col style="width:5%;" />
 				<col style="width:20%;" />
 				<col style="width:20%;" />
 				<col style="width:17%;" />
 				<col style="width:8%;" />
-				<col style="width:5%;" />
 				<col style="width:8%;" />
 				<col style="width:8%;" />
 			</colgroup>
@@ -296,7 +295,6 @@
 				<th scope="col">강좌명</th>
 				<th scope="col"><em class="em_blue">접수기간</em><br />교육기간</th>
 				<th scope="col">정원/대기</th>
-				<th scope="col">수강료</th>
 				<th scope="col">신청대상</th>
 				<th scope="col">수강신청</th>
 			</tr>
@@ -333,7 +331,6 @@
 							<p><span class="td-span">정원</span>${item.enrollCnt}/${item.capacity}</p>
 							<p><span class="td-span">대기</span>(${item.waitCnt}/${item.waitEnrollCnt})</p>
 						</td>
-						<td class="td-cost">무료</td>
 						<td class="td-type">
 							<c:forEach var="code" items="${codeList}">
 								<c:if test="${fn:contains(item.eduTarget, code.codeCode)}">
@@ -348,7 +345,7 @@
 				</c:forEach>
 				<c:if test="${totalCount eq 0}">
 					<tr>
-						<td colspan="8">검색결과가 없습니다.</td>
+						<td colspan="7">검색결과가 없습니다.</td>
 					</tr>
 				</c:if>
 				

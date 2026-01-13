@@ -82,7 +82,10 @@ public class UserMainController{
 		// 꿈자람센터 프로그램
 		subjInfoVo.setSearchSgrCd("B");
 		model.put("subjManageListB", subjInfoService.selectMainList(subjInfoVo));
-
+		// 행사 및 강좌
+		subjInfoVo.setSearchSgrCd("C");
+		model.put("subjManageListC", subjInfoService.selectMainList(subjInfoVo));
+		
 		model.put("popupList", subjInfoService.selectPopupList(subjInfoVo));
 		
 		// 메인 게시판

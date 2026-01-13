@@ -149,13 +149,13 @@
 					<em>전화번호</em>
 					<p>${resultMap.tel }</p>
 				</li>
-				<li class="clearfix">
-					<em>강의계획서</em>
-					<p>${resultMap.subjPlan }</p>
-				</li>
 				<li class="clearfix nonfloat">
 					<em>유의사항</em>
 					<p>${resultMap.subjDesc }</p>
+				</li>
+				<li class="clearfix nonfloat">
+					<em>강의계획서</em>
+					<p>${resultMap.subjPlan }</p>
 				</li>
 			</ul>
 		</div>

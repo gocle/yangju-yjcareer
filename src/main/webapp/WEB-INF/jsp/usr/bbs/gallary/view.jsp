@@ -139,7 +139,7 @@
             </tr>
 
             <tr>		
-                <th scope="row">내용1</th>
+                <th scope="row">내용</th>
 				<td title="내용" class="bbs_content">
 					${result.baContentHtml}
 					<c:forEach var="fileVO" items="${fileList}" varStatus="status">

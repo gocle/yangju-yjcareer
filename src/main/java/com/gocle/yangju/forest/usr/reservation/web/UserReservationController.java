@@ -157,14 +157,20 @@ public class UserReservationController {
 	 * @throws Exception
 	 */
 	@RequestMapping("{pgType}/list.do")
-	public String programList(@PathVariable("pgType") String pgType, @ModelAttribute("form")UserReservationVO reservationVO, ModelMap model) throws Exception {
+	public String programList(@PathVariable("pgType") String pgType, @ModelAttribute("searchVo") EnrollManageVo searchVo, ModelMap model) throws Exception {
 		
-		reservationVO.setPgType(pgType);
-		List<UserReservationVO> resultList = userReservationService.selectReservationList(reservationVO);
+		int totalCount = 0;
+		List<EnrollManageVo> resultList = new ArrayList<>();
+		// 행사 및 강좌
+		searchVo.setSearchSgrCd("C");
+		totalCount = userReservationService.selectTotalCount(searchVo);
+		if(totalCount > 0) {
+			resultList = userReservationService.selectList(searchVo);
+		}
 		
 		int totalCnt = 0;
-		Integer pageSize = reservationVO.getPageSize();
-		Integer pageIndex =	reservationVO.getPageIndex();
+		Integer pageSize = searchVo.getPageSize();
+		Integer pageIndex =	searchVo.getPageIndex();
 		
 		if(0 < resultList.size() ){
 			totalCnt = Integer.parseInt( resultList.get(0).getTotalCount() );
@@ -173,22 +179,17 @@ public class UserReservationController {
 		PaginationInfo paginationInfo = new PaginationInfo();
 	    paginationInfo.setCurrentPageNo(pageIndex);
         paginationInfo.setRecordCountPerPage(pageSize);
-        paginationInfo.setPageSize(reservationVO.getPageUnit());
+        paginationInfo.setPageSize(searchVo.getPageUnit());
         paginationInfo.setTotalRecordCount(totalCnt);
         
         model.addAttribute("pageSize", pageSize);
-	    model.addAttribute("totalCount", totalCnt);
 	    model.addAttribute("pageIndex", pageIndex);
 	    model.addAttribute("paginationInfo", paginationInfo);
-	    
-        model.addAttribute("resultCnt", totalCnt);
+	    model.addAttribute("searchVo", searchVo);
+        model.addAttribute("totalCount", totalCount);
 		model.addAttribute("resultList", resultList);
 		
 		model.addAttribute("pgType", pgType);
-		model.addAttribute("searchDt", reservationVO.getSearchDt());
-		model.addAttribute("classType", reservationVO.getClassType());
-		model.addAttribute("pgCode", reservationVO.getPgCode());
-		model.addAttribute("searchYn", reservationVO.getSearchYn());
 		
 		CodeVO cvo = new CodeVO();
 		cvo.setCodeGroup("EDU_TARGET");

@@ -26,6 +26,9 @@ import com.gocle.yangju.forest.usr.product.vo.UserProductVO;
 import com.gocle.yangju.forest.usr.program.vo.UserProgramVO;
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
 import com.gocle.yangju.forest.usr.reservation.vo.UserReservationVO;
+import com.gocle.yangju.yjcareer.sms.service.SmsService;
+import com.gocle.yangju.yjcareer.sms.vo.MmsMsgVO;
+import com.gocle.yangju.yjcareer.sms.vo.SmsVO;
 
 import egovframework.com.cmm.service.Globals;
 
@@ -41,6 +44,9 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 	
 	@Autowired
 	EgovIdGnrService reservationIdGnrService;
+	
+	@Autowired
+	SmsService smsService;
 	
 	public List<UserReservationVO> selectReservationList(UserReservationVO userReservationVO) throws Exception {
 		return userReservationMapper.selectReservationList(userReservationVO);
@@ -224,6 +230,37 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 			// 수강등록 테이블 히스토리 입력
 			userReservationMapper.insertEnrollHistory(enrollManageVo);
 			
+			String tel = result.getTel();
+			tel = (tel == null) ? "" : tel.replaceAll("\\-", "");
+			
+			if("Y".equals(enrollManageVo.getSmsYn()) && tel != "") {
+				if(enrollManageVo.getHpTel1() != null && enrollManageVo.getHpTel2() != null && enrollManageVo.getHpTel3() != null) {
+					try {
+						String msg = result.getSubjNm() + " 교육강좌 예약이 접수 되었습니다.";
+						String hpTel = enrollManageVo.getHpTel1() + enrollManageVo.getHpTel2() + enrollManageVo.getHpTel3();
+						if(msg.length() > 45) {
+							MmsMsgVO vo = new MmsMsgVO();
+				            vo.setPhone(hpTel);
+				            vo.setCallback(tel);
+				            vo.setMsg(msg);
+				            vo.setType("1");
+				            vo.setId("test");
+				            
+				            smsService.sendMms(vo);
+						} else {
+							SmsVO vo = new SmsVO();
+				            vo.setTrPhone(hpTel);
+				            vo.setTrMsg(msg);
+				            vo.setTrCallback(tel);
+				            vo.setTrId("test");
+				            
+				            smsService.sendSms(vo);
+						}
+					}catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		}
 		enrollManageVo.setErrCd(errCd);
 	}
