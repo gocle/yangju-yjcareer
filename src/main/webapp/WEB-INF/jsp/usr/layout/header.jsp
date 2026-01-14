@@ -87,10 +87,15 @@ function openLoginPopup() {
 						<div class="menu_header">
 							<div class="link">
 								<ul class="link_list clearfix">
-
-									<!--<li class="link_item login"><a href="/loginForm.do?siteId=yjcareer&amp;TARGET=/yjcareer/index.do" class="link_anchor" title="로그인">로그인</a></li>-->
-									<li class="link_item logout"><a href="/logout.do?siteId=yjcareer" class="link_anchor" title="로그아웃">로그아웃</a></li>
-                            		<li class="link_item mypage"><a href="selectEduApplcntResveWebList.html" class="link_anchor">나의예약</a></li>
+									<c:choose>
+										<c:when test="${not empty sessionScope.SESSION_DI_KEY}">						
+											<li class="link_item logout"><a href="/yjcareer/usr/login/logout.do" class="link_anchor" title="로그아웃">로그아웃</a></li>
+		                            		<li class="link_item mypage"><a href="/yjcareer/usr/mypage/myReservation.do" class="link_anchor">나의예약</a></li>
+										</c:when>
+										<c:otherwise>
+											<li class="link_item login"><a href="javascript:void(0);" onclick="openLoginPopup();" class="link_anchor" title="로그인">로그인</a></li>
+										</c:otherwise>
+									</c:choose>
 
 								</ul>
 							</div>
