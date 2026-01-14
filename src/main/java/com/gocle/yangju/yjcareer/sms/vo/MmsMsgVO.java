@@ -46,6 +46,9 @@ public class MmsMsgVO implements Serializable {
     /* 기타 */
     private String post;                 // 송신자 부서
     private String multiSeq;             // 동보 발송 키
+    
+    private String[] phones;
+    
 	public String getMsgKey() {
 		return msgKey;
 	}
@@ -226,5 +229,10 @@ public class MmsMsgVO implements Serializable {
 	public void setMultiSeq(String multiSeq) {
 		this.multiSeq = multiSeq;
 	}
-    
+	public String[] getPhones() {
+		return phones;
+	}
+	public void setPhones(String[] phones) {
+		this.phones = phones;
+	}
 }    

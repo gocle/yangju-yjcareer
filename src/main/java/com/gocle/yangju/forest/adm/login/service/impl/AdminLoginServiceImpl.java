@@ -88,11 +88,26 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 					updatePwDate = LocalDate.parse(loginAdminVO.getLastPwUpdtYmd());
 				}
 				
+				// 허용 아이피가 null이 아닐 때
+				boolean ipCheck = false;
+				// permitIp가 null 이거나 비어있으면 → 전체 허용
+				if (loginAdminVO.getPermitIp() == null || loginAdminVO.getPermitIp().trim().isEmpty()) {
+				    ipCheck = true;
+				} else {
+				    String[] ips = loginAdminVO.getPermitIp().trim().split(",");
+				    for (String ip : ips) {
+				        if (loginVO.getIp().equals(ip)) {
+				            ipCheck = true;
+				            break;
+				        }
+				    }
+				}
+				
 				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn())) {
 					logonMsg = "삭제되었거나 탈퇴한 관리자입니다.";
 				} else if("Y".equals(loginAdminVO.getLockYn())) {
 					logonMsg = "잠금처리된 관리자입니다.";
-				} else if (loginAdminVO.getPermitIp() != null && !loginAdminVO.getPermitIp().trim().isEmpty() && !loginVO.getIp().equals(loginAdminVO.getPermitIp())){
+				} else if (!ipCheck){
 					logonMsg = "허용된 IP가 아닙니다.";
 				} else if ("N".equals(permitDtYn)) {
 					logonMsg = "접속 가능한 기간이 아닙니다.";
@@ -170,11 +185,26 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 					updatePwDate = LocalDate.parse(loginAdminVO.getLastPwUpdtYmd());
 				}
 				
+				// 허용 아이피가 null이 아닐 때
+				boolean ipCheck = false;
+				// permitIp가 null 이거나 비어있으면 → 전체 허용
+				if (loginAdminVO.getPermitIp() == null || loginAdminVO.getPermitIp().trim().isEmpty()) {
+				    ipCheck = true;
+				} else {
+				    String[] ips = loginAdminVO.getPermitIp().trim().split(",");
+				    for (String ip : ips) {
+				        if (loginVO.getIp().equals(ip)) {
+				            ipCheck = true;
+				            break;
+				        }
+				    }
+				}
+				
 				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn())) {
 					logonMsg = "삭제되었거나 탈퇴한 기관담당자입니다.";
 				} else if("Y".equals(loginAdminVO.getLockYn())) {
 					logonMsg = "잠금처리된 기관담당자입니다.";
-				} else if (loginAdminVO.getPermitIp() != null && !loginAdminVO.getPermitIp().trim().isEmpty() && !loginVO.getIp().equals(loginAdminVO.getPermitIp())){
+				} else if (!ipCheck){
 					logonMsg = "허용된 IP가 아닙니다.";
 				} else if ("N".equals(permitDtYn)) {
 					logonMsg = "접속 가능한 기간이 아닙니다.";

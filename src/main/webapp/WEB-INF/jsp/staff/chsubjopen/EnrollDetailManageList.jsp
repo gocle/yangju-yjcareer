@@ -122,6 +122,30 @@ function fn_search(pageIndex) {
     $("#listForm").attr("action", reqUrl);
     $("#listForm").submit();
 }
+
+function fnCmdSms() {
+	if($("input[name=diKeys]:checkbox:checked").length === 0) {
+        alert("교육생을 선택해 주세요.");
+        return false;
+    }
+	
+	$('#listForm input[name=diKeys]').each( function () {
+	    if (this.checked) {
+	        var val = this.value;
+	        diKey += val +',';
+	        
+	        $("#SMSSendForm").append("<input type=\"hidden\" name=\"diKeys\" value=\"" + val + "\" class=\"smsSendTarget\" />");
+	    }
+	});
+	
+	popOpenWindow("", "popSendSms", 800, 550);
+	
+	var reqUrl = "${contextRoot}/staff/chsubjopen/popup/SmsSendForm.do";
+	
+	$("#listForm").attr("target", "popSendSms");
+	$("#listForm").attr("action", reqUrl);
+	$("#listForm").submit();
+}
 </script>
 
 <style>
@@ -206,6 +230,7 @@ function fn_search(pageIndex) {
             <a href="#none" class="btn_blue" onclick="javascript:fnEnrollApply();">교육생승인</a>
             <a href="#none" onclick="javascript:fnEnrollApplyCancel();">교육생승인취소</a>
             <a href="#none" onclick="javascript:fnCmdList();" style="float:right;">목록</a>
+            <a href="#none" class="btn_blue" onclick="javascript:fnCmdSms();" style="float:right;">문자발송</a>
         </div>
 		
 		<table class="list-1" width="100%;" style="margin-top:20px;">

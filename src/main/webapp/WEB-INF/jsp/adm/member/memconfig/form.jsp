@@ -208,6 +208,10 @@ img.ui-datepicker-trigger {
 			email.focus();
 			return false;
 		}
+		
+		//허용 아이피 공백처리
+		$("#permitIp").val($("#permitIp").val().replace(/\s+/g, ''));
+		
 		console.log($("#form").serialize());
 		$("#form").attr("action", "${contextRoot}/adm/member/memconfig/insertForm.do");
 		$("#form").attr("target", "_self");
@@ -251,6 +255,9 @@ img.ui-datepicker-trigger {
 			email.focus();
 			return false;
 		}
+		
+		//허용 아이피 공백처리
+		$("#permitIp").val($("#permitIp").val().replace(/\s+/g, ''));
 		
 		$("#form").attr("action", "${contextRoot}/adm/member/memconfig/update.do");
 		$("#form").attr("target", "_self");
@@ -364,7 +371,10 @@ img.ui-datepicker-trigger {
 						</tr>
 						<tr>
 							<th>허용 아이피</th>
-							<td><input type="text" style="width: 50%" name="permitIp" id="permitIp" value="${adminUpdateResult.permitIp }" placeholder="예: 192.168.0.10" />
+							<td><input type="text" style="width: 50%" name="permitIp" id="permitIp" value="${adminUpdateResult.permitIp }" placeholder="예: 192.168.0.10" maxlength="50"/>
+							<br/><b style="font-size:14px; color:red;">* 2개 이상 등록 시 콤마(,)로 작성해주세요. 예)127.0.0.1,127.0.0.2<br/>
+							&nbsp;&nbsp;아이피는 네이버에 '내아이피' 검색으로 확인할 수 있습니다.</b>
+							<br/><img src="/yjcareer/assets/site/yjcareer/images/common/myIp.png" />
 							</td>
 						</tr>
 						<c:if test="${not empty adminUpdateResult}">

@@ -1,5 +1,6 @@
 package com.gocle.yangju.forest.staff.chsubjopen.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,7 @@ import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
 import com.gocle.yangju.forest.adm.code.vo.CodeVO;
 import com.gocle.yangju.forest.comm.vo.LoginInfo;
+import com.gocle.yangju.yjcareer.sms.vo.SmsVO;
 
 import egovframework.com.cmm.service.Globals;
 
@@ -412,4 +414,28 @@ public class StaffEnrollManageController {
 		
 		return "/staff/chsubjopen/EnrollManageList";
 	}
+	
+	 @RequestMapping("/popup/SmsSendForm.do")
+	    public String smsSendForm(@ModelAttribute("smsVo") SmsVO smsVo,@ModelAttribute("enrollManageVo") EnrollManageVo enrollManageVo,  ModelMap model) throws Exception {
+	    	
+	    	List<EnrollManageVo> resultList = new ArrayList<>();;
+	    	
+	    	for(String diKey : enrollManageVo.getDiKeys()) {
+	    		String[] parts = diKey.split("_");
+			    
+				enrollManageVo.setSeqCd(parts[0]);
+				enrollManageVo.setDiKey(parts[1]);
+				
+				EnrollManageVo enroll = enrollManageService.selectEnrollUserInfo(enrollManageVo);
+				
+				if(enroll != null) {
+					resultList.add(enroll);
+				}
+	    	}
+	    	
+	    	model.addAttribute("enrollManageVo", enrollManageVo);
+	    	model.addAttribute("resultList", resultList);
+	    	
+	    	return "/staff/chsubjopen/popup/SmsSendForm";
+	    }
 }
