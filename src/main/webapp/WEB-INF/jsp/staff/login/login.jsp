@@ -28,7 +28,7 @@
 	<h1 class="login_tit"><img src="${contextRoot}/assets/css/adm/img/logo_admin_login.png" alt="Yangju 양주시"></h1>
 		<div>
 				<fieldset>
-						<legend>ADMIN LOGIN</legend>
+						<legend>STAFF LOGIN</legend>
 						
 							<label for="memId" class="fa fa-user-circle-o"></label>
 							<form name="loginForm" id="loginForm" method="post">
