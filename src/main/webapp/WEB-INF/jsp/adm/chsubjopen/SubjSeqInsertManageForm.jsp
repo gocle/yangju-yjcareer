@@ -24,13 +24,143 @@ $(document).ready(function() {
 
 function fnCmdAddSession() {
 	var selSubjCd = $("#selSubjCd").val();
+	var searchSgrCd = "${searchVo.searchSgrCd}";
+	var copyType = $('input[name="copyType"]:checked').val();
 	
-	if(selSubjCd == "") {
-		alert("과정마스터를 선택해주세요.");
-		return false;
+	if(searchSgrCd == "A" && copyType == "Y") {
+		var subjNm = $("#subjNms").val();
+		var sessionNm = $("#sessionNms").val();
+		
+		var enrollStartDtYear = $("#enrollStartDtYear").val();
+		var enrollStartDtHH = $("#enrollStartDtHH").val();
+		var enrollStartDtMI = $("#enrollStartDtMI").val();
+		var enrollEndDtYear = $("#enrollEndDtYear").val();
+		var enrollEndDtHH = $("#enrollEndDtHH").val();
+		var enrollEndDtMI = $("#enrollEndDtMI").val();
+		
+		var learnStartDtYear = $("#learnStartDtYear").val();
+		var learnStartDtHH = $("#learnStartDtHH").val();
+		var learnStartDtMI = $("#learnStartDtMI").val();
+		var learnEndDtYear = $("#learnEndDtYear").val();
+		var learnEndDtHH = $("#learnEndDtHH").val();
+		var learnEndDtMI = $("#learnEndDtMI").val();
+		
+		var capacity = $("#capacitys").val();
+		var waitEnrollCnt = $("#waitEnrollCnts").val();
+			
+		if(selSubjCd == "") {
+			alert("과정마스터를 선택해주세요.");
+			return false;
+		}
+		
+		if(subjNm == "") {
+			alert("교육강좌명를 입력해주세요.");
+			return false;
+		}
+		
+		if(sessionNm == "") {
+			alert("기수를 입력해주세요.");
+			return false;
+		}
+		
+		if(enrollStartDtYear == "" || enrollStartDtHH == "" || enrollStartDtMI == ""
+				|| enrollEndDtYear == "" || enrollEndDtHH == "" || enrollEndDtMI == "") {
+			alert("모집기간을 입력해주세요.");
+			return false;
+		}
+		
+		if(learnStartDtYear == "" || learnStartDtHH == "" || learnStartDtMI == ""
+			|| learnEndDtYear == "" || learnEndDtHH == "" || learnEndDtMI == "") {
+			alert("교육기간을 입력해주세요.");
+			return false;
+		}
+		
+		if(capacity == "") {
+			alert("모집인원을 입력해주세요.");
+			return false;
+		}
+		
+		if(waitEnrollCnt == "") {
+			alert("대기인원을 입력해주세요.");
+			return false;
+		}
+		
+		fnCmdAddSeq_A('session');
+	} else {
+		if(selSubjCd == "") {
+			alert("과정마스터를 선택해주세요.");
+			return false;
+		}
+		
+		fnCmdAddSeq('session');
 	}
+}
+
+function fnCmdAddSeq_A(name) {
+	var oriSession = $("#" + name);
 	
-	fnCmdAddSeq('session');
+	// 첫 번째 테이블의 값
+	var subjNm = $("#subjNms").val();
+	var sessionNm = $("#sessionNms").val();
+	    
+	var enrollStartDtYear = $("#enrollStartDtYear").val();
+	var enrollStartDtHH = $("#enrollStartDtHH").val();
+	var enrollStartDtMI = $("#enrollStartDtMI").val();
+	var enrollEndDtYear = $("#enrollEndDtYear").val();
+	var enrollEndDtHH = $("#enrollEndDtHH").val();
+	var enrollEndDtMI = $("#enrollEndDtMI").val();
+
+	var learnStartDtYear = $("#learnStartDtYear").val();
+	var learnStartDtHH = $("#learnStartDtHH").val();
+	var learnStartDtMI = $("#learnStartDtMI").val();
+	var learnEndDtYear = $("#learnEndDtYear").val();
+	var learnEndDtHH = $("#learnEndDtHH").val();
+	var learnEndDtMI = $("#learnEndDtMI").val();
+
+	var capacity = $("#capacitys").val();
+	var waitEnrollCnt = $("#waitEnrollCnts").val();
+
+	// 테이블 5개씩 생성
+    for (var i = 0; i < 5; i++) {
+        sessionCnt++;
+
+        var newSession = oriSession.clone();
+        newSession.attr("id", name + sessionCnt);
+        newSession.show();
+
+        newSession.find("input").each(function () {
+            var id = $(this).attr("id");
+
+            if (id) {
+                $(this).attr("id", id + sessionCnt);
+                if (id.startsWith("subjNms")) $(this).val(subjNm);
+                else if (id.startsWith("sessionNms")) $(this).val(sessionNm);
+                else if (id.startsWith("enrollStartDtYear")) $(this).val(enrollStartDtYear);
+                else if (id.startsWith("enrollStartDtHH")) $(this).val(enrollStartDtHH);
+                else if (id.startsWith("enrollStartDtMI")) $(this).val(enrollStartDtMI);
+                else if (id.startsWith("enrollEndDtYear")) $(this).val(enrollEndDtYear);
+                else if (id.startsWith("enrollEndDtHH")) $(this).val(enrollEndDtHH);
+                else if (id.startsWith("enrollEndDtMI")) $(this).val(enrollEndDtMI);
+                else if (id.startsWith("learnStartDtYear")) $(this).val(learnStartDtYear);
+                else if (id.startsWith("learnStartDtHH")) $(this).val(learnStartDtHH);
+                else if (id.startsWith("learnStartDtMI")) $(this).val(learnStartDtMI);
+                else if (id.startsWith("learnEndDtYear")) $(this).val(learnEndDtYear);
+                else if (id.startsWith("learnEndDtHH")) {
+                	$(this).val("");
+                	$(this).css("background-color", "rgb(255,99,71,0.4)");
+                }
+                else if (id.startsWith("learnEndDtMI")) {
+                	 $(this).val("");
+                	 $(this).css("background-color", "rgb(255,99,71,0.4)");
+                }
+                else if (id.startsWith("capacitys")) $(this).val(capacity);
+                else if (id.startsWith("waitEnrollCnts")) $(this).val(waitEnrollCnt);
+                else $(this).val("");
+            }
+        });
+        oriSession.parent().append(newSession);
+    }
+    $(".numberOnly").numberOnly();
 }
 
 function fnCmdAddSeq(name) {
@@ -67,6 +197,8 @@ function fnCmdSave() {
 	if(valid()){
 		// 모집기간
 		$("[id^='enrollStartDtYear']").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			var enrollStartDt = $(this).val();
 			enrollStartDt += " ";
 			
@@ -92,6 +224,8 @@ function fnCmdSave() {
 		});
     	
 		$("[id^='enrollEndDtYear']").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			var enrollEndDt = $(this).val();
 			enrollEndDt += " ";
 			
@@ -115,9 +249,13 @@ function fnCmdSave() {
         	}
     		$("#detailForm input[name=enrollEndDts]").eq(i).val(enrollEndDt);
 		});
-		
+        
 		// 교육기간
+		var learnDts = [];
+		
 		$("[id^='learnStartDtYear']").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			var learnStartDt = $(this).val();
 			learnStartDt += " ";
 			
@@ -140,9 +278,31 @@ function fnCmdSave() {
         		learnStartDt += parseInt($("#detailForm input[name=learnStartDtMI]").val(), 10);
         	}
     		$("#detailForm input[name=learnStartDts]").eq(i).val(learnStartDt);
+    		
+    		// 메세지용 교육기간 시작일
+    	    var startDate = $(this).val(); // yyyy.mm.dd
+    	    var startHH = $("#detailForm input[name=learnStartDtHH]").eq(i).val() || "00";
+    	    var startMI = $("#detailForm input[name=learnStartDtMI]").eq(i).val() || "00";
+
+    	    startHH = startHH.padStart(2, "0");
+    	    startMI = startMI.padStart(2, "0");
+
+    	    // 메세지용 교육기간 종료일
+    	    var endDate = $("[id^='learnEndDtYear']").eq(i).val();
+    	    var endHH = $("#detailForm input[name=learnEndDtHH]").eq(i).val() || "23";
+    	    var endMI = $("#detailForm input[name=learnEndDtMI]").eq(i).val() || "59";
+
+    	    endHH = endHH.padStart(2, "0");
+    	    endMI = endMI.padStart(2, "0");
+
+    	    // 메세지
+    	    var msg = startDate + " ~ " + endDate + " (" + startHH + ":" + startMI + " ~ " + endHH + ":" + endMI + ")";
+    	    learnDts.push(msg);
 		});
     	
 		$("[id^='learnEndDtYear']").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			var learnEndDt = $(this).val();
 			learnEndDt += " ";
 			
@@ -168,33 +328,44 @@ function fnCmdSave() {
 		});
 		
 		$("#detailForm input[name=capacitys]").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			if($.trim($("#detailForm input[name=capacitys]").eq(i).val()) == ""){
 				$("#detailForm input[name=capacitys]").eq(i).val("0");
 			}
 		});
 		
 		$("#detailForm input[name=waitEnrollCnts]").each(function(i) {
+			if ($(this).closest("#session").length > 0) return true;
+			
 			if($.trim($("#detailForm input[name=waitEnrollCnts]").eq(i).val()) == ""){
 				$("#detailForm input[name=waitEnrollCnts]").eq(i).val("0");
 			}
 		});
 		
     	$("#subjCd").val($("#selSubjCd").val());
-    	
-		$("#detailForm").attr("action", "SubjSeqManageInsert.do");
-		$("#detailForm").submit();
+
+		var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
+		
+		if(confirm(confirmMsg)) {
+			var oriSession = document.getElementById("session");
+		    if (oriSession) {//복사하기 위한 table 완전 제거
+		    	oriSession.remove();
+		    }
+		    
+			$("#detailForm").attr("action", "SubjSeqManageInsert.do");
+			$("#detailForm").submit();
+		}
 	};
 }
 
 function valid() {
-	var oriSession = document.getElementById("session");
-    if (oriSession) {//복사하기 위한 table 완전 제거
-    	oriSession.remove();
-    }	
-    
     var isValid = true;
     
     $("#detailForm input[name=subjNms]").each(function(i) {
+    	// input이 복사용 table에 있으면 건너뛰기
+        if ($(this).closest("#session").length > 0) return true;
+    	
     	if($("#detailForm select[name=selSubjCd]").val() == ""){
 			alert("과정마스터를 선택해주세요.");
 			isValid = false;
@@ -220,12 +391,24 @@ function valid() {
 			return false;
 		}
 		
+    	if($.trim($("#detailForm input[name=enrollStartDtHH]").eq(i).val()) == ""){
+			alert("모집기간 시작시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+    	
 		if($.trim($("#detailForm input[name=enrollStartDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=enrollStartDtHH]").eq(i).val(), 10) >= 24){
 				alert("모집기간 시작시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;			
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=enrollStartDtMI]").eq(i).val()) == ""){
+			alert("모집기간 시작시간의 분를 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=enrollStartDtMI]").eq(i).val()) != ""){
@@ -242,12 +425,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=enrollEndDtHH]").eq(i).val()) == ""){
+			alert("모집기간 종료시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=enrollEndDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=enrollEndDtHH]").eq(i).val(), 10) >= 24){
 				alert("모집기간 종료시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=enrollEndDtMI]").eq(i).val()) == ""){
+			alert("모집기간 종료시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=enrollEndDtMI]").eq(i).val()) != ""){
@@ -285,12 +480,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=learnStartDtHH]").eq(i).val()) == ""){
+			alert("교육기간 시작시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=learnStartDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=learnStartDtHH]").eq(i).val(), 10) >= 24){
 				alert("교육기간 시작시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;			
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=learnStartDtMI]").eq(i).val()) == ""){
+			alert("교육기간 시작시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=learnStartDtMI]").eq(i).val()) != ""){
@@ -307,12 +514,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=learnEndDtHH]").eq(i).val()) == ""){
+			alert("교육기간 종료시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=learnEndDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=learnEndDtHH]").eq(i).val(), 10) >= 24){
 				alert("교육기간 종료시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=learnEndDtMI]").eq(i).val()) == ""){
+			alert("교육기간 종료시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=learnEndDtMI]").eq(i).val()) != ""){
@@ -362,6 +581,7 @@ function fnCmdList() {
     color: #FFF!important;
     background-color: #182142!important;
 }
+.onlyA {display:none;}
 </style>
 
 <section>
@@ -377,6 +597,13 @@ function fnCmdList() {
 	       		<col width="35%" />
       		</colgroup>
       		<tbody>
+      			<tr style="display:${searchVo.searchSgrCd eq 'A' ? '':'none'}">
+		            <th>기수정보 복사<span class="red"> *</span></th>
+		            <td colspan="3">
+		            	<label><input type="radio" name="copyType" value="Y" /> 예</label>&nbsp;&nbsp;
+		            	<label><input type="radio" name="copyType" value="N" checked /> 아니오</label>
+		            </td>
+	          	</tr>
       			<tr>
 		            <th>과정마스터<span class="red"> *</span></th>
 		            <td colspan="3">
