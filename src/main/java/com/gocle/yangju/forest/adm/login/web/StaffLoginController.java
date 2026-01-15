@@ -38,7 +38,9 @@ public class StaffLoginController {
 	 * @throws Exception
 	 */
 	@RequestMapping("loginPage.do")
-	public String loginPage() throws Exception {
+	public String loginPage(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession(true);
+		session.invalidate();
 		return "staff/login/login";
 	}
 	
