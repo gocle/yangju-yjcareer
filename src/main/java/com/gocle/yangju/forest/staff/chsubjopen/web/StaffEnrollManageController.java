@@ -513,9 +513,9 @@ public class StaffEnrollManageController {
         titleCell.setCellValue(subjNm);
         titleCell.setCellStyle(titleStyle);
         if ("A".equals(searchVo.getSgrCd())) {
-        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 20));
+        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 19));
         } else {
-        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 17));
+        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 16));
         }
 	    
         Row header = sheet.createRow(rowNum++);
