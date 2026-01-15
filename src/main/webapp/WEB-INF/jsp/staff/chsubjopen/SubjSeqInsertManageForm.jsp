@@ -32,64 +32,9 @@ function fnCmdAddSession() {
 	var copyType = $('input[name="copyType"]:checked').val();
 	
 	if(searchSgrCd == "A" && copyType == "Y") {
-		var subjNm = $("#subjNms").val();
-		var sessionNm = $("#sessionNms").val();
-		
-		var enrollStartDtYear = $("#enrollStartDtYear").val();
-		var enrollStartDtHH = $("#enrollStartDtHH").val();
-		var enrollStartDtMI = $("#enrollStartDtMI").val();
-		var enrollEndDtYear = $("#enrollEndDtYear").val();
-		var enrollEndDtHH = $("#enrollEndDtHH").val();
-		var enrollEndDtMI = $("#enrollEndDtMI").val();
-		
-		var learnStartDtYear = $("#learnStartDtYear").val();
-		var learnStartDtHH = $("#learnStartDtHH").val();
-		var learnStartDtMI = $("#learnStartDtMI").val();
-		var learnEndDtYear = $("#learnEndDtYear").val();
-		var learnEndDtHH = $("#learnEndDtHH").val();
-		var learnEndDtMI = $("#learnEndDtMI").val();
-		
-		var capacity = $("#capacitys").val();
-		var waitEnrollCnt = $("#waitEnrollCnts").val();
-			
-		if(selSubjCd == "") {
-			alert("과정마스터를 선택해주세요.");
-			return false;
+		if(valid()) {
+			fnCmdAddSeq_A('session');
 		}
-		
-		if(subjNm == "") {
-			alert("교육강좌명를 입력해주세요.");
-			return false;
-		}
-		
-		if(sessionNm == "") {
-			alert("기수를 입력해주세요.");
-			return false;
-		}
-		
-		if(enrollStartDtYear == "" || enrollStartDtHH == "" || enrollStartDtMI == ""
-				|| enrollEndDtYear == "" || enrollEndDtHH == "" || enrollEndDtMI == "") {
-			alert("모집기간을 입력해주세요.");
-			return false;
-		}
-		
-		if(learnStartDtYear == "" || learnStartDtHH == "" || learnStartDtMI == ""
-			|| learnEndDtYear == "" || learnEndDtHH == "" || learnEndDtMI == "") {
-			alert("교육기간을 입력해주세요.");
-			return false;
-		}
-		
-		if(capacity == "") {
-			alert("모집인원을 입력해주세요.");
-			return false;
-		}
-		
-		if(waitEnrollCnt == "") {
-			alert("대기인원을 입력해주세요.");
-			return false;
-		}
-		
-		fnCmdAddSeq_A('session');
 	} else {
 		if(selSubjCd == "") {
 			alert("과정마스터를 선택해주세요.");
