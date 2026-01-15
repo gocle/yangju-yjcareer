@@ -294,21 +294,17 @@ function fnCmdSave() {
 		
     	$("#subjCd").val($("#selSubjCd").val());
     	
-		var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
-		
 		fnModal(learnDts);
 	};
 }
 
 function valid() {
-	var oriSession = document.getElementById("session");
-    if (oriSession) {//복사하기 위한 table 완전 제거
-    	oriSession.remove();
-    }	
-    
     var isValid = true;
     
     $("#detailForm input[name=subjNms]").each(function(i) {
+    	// input이 복사용 table에 있으면 건너뛰기
+        if ($(this).closest("#session").length > 0) return true;
+    	
     	if($("#detailForm select[name=selSubjCd]").val() == ""){
 			alert("과정마스터를 선택해주세요.");
 			isValid = false;
@@ -333,13 +329,25 @@ function valid() {
 			isValid = false;
 			return false;
 		}
-		
+    	
+    	if($.trim($("#detailForm input[name=enrollStartDtHH]").eq(i).val()) == ""){
+			alert("모집기간 시작시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+    	
 		if($.trim($("#detailForm input[name=enrollStartDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=enrollStartDtHH]").eq(i).val(), 10) >= 24){
 				alert("모집기간 시작시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;			
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=enrollStartDtMI]").eq(i).val()) == ""){
+			alert("모집기간 시작시간의 분를 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=enrollStartDtMI]").eq(i).val()) != ""){
@@ -356,12 +364,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=enrollEndDtHH]").eq(i).val()) == ""){
+			alert("모집기간 종료시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=enrollEndDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=enrollEndDtHH]").eq(i).val(), 10) >= 24){
 				alert("모집기간 종료시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=enrollEndDtMI]").eq(i).val()) == ""){
+			alert("모집기간 종료시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=enrollEndDtMI]").eq(i).val()) != ""){
@@ -399,12 +419,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=learnStartDtHH]").eq(i).val()) == ""){
+			alert("교육기간 시작시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=learnStartDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=learnStartDtHH]").eq(i).val(), 10) >= 24){
 				alert("교육기간 시작시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;			
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=learnStartDtMI]").eq(i).val()) == ""){
+			alert("교육기간 시작시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=learnStartDtMI]").eq(i).val()) != ""){
@@ -421,12 +453,24 @@ function valid() {
 			return false;
 		}
 		
+		if($.trim($("#detailForm input[name=learnEndDtHH]").eq(i).val()) == ""){
+			alert("교육기간 종료시간의 시를 입력해주세요.");
+			isValid = false;
+			return false;
+		}
+		
 		if($.trim($("#detailForm input[name=learnEndDtHH]").eq(i).val()) != ""){
 			if(parseInt($("#detailForm input[name=learnEndDtHH]").eq(i).val(), 10) >= 24){
 				alert("교육기간 종료시간의 시는 0 ~ 23까지 입력 가능합니다.");
 				isValid = false;
 				return false;
 			}
+		}
+		
+		if($.trim($("#detailForm input[name=learnEndDtMI]").eq(i).val()) == ""){
+			alert("교육기간 종료시간의 분을 입력해주세요.");
+			isValid = false;
+			return false;
 		}
 		
 		if($.trim($("#detailForm input[name=learnEndDtMI]").eq(i).val()) != ""){
