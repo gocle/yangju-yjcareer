@@ -139,6 +139,14 @@ function fnCmdSms() {
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
+
+function fnCmdExcel() {
+	var f = document.getElementById("listForm");
+
+    f.action = "${contextRoot}/adm/chsubjopen/EnrollResultExcelDownload.do";
+    f.method = "post";
+    f.submit();
+}
 </script>
 
 <style>
@@ -228,6 +236,7 @@ function fnCmdSms() {
             <a href="#none" onclick="javascript:fnEnrollApplyCancel();">교육생승인취소</a>
             <a href="#none" onclick="javascript:fnCmdList();" style="float:right;">목록</a>
             <a href="#none" class="btn_blue" onclick="javascript:fnCmdSms();" style="float:right;">문자발송</a>
+            <a href="#none" onclick="javascript:fnCmdExcel();" style="float:right;">엑셀 다운로드</a>
         </div>
 		
 		<table class="list-1" width="100%;" style="margin-top:20px;">
@@ -252,14 +261,7 @@ function fnCmdSms() {
 						<td><a href="#" onclick="javascript:fnEnrollUpdate('${item.seqCd}', '${item.diKey}');">${item.memName }</a></td>
 						<td>${item.hpTel1 }</td>
 						<td>${item.regDt }</td>
-						<td>
-							<c:choose>
-								<c:when test="${item.enrollStatusCd eq 'A'}">승인대기</c:when>
-								<c:when test="${item.enrollStatusCd eq 'B'}">수강승인</c:when>
-								<c:when test="${item.enrollStatusCd eq 'C'}">승인취소</c:when>
-								<c:otherwise></c:otherwise>
-							</c:choose>
-						</td>
+						<td>${item.enrollStatusNm }</td>
 						<td>
 							<c:if test="${item.enrollStatusCd eq 'B'}">
 								${item.enrollAppDt }

@@ -139,6 +139,14 @@ function fnCmdSms() {
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
+
+function fnCmdExcel() {
+	var f = document.getElementById("listForm");
+
+    f.action = "${contextRoot}/staff/chsubjopen/EnrollResultExcelDownload.do";
+    f.method = "post";
+    f.submit();
+}
 </script>
 
 <style>
@@ -152,7 +160,7 @@ function fnCmdSms() {
 		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex}" /> 
 		<input type="hidden" id="seqCd" name="seqCd" value="" />
 		<input type="hidden" id="subjCd" name="subjCd" value="${resultMap.subjCd }" />
-		<input type="hidden" id="sgrCd" name=""sgrCd"" value="${resultMap.sgrCd }" />
+		<input type="hidden" id="sgrCd" name="sgrCd" value="${resultMap.sgrCd }" />
 		<input type="hidden" id="menuId" name="menuId" value="${menuId }" />
 		<input type="hidden" id="diKey" name="diKey" value="" />
 		
@@ -219,6 +227,7 @@ function fnCmdSms() {
             <a href="#none" onclick="javascript:fnEnrollApplyCancel();">교육생승인취소</a>
             <a href="#none" onclick="javascript:fnCmdList();" style="float:right;">목록</a>
             <a href="#none" class="btn_blue" onclick="javascript:fnCmdSms();" style="float:right;">문자발송</a>
+            <a href="#none" onclick="javascript:fnCmdExcel();" style="float:right;">엑셀 다운로드</a>
         </div>
 		
 		<table class="list-1" width="100%;" style="margin-top:20px;">

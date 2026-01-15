@@ -1,8 +1,32 @@
 package com.gocle.yangju.forest.adm.chsubjopen.web;
 
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -407,4 +431,146 @@ public class EnrollManageController {
     	return "/adm/chsubjopen/popup/SmsSendForm";
     }
     
+    @RequestMapping("EnrollResultExcelDownload.do")
+    public void EnrollResultExcelDownload(@ModelAttribute("enrollManageVo") EnrollManageVo searchVo
+			, @ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo
+			, @ModelAttribute("subjManageVo") SubjManageVo subjManageVo
+			, ModelMap model
+			, HttpServletResponse response) throws Exception {
+    	
+    	String subjNm = "";
+    	List<EnrollManageVo> resultList = new ArrayList<>();
+    	
+		if ("A".equals(searchVo.getSgrCd())) {
+			subjNm = subjManageService.select(subjManageVo).getSubjNm();
+			resultList = this.enrollManageService.selectEnrollDetailListA(searchVo);
+		} else {
+			subjNm = subjSeqManageService.select(subjSeqManageVo).getSubjNm();
+			resultList = this.enrollManageService.selectEnrollDetailList(searchVo);
+		}
+		 
+		Workbook workbook = new XSSFWorkbook();
+		Sheet sheet = workbook.createSheet("수강신청관리");
+		CellStyle headerStyle = workbook.createCellStyle();
+		
+		headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+	    headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+	    headerStyle.setBorderBottom(BorderStyle.THIN);
+	    headerStyle.setBorderTop(BorderStyle.THIN);
+	    headerStyle.setBorderLeft(BorderStyle.THIN);
+	    headerStyle.setBorderRight(BorderStyle.THIN);
+	    headerStyle.setAlignment(HorizontalAlignment.CENTER);
+	    headerStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+	    
+	    Font headerFont = workbook.createFont();
+	    headerFont.setBold(true);
+	    headerStyle.setFont(headerFont);
+	    
+	    CellStyle titleStyle = workbook.createCellStyle();
+        Font titleFont = workbook.createFont();
+        titleFont.setBold(true);
+        titleFont.setFontHeightInPoints((short)20);
+        titleStyle.setFont(titleFont);
+        titleStyle.setAlignment(HorizontalAlignment.CENTER); 
+        titleStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        
+        CellStyle bodyStyle = workbook.createCellStyle();
+        bodyStyle.setAlignment(HorizontalAlignment.CENTER);
+        bodyStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+	    bodyStyle.setBorderTop(BorderStyle.THIN);
+	    bodyStyle.setBorderBottom(BorderStyle.THIN);
+	    bodyStyle.setBorderLeft(BorderStyle.THIN);
+	    bodyStyle.setBorderRight(BorderStyle.THIN);
+     
+        int rowNum = 0;
+        Row titleRow = sheet.createRow(rowNum++);
+        Cell titleCell = titleRow.createCell(0);
+        titleCell.setCellValue(subjNm);
+        titleCell.setCellStyle(titleStyle);
+        if ("A".equals(searchVo.getSgrCd())) {
+        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 20));
+        } else {
+        	sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 17));
+        }
+        
+        Row header = sheet.createRow(rowNum++);
+	    String[] columns;
+	    
+	    if ("A".equals(searchVo.getSgrCd())) {
+	    	columns = new String[]{"번호","과정운영코드","교육강좌명","기수","이름","성별","연령대","학교명","학년","휴대전화","예약상황 문자 수신 여부","우편번호","주소","거주지","메모","신청일자","신청상태","승인일자","관리자 등록여부", "수료여부"};
+		} else {
+			columns = new String[]{"번호","이름","성별","연령대","학교명","학년","휴대전화","예약상황 문자 수신 여부","우편번호","주소","거주지","메모","신청일자","신청상태","승인일자","관리자 등록여부", "수료여부"};
+		}
+	    
+	    for(int i=0; i<columns.length; i++) {
+	        Cell cell = header.createCell(i);
+	        cell.setCellValue(columns[i]);
+	        cell.setCellStyle(headerStyle);
+	    }
+	    
+	    for(EnrollManageVo e : resultList) {
+	    	Row row = sheet.createRow(rowNum++);
+	    	row.createCell(0).setCellValue(rowNum-2);
+	    	
+	    	if ("A".equals(searchVo.getSgrCd())) {
+	    		row.createCell(1).setCellValue(e.getSeqCd());
+	    		row.createCell(2).setCellValue(e.getSubjNm());
+	    		row.createCell(3).setCellValue(e.getSessionNm());
+	    		row.createCell(4).setCellValue(e.getMemName());
+		        row.createCell(5).setCellValue(e.getSexdstn());
+		        row.createCell(6).setCellValue(e.getAgeGroup());
+		        row.createCell(7).setCellValue(e.getSchoolNm());
+		        row.createCell(8).setCellValue(e.getGrade());
+		        row.createCell(9).setCellValue(e.getHpTel1());
+		        row.createCell(10).setCellValue(e.getSmsYn());
+		        row.createCell(11).setCellValue(e.getZipcode());
+		        row.createCell(12).setCellValue(e.getAddress());
+		        row.createCell(13).setCellValue(e.getResdncDetail());
+		        row.createCell(14).setCellValue(e.getMemo());
+		        row.createCell(15).setCellValue(e.getRegDt());
+		        row.createCell(16).setCellValue(e.getEnrollStatusNm());
+		        row.createCell(17).setCellValue("B".equals(e.getEnrollStatusCd()) ? e.getEnrollAppDt() : "");
+		        row.createCell(18).setCellValue(e.getForceYn());
+		        row.createCell(19).setCellValue(e.getCompleteYn());
+		        
+		        for (int i = 0; i <= 19; i++) {
+		        	Cell cell = row.getCell(i);
+		            cell.setCellStyle(bodyStyle);
+		        }
+	    	} else {
+	    		row.createCell(1).setCellValue(e.getMemName());
+		        row.createCell(2).setCellValue(e.getSexdstn());
+		        row.createCell(3).setCellValue(e.getAgeGroup());
+		        row.createCell(4).setCellValue(e.getSchoolNm());
+		        row.createCell(5).setCellValue(e.getGrade());
+		        row.createCell(6).setCellValue(e.getHpTel1());
+		        row.createCell(7).setCellValue(e.getSmsYn());
+		        row.createCell(8).setCellValue(e.getZipcode());
+		        row.createCell(9).setCellValue(e.getAddress());
+		        row.createCell(10).setCellValue(e.getResdncDetail());
+		        row.createCell(11).setCellValue(e.getMemo());
+		        row.createCell(12).setCellValue(e.getRegDt());
+		        row.createCell(13).setCellValue(e.getEnrollStatusNm());
+		        row.createCell(14).setCellValue("B".equals(e.getEnrollStatusCd()) ? e.getEnrollAppDt() : "");
+		        row.createCell(15).setCellValue(e.getForceYn());
+		        row.createCell(16).setCellValue(e.getCompleteYn());
+		        
+		        for (int i = 0; i <= 16; i++) {
+		        	Cell cell = row.getCell(i);
+		            cell.setCellStyle(bodyStyle);
+		        }
+	    	}
+	    }
+	    
+	    response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+	    String fileName = subjNm + " 수강신청관리.xlsx";
+	    fileName = URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "%20");
+	    response.setHeader("Content-Disposition", "attachment; filename*=UTF-8''" + fileName);
+	    OutputStream out = response.getOutputStream();
+	    workbook.write(out);
+	    workbook.close();
+	    out.flush();
+	    out.close();
+    }
 }
