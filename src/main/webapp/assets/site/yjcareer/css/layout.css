@@ -20,7 +20,7 @@ body{overflow-x:hidden; background-color:#fff; color:#26293d; font-size:22px; li
 /* slick */
 .slick-slider{position:relative}
 .slick-list{overflow:hidden; position:relative}
-.slick-track{position:relative; top:0; left:0; margin-right:auto; margin-left:auto}
+.slick-track{position:relative; top:0; left:0;}
 .slick-track:after,.slick-track:before{display:table}
 .slick-track:after{clear:both}
 .slick-loading .slick-track{visibility:hidden}

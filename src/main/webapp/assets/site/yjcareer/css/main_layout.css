@@ -42,12 +42,13 @@
 }
 
 .pop-btn {
-	background: #333;
-	padding: 7px 3rem
+
 }
 
 .pop-btn a {
 	color: #fff!important;
+	background: #333;
+    padding: 7px 3rem;
 }
 
 .layer_put label {

@@ -359,6 +359,21 @@ function fnCmdSave() {
 	};
 }
 
+function fnModal() {
+	//var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
+	
+	var title = "";
+	title = "교육기간";
+	
+	var contents = "";
+	contents = "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
+	contents = "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
+	
+	contents = "총 2건 등록하시겠습니까?"
+	
+	$('.modal').fadeIn(100);
+}
+
 function valid() {
     var isValid = true;
     
@@ -573,6 +588,57 @@ function fnCmdList() {
 	$("#detailForm").attr("action", "SubjSeqManageList.do");
 	$("#detailForm").submit();
 }
+
+function fnModal() {
+	var html = "";
+	var title = "교육기간";
+	
+	var dates = [
+	  "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)",
+	  "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
+	];
+	
+	$("#modalTitle").text(title);
+	
+	for (var i = 0; i < dates.length; i++) {
+	  html += '<div class="date-line"><span class="dot"></span>' + dates[i] + '</div>';
+	}
+
+	$("#modalDate").html(html);
+	$("#modalDesc").text("총 " + dates.length + "건 등록하시겠습니까?");
+	
+	openModal();
+}
+
+function openModal() {
+	const $modal = $(".modal");
+	
+	$modal.removeClass("is-closing").show();
+	
+	requestAnimationFrame(() => {
+		$modal.addClass("is-open");
+	});
+}
+
+// 닫기
+function closeModal() {
+	const $modal = $(".modal");
+	
+	$modal.addClass("is-closing").removeClass("is-open");
+	
+	setTimeout(() => {
+		$modal.hide().removeClass("is-closing");
+	}, 220);
+}
+
+$(document).on("click", ".btn-close", function () {
+	closeModal();
+});
+
+$(document).on("click", ".modal", function (e) {
+	if ($(e.target).is(".modal")) closeModal();
+});
+	
 </script>
 
 <style>
@@ -725,8 +791,24 @@ function fnCmdList() {
  	
  	<!-- 버튼 영역 -->
     <div class="text-right btn-area" style="margin-top: 20px;">
-		<a href="javascript:;" onclick="fnCmdSave()">등록</a>
+		<!-- <a href="javascript:;" onclick="fnCmdSave()">등록</a> -->
+		<a href="javascript:;" onclick="fnModal()">등록</a>
 		<a href="javascript:fnCmdList();">목록</a>
 	</div>
 </section>
+
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <h3 id="modalTitle"></h3>
+
+    <p><span id="modalDate"></span></p>
+    <p id="modalDesc"></p>
+
+    <div class="modal-btns">
+      <button class="btn-close" type="button">취소</button>
+      <button class="btn-done" type="button">확인</button>
+    </div>
+  </div>
+</div>
+
 
