@@ -5,6 +5,11 @@
 <%@ include file="/WEB-INF/jsp/adm/include/common.jsp" %>
 <c:import url="/adm/menu/leftMenu.do" />
 
+<link rel="stylesheet" type="text/css" href="../assets/css/adm/adm_inc.css" />
+<link rel="stylesheet" type="text/css" href="../assets/site/yjcareer/css/layout.css">
+<link rel="stylesheet" type="text/css" href="../assets/site/yjcareer/css/main_layout.css">
+
+
 <script type="text/javascript">
 var sessionCnt = 0;
 
@@ -344,34 +349,9 @@ function fnCmdSave() {
 		});
 		
     	$("#subjCd").val($("#selSubjCd").val());
-
-		var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
 		
-		if(confirm(confirmMsg)) {
-			var oriSession = document.getElementById("session");
-		    if (oriSession) {//복사하기 위한 table 완전 제거
-		    	oriSession.remove();
-		    }
-		    
-			$("#detailForm").attr("action", "SubjSeqManageInsert.do");
-			$("#detailForm").submit();
-		}
+		fnModal(learnDts);
 	};
-}
-
-function fnModal() {
-	//var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
-	
-	var title = "";
-	title = "교육기간";
-	
-	var contents = "";
-	contents = "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
-	contents = "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
-	
-	contents = "총 2건 등록하시겠습니까?"
-	
-	$('.modal').fadeIn(100);
 }
 
 function valid() {
@@ -589,25 +569,20 @@ function fnCmdList() {
 	$("#detailForm").submit();
 }
 
-function fnModal() {
-	var html = "";
-	var title = "교육기간";
-	
-	var dates = [
-	  "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)",
-	  "2026-01-15 ~ 2026-01-15 (00:00 ~ 23:59)"
-	];
-	
-	$("#modalTitle").text(title);
-	
-	for (var i = 0; i < dates.length; i++) {
-	  html += '<div class="date-line"><span class="dot"></span>' + dates[i] + '</div>';
-	}
+function fnModal(dates) {
+    var html = "";
+    var title = "교육기간";
 
-	$("#modalDate").html(html);
-	$("#modalDesc").text("총 " + dates.length + "건 등록하시겠습니까?");
-	
-	openModal();
+    $("#modalTitle").text(title);
+
+    for (var i = 0; i < dates.length; i++) {
+        html += '<div class="date-line"><span class="dot"></span>' + dates[i] + '</div>';
+    }
+
+    $("#modalDate").html(html);
+    $("#modalDesc").text("총 " + dates.length + "건 등록하시겠습니까?");
+
+    openModal();
 }
 
 function openModal() {
@@ -635,10 +610,22 @@ $(document).on("click", ".btn-close", function () {
 	closeModal();
 });
 
+$(document).on("click", ".btn-done", function () {
+	closeModal();
+	
+	var oriSession = document.getElementById("session");
+    if (oriSession) {//복사하기 위한 table 완전 제거
+    	oriSession.remove();
+    }
+    
+	$("#detailForm").attr("action", "SubjSeqManageInsert.do");
+	$("#detailForm").submit();
+});
+
 $(document).on("click", ".modal", function (e) {
 	if ($(e.target).is(".modal")) closeModal();
 });
-	
+
 </script>
 
 <style>
@@ -647,7 +634,6 @@ $(document).on("click", ".modal", function (e) {
     color: #FFF!important;
     background-color: #182142!important;
 }
-.onlyA {display:none;}
 </style>
 
 <section>
@@ -791,8 +777,7 @@ $(document).on("click", ".modal", function (e) {
  	
  	<!-- 버튼 영역 -->
     <div class="text-right btn-area" style="margin-top: 20px;">
-		<!-- <a href="javascript:;" onclick="fnCmdSave()">등록</a> -->
-		<a href="javascript:;" onclick="fnModal()">등록</a>
+		<a href="javascript:;" onclick="fnCmdSave()">등록</a>
 		<a href="javascript:fnCmdList();">목록</a>
 	</div>
 </section>

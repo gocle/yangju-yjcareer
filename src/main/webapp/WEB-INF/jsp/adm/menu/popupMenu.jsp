@@ -82,7 +82,7 @@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 													
 					 <ul class="tree" style="width:400px;">
 						<li>
-							 <span>양주 산림예약 시스템</span>
+							 <span>양주 진로진학플랫폼 시스템</span>
 									<c:set var="upperMenuNo" value="TOP"/>
 									<c:set var="menuLevel" value="1"/>
 									<c:set var="menuTypeNum" value="1"/>

@@ -276,17 +276,17 @@
 						        <span class="chk-text">진로진학</span>
 						      </label>
 						
-						      <label class="chk-circle">
+						      <!-- <label class="chk-circle">
 						        <input type="checkbox" name="searchCateCd" id="chk01" value="BB,BC">
 						        <span class="chk-ui"></span>
 						        <span class="chk-text">AI디지털</span>
-						      </label>
+						      </label> -->
 						
-						      <label class="chk-circle">
+						      <!-- <label class="chk-circle">
 						        <input type="checkbox" name="searchCateCd" id="chk02" value="BD,BE">
 						        <span class="chk-ui"></span>
 						        <span class="chk-text">돌봄</span>
-						      </label>
+						      </label> -->
 						
 						    </div>
 						  </div>
@@ -315,7 +315,7 @@
 </div>
 
 <!-- 캘린더  -->
-<link href='/yjcareer/assets/script/fullcalendar/main.css' rel='stylesheet' />
+<link href='/yjcareer/assets/script/fullcalendar/main.css?v=20260115' rel='stylesheet' />
 <script src='/yjcareer/assets/script/fullcalendar/main.js'></script>
 <script src='/yjcareer/assets/script/fullcalendar/locales-all.js'></script>
 

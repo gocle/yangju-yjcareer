@@ -8,17 +8,7 @@
 		</if>
 		<if test="(searchCateCdList == null or searchCateCdList.size() == 0)
 		          and searchCateCd != null and searchCateCd != ''">
-		  <choose>
-		    <when test="searchCateCd == 'BB'">
-		      AND SS.CATE_CD IN ('BB', 'BC')
-		    </when>
-		    <when test="searchCateCd == 'BD'">
-		      AND SS.CATE_CD IN ('BD', 'BE')
-		    </when>
-		    <otherwise>
-		      AND SS.CATE_CD = #{searchCateCd}
-		    </otherwise>
-		  </choose>
+		  	AND SS.CATE_CD = #{searchCateCd}
 		</if>
 		
 		<if test="searchCateCdList != null and searchCateCdList.size() > 0">
@@ -446,7 +436,7 @@
 		WHERE 1 = 1
 			AND SS.USE_YN = 'Y'
 			<include refid="selectSearchWhere" />
-		ORDER BY SS.SUBJ_NM
+		ORDER BY SS.LEARN_START_DT
 	</select>
 	
 	<select id="selectSubjSeqEduInfo" resultType="SubjSeqManageVo" parameterType="SubjSeqManageVo">

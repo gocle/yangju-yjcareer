@@ -236,7 +236,7 @@ public class UserBoardController {
 			public List<Map<String, Object>> selectProgramList(@ModelAttribute("searchVo") EnrollManageVo searchVo) throws Exception {
 				
 				searchVo.setSearchSgrCd("B");
-				
+				searchVo.setSearchCateCd("BA");
 				List<Map<String, Object>> resultList = userReservationService.selectProgramList(searchVo);
 
 				return resultList;

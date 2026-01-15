@@ -3,7 +3,7 @@
 <!doctype html>
 <html lang="ko" xmlns="http://www.w3.org/1999/html">
 	<head>
-		<title>양주 산림예약 관리페이지</title>
+		<title>양주 진로진학플랫폼 관리페이지</title>
 
 		<!-- <meta name="Description" content="Koreatech Back Office" /> -->
 		<meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />

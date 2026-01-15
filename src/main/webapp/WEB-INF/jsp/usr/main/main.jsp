@@ -511,10 +511,16 @@
 													<label for="program_BA">진로진학</label>
 
 													<input type="radio" id="program_BB" name="program">
-													<label for="program_BB">AI디지털</label>
-
+													<label for="program_BB">동부 AI디지털</label>
+													
+													<input type="radio" id="program_BC" name="program">
+													<label for="program_BC">서부 AI디지털</label>
+													
 													<input type="radio" id="program_BD" name="program">
-													<label for="program_BD">돌봄</label>
+													<label for="program_BD">동부 돌봄</label>
+
+													<input type="radio" id="program_BE" name="program">
+													<label for="program_BE">서부 돌봄</label>
 												</div>	
 											</div>
 											
@@ -530,8 +536,7 @@
 															<c:set var="pageCnt" value="${pageCnt + 1}" />
 														</c:if>
 												
-														<div class="program_item item p_type_${row.cateCd eq 'BC' ? 'BB' : 
-																	(row.cateCd eq 'BE') ? 'BD' : row.cateCd}">
+														<div class="program_item item p_type_${row.cateCd}">
 															<a href="javascript:;" onclick="fnDetailView('${row.seqCd}');" class="program_anchor">
 																<div class="item_img">
 																	<c:if test="${empty row.thumbpath}">

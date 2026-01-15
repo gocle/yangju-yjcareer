@@ -5,6 +5,10 @@
 <%@ include file="/WEB-INF/jsp/staff/include/common.jsp" %>
 <c:import url="/${sessionScope.SESSION_MEM_TYPE}/menu/leftMenu.do" />
 
+<link rel="stylesheet" type="text/css" href="../assets/css/adm/adm_inc.css" />
+<link rel="stylesheet" type="text/css" href="../assets/site/yjcareer/css/layout.css">
+<link rel="stylesheet" type="text/css" href="../assets/site/yjcareer/css/main_layout.css">
+
 <script type="text/javascript">
 var sessionCnt = 0;
 
@@ -347,15 +351,7 @@ function fnCmdSave() {
     	
 		var confirmMsg = "교육기간\n" + learnDts.join("\n") + "\n\n총 " + learnDts.length + "건 등록하시겠습니까?";
 		
-		if(confirm(confirmMsg)) {
-			var oriSession = document.getElementById("session");
-		    if (oriSession) {//복사하기 위한 table 완전 제거
-		    	oriSession.remove();
-		    }
-		    
-			$("#detailForm").attr("action", "SubjSeqManageInsert.do");
-			$("#detailForm").submit();
-		}
+		fnModal(learnDts);
 	};
 }
 
@@ -527,6 +523,63 @@ function fnCmdList() {
 	$("#detailForm").attr("action", "SubjSeqManageList.do");
 	$("#detailForm").submit();
 }
+
+function fnModal(dates) {
+    var html = "";
+    var title = "교육기간";
+
+    $("#modalTitle").text(title);
+
+    for (var i = 0; i < dates.length; i++) {
+        html += '<div class="date-line"><span class="dot"></span>' + dates[i] + '</div>';
+    }
+
+    $("#modalDate").html(html);
+    $("#modalDesc").text("총 " + dates.length + "건 등록하시겠습니까?");
+
+    openModal();
+}
+
+function openModal() {
+	const $modal = $(".modal");
+	
+	$modal.removeClass("is-closing").show();
+	
+	requestAnimationFrame(() => {
+		$modal.addClass("is-open");
+	});
+}
+
+// 닫기
+function closeModal() {
+	const $modal = $(".modal");
+	
+	$modal.addClass("is-closing").removeClass("is-open");
+	
+	setTimeout(() => {
+		$modal.hide().removeClass("is-closing");
+	}, 220);
+}
+
+$(document).on("click", ".btn-close", function () {
+	closeModal();
+});
+
+$(document).on("click", ".btn-done", function () {
+	closeModal();
+	
+	var oriSession = document.getElementById("session");
+    if (oriSession) {//복사하기 위한 table 완전 제거
+    	oriSession.remove();
+    }
+    
+	$("#detailForm").attr("action", "SubjSeqManageInsert.do");
+	$("#detailForm").submit();
+});
+
+$(document).on("click", ".modal", function (e) {
+	if ($(e.target).is(".modal")) closeModal();
+});
 </script>
 
 <style>
@@ -682,3 +735,17 @@ function fnCmdList() {
 		<a href="javascript:fnCmdList();">목록</a>
 	</div>
 </section>
+
+<div class="modal" id="modal">
+  <div class="modal-inner">
+    <h3 id="modalTitle"></h3>
+
+    <p><span id="modalDate"></span></p>
+    <p id="modalDesc"></p>
+
+    <div class="modal-btns">
+      <button class="btn-close" type="button">취소</button>
+      <button class="btn-done" type="button">확인</button>
+    </div>
+  </div>
+</div>

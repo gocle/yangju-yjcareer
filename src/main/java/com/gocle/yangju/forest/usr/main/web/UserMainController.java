@@ -108,7 +108,7 @@ public class UserMainController{
 	public List<Map<String, Object>> loadSchedule(@ModelAttribute("searchVo") EnrollManageVo searchVo) throws Exception {
 		
 		searchVo.setSearchSgrCd("B");
-
+		searchVo.setSearchCateCd("BA");
 		List<Map<String, Object>> resultList = userReservationService.selectProgramList(searchVo);
 
 		return resultList;
