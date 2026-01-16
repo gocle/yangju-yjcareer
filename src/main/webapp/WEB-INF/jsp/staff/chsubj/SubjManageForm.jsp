@@ -138,7 +138,7 @@ function fnCmdList() {
 }
 
 function valid() {
-	var subjNm = $("#subjNm").val();
+	var subjNm = $.trim($("#subjNm").val());
 	var sgrCd = $("#sgrCd").val();
 	var cateCd = $("#cateCd").val();
 	var comId = $("#comId").val();

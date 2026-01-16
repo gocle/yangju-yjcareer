@@ -45,7 +45,8 @@
 			       END_DATE,
 			       LAST_PW_UPDT_YMD,
 			       DELETE_YN,
-			       SCSN_YN
+			       SCSN_YN,
+			       USE_YN
 			  FROM COM_MEMBER
 			  WHERE MEM_ID = #{memId}
 			  AND MEM_TYPE != 'STAFF'
@@ -93,7 +94,8 @@
 			       END_DATE,
 			       LAST_PW_UPDT_YMD,
 			       DELETE_YN,
-			       SCSN_YN
+			       SCSN_YN,
+			       USE_YN
 			  FROM COM_MEMBER
 			  WHERE MEM_ID = #{memId}
 			  AND MEM_TYPE = 'STAFF'

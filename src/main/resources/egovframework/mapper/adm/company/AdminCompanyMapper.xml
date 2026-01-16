@@ -138,6 +138,7 @@
         FROM    COMPANY_LOCATION
         WHERE   1 = 1
         AND     com_id = #{comId}
+        ORDER BY SEQ_NO
 	</select>
     
     <!-- 교육 장소 수정 -->

@@ -114,7 +114,23 @@ public class CompanyManageServiceImpl extends EgovAbstractServiceImpl implements
 		
 		int data = companyManageMapper.deleteBoardArticle(companyManageVo);
 		
-		companyManageMapper.deleteCompanyLocation(companyManageVo);
+		//companyManageMapper.deleteCompanyLocation(companyManageVo);
+		
+		if(companyManageVo.getLocId() != null && companyManageVo.getLocId() != "") {
+			String[] locIds = companyManageVo.getLocId().split(",");
+			
+			for (int i = 0; i < locIds.length; i++) {
+			    String loc = locIds[i].trim(); // 공백 제거
+			    if (loc.isEmpty()) continue;      // 빈 값은 건너뛰기
+			    
+			    String locId = (locIds != null && i < locIds.length) ? locIds[i].trim() : null;
+			    
+			    if(locId != null && !locId.isEmpty()) {
+			    	companyManageVo.setLocId(locId);
+			    	companyManageMapper.deleteCompanyLocation(companyManageVo);
+			    }
+			}
+		}
 		
 		return data;
 	}
