@@ -44,10 +44,10 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 			logonMsg = "등록되어있지 않거나, 아이디, 패스워드가 틀립니다.";
 		} else {
 			if(!loginVO.getEncryptPassword().equals(loginAdminVO.getMemPassword())){
-				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn()) || "N".equals(loginAdminVO.getUseYn())) {
+				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn())) {
 					logonMsg = "삭제 또는 회수되었거나 탈퇴한 관리자입니다.";
-				} else if("Y".equals(loginAdminVO.getLockYn())) {
-					logonMsg = "잠금처리된 관리자입니다.";
+				} else if("Y".equals(loginAdminVO.getLockYn()) || "Y".equals(loginAdminVO.getUseYn())) {
+					logonMsg = "잠금 또는 회수처리된 관리자입니다.";
 				} else {
 					//로그인 실패 카운트 추가 및 5회 이상이면 잠금처리
 					adminLoginMapper.updateAdminLoginFailCntAdd(loginAdminVO);
@@ -103,10 +103,10 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 				    }
 				}
 				
-				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn()) || "N".equals(loginAdminVO.getUseYn())) {
-					logonMsg = "삭제 또는 회수되었거나 탈퇴한 관리자입니다.";
-				} else if("Y".equals(loginAdminVO.getLockYn())) {
-					logonMsg = "잠금처리된 관리자입니다.";
+				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn())) {
+					logonMsg = "삭제되었거나 탈퇴한 관리자입니다.";
+				} else if("Y".equals(loginAdminVO.getLockYn()) || "Y".equals(loginAdminVO.getUseYn())) {
+					logonMsg = "잠금 또는 회수처리된 관리자입니다.";
 				} else if (!ipCheck){
 					logonMsg = "허용된 IP가 아닙니다.";
 				} else if ("N".equals(permitDtYn)) {
@@ -142,9 +142,9 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 		} else {
 			if(!loginVO.getEncryptPassword().equals(loginAdminVO.getMemPassword())){
 				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn()) || "Y".equals(loginAdminVO.getUseYn())) {
-					logonMsg = "삭제 또는 회수되었거나 탈퇴한 기관담당자입니다.";
-				} else if("Y".equals(loginAdminVO.getLockYn())) {
-					logonMsg = "잠금처리된 기관담당자입니다.";
+					logonMsg = "삭제되었거나 탈퇴한 기관담당자입니다.";
+				} else if("Y".equals(loginAdminVO.getLockYn()) || "Y".equals(loginAdminVO.getUseYn())) {
+					logonMsg = "잠금 또는 회수처리된 기관담당자입니다.";
 				} else {
 					//로그인 실패 카운트 추가 및 5회 이상이면 잠금처리
 					adminLoginMapper.updateAdminLoginFailCntAdd(loginAdminVO);
@@ -200,10 +200,10 @@ public class AdminLoginServiceImpl extends EgovAbstractServiceImpl implements Ad
 				    }
 				}
 				
-				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn()) || "Y".equals(loginAdminVO.getUseYn())) {
-					logonMsg = "삭제 또는 회수되었거나 탈퇴한 기관담당자입니다.";
-				} else if("Y".equals(loginAdminVO.getLockYn())) {
-					logonMsg = "잠금처리된 기관담당자입니다.";
+				if("Y".equals(loginAdminVO.getDeleteYn()) || "Y".equals(loginAdminVO.getScsnYn())) {
+					logonMsg = "삭제되었거나 탈퇴한 기관담당자입니다.";
+				} else if("Y".equals(loginAdminVO.getLockYn()) || "Y".equals(loginAdminVO.getUseYn())) {
+					logonMsg = "잠금 또는 회수처리된 기관담당자입니다.";
 				} else if (!ipCheck){
 					logonMsg = "허용된 IP가 아닙니다.";
 				} else if ("N".equals(permitDtYn)) {
