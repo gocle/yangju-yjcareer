@@ -24,19 +24,18 @@
 			<when test="searchCondition != null and searchCondition != ''">
 				<if test="searchCondition eq 'BC_NAME'">
 					<if test="searchKeyword != null and searchKeyword != ''">
-						AND CB.BC_NAME LIKE '%' || #{searchKeyword } || '%'
+						AND CB.BC_NAME LIKE CONCAT('%', #{searchKeyword}, '%')
 					</if>
 				</if>
 				<if test="searchCondition eq 'BC_ID'">
 					<if test="searchKeyword != null and searchKeyword != ''">
-						AND CB.BC_ID LIKE '%' || #{searchKeyword } || '%'
+						AND CB.BC_ID LIKE CONCAT('%', #{searchKeyword}, '%')
 					</if>
 				</if>
 			</when>
 			<otherwise>
 				<if test="searchKeyword != null and searchKeyword != ''">
-					AND ( CB.BC_NAME LIKE '%' || #{searchKeyword } || '%' OR CB.BC_ID LIKE '%'
-					|| #{searchKeyword } || '%' )
+					AND ( CB.BC_NAME LIKE CONCAT('%', #{searchKeyword}, '%') OR CB.BC_ID LIKE CONCAT('%', #{searchKeyword}, '%'))
 				</if>
 			</otherwise>	
 		</choose>
@@ -68,6 +67,7 @@
 		,BC_SUPPORT_IMAGE
 		,REG_DT
 		,REG_ID
+		,BC_CATEGORY1
 		)
 		VALUES
 		(
