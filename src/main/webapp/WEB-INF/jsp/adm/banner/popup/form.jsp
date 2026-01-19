@@ -77,6 +77,11 @@ function fn_save(){
 	var data = ckEditor.getData();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 
+	if(bnName.trim() === "" ) {
+		alert("제목을 입력 하세요.");
+		return false;
+	}
+	
 	if (text.trim() === "" && data.indexOf("img") <= 0) {
 	    alert("내용을 입력 하세요.");
 	    ckEditor.focus();   // 포커스
@@ -85,8 +90,44 @@ function fn_save(){
 	
 	$("#content").val(data);
 	
-
-	$("#content").val(data);
+	var bnStartDate = $('#date_timepicker_start').val();
+	var bnEndDate = $('#date_timepicker_end').val();
+	
+	if (bnStartDate.trim() === "" ) {
+	    alert("게시 시작일을 선택 하세요.");
+	    return false;
+	}
+	
+	if (bnEndDate.trim() === "" ) {
+	    alert("게시 종료일을 선택 하세요.");
+	    return false;
+	}
+	
+	var bnWidth = $('#bnWidth').val();
+	var bnHeight = $('#bnHeight').val();
+	var bnTop = $('#bnTop').val();
+	var bnLeft = $('#bnLeft').val();
+	
+	if (bnWidth.trim() === "" ) {
+	    alert("팝업창 가로 크기를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnHeight.trim() === "" ) {
+	    alert("팝업창 세로 크기를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnTop.trim() === "" ) {
+	    alert("팝업창 TOP 위치를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnLeft.trim() === "" ) {
+	    alert("팝업창 LEFT 크기를 입력 하세요.");
+	    return false;
+	}
+	
 	$("#form").attr("action", "${contextRoot}/adm/banner/"+bnType+"/insert.do");
 	$("#form").attr("target","_self");
 	$("#form").submit();
@@ -105,6 +146,13 @@ function fn_update( bnId ){
 		return false;
 	} */
 	
+	var bnName = $("#bnName").val();
+	
+	if(bnName.trim() == "" ) {
+		alert("제목을 입력 하세요.");
+		return false;
+	}
+	
 	var data = ckEditor.getData();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 
@@ -115,8 +163,45 @@ function fn_update( bnId ){
 	}	
 	
 	$("#content").val(data);
-
-	$("#content").val(data);
+	
+	var bnStartDate = $('#date_timepicker_start').val();
+	var bnEndDate = $('#date_timepicker_end').val();
+	
+	if (bnStartDate.trim() === "" ) {
+	    alert("게시 시작일을 선택 하세요.");
+	    return false;
+	}
+	
+	if (bnEndDate.trim() === "" ) {
+	    alert("게시 종료일을 선택 하세요.");
+	    return false;
+	}
+	
+	var bnWidth = $('#bnWidth').val();
+	var bnHeight = $('#bnHeight').val();
+	var bnTop = $('#bnTop').val();
+	var bnLeft = $('#bnLeft').val();
+	
+	if (bnWidth.trim() === "" ) {
+	    alert("팝업창 가로 크기를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnHeight.trim() === "" ) {
+	    alert("팝업창 세로 크기를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnTop.trim() === "" ) {
+	    alert("팝업창 TOP 위치를 입력 하세요.");
+	    return false;
+	}
+	
+	if (bnLeft.trim() === "" ) {
+	    alert("팝업창 LEFT 크기를 입력 하세요.");
+	    return false;
+	}
+	
 	$("#form").attr("action", "${contextRoot}/adm/banner/"+bnType+"/update.do");
 	$("#form").attr("target","_self");
 	$("#form").submit();
@@ -194,19 +279,19 @@ function fn_regExp( param ){
 			</colgroup>
 			<tbody>
 				<tr>
-					<th>팝업 제목</th>
+					<th>팝업 제목<span style="color:red;"> *</span></th>
 					<td colspan="3">
 						<input type="text" style="width: 100%" name="bnName" id="bnName" value="${bannerResult.bnName }">
 					</td>
 				</tr>
 				<tr>
-					<th>팝업 내용</th>
+					<th>팝업 내용<span style="color:red;"> *</span></th>
 					<td colspan="3">
 						<textarea style="width: 100%" placeholder=" 내용을 간략히 입력해주세요." id="content" name="bnDescription">${bannerResult.bnDescription}</textarea>
 					</td>
 				</tr>
 				<tr>
-					<th>게시 기간</th>
+					<th>게시 기간<span style="color:red;"> *</span></th>
 					<td>
 						게시 시작일&nbsp;
 						<input type="text" style="width: 20%;" id="date_timepicker_start" name="bnStartDate" value="${bannerResult.bnStartDate}">
@@ -217,25 +302,25 @@ function fn_regExp( param ){
 					<th>사용 유무</th>
 					<td>
 						사용 <input type="radio" name="bnUse" id="bnUse" value="1" <c:if test="${bannerResult.bnUse eq '1'}">checked="checked"</c:if> />
-						미사용 <input type="radio" name="bnUse" id="bnUse" value="0" <c:if test="${bannerResult.bnUse eq '0'}">checked="checked"</c:if> />
+						미사용 <input type="radio" name="bnUse" id="bnUse" value="0" <c:if test="${bannerResult.bnUse eq '0' or empty bannerResult.bnUse}">checked="checked"</c:if> />
 					</td>
 				</tr>
 				<tr>
-					<th>팝업창 가로 크기</th>
+					<th>팝업창 가로 크기<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" onkeyup="fn_regExp('Width');" style="width: 100%" name="bnWidth" id="bnWidth" placeholder="예 ) 100" value="${bannerResult.bnWidth }">
 					</td>
-					<th>팝업창 세로 크기</th>
+					<th>팝업창 세로 크기<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" onkeyup="fn_regExp('Height');" style="width: 100%" name="bnHeight" id="bnHeight" placeholder="예 ) 100" value="${bannerResult.bnHeight }">
 					</td>
 				</tr>
 				<tr>
-					<th>팝업창 TOP위치</th>
+					<th>팝업창 TOP위치<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" onkeyup="fn_regExp('Top');" style="width: 100%" name="bnTop" id="bnTop" placeholder="예 ) 100" value="${bannerResult.bnTop }">
 					</td>
-					<th>팝업창 LEFT위치</th>
+					<th>팝업창 LEFT위치<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" onkeyup="fn_regExp('Left');" style="width: 100%" name="bnLeft" id="bnLeft" placeholder="예 ) 100" value="${bannerResult.bnLeft }">
 					</td>
