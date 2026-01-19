@@ -244,7 +244,7 @@ $(document).ready(function() {
 			</colgroup>
 			<tbody>
 				<tr>
-					<th>코드구분</th>
+					<th>코드구분<span style="color:red;"> *</span></th>
 					<td>
 						<select id="group" name="group" onchange="fn_changeBig(this)">
 							<option value="">선택</option>
@@ -262,21 +262,21 @@ $(document).ready(function() {
 				</tr>
 
 				<tr id="codeGroup2">
-					<th>코드 그룹</th>
+					<th>코드 그룹<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" style="width: 100%" name="codeGroup" id="codeGroupDetail" value="${codeResult.codeGroup}" maxlength="20">
 					</td>
 				</tr>
 
 				<tr>
-					<th>코 드</th>
+					<th>코 드<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" style="width: 100%" name="codeCode" id="codeCode" value="${codeResult.codeCode}" maxlength="15">
 					</td>
 				</tr>
 
 				<tr>
-					<th>코드명</th>
+					<th>코드명<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" style="width: 100%" name="codeName" id="codeName" value="${codeResult.codeName}" maxlength="15">
 					</td>
@@ -290,14 +290,14 @@ $(document).ready(function() {
 				</tr>
 
 				<tr>
-					<th>코드설명</th>
+					<th>코드설명<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" style="width: 100%" name="groupDesc" id="groupDesc" value="${codeResult.groupDesc}" maxlength="30">
 					</td>
 				</tr>
 
 				<tr>
-					<th>코드순서</th>
+					<th>코드순서<span style="color:red;"> *</span></th>
 					<td>
 						<input type="text" style="width: 100%" name="codeOrder" id="codeOrder" value="${codeResult.codeOrder}" maxlength="2">
 					</td>

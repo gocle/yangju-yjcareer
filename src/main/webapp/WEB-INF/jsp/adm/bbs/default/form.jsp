@@ -250,7 +250,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
           </tr>
         </c:if>
         <tr>
-          <th>제목</th>
+          <th>제목<span style="color:red;"> *</span></th>
           <td>
             <c:if test="${boardArticleVO.baTitle eq null}">
               <input type="text" style="width: 100%" name="baTitle" id="baTitle">
@@ -261,7 +261,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
           </td>
         </tr>
         <tr>
-          <th>내용</th>
+          <th>내용<span style="color:red;"> *</span></th>
           <td>
             <c:if test="${boardArticleVO.baContentHtml eq null}">
               <textarea placeholder=" 내용을 간략히 입력해주세요." id="content" name="baContentHtml" style="width: 100%"></textarea>
@@ -272,11 +272,11 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
           </td>
         </tr>
         <tr>
-          <th>상단 공지</th>
+          <th>상단 공지<span style="color:red;"> *</span></th>
           <td>
             사용<input type="radio" name="baNotice" id="baNotice-1" value="1" ${boardArticleVO.baNotice eq '1' ? 'checked="checked"' : ''}>
             &nbsp;
-            미사용<input type="radio" name="baNotice" id="baNotice-0" value="0" ${boardArticleVO.baNotice eq '0' ? 'checked="checked"' : ''}>
+            미사용<input type="radio" name="baNotice" id="baNotice-0" value="0" ${boardArticleVO.baNotice eq '0' or empty boardArticleVO.baNotice ? 'checked="checked"' : ''}>
           </td>
         </tr>
 

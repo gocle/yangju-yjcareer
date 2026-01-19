@@ -57,12 +57,12 @@ function initEditor() {
 function fn_save(){
 
 	if($("#baTitle").val() == ""){
-		alert("제목을 입력 하세요").
+		alert("제목을 입력 하세요.").
 		$("#baTitle").focus();
 		return;
 	}
  	if($("#baContentHtml").val() == ""){
-		alert("제목을 입력 하세요").
+		alert("내용을 입력 하세요.").
 		$("#baContentHtml").focus();
 		return;
 	} 
@@ -118,6 +118,12 @@ function fn_update() {
 	}
 	
 	$("#content").val(data); */
+	
+	if($("#baTitle").val() == ""){
+		alert("제목을 입력 하세요.").
+		$("#baTitle").focus();
+		return;
+	}
 	
 	var data = ckEditor.getData();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
@@ -210,7 +216,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 					</tr>
 				</c:if>
 				<tr>
-					<th>제목</th>
+					<th>제목<span style="color:red;"> *</span></th>
 					<td>
 						<c:if test="${boardArticleVO.baTitle eq null}">
 							<input type="text" style="width: 100%" name="baTitle" id="baTitle" />
@@ -222,7 +228,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 				</tr>
 
 				<tr>
-					<th>내용</th>
+					<th>내용<span style="color:red;"> *</span></th>
 					<td>
 						<c:if test="${boardArticleVO.baContentHtml eq null}">
 							<textarea placeholder=" 내용을 간략히 입력해주세요." id="content" name="baContentHtml"></textarea>

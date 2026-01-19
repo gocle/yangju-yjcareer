@@ -11,6 +11,16 @@
 
 //등록하기
 function fn_save(){
+	if($("#bcId").val().trim() == "") {
+		alert("게시판 아이디를 입력 하세요.");
+		return false;
+	}
+	
+	if($("#bcName").val().trim() == "") {
+		alert("게시판 이름를 입력 하세요.");
+		return false;
+	}
+	
 	var menuId = $("#menuId").val();
 	var reqUrl = "${contextRoot}/adm/bbs/config/insert.do";
 	$("#form").attr("action", reqUrl);
@@ -83,7 +93,7 @@ $(function (){
 		</colgroup>
 		<tbody>
 			<tr>
-				<th>게시판 아이디</th>
+				<th>게시판 아이디<span style="color:red;"> *</span></th>
 				<td>
 					<c:choose>
 						<c:when test="${result.bcId eq null}">
@@ -95,13 +105,13 @@ $(function (){
 						</c:otherwise>
 					</c:choose>
 				</td>
-				<th>게시판 이름</th>
+				<th>게시판 이름<span style="color:red;"> *</span></th>
 				<td>
 					<input type="text" style="width: 100%" name="bcName" id="bcName" value="${result.bcName}">
 				</td>
 			</tr>
 			<tr>
-				<th>게시판 사용 상태</th>
+				<th>게시판 사용 상태<span style="color:red;"> *</span></th>
 				<td>
 					<c:choose>
 						<c:when test="${result.bcUse eq null}">
@@ -142,18 +152,6 @@ $(function (){
 					</c:choose>
 				</td>
 			</tr>
-
-			<tr>
-				<th>게시판 카테고리</th>
-				<td>
-					<select name="bcCategory1" id="bcCategory1">
-						<option value="">선 택</option>
-						<c:forEach var="codeList" items="${codeList}" varStatus="status">
-							<option value="${codeList.codeGroup}" ${result.bcCategory1 == codeList.codeGroup ? 'selected="selected"' : ''}>${codeList.codeName}</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 </form>
@@ -166,9 +164,9 @@ $(function (){
 				<a href="${contextRoot}/adm/bbs/config/list.do?menuId=${menuId}">목록</a>
 			</c:when>
 			<c:otherwise>
-				<a href="${contextRoot }/adm/bbs/config/list.do?menuId=${menuId}">목록</a>
 				<button type="button" onclick="fn_update();" class="point">수정</button>
 				<button type="button" onclick="fn_delete();" class="point">삭제</button>
+				<a href="${contextRoot }/adm/bbs/config/list.do?menuId=${menuId}">목록</a>
 			</c:otherwise>
 		</c:choose>
 	</div>
