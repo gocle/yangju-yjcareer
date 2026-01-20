@@ -413,6 +413,8 @@ public class UserBoardController {
 				
 				model.addAttribute("baCategory1", boardArticleVO.getBaCategory1());
 				
+				model.addAttribute("memSeq", loginInfo.getMemSeq());
+				
 				return returnPage;
 			}
 			

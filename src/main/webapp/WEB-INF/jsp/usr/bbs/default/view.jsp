@@ -101,6 +101,18 @@
 		return true;
 	}
 //]]>
+
+
+	function fn_deletePost() {
+
+	    if (!confirm("정말 삭제하시겠습니까?")) {
+	        return;
+	    }
+	    
+	  	$("#delForm").attr("action", "/yjcareer/usr/bbs/${bcId}/delete.do");
+	  	$("#delForm").submit();
+
+	}
 </script>
 
 	
@@ -127,7 +139,7 @@
 
             <tr>		
                 <th scope="row">내용</th>
-				<td title="내용" class="bbs_content">
+				<td title="내용" class="bbs_content" style="white-space: pre-line;">
 				${result.baContentHtml}
 				<c:forEach var="fileVO" items="${fileList}" varStatus="status">
 					<c:if test="${fileVO.fileExtn eq 'mp4'}">
@@ -170,11 +182,18 @@
         <div class="bbs_left">
             <a href="/yjcareer/usr/bbs/${bcId }/list.do?menuId=${menuId}" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
+        <c:if test="${memSeq.toString() eq result.regId.toString()}">
         <div class="bbs_right">
-			<a href="/yjcareer/usr/bbs/${bcId }/updateForm.do?menuId=${menuId }" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
-        	<a href="/yjcareer/usr/bbs/${bcId }/delete.do?menuId=${menuId }" onclick="fn_deleteBbsNtt(this.href); return false;" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
+			<a href="/yjcareer/usr/bbs/${bcId }/updateForm.do?menuId=${menuId }&baId=${result.baId}" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
+        	<a href="#" onclick="fn_deletePost()" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
         </div>
+        </c:if>
     </div>
+    
+    <form id="delForm" method="post">
+	  <input type="hidden" name="menuId" value="${menuId}" />
+	  <input type="hidden" name="baId" value="${result.baId}" />
+	</form>
 
 
    

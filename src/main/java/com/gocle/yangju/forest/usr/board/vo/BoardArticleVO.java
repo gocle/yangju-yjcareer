@@ -109,6 +109,8 @@ public class BoardArticleVO extends BaseVO implements Serializable{
     
     private int fileCnt;
     
+    private String regId;
+    
 	public String getBaId() {
 		return baId;
 	}
@@ -402,5 +404,11 @@ public class BoardArticleVO extends BaseVO implements Serializable{
 	}
 	public void setFileCnt(int fileCnt) {
 		this.fileCnt = fileCnt;
+	}
+	public String getRegId() {
+		return regId;
+	}
+	public void setRegId(String regId) {
+		this.regId = regId;
 	}
 }
