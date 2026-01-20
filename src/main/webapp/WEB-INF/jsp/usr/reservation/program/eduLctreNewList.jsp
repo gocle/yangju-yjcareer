@@ -131,6 +131,8 @@
 		<input type="hidden" name="sgrCd" id="sgrCd" value="B"/>	
 		<input type="hidden" id="searchMyProgram" name="searchMyProgram" value="${searchVo.searchMyProgram}" />
 		<input type="hidden" name="menuId" id="menuId" value="${searchVo.menuId}"/>	
+		<input type="hidden" name="pageIndex" id="pageIndex" value="${pageIndex}"/>	
+		
 			<fieldset>
 				<legend>교육강좌 검색</legend>
                 

@@ -366,26 +366,26 @@
 									</span>
 								</p>
 								<div class="visual_more">
-									<a href="/yjcareer/contents_4125" class="visual_more_btn">주요사업 보러가기</a>
+									<a href="/yjcareer/usr/introduce/business.do?menuId=2025MENU0000251" class="visual_more_btn">주요사업 보러가기</a>
 								</div>
 							</div>
 							<div class="visual-right">
 								<div class="visual-btn">
 									<span class="tit">1:1 맞춤형 상담(상시상담)</span>
 									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do"><span>예약 및 조회</span></a>
+										<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143"><span>예약 및 조회</span></a>
 									</div>
 								</div>
 								<div class="visual-btn">
 									<span class="tit">꿈자람센터 AI디지털교실</span>
 									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do"><span>예약 및 조회</span></a>
+										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000148"><span>예약 및 조회</span></a>
 									</div>
 								</div>
 								<div class="visual-btn">
 									<span class="tit">꿈자람센터 거점돌봄교실</span>
 									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do"><span>예약 및 조회</span></a>
+										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000332"><span>예약 및 조회</span></a>
 									</div>
 								</div>
 								<div class="bottom">

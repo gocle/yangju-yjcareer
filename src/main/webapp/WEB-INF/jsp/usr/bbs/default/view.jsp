@@ -171,7 +171,8 @@
             <a href="/yjcareer/usr/bbs/${bcId }/list.do?menuId=${menuId}" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
         <div class="bbs_right">
-			
+			<a href="/yjcareer/usr/bbs/${bcId }/updateForm.do?menuId=${menuId }" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
+        	<a href="/yjcareer/usr/bbs/${bcId }/delete.do?menuId=${menuId }" onclick="fn_deleteBbsNtt(this.href); return false;" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
         </div>
     </div>
 

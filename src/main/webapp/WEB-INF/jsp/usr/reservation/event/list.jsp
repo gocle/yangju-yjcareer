@@ -102,7 +102,8 @@ function fnDetailView(seqCd) {
 									<input type="hidden" name="subjCd" id="subjCd" value=""/>
 									<input type="hidden" name="sgrCd" id="sgrCd" value="C"/>	
 									<input type="hidden" name="menuId" id="menuId" value="${searchVo.menuId}"/>	
-							
+									<input type="hidden" name="pageIndex" id="pageIndex" value="${pageIndex}"/>	
+									
 									<fieldset>
 										<legend>교육강좌 검색</legend>
 						                

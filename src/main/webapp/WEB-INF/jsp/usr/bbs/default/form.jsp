@@ -123,6 +123,38 @@ function fn_validatorBbsNtt( frm ) {
 	
 }
 
+function fn_isEmpty(form, fieldName) {
+    const field = form[fieldName];
+    if (!field) return true; // 필드가 존재하지 않으면 비어있는 것으로 간주
+
+    const value = field.value;
+    // 값이 없거나, 공백만 있는 경우 true 반환
+    return (value === null || value === undefined || value.trim() === "");
+}
+
+function fn_getMessage(type, label) {
+    var message = "";
+    
+    switch (type) {
+        case "INPUT":
+            message = label + "을(를) 입력해 주세요.";
+            break;
+        case "SELECT":
+            message = label + "을(를) 선택해 주세요.";
+            break;
+        default:
+            message = label;
+    }
+    
+    return message;
+}
+
+function fn_setFocus(form, fieldName) {
+    const field = form[fieldName];
+    if (field) {
+        field.focus();
+    }
+}
 //]]>
 </script>
 
@@ -142,7 +174,7 @@ function fn_validatorBbsNtt( frm ) {
 
 <p class="write_guide">글 작성시 <span class="exactly y">필수</span> 표시된 항목은 꼭 기재해 주세요</p>
 	<table class="bbs_default write">
-		<caption>학습상담 글쓰기 - 제목, 작성자, 내용, 파일 입력 </caption>
+		<caption>교육후기 글쓰기 - 제목, 작성자, 내용, 파일 입력 </caption>
         <tbody>
 
 		<tr>
@@ -154,7 +186,7 @@ function fn_validatorBbsNtt( frm ) {
 		<tr>
 			<th scope="row"><label for="memName">작성자</label> <span class="exactly y">필수</span></th>
 			<td>
-						test
+				${sessionScope.SESSION_MEM_NAME}
 			</td>
 		</tr>
 

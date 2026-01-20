@@ -40,11 +40,38 @@
 			</if>
 		</if>
 		<if test="searchStatus != null and searchStatus != '' ">
-			<choose>
+			<!-- <choose>
 				<when test="searchStatus == 'ing' ">AND NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT</when>
 				<when test="searchStatus == 'be' ">AND NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT</when>
 				<otherwise> AND NOW() > SS.ENROLL_END_DT</otherwise>
-			</choose>
+			</choose> -->
+			
+			<choose>
+		        <when test="searchStatus == 'be' ">
+		            AND NOW() <![CDATA[ < ]]> SS.ENROLL_START_DT
+		        </when>
+		        <when test="searchStatus == 'ing' ">
+		            AND NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT
+		            AND (
+		                SS.CAPACITY > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+		                OR 
+		                (
+		                    SS.CAPACITY <![CDATA[ <= ]]> (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+		                    AND SS.WAIT_ENROLL_CNT > (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A')
+		                )
+		            )
+		        </when>
+		        <otherwise>
+		            AND (
+		                NOW() > SS.ENROLL_END_DT
+		                OR (
+		                    NOW() BETWEEN SS.ENROLL_START_DT AND SS.ENROLL_END_DT
+		                    AND SS.CAPACITY <![CDATA[ <= ]]> (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'B')
+		                    AND SS.WAIT_ENROLL_CNT <![CDATA[ <= ]]> (SELECT COUNT(*) FROM TB_ENROLL E WHERE E.SEQ_CD = SS.SEQ_CD AND E.ENROLL_STATUS_CD = 'A')
+		                )
+		            )
+		        </otherwise>
+    		</choose>
 		</if>
 		
 		<if test="searchLearnDt != null and searchLearnDt != '' ">
