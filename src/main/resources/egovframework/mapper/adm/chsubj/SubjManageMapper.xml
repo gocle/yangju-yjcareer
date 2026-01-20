@@ -123,9 +123,7 @@
 			, s.loc_id
 			, s.dupl_enroll_yn
 			, cc.com_title
-			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 1) AS tel1
-  			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 2) AS tel2
-  			, REGEXP_SUBSTR(s.tel, '[^-]+', 1, 3) AS tel3
+			, s.edu_place
 		FROM TB_SUBJ s
 		INNER JOIN TB_SGR sg
 			ON s.sgr_cd = sg.sgr_cd
@@ -146,7 +144,7 @@
             ,use_yn = #{useYn}
             ,dupl_enroll_yn = #{duplEnrollYn}
             ,tel = #{tel}
-            ,loc_id = #{locId}
+            ,edu_place = #{eduPlace}
             ,subj_plan = #{subjPlan}
             ,subj_desc = #{subjDesc}
             ,enroll_type = #{enrollType}

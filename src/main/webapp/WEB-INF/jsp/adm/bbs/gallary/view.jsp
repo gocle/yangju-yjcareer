@@ -228,7 +228,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 
 				<c:if test="${fn:length(fileList1) > 0}">
 					<tr>
-						<th>썸네일 자료</th>
+						<th>썸네일 이미지</th>
 						<td class="file">
 							<c:forEach var="fileVO" items="${fileList1}" varStatus="status">
 								<c:if test="${fileVO.thumbnailCrop eq 'Y'}">

@@ -245,7 +245,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 
 				<c:if test="${boardArticleVO eq null}">
 					<tr>
-						<th>이미지 첨부</th>
+						<th>>썸네일 이미지</th>
 						<td class="file">
 							<input type="file" class="input_file" id="file_thumbFileId1" name="file_thumbFileId" title="이미지 찾기" />
 							<c:choose>
@@ -262,7 +262,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 
 				<c:if test="${boardArticleVO ne null}">
 					<tr>
-						<th>이미지 첨부</th>
+						<th>썸네일 이미지</th>
 						<td class="file">
 							<c:forEach var="fileVO1" items="${fileList1}" varStatus="status">
 								<c:if test="${fileVO1.thumbnailCrop eq 'Y'}">

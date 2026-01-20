@@ -102,11 +102,8 @@
 			, ss.subj_plan
 			, ss.subj_desc
 			, s.dupl_enroll_yn
-			, ss.loc_id
+			, ss.edu_place
 			, (SELECT count(*) FROM TB_ENROLL WHERE seq_cd = #{seqCd}) as enroll_cnt
-			, REGEXP_SUBSTR(ss.tel, '[^-]+', 1, 1) AS tel1
-  			, REGEXP_SUBSTR(ss.tel, '[^-]+', 1, 2) AS tel2
-  			, REGEXP_SUBSTR(ss.tel, '[^-]+', 1, 3) AS tel3
 		FROM TB_SUBJ_SEQ ss
 		INNER JOIN TB_SUBJ s
 			ON s.sgr_cd = ss.sgr_cd
@@ -151,7 +148,7 @@
 			, learn_start_dt
 			, learn_end_dt
 			, com_id
-			, loc_id
+			, edu_place
 			, tel
 			, enroll_type
 			, edu_target
@@ -176,7 +173,7 @@
 			, #{learnStartDt}
 			, #{learnEndDt}
 			, com_id
-			, loc_id
+			, edu_place
 			, tel
 			, enroll_type
 			, edu_target
@@ -201,7 +198,7 @@
 			, learn_start_dt = #{learnStartDt}
 			, learn_end_dt = #{learnEndDt}
 			, com_id = #{comId}
-			, loc_id = #{locId}
+			, edu_place = #{eduPlace}
 			, subj_plan = #{subjPlan}
 			, subj_desc = #{subjDesc}
 			, enroll_type = #{enrollType}

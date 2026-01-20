@@ -112,7 +112,14 @@
 						<td data-label="제목" class="left">
 							<a href="<c:url value="/usr/bbs/${topNoticeList.bcId }/detail.do?menuId=${menuId}&baId=${topNoticeList.baId}&baNotice=1"/>">${topNoticeList.baTitle}</a>
 						</td>
-						<td data-label="작성자">${fn:substring(topNoticeList.memName, 0, 1)}*${fn:substring(topNoticeList.memName, fn:length(topNoticeList.memName)-1, fn:length(topNoticeList.memName))}</td>
+						<td data-label="작성자">
+							<c:choose>
+								<c:when test="${topNoticeList.bcId == 'notice'}">${topNoticeList.memName }</c:when>
+								<c:otherwise>
+									${fn:substring(topNoticeList.memName, 0, 1)}*${fn:substring(topNoticeList.memName, fn:length(topNoticeList.memName)-1, fn:length(topNoticeList.memName))}
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td class="mo-view">
 								<c:choose>
 									<c:when test="${topNoticeList.fileCnt >= 2}">
@@ -134,7 +141,12 @@
 								<a href="<c:url value="/usr/bbs/${articleList.bcId }/detail.do?menuId=${menuId}&baId=${articleList.baId}&baNotice=0"/>">${articleList.baTitle}</a>
 							</td>
 							<td data-label="작성자">
-								${fn:substring(articleList.memName, 0, 1)}*${fn:substring(articleList.memName, fn:length(articleList.memName)-1, fn:length(articleList.memName))}
+								<c:choose>
+									<c:when test="${articleList.bcId == 'notice'}">${articleList.memName }</c:when>
+									<c:otherwise>
+										${fn:substring(articleList.memName, 0, 1)}*${fn:substring(articleList.memName, fn:length(articleList.memName)-1, fn:length(articleList.memName))}
+									</c:otherwise>
+								</c:choose>
 							</td>
 							<td class="mo-view">
 								<c:choose>

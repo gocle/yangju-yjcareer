@@ -98,7 +98,7 @@
 				</li>
 				<li class="clearfix">
 					<em>교육장소</em>
-					<p>${resultMap.location }</p>
+					<p>${resultMap.eduPlace }</p>
 				</li>
 				<li class="clearfix">
 					<em>기수</em>

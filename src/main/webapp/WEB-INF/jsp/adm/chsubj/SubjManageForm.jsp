@@ -45,6 +45,12 @@ $(document).ready(function() {
         filebrowserUploadMethod: 'form'
     });
 	
+	ckEditor = CKEDITOR.replace('subjDesc', {
+        height: 300,
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+    });
+	
 	$.fn.numberOnly = function() {
 	    $(this).keyup(function() {
 	        this.value = this.value.replace(/[^0-9\.\-]/g, '');
@@ -84,33 +90,49 @@ $(document).ready(function() {
 	
 	$("#sgrCd").trigger("change");
 	
-	$("#comId").change(function() {
-		var comId = $(this).val();
-		var selLocId = "${resultMap.locId}";
-		
-		$("#locId").empty();
-		$("#locId").append('<option value="">교육장소 선택</option>');
-		
-		$.ajax({
-	     	url: "${contextRoot}/adm/chsearch/SearchLocationList.do",
-	        type: "GET",
-	        data: { comId: comId },
-	        success: function(result) {
-				$.each(result, function(index, item) {
-	            	$("#locId").append(
-	            		'<option value="' + item.locId + '" ' 
-	            		+ (selLocId == item.locId ? 'selected="selected"' : '') 
-	            		+ '>' + item.location + '</option>'
-	                );
-	            });
-	        },
-	        error: function() {
-	        	//alert("오류 발생");
-	        }
-		});
-	});
-	
-	$("#comId").trigger("change");
+	var initTel = "${resultMap.tel}";
+    var exists = false;
+    
+    $("#tel option").each(function() {
+        if (this.value == initTel) {
+            exists = true;
+            return false;
+        }
+    });
+
+    if (!exists && initTel != "") {
+        $("#tel").val("ETC");
+        $("#wtel").show();
+    }
+
+    $("#tel").change(function() {
+        if ($(this).val() == "ETC") {
+            $("#wtel").val("");
+        	$("#wtel").show();
+            $("#wtel").focus();
+        } else {
+        	$("#wtel").hide();
+        }
+    });
+    
+    var initPlace = "${resultMap.eduPlace}";
+    
+    if (initPlace == "온라인(비대면)") {
+        $("#location").val("ONLINE");
+    }else {
+    	$("#location").val("ETC");
+    	$("#eduPlace").show();
+    }
+    
+    $("#location").change(function() {
+        if ($(this).val() == "ETC") {
+            $("#eduPlace").val("");
+        	$("#eduPlace").show();
+            $("#eduPlace").focus();
+        } else {
+        	$("#eduPlace").hide();
+        }
+    });
 });
 
 function initEditor() {
@@ -142,7 +164,10 @@ function valid() {
 	var sgrCd = $("#sgrCd").val();
 	var cateCd = $("#cateCd").val();
 	var comId = $("#comId").val();
-	var locId = $("#locId").val();
+	var wtel = $.trim($("#wtel").val());
+	var telSelect = $("#tel").val();
+	var eduPlace = $.trim($("#eduPlace").val());
+	var location = $("#location").val();
 	
 	/* 	var data = oEditors.getById["subjPlan"].getIR();
 	$("#subjPlan").val(data); */
@@ -174,9 +199,9 @@ function valid() {
 		return false;
 	}
 	
-	if (locId == "") {
-		alert("교육장소를 선택해주세요.");
-		locId.focus();
+	if(location == "ETC" && eduPlace == "") {
+		alert("교육장소를 입력해주세요.");
+		eduPlace.focus();
 		return false;
 	}
 	
@@ -195,8 +220,9 @@ function valid() {
     }
 	document.detailForm.eduTarget.value = selected.join(",");
 	
-	if($.trim($("#detailForm input[name=tel1]").val()) == "" || $.trim($("#detailForm input[name=tel2]").val()) == "" || $.trim($("#detailForm input[name=tel3]").val()) == ""){
+	if(telSelect == "ETC" && wtel == ""){
 		alert("전화번호를 입력해주세요.");
+		wtel.focus();
 		return false;
 	}
 	
@@ -206,7 +232,14 @@ function valid() {
 function fnCmdSave() {
 	if(valid()) {
 		// 전화번호
-		$("#detailForm input[name=tel]").val($("#detailForm input[name=tel1]").val() + "-" + $("#detailForm input[name=tel2]").val() + "-" + $("#detailForm input[name=tel3]").val());
+		if($("#tel").val() == "ETC") {
+            var inputVal = $.trim($("#wtel").val());
+            $("#tel option[value='ETC']").val(inputVal);
+        }
+		// 교육장소
+		if($("#location").val() == "ONLINE") {
+			$("#eduPlace").val("온라인(비대면)");
+		}
 		
 		$("#detailForm").attr("action", "${cmdUrl}");
 		$("#detailForm").submit();
@@ -363,10 +396,11 @@ function fnCmdDelete() {
           	<tr>
 	            <th>교육장소<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<%-- <input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}"  style="width: 100%;" maxlength="100"/> --%>
-	            	<select id="locId" name="locId" style="width: 20%" value="${resultMap.locId}">
-	            		<option value="">교육장소 선택</option>
+	            	<select id="location" name="location" style="width: 20%">
+	            		<option value="ONLINE">온라인(비대면)</option>
+	            		<option value="ETC">직접입력</option>
 	            	</select>
+	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}" style="display:none; width: 50%;" maxlength="100"/>
 	            </td>
           	</tr>
           	<tr>
@@ -384,12 +418,16 @@ function fnCmdDelete() {
           	<tr>
 	            <th>전화번호<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<input type="hidden" id="tel" name="tel" />
-	            	<input type="text" id="tel1" name="tel1" size="3" maxlength="3" value="${resultMap.tel1}" class="numberOnly" placeholder="031"/>
-				    -
-				    <input type="text" id="tel2" name="tel2" size="4" maxlength="4" value="${resultMap.tel2}" class="numberOnly" placeholder="0000"/>
-				    -
-				    <input type="text" id="tel3" name="tel3" size="4" maxlength="4" value="${resultMap.tel3}" class="numberOnly" placeholder="0000"/>
+				    <select id="tel" name="tel" style="width: 20%">
+				    	<option value="031-8082-7953" ${resultMap.tel == '031-8082-7953' ? 'selected' : ''}>031-8082-7953</option>
+				    	<option value="031-8082-7954" ${resultMap.tel == '031-8082-7954' ? 'selected' : ''}>031-8082-7954</option>
+				    	<option value="031-857-6501" ${resultMap.tel == '031-857-6501' ? 'selected' : ''}>031-857-6501</option>
+				    	<option value="031-868-5418" ${resultMap.tel == '031-868-5418' ? 'selected' : ''}>031-868-5418</option>
+				    	<option value="031-837-0955" ${resultMap.tel == '031-837-0955' ? 'selected' : ''}>031-837-0955</option>
+				    	<option value="031-837-0892~3" ${resultMap.tel == '031-837-0892~3' ? 'selected' : ''}>031-837-0892~3</option>
+				    	<option value="ETC">직접입력</option>
+				    </select>
+				    <input type="text" id=wtel name="wtel" value="${resultMap.tel}" style="display:none; width:20%" maxlength="20"/>
 	            </td>
           	</tr>
           	<tr>
@@ -408,7 +446,7 @@ function fnCmdDelete() {
           	<tr>
 	            <th>유의사항</th>
 	            <td colspan="3">
-	            	<textarea style="width:100%" name="subjDesc" id="subjDesc" maxlength="100">${resultMap.subjDesc}</textarea>
+	            	<textarea id="subjDesc" name="subjDesc">${resultMap.subjDesc}</textarea>
 	            </td>
           	</tr>
           	<tr>
