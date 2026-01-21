@@ -95,15 +95,33 @@
 .logo .logo_anchor{position:relative; z-index:10;}
 .logo .logo_anchor span{position:relative; top:4px; padding-left:13px; font-family: 'WAGURI'; font-size: 27px; line-height: 27px; letter-spacing: 0; color: #26293d;}
 @media all and (max-width:1300px){
-    .logo{z-index:10; left: 20px; top:12px;}
-    .logo img{width: 87px;}
+    .logo{z-index:10; left: 50px; top:20px;}
+    .logo img{width: 80%;}
     .logo .logo_anchor span{font-size: 24px;}
 }
+
+@media all and (max-width:760px){
+    .logo{top: 22px; left: 30px;}
+    .logo img{position:relative; width: 80%}
+    .logo .logo_anchor span{top:1px; padding-left:6px; font-size: 18px; line-height: 18px;}
+    .visual-right > div > div {
+    	height: 140px
+    }
+}
+
 @media all and (max-width:640px){
     .logo{top: 22px; left: 15px;}
-    .logo img{position:relative; width: 63px;}
+    .logo img{position:relative; width: 80%}
+    .logo .logo_anchor span{top:1px; padding-left:6px; font-size: 18px; line-height: 18px;}
+    .visual-right span.dubble { font-size: 16px;}
+}
+
+@media all and (max-width:520px){
+    .logo{top: 26px; left: 15px;}
+    .logo img{position:relative; width: 60%}
     .logo .logo_anchor span{top:1px; padding-left:6px; font-size: 18px; line-height: 18px;}
 }
+
 
 /* 주메뉴 */
 @media all and (min-width:1301px){

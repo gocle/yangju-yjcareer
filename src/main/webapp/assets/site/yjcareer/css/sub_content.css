@@ -192,13 +192,14 @@
 .business{}
 .business .business_item{display: block; position: relative; margin-bottom: 59px; font-size: 0; line-height: 0;}
 .business .left_box{display: inline-block; position: absolute; top:0; width: 260px; height: 215px; text-align: center;}
-.business .left_box p{position:relative; padding-top: 67px; font-family: 'Tmoney'; font-size: 30px; line-height: 35px; color: #fff; font-weight: 700;}
+.business .left_box p{position:relative; padding-top: 77px; font-family: 'Tmoney'; font-size: 30px; line-height: 35px; color: #fff; font-weight: 700;}
 .business .left_box span{display:block; margin-top: 4px; font-size: 25px; font-weight:400;}
 .business .left_box:before{display: block; position: absolute; top:-15px; left: -34px; width: 329px; height: 259px;}
 .business .business_item:nth-child(1) .left_box:before{background: url("../images/contents/business_bg01.png") no-repeat;}
 .business .business_item:nth-child(2) .left_box:before{background: url("../images/contents/business_bg02.png") no-repeat;}
 .business .business_item:nth-child(3) .left_box:before{background: url("../images/contents/business_bg03.png") no-repeat;}
 .business .business_item:nth-child(4) .left_box:before{background: url("../images/contents/business_bg04.png") no-repeat;}
+.business .business_item:nth-child(5) .left_box:before{background: url("../images/contents/business_bg05.png") no-repeat;}
 .business .right_box{display: inline-block; width: calc(100% - 50px); height: 295px; margin-left: 50px; padding: 74px 20px 20px 259px; border: 1px solid #d5d7dd; border-radius: 200px 30px 30px 30px;}
 .business .business_item:nth-child(2n) .right_box{border-color: #f7f7fc; background-color: #f7f7fc;}
 .business .business_item .business_title{margin-bottom:32px; font-size: 25px; line-height: 30px; font-weight: 700;}
@@ -206,6 +207,7 @@
 .business .business_item:nth-child(2) .business_title{color: #1fb6c4;}
 .business .business_item:nth-child(3) .business_title{color: #857ae2;}
 .business .business_item:nth-child(4) .business_title{color: #e65378;}
+.business .business_item:nth-child(5) .business_title{color: #d5bb4d;}
 .business .right_box .dl .dt{display: inline-block; width:198px; vertical-align: top;}
 .business .right_box .dl .dd{display: inline-block; width: calc(100% - 211px); vertical-align: top; word-break: keep-all;}
 

@@ -48,7 +48,7 @@ function openLoginPopup() {
 				<div class="wrap">
 					<div class="link">
 						<ul class="link_list">
-							<li><a href="#" target="_blank" class="btn">양주시 강남인강</a></li>
+							<li><a href="https://www.yangju.go.kr/www/index.do" target="_blank" class="btn">양주시청 바로가기</a></li>
 							<c:choose>
 								<c:when test="${not empty sessionScope.SESSION_DI_KEY}">						
 									<li class="link_item logout"><a href="/yjcareer/usr/login/logout.do" class="link_anchor" title="로그아웃">로그아웃</a></li>
@@ -66,7 +66,7 @@ function openLoginPopup() {
 			<div class="group">
 				<div class="wrap">
 					<div class="logo">
-						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/site/yjcareer/images/common/logo.png" alt="시민과함께 도약하는양주"><span>양주 진로진학교육플랫폼</span></a>
+						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/site/yjcareer/images/common/logo.png" alt="교육발전특구 양주 진로진학플랫폼"></a>
 					</div>
 				</div>
 

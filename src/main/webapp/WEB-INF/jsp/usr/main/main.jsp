@@ -287,6 +287,11 @@
 		.layer_cont p > br {
 		  display: none;
 		}
+		.layer_cont {
+			background: #fff;
+    		box-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+    		overflow-y : auto
+		}
 	</style>
 
 	<!-- 레이어 팝업 시작 -->
@@ -299,18 +304,24 @@
 	            top:${bn.bnTop}px;
 	            z-index:1001;
 	            visibility:hidden;
-	            width:${bn.bnWidth}px;
-	            height:${bn.bnHeight}px
 	         ">
-	
-	        <div class="layer_cont">
-	            <a href="${bn.bnLink}"
-	               <c:if test="${bn.bnNewWin eq 'Y'}">target="_blank"</c:if>
-	               title="새창">
-	                ${bn.bnDescription}
-	            </a>
-	        </div>
-	
+	         
+	        <c:if test="${empty bn.bnLink}">
+	        	<div class="layer_cont" style="width:${bn.bnWidth}px; height:${bn.bnHeight}px">
+	        		${bn.bnDescription}
+	        	</div>
+	        </c:if>
+	        
+	        <c:if test="${not empty bn.bnLink}">
+		        <div class="layer_cont" style="width:${bn.bnWidth}px; height:${bn.bnHeight}px">
+		            <a href="${bn.bnLink}"
+		               <c:if test="${bn.bnNewWin eq 'Y'}">target="_blank"</c:if>
+		               title="새창">
+		                ${bn.bnDescription}
+		            </a>
+		        </div>
+	        </c:if>
+	        
 	        <form name="notice_form${status.index}">
 	            <div class="layer_put">
 	                <div>
@@ -370,34 +381,34 @@
 								</div>
 							</div>
 							<div class="visual-right">
-								<div class="visual-btn">
-									<span class="tit">1:1 맞춤형 상담(상시상담)</span>
-									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143"><span>예약 및 조회</span></a>
+								<div class="top">
+									<div class="visual-btn">
+										<span class="tit">진로진학지원센터</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+									</div>
+									<div class="visual-btn">
+										<span class="tit">동부권 AI디지털교실</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
-								<div class="visual-btn">
-									<span class="tit">꿈자람센터 AI디지털교실</span>
-									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000148"><span>예약 및 조회</span></a>
+								<div class="middle">
+									<div class="visual-btn">
+										<span class="tit">동부권 거점돌봄교실</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
-								</div>
-								<div class="visual-btn">
-									<span class="tit">꿈자람센터 거점돌봄교실</span>
-									<div class="btn-wrap">
-										<a href="/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000332"><span>예약 및 조회</span></a>
+									<div class="visual-btn">
+										<span class="tit">서부권 AI디지털교실</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
 								<div class="bottom">
 									<div class="visual-btn">
-										<span class="tit">양주진로진학지원센터</span>
-										<img src="/yjcareer/assets/site/yjcareer/images/main/sideBar_6.png"/>
-										<a href="#" target="_blank" title="새창열림"><span>센터안내</span></a>
+										<span class="tit">서부권 거점돌봄교실</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
-									<div class="visual-btn">
-										<span class="tit">꿈자람센터</span>
-										<img src="/yjcareer/assets/site/yjcareer/images/main/sideBar_6.png"/>
-										<a href="#" target="_blank" title="새창열림"><span>센터안내</span></a>
+									<div class="visual-btn dubble-btn">
+										<span class="tit dubble">양주고읍 LH14단지<br>자기주도학습센터</span>
+										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
 							</div>
@@ -413,7 +424,7 @@
                    <div class="wrap">
 						<section class="program">
 							<h2 class="program_top_title">
-								<span class="title">신청하기</span>
+								<span class="title">신청</span>
 								<div class="tabmenu">
 									<input type="radio" checked name="tabmenu" id="tabmenu1">
 									<label for="tabmenu1">1:1 상시상담</label>
@@ -423,7 +434,7 @@
 									<label for="tabmenu3">행사 및 강좌</label>
 								</div>
 								<div class="program_more">
-									<a href="#" class="program_more_btn"><span>더보기</span></a>
+									<a href="#" class="program_more_btn"><span class="ico-plus"></span></a>
 								</div>
 							</h2>
 							
@@ -647,24 +658,19 @@
 				<div class="rowgroup3">
 					<div class="wrap">
 						<section class="notice">
-							
-							
 							<div class="notice_list">
+								<span class="bookmark"></span>
 								<div class="notice-top-area">
-									<h2 class="notice_top_title">
-										<span class="title">알려드립니다</span>
-									</h2>
 									<div class="tabmenu">
 										<input type="radio" checked name="noticeTab" id="notice_tab1">
 										<label for="notice_tab1">공지사항</label>
 										<input type="radio" name="noticeTab" id="notice_tab2">
-										<label for="notice_tab2">자료실</label>
+										<label for="notice_tab2">교육자료</label>
 									</div>
 									<div class="notice_more">
-										<a href="/yjcareer/usr/bbs/notice/list.do?menuId=2025MENU0000262" class="notice_more_btn"><span>더보기</span> </a>
+										<a href="/yjcareer/usr/bbs/notice/list.do?menuId=2025MENU0000262" class="notice_more_btn"><span class="ico-plus"></span></a>
 									</div>
 								</div>
-								
 								<div class="notice_contents">
 									<c:forEach var="row" items="${noticList}" varStatus="i" begin="0" end="4">
 										<div class="notice_item">
@@ -673,12 +679,8 @@
 												<p class="notice_date">${row.regDate }</p>
 											</a>
 										</div>
-										<c:if test="${!i.last}">
-											<div class="notice_line"></div>
-										</c:if>
 									</c:forEach>
 								</div>
-								
 								<div class="data_contents">
 									<c:forEach var="row" items="${photoList}" varStatus="i" begin="0" end="4">
 										<div class="notice_item">
@@ -687,21 +689,10 @@
 												<p class="notice_date">${row.regDate }</p>
 											</a>
 										</div>
-										<c:if test="${!i.last}">
-											<div class="notice_line"></div>
-										</c:if>
 									</c:forEach>
 								</div>
-
-
 							</div>
 							<div class="schedule-list">
-								<h2 class="notice_top_title">
-									<span class="title">관련 일정</span>
-									<div class="notice_more">
-										<a href="/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341" class="notice_more_btn"><span>더보기</span> </a>
-									</div>
-								</h2>
 								<div class="schedule_contents">
 									<div class="timeline">
 										<div class="time-top">
@@ -710,6 +701,9 @@
 												<button class="notice_prev slick-arrow" style="">이전</button>	
 												<h2 class="month-title">2025.12</h2>
 												<button class="notice_next slick-arrow" style="">다음</button>
+											</div>
+											<div class="notice_more">
+												<a href="/yjcareer/usr/bbs/schedule/list.do?menuId=2025MENU0000341" class="notice_more_btn"><span class="ico-plus"></span></a>
 											</div>
 										</div>
 										

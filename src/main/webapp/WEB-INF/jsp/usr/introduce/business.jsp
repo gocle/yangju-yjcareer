@@ -40,94 +40,100 @@
                     
                     <div id="contents" class="cts4125">
 						<div class="business">
-	<div class="business_item">
-		<div class="left_box"><p>Individual<span>(개성)</span></p></div>
-		<div class="right_box">
-			<p class="business_title">청소년의 고유한 특성을 반영한 교육</p>
-			<ul class="bu dl">
-				<li>
-					<span class="dt">학습 유형 검사</span>
-					<span class="dd">학습 스타일, 준비도 등 학생에 따른 유형 검사</span>
-				</li>
-				<li>
-					<span class="dt">학습 코치 양성</span>
-					<span class="dd">우수한 대학생 학습 코치 선발 및 양성 프로그램 운영</span>
-				</li>
-				<li>
-					<span class="dt">청소년 학습 코칭</span>
-					<span class="dd">진로진학 등 청소년에게 필요한 코칭 지원</span>
-				
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="business_item">
-		<div class="left_box"><p>Innovation<span>(혁신)</span></p></div>
-		<div class="right_box">
-			<p class="business_title">청소년의 잠재력을 매일 혁신하는 교육</p>
-			<ul class="bu dl">
-				<li>
-					<span class="dt">지역 진로교사 양성</span>
-					<span class="dd">지역 시민들과 함께 하는 지역 진로교사 양성 및 운영</span>
-				</li>
-				<li>
-					<span class="dt">미래 대학 캠퍼스 투어</span>
-					<span class="dd">청소년이 원하는 놀이 중심 수도권 대학 투어 프로그램 운영</span>
-				</li>
-				<li>
-					<span class="dt">지역 특화 프로그램 운영</span>
-					<span class="dd">지역의 대학 및 기업과 연계한 우수한 특화 프로그램 운영</span>
-				</li>
-				<li>
-					<span class="dt">에듀테크 활용 프로그램</span>
-					<span class="dd">미래기술, 신산업 중심의 프로그램 운영</span>
-				
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="business_item">
-		<div class="left_box"><p>Integration<span>(통합)</span></p></div>
-		<div class="right_box">
-			<p class="business_title">청소년이 지역과 함께 자라도록 하는 교육</p>
-			<ul class="bu dl">
-				<li>
-					<span class="dt">전문가 특강</span>
-					<span class="dd">국내외 우수한 진로교육 전문가 특강 개최</span>
-				</li>
-				<li>
-					<span class="dt">소그룹 교육</span>
-					<span class="dd">학생부 종합 전형, 농어촌 전형, 수능 대비 등 내 아이의 진학을 위한 학부모 소그룹 교육 운영</span>
-				</li>
-				<li>
-					<span class="dt">진로교사 네트워크 운영</span>
-					<span class="dd">관내 초·중·고 진로교사 네트워크 구성을 통해 학생들에게 꼭 필요한 진로교육 운영</span>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="business_item">
-		<div class="left_box"><p>Influence<span>(확장)</span></p></div>
-		<div class="right_box">
-			<p class="business_title">청소년이 미래로, 세계로 확장하는 교육</p>
-			<ul class="bu dl">
-				<li>
-					<span class="dt">진로진학 플랫폼 운영</span>
-					<span class="dd">청소년과 학부모에게 꼭 필요한 진로·진학 정보를 제공</span>
-				</li>
-				<li>
-					<span class="dt">진로진학 박람회 개최</span>
-					<span class="dd">진학 컨설팅, 입시 설명회, 진로 체험 등 청소년을 위한 행사 진행</span>
-				</li>
-				<li>
-					<span class="dt">진로 체험처 운영</span>
-					<span class="dd">지역 전체가 청소년의 배움터가 될 수 있도록 꿈길 진로체험처 발굴 및 관리</span>
-				</li>
-			</ul>
-		</div>
-	</div>
+							<div class="business_item">
+								<div class="left_box"><p>01</p></div>
+								<div class="right_box">
+									<p class="business_title">진로 발달단계별 진로로드맵 실현</p>
+									<ul class="bu dl">
+										<li>
+											<span class="dd">진로탐색지원(대학캠퍼스 투어)</span>
+										</li>
+										<li>
+											<span class="dd">진로체험 활성화(교육부 누리집 ’꿈길’ 운영)</span>
+										</li>
+										<li>
+											<span class="dd">진로교육박람회</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="business_item">
+								<div class="left_box"><p>02</span></p></div>
+								<div class="right_box">
+									<p class="business_title">내실있는 진학·학습 종합지원</p>
+									<ul class="bu dl">
+										<li>
+											<span class="dd">진로진학설계 구체화 지원(1대1 맞춤형 진로진학 상담)</span>
+										</li>
+										<li>
+											<span class="dd">학습지원(초중고 학습튜터링, 온라인수강권 지원)</span>
+										</li>
+										<li>
+											<span class="dd">양주형 입시설명회</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="business_item">
+								<div class="left_box"><p>03</p></div>
+								<div class="right_box">
+									<p class="business_title">진로진학 네트워크 확장</p>
+									<ul class="bu dl">
+										<li>
+											<span class="dd">지역 대학 연계 창의혁신 프로그램(여름방학 예체능특강)</span>
+										</li>
+										<li>
+											<span class="dd">진로교육 협력체 구성(초중고 진로교사 협의회)</span>
+										</li>
+										<li>
+											<span class="dd">학부모교육(학부모아카데미)</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="business_item">
+								<div class="left_box"><p>04</p></div>
+								<div class="right_box">
+									<p class="business_title">진로진학종합플랫폼 활성화</p>
+									<ul class="bu dl">
+										<li>
+											<span class="dd">온라인 플랫폼 기능 강화</span>
+										</li>
+										<li>
+											<span class="dd">교육 사각지대 해소</span>
+										</li>
+										<li>
+											<span class="dd">진로진학플랫폼 홍보 활성화</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<div class="business_item">
+								<div class="left_box"><p>05</p></div>
+								<div class="right_box">
+									<p class="business_title">양주시 교육특구</p>
+									<ul class="bu dl">
+										<li>
+											<span class="dt">양주 꿈자람 제1센터</span>
+											<span class="dd">동부권 AI디지털 교실, 진로진학지원센터</span>
+										</li>
+										<li>
+											<span class="dt">양주 꿈자람 제2센터</span>
+											<span class="dd">서부권 AI디지털 교실, 서부권 거점돌봄교실</span>
+										</li>
+										<li>
+											<span class="dt">양주 꿈자람 제3센터</span>
+											<span class="dd">동부권 거점돌봄교실</span>
+										</li>
+										<li>
+											<span class="dt">양주 꿈자람 제4센터</span>
+											<span class="dd">양주고읍 LH14단지 자기주도학습센터</span>
+										</li>
+									</ul>
+								</div>
+							</div>
 </div>
-                    </div>
+</div>
 					
 					
 
