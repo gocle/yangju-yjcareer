@@ -6,8 +6,8 @@
 <c:import url="/adm/menu/leftMenu.do" />
 
 <!--일단 추가 추후에 common으로옮기던가  -->
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="${contextRoot}/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<script src="${contextRoot}/ui/1.11.4/jquery-ui.min.js"></script>
 
 <style>
 img.ui-datepicker-trigger {

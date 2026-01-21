@@ -6,8 +6,8 @@
 <c:import url="/adm/menu/leftMenu.do" />
 
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="${contextRoot}/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+<script src="${contextRoot}/ui/1.11.4/jquery-ui.min.js"></script>
 <style>
 img.ui-datepicker-trigger {
      margin-left:5px; vertical-align:middle; cursor:pointer;

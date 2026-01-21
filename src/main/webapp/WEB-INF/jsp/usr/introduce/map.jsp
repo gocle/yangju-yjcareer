@@ -44,7 +44,7 @@
         <div class="box_inner">
 
             <div id="daumRoughmapContainer1718587004441" class="root_daum_roughmap root_daum_roughmap_landing"></div>
-    <script class="daum_roughmap_loader_script" src="https://ssl.daumcdn.net/dmaps/map_js_init/roughmapLoader.js"></script>
+    <script class="daum_roughmap_loader_script" src="${contextRoot}/dmaps/map_js_init/roughmapLoader.js"></script>
     <script>
         new daum.roughmap.Lander({
             "timestamp" : "1718587004441",

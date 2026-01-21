@@ -9,9 +9,9 @@
 
 
 
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.js"></script>
-<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css">
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+<script type="text/javascript" src="${contextRoot}/js/jquery-1.7.1.js"></script>
+<link rel="stylesheet" type="text/css" href="${contextRoot}/ajax/libs/jqueryui/1.8.17/themes/base/jquery-ui.css">
+<script type="text/javascript" src="${contextRoot}/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 var oEditors = [];
