@@ -7,7 +7,19 @@
 
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
-var oEditors = [];
+
+var ckEditor;
+
+$(document).ready(function () {
+    ckEditor = CKEDITOR.replace('content', {
+        height: 300,                // 필요시 조절
+        // 이미지 업로드용
+        filebrowserUploadUrl: '${contextRoot}/ckeditor/ckeditorUpload.jsp',
+        filebrowserUploadMethod: 'form'
+    });
+});
+
+/* var oEditors = [];
 
 $(document).ready(function() {
 	initEditor();		 
@@ -27,7 +39,7 @@ function initEditor() {
 		},
 		fCreator: "createSEditor2"
 	});
-} 
+}  */
 
 function fn_save(){
 	var baNotice = $('input:radio[name=baNotice]').is(':checked');
@@ -57,14 +69,27 @@ function fn_save(){
 	}
 	
 	var menuId = $("#menuId").val();
-	var data =oEditors.getById["content"].getIR();
+	
+/* 	var data =oEditors.getById["content"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("내용을 입력 하세요.");
 		oEditors.getById["content"].exec("FOCUS"); 
 		return false;
 	}
-	$("#content").val(data);
+	$("#content").val(data); */
+	
+	var data = ckEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    ckEditor.focus();   // 포커스
+	    return false;
+	}
+	
+	$("#content").val(data);	
+	
 	var pathId = "${boardConfigVO.bcId}";
 	
 	$("#form").attr("action","${contextRoot}/staff/bbs/"+pathId+"/insert.do");
@@ -113,7 +138,7 @@ function fn_update( ) {
 		return false;
 	}
 	
-	var data =oEditors.getById["content"].getIR();
+/* 	var data =oEditors.getById["content"].getIR();
 	var text = data.replace(/[<][^>]*[>]/gi, "");
 	if(text=="" && data.indexOf("img") <= 0){
 		alert("내용을 입력 하세요.");
@@ -121,7 +146,19 @@ function fn_update( ) {
 		return false;
 	}
 	
+	$("#content").val(data); */
+	
+	var data = ckEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("내용을 입력 하세요.");
+	    ckEditor.focus();   // 포커스
+	    return false;
+	}
+	
 	$("#content").val(data);
+	
 	var pathId = "${boardConfigVO.bcId}";
 	var baId= "${boardArticleVO.baId}";
 	

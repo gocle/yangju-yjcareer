@@ -19,6 +19,7 @@
 	<script src="/yjcareer/assets/site/yjcareer/js/main.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/sub.js"></script>
 	<script src="/yjcareer/assets/site/yjcareer/js/board.js"></script>
+	<script src="${contextRoot}/dmaps/map_js_init/postcode.v2.js"></script>
 	<title>양주진로진학교육플랫폼</title>
 </head>
 
@@ -53,4 +54,6 @@
 			});
 
 	</script>
+	
+	
 

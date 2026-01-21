@@ -221,7 +221,7 @@ function fn_validatorBbsNtt( frm ) {
 </fieldset>
 </form>
 
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
 
 <script nonce="NEOCMSSCRIPT">
 	function openDaumZipAddressAdit(adresField) {

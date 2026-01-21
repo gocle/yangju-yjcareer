@@ -18,7 +18,8 @@
 		<script type="text/javascript" src="${contextRoot}/assets/script/custom_admin.js"></script>
 		
 		<!-- 카카오 주소찾기  -->
-		<script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script>
+		<!-- <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js"></script> -->
+		<script src="${contextRoot}/dmaps/map_js_init/postcode.v2.js"></script>
 		<script type="text/javascript" src="${contextRoot}/js/common.js"></script>
 		
 		<!-- dataPicker -->

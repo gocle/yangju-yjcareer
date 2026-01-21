@@ -8,7 +8,7 @@
 
 <script type="text/javascript" src="${contextRoot}/smarteditor/js/HuskyEZCreator.js"></script>
 
-<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
+<!-- <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> CKEditor
 
 <style>
 .cke_notification,
@@ -16,7 +16,7 @@
 .cke_notification_message {
   display: none !important;
 }
-</style>
+</style> -->
 
 <script type="text/javascript">
 

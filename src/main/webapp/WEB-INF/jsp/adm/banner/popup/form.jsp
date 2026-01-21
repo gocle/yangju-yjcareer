@@ -9,15 +9,7 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
 <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
-<script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script> <!-- CKEditor -->
-
 <style>
-.cke_notification,
-.cke_notification_warning,
-.cke_notification_message {
-  display: none !important;
-}
-
 img.ui-datepicker-trigger {
     margin-left:5px; vertical-align:middle; cursor:pointer;
 }

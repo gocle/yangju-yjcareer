@@ -2,6 +2,16 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ page import="java.util.Enumeration" %>
+
+<script src="${contextRoot}/ckeditor/ckeditor.js"></script>
+<style>
+.cke_notification,
+.cke_notification_warning,
+.cke_notification_message {
+  display: none !important;
+}
+</style>
+
 <body>
 <div class="wrapper nav-default" >
 	<header>
