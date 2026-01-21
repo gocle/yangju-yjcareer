@@ -4,6 +4,16 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script>
+function fn_search(pageIndex) {
+	$("#pageIndex").val(pageIndex);
+	var bcId = $("#bcId").val();
+	var reqUrl = "${contextRoot}/usr/bbs/"+bcId+"/list.do";
+	$("#bbsNttSearch").attr("action", reqUrl);
+	$("#bbsNttSearch").submit();
+}
+</script>
+
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
@@ -56,10 +66,12 @@
 	</style>
 	
     <div class="bbs_search">
-        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do?menuId=${menuId }" method="get" class="boardSearchForm">
+        <form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/bbs/${bcId }/list.do" method="get" class="boardSearchForm">
             <fieldset>
             <legend>게시물 검색</legend>
             <input type="hidden" name="menuId" id="menuId" value="${menuId }"/>
+			<input type="hidden" name="pageIndex" id="pageIndex" value="${pageIndex }"/>
+			<input type="hidden" name="bcId" id="bcId" value="${bcId }"/>
 			
 			<label for="ssearchCondition" class="skip">검색 영역 선택</label>
             <select name="searchCondition" id="searchCondition" title="검색 영역 선택">
@@ -116,7 +128,8 @@
 							<c:choose>
 								<c:when test="${topNoticeList.bcId == 'notice'}">${topNoticeList.memName }</c:when>
 								<c:otherwise>
-									${fn:substring(topNoticeList.memName, 0, 1)}*${fn:substring(topNoticeList.memName, fn:length(topNoticeList.memName)-1, fn:length(topNoticeList.memName))}
+									${fn:substring(topNoticeList.memName, 0, 1)}
+									<c:forEach begin="1" end="${fn:length(topNoticeList.memName) - 1}">*</c:forEach>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -144,7 +157,8 @@
 								<c:choose>
 									<c:when test="${articleList.bcId == 'notice'}">${articleList.memName }</c:when>
 									<c:otherwise>
-										${fn:substring(articleList.memName, 0, 1)}*${fn:substring(articleList.memName, fn:length(articleList.memName)-1, fn:length(articleList.memName))}
+										${fn:substring(articleList.memName, 0, 1)}
+										<c:forEach begin="1" end="${fn:length(articleList.memName) - 1}">*</c:forEach>
 									</c:otherwise>
 								</c:choose>
 							</td>

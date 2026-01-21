@@ -26,8 +26,8 @@ public class SearchManageServiceImpl extends EgovAbstractServiceImpl implements 
 	}
 	
 	@Override
-	public List<SubjCateManageVo> selectCateCdList(String sgrCd) throws Exception {
-		return searchManageMapper.selectCateCdList(sgrCd);
+	public List<SubjCateManageVo> selectCateCdList(String sgrCd, String memId) throws Exception {
+		return searchManageMapper.selectCateCdList(sgrCd, memId);
 	}
 	
 	@Override

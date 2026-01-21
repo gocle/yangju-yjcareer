@@ -300,21 +300,21 @@ function fn_regExp( param ){
 				<tr>
 					<th>팝업창 가로 크기<span style="color:red;"> *</span></th>
 					<td>
-						<input type="text" onkeyup="fn_regExp('Width');" style="width: 100%" name="bnWidth" id="bnWidth" placeholder="예 ) 100" value="${bannerResult.bnWidth }">
+						<input type="text" onkeyup="fn_regExp('Width');" style="width: 100%" name="bnWidth" id="bnWidth" placeholder="예 ) 400" value="${empty bannerResult.bnWidth ? 400 : bannerResult.bnWidth}">
 					</td>
 					<th>팝업창 세로 크기<span style="color:red;"> *</span></th>
 					<td>
-						<input type="text" onkeyup="fn_regExp('Height');" style="width: 100%" name="bnHeight" id="bnHeight" placeholder="예 ) 100" value="${bannerResult.bnHeight }">
+						<input type="text" onkeyup="fn_regExp('Height');" style="width: 100%" name="bnHeight" id="bnHeight" placeholder="예 ) 600" value="${empty bannerResult.bnHeight ? 600 : bannerResult.bnHeight}">
 					</td>
 				</tr>
 				<tr>
 					<th>팝업창 TOP위치<span style="color:red;"> *</span></th>
 					<td>
-						<input type="text" onkeyup="fn_regExp('Top');" style="width: 100%" name="bnTop" id="bnTop" placeholder="예 ) 100" value="${bannerResult.bnTop }">
+						<input type="text" onkeyup="fn_regExp('Top');" style="width: 100%" name="bnTop" id="bnTop" placeholder="예 ) 150" value="${empty bannerResult.bnTop ? 150 : bannerResult.bnTop}">
 					</td>
 					<th>팝업창 LEFT위치<span style="color:red;"> *</span></th>
 					<td>
-						<input type="text" onkeyup="fn_regExp('Left');" style="width: 100%" name="bnLeft" id="bnLeft" placeholder="예 ) 100" value="${bannerResult.bnLeft }">
+						<input type="text" onkeyup="fn_regExp('Left');" style="width: 100%" name="bnLeft" id="bnLeft" placeholder="예 ) 600" value="${empty bannerResult.bnLeft ? 600 : bannerResult.bnLeft}">
 					</td>
 				</tr>
 				<tr>

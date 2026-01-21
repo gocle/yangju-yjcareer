@@ -117,24 +117,30 @@ function fnDetailView(seqCd) {
 														<label for="radio-3" class="radio-btn">
 														<span class="icon"></span>
 														<span class="text">전체</span>
-														 </label>
+														</label>
 														
-														<input type="radio" id="radio-4" name="searchCateCd" value="CA" ${searchVo.searchCateCd eq 'CA' ? 'checked' : ''}>
-														<label for="radio-4" class="radio-btn">
+														<input type="radio" id="radio-7" name="searchCateCd" value="CD" ${searchVo.searchCateCd eq 'CD' ? 'checked' : ''}>
+														<label for="radio-7" class="radio-btn">
 														<span class="icon"></span>
-														<span class="text">진로진학아카데미</span>
+														<span class="text">특강</span>
+														</label>
+														
+														<input type="radio" id="radio-6" name="searchCateCd" value="CC" ${searchVo.searchCateCd eq 'CC' ? 'checked' : ''}>
+														<label for="radio-6" class="radio-btn">
+														<span class="icon"></span>
+														<span class="text">학부모아카데미</span>
 														</label>
 														 
 														<input type="radio" id="radio-5" name="searchCateCd" value="CB" ${searchVo.searchCateCd eq 'CB' ? 'checked' : ''}>
 														<label for="radio-5" class="radio-btn">
 														<span class="icon"></span>
-														<span class="text">입시 설명회</span>
+														<span class="text">입시설명회</span>
 														</label>
-														 
-														<input type="radio" id="radio-6" name="searchCateCd" value="CC" ${searchVo.searchCateCd eq 'CC' ? 'checked' : ''}>
-														<label for="radio-6" class="radio-btn">
+														
+														<input type="radio" id="radio-4" name="searchCateCd" value="CA" ${searchVo.searchCateCd eq 'CA' ? 'checked' : ''}>
+														<label for="radio-4" class="radio-btn">
 														<span class="icon"></span>
-														<span class="text">전공 멘토링</span>
+														<span class="text">진로교육박람회</span>
 														</label>
 													</div>
 												</li>

@@ -187,11 +187,6 @@
         <div class="bbs_left">
             <a href="./list.do?menuId=${menuId }" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
-<div class="bbs_right">
-			<!--학습후기의 경우 버튼-->
-			<a href="#" onclick="fn_update('${result.baId}','${menuId}'); return false;" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
-			<a href="#" onclick="fn_delete(); return false;" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>
-        </div>
     </div>
 
 

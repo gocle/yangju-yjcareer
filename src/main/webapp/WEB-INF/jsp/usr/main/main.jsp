@@ -672,14 +672,40 @@
 									</div>
 								</div>
 								<div class="notice_contents">
-									<c:forEach var="row" items="${noticList}" varStatus="i" begin="0" end="4">
+									<c:set var="totalCount" value="0" />
+									<c:set var="maxCount" value="5" />
+									
+									<c:forEach var="row" items="${topNoticeList}" varStatus="i" begin="0" end="4">
+										<c:if test="${totalCount < maxCount}">
+											<div class="notice_item">
+												<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
+													<p class="notice_title">${row.baTitle }</p>
+													<p class="notice_date">${row.baRegdate }</p>
+												</a>
+											</div>
+											<c:set var="totalCount" value="${totalCount + 1}" />
+									    </c:if>
+									</c:forEach>
+									<c:forEach var="row" items="${noticList}" varStatus="i">
+										<c:if test="${totalCount < maxCount}">
+									        <div class="notice_item">
+									            <a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId}&baNotice=0" class="notice_anchor">
+									                <p class="notice_title">${row.baTitle}</p>
+									                <p class="notice_date">${row.regDate}</p>
+									            </a>
+									        </div>
+									        <c:set var="totalCount" value="${totalCount + 1}" />
+									    </c:if>
+									</c:forEach>
+									
+									<%-- <c:forEach var="row" items="${noticList}" varStatus="i" begin="0" end="4">
 										<div class="notice_item">
 											<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
 												<p class="notice_title">${row.baTitle }</p>
 												<p class="notice_date">${row.regDate }</p>
 											</a>
 										</div>
-									</c:forEach>
+									</c:forEach> --%>
 								</div>
 								<div class="data_contents">
 									<c:forEach var="row" items="${photoList}" varStatus="i" begin="0" end="4">

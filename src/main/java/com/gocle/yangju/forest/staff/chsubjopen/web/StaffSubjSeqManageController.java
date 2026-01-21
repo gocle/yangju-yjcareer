@@ -89,10 +89,17 @@ public class StaffSubjSeqManageController {
 	
 	@RequestMapping(value = "SubjSeqInsertManageForm.do")
 	public String subjSeqInsertManageForm(@ModelAttribute("searchVo") SubjSeqManageDefaultVo searchVo
-			,@ModelAttribute("subjManageVo") SubjManageVo subjManageVo, ModelMap model) throws Exception {	
+			,@ModelAttribute("subjManageVo") SubjManageVo subjManageVo, ModelMap model, HttpSession session) throws Exception {	
+		
+		String memType = (String) session.getAttribute(Globals.MEM_TYPE);
+		String memSeq = (String) session.getAttribute(Globals.MEM_SEQ);
+		
+		subjManageVo.setSessionMemType(memType);
+		subjManageVo.setSessionMemSeq(memSeq);
+		
 		model.addAttribute("menuId", searchVo.getMenuId());
 		model.addAttribute("sgrManageList", searchManageService.selectSgrList());
-		model.addAttribute("subjList", subjManageService.selectList(subjManageVo));
+		model.addAttribute("subjList", subjManageService.selectInsertList(subjManageVo));
 		model.addAttribute("searchVo", searchVo);
 		
 		return "/staff/chsubjopen/SubjSeqInsertManageForm";

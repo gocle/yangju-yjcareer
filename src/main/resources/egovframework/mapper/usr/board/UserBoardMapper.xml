@@ -236,7 +236,6 @@
 		      AND CA.BA_NOTICE = 1
 		      AND CA.BC_ID = #{bcId}
 		    ORDER BY CA.REG_DT DESC
-		    LIMIT 3
 		) A
 		ORDER BY A.REG_DT DESC;
     </select>

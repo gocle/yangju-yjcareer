@@ -94,6 +94,7 @@ public class UserMainController{
 		
 		// 공지사항
 		boardArticleVO.setBcId("notice");
+		model.put("topNoticeList", boardService.topNoticeList(boardArticleVO));
 		model.put("noticList", boardService.listBoardArticle(boardArticleVO));
 		
 		// 자료싫

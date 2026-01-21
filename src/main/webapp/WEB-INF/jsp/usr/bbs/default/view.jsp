@@ -134,7 +134,15 @@
 
             <tr>		
                 <th scope="row">작성자</th>
-				<td>${result.memName}</td>
+				<td>
+					<c:choose>
+						<c:when test="${result.bcId == 'notice'}">${result.memName }</c:when>
+						<c:otherwise>
+							${fn:substring(result.memName, 0, 1)}
+							<c:forEach begin="1" end="${fn:length(result.memName) - 1}">*</c:forEach>
+						</c:otherwise>
+					</c:choose>
+				</td>
             </tr>
 
             <tr>		
@@ -182,7 +190,7 @@
         <div class="bbs_left">
             <a href="/yjcareer/usr/bbs/${bcId }/list.do?menuId=${menuId}" class="bbs_btn list"><i class="icon"></i><span>목록</span></a>
         </div>
-        <c:if test="${memSeq.toString() eq result.regId.toString()}">
+        <c:if test="${memSeq.toString() eq result.regId.toString() and bcId eq 'review'}">
         <div class="bbs_right">
 			<a href="/yjcareer/usr/bbs/${bcId }/updateForm.do?menuId=${menuId }&baId=${result.baId}" class="bbs_btn modify"><i class="icon"></i><span>수정</span></a>
         	<a href="#" onclick="fn_deletePost()" class="bbs_btn delete"><i class="icon"></i><span>삭제</span></a>

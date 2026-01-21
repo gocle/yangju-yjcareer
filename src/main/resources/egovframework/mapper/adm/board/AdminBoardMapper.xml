@@ -251,7 +251,6 @@
 			    </if>
 		    </if>
 		    ORDER BY CA.BA_REGDATE DESC
-		    LIMIT 3
 		) A
 		ORDER BY A.BA_REGDATE DESC;
     </select>

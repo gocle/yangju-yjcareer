@@ -67,4 +67,9 @@ public class SubjManageServiceImpl extends EgovAbstractServiceImpl implements Su
 	public int selectSubjSubSubSeqCnt(SubjManageVo subjManageVo) throws Exception {
 		return subjManageMapper.selectSubjSubSubSeqCnt(subjManageVo);
 	}
+	
+	@Override
+	public List<SubjManageVo> selectInsertList(SubjManageVo subjManageVo) throws Exception {
+		return subjManageMapper.selectInsertList(subjManageVo);
+	}
 }

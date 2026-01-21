@@ -11,7 +11,7 @@
 	</select>
 	
 	<select id="selectCateCdList" resultType="SubjCateManageVo" parameterType="String">
-		SELECT sc.cate_cd as cate_cd
+		<!-- SELECT sc.cate_cd as cate_cd
 			 , sc.cate_nm as cate_nm
 		FROM TB_SUBJ_CATE sc
 		INNER JOIN TB_SGR sg
@@ -19,6 +19,28 @@
 		WHERE 1 = 1
 			AND sg.sgr_cd = #{sgrCd}
 			AND sg.use_yn = 'Y'
+		ORDER BY sc.sort_order -->
+		
+		SELECT sc.cate_cd as cate_cd
+     		, sc.cate_nm as cate_nm
+		FROM TB_SUBJ_CATE sc
+		INNER JOIN TB_SGR sg
+		    ON sc.sgr_cd = sg.sgr_cd
+		INNER JOIN COM_MEMBER cm
+		    ON cm.mem_id = #{memId}
+		WHERE 1 = 1
+		    AND sg.sgr_cd = #{sgrCd}
+		    AND sg.use_yn = 'Y'
+		    <![CDATA[
+		    AND (
+		        (sg.sgr_cd <> 'B') 
+		        OR
+		        (sg.sgr_cd = 'B' AND (
+		            (cm.com_id = 12 AND sc.cate_cd = 'BA')
+		            OR 
+		            (cm.com_id <> 12) 
+		        ))
+		    )]]>
 		ORDER BY sc.sort_order
 	</select>
 	

@@ -11,7 +11,7 @@ public interface SearchManageService {
 	
 	 List<SubjCateManageVo> selectSgrList() throws Exception;
 	
-	 List<SubjCateManageVo> selectCateCdList(String sgrCd) throws Exception;
+	 List<SubjCateManageVo> selectCateCdList(String sgrCd, String memId) throws Exception;
 	 
 	 List<CompanyManageVo> selectCompanyList(LoginVO loginVO) throws Exception;
 	 

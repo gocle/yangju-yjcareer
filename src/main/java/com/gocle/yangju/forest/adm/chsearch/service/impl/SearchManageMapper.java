@@ -14,7 +14,7 @@ public interface SearchManageMapper {
 	
 	List<SubjCateManageVo> selectSgrList() throws Exception;
 	
-	List<SubjCateManageVo> selectCateCdList(@Param("sgrCd") String sgrCd) throws Exception;
+	List<SubjCateManageVo> selectCateCdList(@Param("sgrCd") String sgrCd, @Param("memId") String memId) throws Exception;
 	
 	List<CompanyManageVo> selectCompanyList(LoginVO loginVO) throws Exception;
 	

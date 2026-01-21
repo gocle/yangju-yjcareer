@@ -73,6 +73,34 @@ $(document).ready(function() {
 		$("#detailForm input[name=learnEndDtMI]").val('<fmt:formatDate value="${learnEndDtPDate}" pattern="mm" />');
 	}
 	
+	$("#comId").change(function() {
+		var comId = $(this).val();
+		var selPlace = "${resultMap.eduPlace}";
+		
+		$("#locId").empty();
+		$("#locId").append('<option value="">기타(직접입력)</option>');
+		
+		$.ajax({
+			url: "${contextRoot}/staff/chsearch/SearchLocationList.do",
+			type: "GET",
+			data: { comId: comId },
+			success: function(result) {
+				$.each(result, function(index, item) {
+					$("#locId").append(
+							'<option value="' + item.locId + '" ' 
+							+ (selPlace == item.location ? 'selected="selected"' : '') 
+							+ '>' + item.location + '</option>'
+					);
+				});
+			},
+			error: function() {
+				//alert("오류 발생");
+			}
+		});
+	});
+			
+	$("#comId").trigger("change");
+	
 	var initTel = "${resultMap.tel}";
 	var exists = false;
 	    
@@ -98,22 +126,14 @@ $(document).ready(function() {
 	    }
 	});
 	    
-	var initPlace = "${resultMap.eduPlace}";
+	$("#locId").change(function() {
+		var locId = $(this).val();
+		var locText = $(this).find("option:selected").text();
 	    
-	if (initPlace == "온라인(비대면)") {
-		$("#location").val("ONLINE");
-	}else {
-		$("#location").val("ETC");
-		$("#eduPlace").show();
-	}
-	    
-	$("#location").change(function() {
-		if ($(this).val() == "ETC") {
-			$("#eduPlace").val("");
-			$("#eduPlace").show();
-			$("#eduPlace").focus();
+		if (locId === "" || locId === "ETC") {
+			$("#eduPlace").val("").focus();
 		} else {
-			$("#eduPlace").hide();
+			$("#eduPlace").val(locText);
 		}
 	});
 });
@@ -149,7 +169,6 @@ function valid() {
 	var wtel = $.trim($("#wtel").val());
 	var telSelect = $("#tel").val();
 	var eduPlace = $.trim($("#eduPlace").val());
-	var location = $("#location").val();
 	
 	/* 	var data = oEditors.getById["subjPlan"].getIR();
 	$("#subjPlan").val(data); */
@@ -169,7 +188,7 @@ function valid() {
 		return false;
 	}
 	
-	if(location == "ETC" && eduPlace == "") {
+	if(eduPlace == "") {
 		alert("교육장소를 입력해주세요.");
 		eduPlace.focus();
 		return false;
@@ -298,7 +317,9 @@ function valid() {
 	}
 	
 	var selected = [];
-	for (let i = 1; i <= 5; i++) {
+	var selLen = ${fn:length(codeList)};
+	
+	for (let i = 1; i <= selLen; i++) {
         var checkbox = document.getElementById("eduTarget" + i);
         if (checkbox && checkbox.checked) {
             selected.push(checkbox.value);
@@ -430,10 +451,6 @@ function fnCmdSave() {
             var inputVal = $.trim($("#wtel").val());
             $("#tel option[value='ETC']").val(inputVal);
         }
-		// 교육장소
-		if($("#location").val() == "ONLINE") {
-			$("#eduPlace").val("온라인(비대면)");
-		}
 		
 		$("#detailForm").attr("action", "SubjSeqManageUpdate.do");
 		$("#detailForm").submit();
@@ -576,11 +593,11 @@ function fnCmdDelete() {
           	<tr>
 	            <th>교육장소<span class="red"> *</span></th>
 	            <td colspan="3">
-	            	<select id="location" name="location" style="width: 20%">
-	            		<option value="ONLINE">온라인(비대면)</option>
-	            		<option value="ETC">직접입력</option>
-	            	</select>
-	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}" style="display:none; width: 50%;" maxlength="100"/>
+	            	<select id="locId" name="locId" style="width: 20%" value="">
+	            		<option value="ETC">기타(직접입력)</option>
+					</select>
+	            	<input type="text" id="eduPlace" name="eduPlace" value="${resultMap.eduPlace}" style="width: 50%;" maxlength="100"/>
+	            	<br/><b style="font-size:12px; color:red;">* 등록하고자하는 교육장소가 없을 경우, 관리자에게 문의바랍니다.</b>
 	            </td>
           	</tr>
           	<tr>

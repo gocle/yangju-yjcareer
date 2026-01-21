@@ -2,6 +2,8 @@ package com.gocle.yangju.forest.adm.chsearch.web;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,8 @@ import com.gocle.yangju.forest.adm.chsubj.vo.SubjManageVo;
 import com.gocle.yangju.forest.adm.chuser.service.UsrManageService;
 import com.gocle.yangju.forest.adm.chuser.vo.UsrManageVo;
 import com.gocle.yangju.forest.adm.company.vo.CompanyManageVo;
+
+import egovframework.com.cmm.service.Globals;
 
 @RequestMapping(value = "/adm/chsearch")
 @Controller(value = "searchManageController")
@@ -46,8 +50,9 @@ public class SearchManageController {
      */
     @ResponseBody
     @RequestMapping(value = "SearchCateCdList.do")
-    public List<SubjCateManageVo> selectSearchCateCdList(@RequestParam("sgrCd") String sgrCd) throws Exception {
-        return searchManageService.selectCateCdList(sgrCd);
+    public List<SubjCateManageVo> selectSearchCateCdList(@RequestParam("sgrCd") String sgrCd, HttpSession session) throws Exception {
+    	String memId = (String) session.getAttribute(Globals.M_ID);
+        return searchManageService.selectCateCdList(sgrCd, memId);
     }
     
     /**

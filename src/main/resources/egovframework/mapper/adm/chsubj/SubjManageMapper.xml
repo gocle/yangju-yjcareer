@@ -82,7 +82,7 @@
             ,subj_desc
             ,enroll_type
             ,edu_target
-            ,loc_id
+            ,edu_place
             ,reg_id
             ,reg_ip
             ,reg_dt
@@ -99,7 +99,7 @@
             ,#{subjDesc}
             ,#{enrollType}
             ,#{eduTarget}
-            ,#{locId}
+            ,#{eduPlace}
             ,#{sessionMemSeq}
             ,#{sessionIp}
             ,NOW()
@@ -120,7 +120,7 @@
 			, s.enroll_type
 			, s.com_id
 			, s.edu_target
-			, s.loc_id
+			, s.edu_place
 			, s.dupl_enroll_yn
 			, cc.com_title
 			, s.edu_place
@@ -164,5 +164,26 @@
 		SELECT COUNT(ss.seq_cd)
 		FROM TB_SUBJ_SEQ ss
 		WHERE ss.subj_cd = #{subjCd}
+	</select>
+	
+	<select id="selectInsertList" resultType="SubjManageVo" parameterType="SgrManageVo">
+		SELECT sb.subj_cd
+			 , sb.cate_cd
+			 , sc.cate_nm
+			 , sb.subj_nm
+			 , sb.sgr_cd
+			 , sg.sgr_nm
+		FROM TB_SUBJ sb
+		INNER JOIN TB_SGR sg
+			ON sb.sgr_cd = sg.sgr_cd
+		INNER JOIN TB_SUBJ_CATE sc
+			ON sc.cate_cd = sb.cate_cd
+			AND sg.sgr_cd = sc.sgr_cd
+		LEFT JOIN COM_COMPANY cc
+			ON cc.com_id = sb.com_id
+		WHERE 1 = 1
+		AND sb.use_yn = 'Y'
+		<include refid="selectSearchWhere" />
+		ORDER BY sb.reg_dt DESC
 	</select>
 </mapper> 

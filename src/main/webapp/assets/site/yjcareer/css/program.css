@@ -123,6 +123,11 @@ td.td-type span.type-5 {
 	color : #00a3d0;
 }
 
+td.td-type span.type-6 {
+	border: 2px solid #d94ccb;
+	color : #d94ccb;
+}
+
 .education_list table.table.list_table td.td-type span:not(:first-child) {
     margin-top: 5px;
 }

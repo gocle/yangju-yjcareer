@@ -19,4 +19,6 @@ public interface SubjManageService {
 	int delete(SubjManageVo subjManageVo) throws Exception;
 	
 	int selectSubjSubSubSeqCnt(SubjManageVo subjManageVo) throws Exception;
+	
+	List<SubjManageVo> selectInsertList(SubjManageVo subjManageVo) throws Exception;
 }

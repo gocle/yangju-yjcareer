@@ -4,6 +4,16 @@
 <%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script>
+function fn_search(pageIndex) {
+	$("#pageIndex").val(pageIndex);
+	var bcId = $("#bcId").val();
+	var reqUrl = "${contextRoot}/usr/bbs/"+bcId+"/list.do";
+	$("#bbsNttSearch").attr("action", reqUrl);
+	$("#bbsNttSearch").submit();
+}
+</script>
+
 <c:import url="/usr/layout/top.do" />
 
   <c:import url="/usr/menu/header.do" />
@@ -40,11 +50,13 @@
                     
                     <div id="contents" class="cts4146">
 						<div class="bbs_search">
-					        <form name="bbsNttSearchForm" id="bbsNttSearch" action="./list.do" method="get" class="boardSearchForm">
+					        <form name="bbsNttSearchForm" id="bbsNttSearch" action="${contextRoot}/usr/bbs/${bcId }/list.do" method="get" class="boardSearchForm">
 					            <fieldset>
 					            <legend>게시물 검색</legend>
 					            <input type="hidden" name="menuId" Id="menuId" value="${menuId }"/>
-								
+								<input type="hidden" name="pageIndex" id="pageIndex" value="${pageIndex }"/>
+								<input type="hidden" name="bcId" id="bcId" value="${bcId }"/>
+			
 								<label for="ssearchCondition" class="skip">검색 영역 선택</label>
 					            <select name="searchCondition" id="searchCondition" title="검색 영역 선택">
 									<option value="BA_TITLE" <c:if test="${boardArticleVO.searchCondition == 'BA_TITLE'}">selected</c:if>> 제목</option>
