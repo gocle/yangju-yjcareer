@@ -186,12 +186,10 @@ function fn_search(pageIndex) {
     
     <ui:pagination paginationInfo="${paginationInfo}" type="user" jsFunction="fn_search" />
 
-	<c:if test="${bcId eq 'review'}">
+	<c:if test="${bcId eq 'review' and not empty sessionScope.SESSION_DI_KEY}">
 		<div class="bbs_btn_wrap clearfix">
-	        <div class="bbs_left">
-	        </div>
 	        <div class="bbs_right">
-							<a href="/yjcareer/usr/bbs/review/form.do?menuId=${menuId }" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
+				<a href="/yjcareer/usr/bbs/review/form.do?menuId=${menuId }" class="bbs_btn write"><i class="icon"></i><span>글쓰기</span></a>
 	        </div>
 	    </div>
     </c:if>

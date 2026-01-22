@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -482,13 +483,33 @@ public class UserBoardController {
 				if(diKey == null) {
 					retMsg = "로그인이 필요한 서비스입니다.";
 					redirectAttributes.addFlashAttribute("retMsg", retMsg);
-					return "redirect:/usr/main.do";
+					return "redirect:/{bcId}/form.do";
 				}
 				
 				LoginInfo loginInfo = new LoginInfo(); // 세션
 				loginInfo.putSessionToVo(boardArticleVO); // session의 정보를 VO에 추가.
 				
+				// 첨부파일 확장자
+				List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png");
 				
+				if(null != multiRequest) {
+					final List<MultipartFile> fileObj = multiRequest.getFiles("file_atchFileId");
+					
+					if(!fileObj.isEmpty()) {
+						for(MultipartFile file : fileObj) {
+							String originalFileName = file.getOriginalFilename();
+							
+							if (originalFileName != null && originalFileName.contains(".")) {
+								 String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1).toLowerCase();
+								 if (!allowedExtensions.contains(ext)) {
+									retMsg = "jpg, png, jpeg 파일만 업로드 가능합니다.";
+									redirectAttributes.addFlashAttribute("retMsg", retMsg);
+									return "redirect:/usr/bbs/"+bcId+"/form.do?menuId="+boardArticleVO.getMenuId();
+								 }
+							}
+						}
+					}
+				}
 				
 				String menuId = boardArticleVO.getMenuId();
 			
@@ -591,6 +612,49 @@ public class UserBoardController {
 				LoginInfo loginInfo = new LoginInfo(); // 세션
 				loginInfo.putSessionToVo(boardArticleVO); // session의 정보를 VO에 추가.
 				
+				// 첨부파일 확장자
+				List<String> allowedExtensions = Arrays.asList("jpg", "jpeg", "png");
+				
+				if(null != multiRequest) {
+					final List<MultipartFile> fileObj = multiRequest.getFiles("file_atchFileId");
+
+					if(!fileObj.isEmpty()) {
+						for(MultipartFile file : fileObj) {
+							String originalFileName = file.getOriginalFilename();
+							
+							if (originalFileName != null && originalFileName.contains(".")) {
+								 String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1).toLowerCase();
+								 if (!allowedExtensions.contains(ext)) {
+									retMsg = "jpg, png, jpeg 파일만 업로드 가능합니다.";
+									redirectAttributes.addFlashAttribute("retMsg", retMsg);
+									return "redirect:/usr/bbs/"+boardArticleVO.getBcId()+"/updateForm.do?menuId="+boardArticleVO.getMenuId()+"&baId="+boardArticleVO.getBaId();
+								 }
+							}
+						}
+					}
+				}
+				
+				FileVO fileVO = new FileVO();
+				
+				fileVO.setThumbnailCrop("N");
+				fileVO.setBoardIdx(boardArticleVO.getBaId());
+						
+				List<FileVO> existingFiles = fileService.listFile(fileVO);
+				
+				if(existingFiles != null) {
+				    for(FileVO fVO : existingFiles) {
+				        String fileName = fVO.getOrgFileName();
+				        
+				        if(fileName != null && fileName.contains(".")) {
+				            String ext = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+				            if (!allowedExtensions.contains(ext)) {
+				            	retMsg = "jpg, png, jpeg 파일만 업로드 가능합니다.";
+								redirectAttributes.addFlashAttribute("retMsg", retMsg);
+								return "redirect:/usr/bbs/"+boardArticleVO.getBcId()+"/updateForm.do?menuId="+boardArticleVO.getMenuId()+"&baId="+boardArticleVO.getBaId();
+				            }
+				        }
+				    }
+				}
 				
 				String menuId = boardArticleVO.getMenuId();
 				

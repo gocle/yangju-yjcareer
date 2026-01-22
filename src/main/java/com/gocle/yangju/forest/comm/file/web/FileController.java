@@ -168,7 +168,7 @@ public class FileController {
 		if(returnUrl.contains("&amp;")){
     		return "redirect:"+returnUrl.replace("&amp;","&")+"&menuId="+menuId;
     	} else if(returnUrl.contains("usr/bbs/review/updateForm.do")){
-    		return "redirect:"+returnUrl;
+    		return "redirect:"+returnUrl+"&menuId="+menuId;
     	}
 		return "redirect:"+returnUrl+"&menuId="+menuId;
 	}

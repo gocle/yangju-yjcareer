@@ -21,6 +21,10 @@ public class BoardReplyVO extends BaseVO implements Serializable {
 	
 	private String insertDate;
 	
+	private String rDeleteYn;
+	
+	private String orgFileName;
+	
 	public String getBrId() {
 		return brId;
 	}
@@ -56,6 +60,18 @@ public class BoardReplyVO extends BaseVO implements Serializable {
 	}
 	public void setInsertDate(String insertDate) {
 		this.insertDate = insertDate;
+	}
+	public String getrDeleteYn() {
+		return rDeleteYn;
+	}
+	public void setrDeleteYn(String rDeleteYn) {
+		this.rDeleteYn = rDeleteYn;
+	}
+	public String getOrgFileName() {
+		return orgFileName;
+	}
+	public void setOrgFileName(String orgFileName) {
+		this.orgFileName = orgFileName;
 	}
 	
 }

@@ -20,7 +20,7 @@
                             <p class="first_title">알림마당</p>
                             
                             <!-- 현재메뉴명 입력해주세요 -->
-                            <h2>학습 후기</h2>
+                            <h2>교육후기</h2>
                         </div>
                         
                         <div class="sub_head_wrap">
@@ -110,26 +110,55 @@
 
 <script>
 //<![CDATA[
-
-
+$(document).ready(function(){
+	if ("" != "${retMsg}") {
+		alert("${retMsg}");
+	} 
+});
 
 function fn_validatorBbsNtt( frm ) {
-
-	
-	
-                if( fn_isEmpty( frm, 'baTitle') ) {
-                    alert(fn_getMessage("INPUT", '제목'));
-                    fn_setFocus(frm, 'baTitle');
-                    return false;
-                }
+	if( fn_isEmpty( frm, 'baTitle') ) {
+		alert(fn_getMessage("INPUT", '제목'));
+		fn_setFocus(frm, 'baTitle');
+		return false;
+	}
 				
-		
-                if( fn_isEmpty( frm, 'baContentHtml') ) {
-                    alert(fn_getMessage("INPUT", '내용'));
-                    fn_setFocus(frm, 'baContentHtml');
-                    return false;
-                }
+	if( fn_isEmpty( frm, 'baContentHtml') ) {
+		alert(fn_getMessage("INPUT", '내용'));
+		fn_setFocus(frm, 'baContentHtml');
+		return false;
+	}
 
+	var fileInputs = frm.querySelectorAll('input[name="file_atchFileId"]');
+    var allowedExtensions = ['jpg', 'jpeg', 'png'];
+    
+    for (let i = 0; i < fileInputs.length; i++) {
+        var fileInput = fileInputs[i];
+        
+        if (fileInput.value) {
+        	var fileName = fileInput.value;
+            var fileExtension = fileName.split('.').pop().toLowerCase();
+
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert('jpg, png, jpeg 파일만 업로드 가능합니다.');
+                return false;
+            }
+        }
+    }
+    
+
+    var existingFiles = frm.querySelectorAll('.existing_atchFile');
+    
+    for (let j = 0; j < existingFiles.length; j++) {
+        var fileName = existingFiles[j].textContent.trim(); // 파일명 텍스트 가져오기
+        var fileExtension = fileName.split('.').pop().toLowerCase();
+        
+        if (!allowedExtensions.includes(fileExtension)) {
+        	alert('jpg, png, jpeg 파일만 업로드 가능합니다.');
+            return false;
+        }
+    }
+	
 	return true;
 	
 }
@@ -237,7 +266,7 @@ function fn_setFocus(form, fieldName) {
 		              <div class="attach_file">
 		                <label class="file_label">첨부파일</label>
 		                <span class="file_input">
-		                  <a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');">
+		                  <a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" class="existing_atchFile">
 		                    <c:out value="${fileVO.orgFileName}" />
 		                  </a>
 		                </span>

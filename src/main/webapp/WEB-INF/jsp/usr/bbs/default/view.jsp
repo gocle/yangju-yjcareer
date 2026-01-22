@@ -203,9 +203,44 @@
 	  <input type="hidden" name="baId" value="${result.baId}" />
 	</form>
 
-
-   
-
+	<c:if test="${fn:length(boardReplyList) > 0}">
+		<h3>답변</h3>
+		<c:forEach var="boardReplyList" items="${boardReplyList}" varStatus="status">
+			<div class="bbs_info clearfix">
+				<div class="bbs_left bbs_count">
+					<span>작성일 <b>${boardReplyList.insertDate}</b></span>
+				</div>
+			</div>
+			<table class="bbs_default view">
+				<tbody>
+					<tr>
+						<th scope="row">답변내용</th>
+						<td>${boardReplyList.brContent}</td>
+					</tr>
+					<c:if test="${not empty boardReplyList.atchFileIdx and boardReplyList.rDeleteYn ne 'Y'}">
+						<tr>
+							<th scope="row">첨부파일</th>
+							<td>
+								<ul class="view_attach">
+									<li>
+										<div class="down_view">
+											<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" /><c:out value="${boardReplyList.orgFileName}" /></span>
+											<a href="javascript:fn_egov_downFile('${boardReplyList.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
+										</div>
+									</li>
+								</ul>
+							</td>
+						</tr>
+					</c:if>
+				</tbody>
+			</table>
+		</c:forEach>
+	</c:if>
+	<div class="bbs_btn_wrap clearfix">
+		<div class="bbs_right">
+		</div>
+	</div>
+		
 	<ul class="bbs_view_move">
 		<c:if test="${not empty prevNext.preNo and prevNext.preNo ne 0 and not empty prevNext.preTitle}">
         <li class="prev"><strong>이전글</strong> <a href="javascript:fn_prev('${prevNext.preNo}', '${menuId}', '${result.baNotice}');">${prevNext.preTitle}</a></li>
