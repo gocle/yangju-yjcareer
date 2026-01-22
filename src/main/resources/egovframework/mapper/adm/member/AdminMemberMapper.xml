@@ -169,7 +169,8 @@
 		SET 
 			MEM_PASSWORD = #{encryptPassword},
 			UPD_ID = #{sessionMemSeq},
-			UPD_DT = NOW()
+			UPD_DT = NOW(),
+			LAST_PW_UPDT_YMD = NULL
 		WHERE MEM_SEQ = #{memSeq} 
 		AND MEM_ID = #{memId}
 		AND DELETE_YN = 'N'
