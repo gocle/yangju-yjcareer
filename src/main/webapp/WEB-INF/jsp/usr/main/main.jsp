@@ -524,12 +524,12 @@
 													<input type="radio" id="program_BB" name="program">
 													<label for="program_BB">동부 AI디지털</label>
 													
+													<input type="radio" id="program_BD" name="program">
+													<label for="program_BD">동부 돌봄</label>
+													
 													<input type="radio" id="program_BC" name="program">
 													<label for="program_BC">서부 AI디지털</label>
 													
-													<input type="radio" id="program_BD" name="program">
-													<label for="program_BD">동부 돌봄</label>
-
 													<input type="radio" id="program_BE" name="program">
 													<label for="program_BE">서부 돌봄</label>
 												</div>	
@@ -589,14 +589,17 @@
 													<input type="radio" id="event_all" name="event" checked>
 													<label for="event_all">전체</label>
 
-													<input type="radio" id="event_CA" name="event">
-													<label for="event_CA">진로진학아카데미</label>
+													<input  type="radio" id="event_CD" name="event">
+													<label for="event_CD">특강</label>
+													
+													<input  type="radio" id="event_CC" name="event">
+													<label for="event_CC">학부모아카데미</label>
 
 													<input type="radio" id="event_CB" name="event">
-													<label for="event_CB">입시 설명회</label>
-
-													<input  type="radio" id="event_CC" name="event">
-													<label for="event_CC">전공 멘토링</label>
+													<label for="event_CB">입시설명회</label>
+													
+													<input type="radio" id="event_CA" name="event">
+													<label for="event_CA">진로교육박람회</label>
 												</div>	
 											</div>
 											
@@ -697,15 +700,6 @@
 									        <c:set var="totalCount" value="${totalCount + 1}" />
 									    </c:if>
 									</c:forEach>
-									
-									<%-- <c:forEach var="row" items="${noticList}" varStatus="i" begin="0" end="4">
-										<div class="notice_item">
-											<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
-												<p class="notice_title">${row.baTitle }</p>
-												<p class="notice_date">${row.regDate }</p>
-											</a>
-										</div>
-									</c:forEach> --%>
 								</div>
 								<div class="data_contents">
 									<c:forEach var="row" items="${photoList}" varStatus="i" begin="0" end="4">
