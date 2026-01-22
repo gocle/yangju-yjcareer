@@ -66,7 +66,7 @@ function openLoginPopup() {
 			<div class="group">
 				<div class="wrap">
 					<div class="logo">
-						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/site/yjcareer/images/common/logo.png" alt="교육발전특구 양주 진로진학플랫폼"></a>
+						<a href="/yjcareer/usr/main.do" class="logo_anchor"><img src="/yjcareer/assets/site/yjcareer/images/common/logo_new.png" alt="교육발전특구 양주 진로진학플랫폼"></a>
 					</div>
 				</div>
 
