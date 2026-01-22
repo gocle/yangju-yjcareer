@@ -213,13 +213,13 @@ $(window).on('load', function () {
   if ($footerList.hasClass('slick-initialized')) {
     $footerList.slick('unslick');
   }
-
+ 
   $footerList.slick({
     rows: 1,
     draggable: false,
     infinite: true,
     variableWidth: false,
-    slidesToShow: 6,
+    slidesToShow: 5,
     slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 3000,

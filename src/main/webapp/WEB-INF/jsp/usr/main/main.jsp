@@ -749,20 +749,8 @@
 		
 		    <div class="fBanner-list">
 		      <div class="fBanner-item">
-		        <a href="https://primary.ebs.co.kr/main/primary" target="_blank" rel="noopener">
-		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_ele.jpg" alt="EBS 초등" />
-		        </a>
-		      </div>
-		
-		      <div class="fBanner-item">
-		        <a href="https://mid.ebs.co.kr/main/middle" target="_blank" rel="noopener">
-		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_mi.jpg" alt="EBS 중학" />
-		        </a>
-		      </div>
-		
-		      <div class="fBanner-item">
-		        <a href="https://www.ebsi.co.kr/ebs/pot/poti/main.ebs" target="_blank" rel="noopener">
-		          <img src="/yjcareer/assets/site/yjcareer/images/common/ebs_hi.jpg" alt="EBS 고등" />
+		        <a href="https://satp.goe.go.kr/intro.do" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/satp.jpg" alt="고입정보포털" />
 		        </a>
 		      </div>
 		
@@ -773,20 +761,20 @@
 		      </div>
 		
 		      <div class="fBanner-item">
-		        <a href="https://www.kmooc.kr/" target="_blank" rel="noopener">
-		          <img src="/yjcareer/assets/site/yjcareer/images/common/km.jpg" alt="kmooc" />
-		        </a>
-		      </div>
-		
-		      <div class="fBanner-item">
 		        <a href="https://www.career.go.kr/cloud/w/main/home" target="_blank" rel="noopener">
 		          <img src="/yjcareer/assets/site/yjcareer/images/common/career.jpg" alt="커리어넷" />
 		        </a>
 		      </div>
 		
 		      <div class="fBanner-item">
-		        <a href="https://www.yangju.go.kr" target="_blank" rel="noopener">
-		          <img src="/yjcareer/assets/site/yjcareer/images/common/yangju.jpg" alt="양주시청" />
+		        <a href="https://www.schoolinfo.go.kr/Main.do" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/schoolinfo.jpg" alt="학교알리미" />
+		        </a>
+		      </div>
+		
+		      <div class="fBanner-item">
+		        <a href="https://online.goe.go.kr/main/index.jsp" target="_blank" rel="noopener">
+		          <img src="/yjcareer/assets/site/yjcareer/images/common/online.jpg" alt="경기온라인학교" />
 		        </a>
 		      </div>
 		    </div>

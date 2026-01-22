@@ -1132,6 +1132,15 @@ input[type="number"] {
 	border: 0;
 }
 
+.footer-banner .fBanner-list {
+	display: block !important;
+    width: 100% !important;
+}
+
+.fBanner-item a {
+    display: flex !important;
+    justify-content: center;
+}
 
 .f-b-inner .fBanner_control button::before {
     content: "";
