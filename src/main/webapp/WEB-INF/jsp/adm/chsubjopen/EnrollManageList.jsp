@@ -53,6 +53,7 @@ function fnCmdUpdateForm(seqCd) {
 
 function fnEnrollDetailList(seqCd) {
 	$("#seqCd").val(seqCd);
+	$("#pageIndex").val(1);
 	var menuId = $("#menuId").val();
 	var reqUrl = "${contextRoot}/adm/chsubjopen/EnrollDetailManageList.do?menuId="+menuId;
 	

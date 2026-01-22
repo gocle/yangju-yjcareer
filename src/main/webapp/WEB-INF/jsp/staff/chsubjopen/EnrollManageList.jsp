@@ -52,6 +52,7 @@ function fnCmdUpdateForm(seqCd) {
 
 function fnEnrollDetailList(seqCd) {
 	$("#seqCd").val(seqCd);
+	$("#pageIndex").val(1);
 	var reqUrl = "${contextRoot}/staff/chsubjopen/EnrollDetailManageList.do";
 	
 	$("#listForm").attr("action", reqUrl);
