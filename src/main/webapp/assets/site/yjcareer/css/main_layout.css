@@ -858,7 +858,7 @@
 	position:absolute;
 	top:50%;
 	transform:translateY(-50%);
-	left:1px;
+	left:3px;
 	width:24px;
 	height:24px;
 	background:url('../images/main/notice_02.png') no-repeat;

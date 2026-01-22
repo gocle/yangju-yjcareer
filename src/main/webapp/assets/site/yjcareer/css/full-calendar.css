@@ -97,6 +97,49 @@
   }
 }
 
+/* ============================
+   FullCalendar daygrid events scroll
+   target: .fc-daygrid-day-events
+============================ */
+
+/* 스크롤 활성화 (원하는 높이로 조절) */
+.fc-daygrid-day-events{
+  max-height: 92px;             /* ✅ 여기만 원하는 값으로 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;           /* 스크롤바 때문에 텍스트 붙는거 방지 */
+  scrollbar-gutter: stable;     /* 스크롤 생겨도 폭 유지(지원 브라우저) */
+}
+
+/* Firefox */
+.fc-daygrid-day-events{
+  scrollbar-width: thin;
+  scrollbar-color: #7c81ff #f1f2f6;   /* thumb track */
+}
+
+/* Chrome/Edge/Safari */
+.fc-daygrid-day-events::-webkit-scrollbar{
+  width: 10px;
+}
+.fc-daygrid-day-events::-webkit-scrollbar-track{
+  background: #f1f2f6;
+  border-radius: 999px;
+}
+.fc-daygrid-day-events::-webkit-scrollbar-thumb{
+  background: linear-gradient(180deg, #8b8ff9 0%, #5a4dff 100%);
+  border-radius: 999px;
+  border: 2px solid #f1f2f6;
+}
+.fc-daygrid-day-events::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(180deg, #7c81ff 0%, #4f46e5 100%);
+}
+
+/* 이벤트가 스크롤 바 아래로 깔끔하게 보이게 */
+.fc-daygrid-day-events .fc-daygrid-event{
+  margin-right: 2px;
+}
+
+
 .content {
 	width: 85%;
 	margin: 5rem auto;

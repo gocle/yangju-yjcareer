@@ -35,6 +35,12 @@ public class UserIntroduceController {
 		return "/usr/introduce/business";
 	}
 	
+	@RequestMapping("info.do")
+	public String info(ModelMap model) throws Exception {
+		
+		return "/usr/introduce/info";
+	}
+	
 	@RequestMapping("map.do")
 	public String map(ModelMap model) throws Exception {
 		

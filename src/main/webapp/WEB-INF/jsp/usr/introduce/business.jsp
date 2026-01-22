@@ -132,19 +132,9 @@
 									</ul>
 								</div>
 							</div>
-</div>
-</div>
-					
-					
+						</div>
+					</div>
 
-
-
-
-
-
-
-
-                
                 </article>
             </main>
         

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 /* 비전 및 목표 .vision */
-.vision{position:relative; padding-top:16px; padding-bottom: 57px; font-size: 0; line-height: 0; text-align: center;}
-.vision:before{display: block; position: absolute; bottom: 0; left: 0; width: 100%; height:650px; background-color: #f7f7fc; border-radius: 260px 30px 30px 30px; }
+.vision{position:relative; padding-top:16px; padding-bottom: 57px; font-size: 0; line-height: 0; text-align: center; min-height: 450px; margin-top: 5rem;}
+.vision:before{display: block; position: absolute; bottom: 0; left: 0; width: 100%; height:350px; background-color: #f7f7fc; border-radius: 260px 30px 30px 30px; }
 .vision .section + .section{margin-top: 72px;}
 .vision .left_title{display:inline-block; position: relative; width: 100px; margin-right: 160px; font-size: 24px; line-height: 24px; letter-spacing: -0.04em; color: #4a4f66; font-weight:700; text-align: right;}
 .vision .left_title p{position: absolute; width: 100%;}
@@ -28,8 +28,53 @@
 .vision ul li .top p{position: relative;}
 .vision ul li .top span{display:block; margin-top: 11px; font-size:25px; line-height:25px; font-weight: 400;}
 .vision ul li .bottom{position:relative; padding: 17px 10px 37px; font-size: 22px; line-height:30px; letter-spacing: 0; color: #26293d;}
-.vision .text_wrap{display: block; position: relative; height:80px; border: 1px solid #d5d7dd; border-radius: 30px; background-color: #fff; box-sizing: border-box;}
+.vision .text_wrap{display: block; position: relative; height:80px; border-radius: 30px; background-color: #fff; box-sizing: border-box;}
 .vision .text{font-size: 22px; line-height: 78px; letter-spacing: 0; color: #26293d;}
+
+#contents .vision-1 .title {
+	color : #ad5744
+}
+
+.hidden {
+    position: absolute;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 0;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.sub-tab-center {
+    width: 70%;
+    margin: auto;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 40px;
+    padding: 7px 10px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.sub-tab input[type="radio"]:checked + .btn {
+    background: #4c65d9;
+    color: #fff;
+    border: 1px solid #4c65d9;
+}
+
+.sub-tab-center .btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border : 0;
+    border-radius: 30px
+}
 
 @media all and (max-width: 1530px) {
     .vision:before{height: 625px;}
@@ -251,13 +296,144 @@
 .location .map_box .root_daum_roughmap .map_border{opacity:0;}
 
 .location h3{margin-top:75px; line-height: 42px; font-weight: 500;}
-.location .location_box{display: block; position: relative; margin-top: 78px; font-size: 0; line-height: 0;}
-.location .location_box .location_item{display: inline-block; position: relative; width:calc((100% - 30px) / 2); margin-right: 30px; padding-left:130px; border-bottom: 2px solid #26293d; vertical-align: top;}
+
 .location .location_box .location_item:last-child{margin-right: 0;}
 .location .location_box .location_item:before{display: block; position: absolute; top: 6px; left: 20px; width: 57px; height: 60px; background: url("../images/contents/location_icon01.png") no-repeat;}
 .location .location_box .location_item:last-child:before{top:14px; left:30px; width:45px; height:45px; background: url("../images/contents/location_icon02.png") no-repeat;}
 .location .location_item .location_title{font-size: 25px; line-height: 25px; font-weight: 700;}
 .location .location_item .location_text{height:52px; margin-top:23px; margin-left:3px; font-size: 22px; line-height: 25px; font-weight: 400; word-break: keep-all;}
+
+.location .location_box .location_item{
+    display: inline-block;
+    position: relative;
+    width: calc((100% - 30px) / 2);
+    margin-right: 30px;
+    padding-left: 130px;
+    border-bottom: 2px solid #26293d;
+    vertical-align: top;
+}
+
+.location .location_box{
+	display: block; 
+	position: relative; 
+	margin-top: 78px; 
+	font-size: 0; 
+	line-height: 0;
+}
+
+ .wayfind{
+  --line:#e6e8ee;
+  --text:#111827;
+  --muted:#6b7280;
+  margin: 0 auto;
+  color: var(--text);
+  background:#fff;
+}
+
+.wayfind-tabs{
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display:flex;
+  overflow-x:auto;
+  border-bottom: 1px solid var(--line);
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+}
+
+.wayfind-tabs .tab{
+  flex: 0 0 auto;
+  padding: 14px 14px;
+  font-size: 19px;     
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  margin-top: 0;
+}
+
+.wayfind-tabs .tab.is-active{
+  color: var(--text);
+  border-bottom-color: var(--text);
+  font-weight: 700;
+}
+
+.wayfind-list .loc-row{ display:none; }
+.wayfind-list #loc-1{ display:block; }
+
+.loc-row{
+  display:grid;
+  gap: 18px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  scroll-margin-top: 70px;
+}
+
+.loc-title{
+  margin:0 0 10px;
+  font-size: 18px;
+  letter-spacing: -0.2px;
+}
+.loc-tel{
+  margin:0;
+  font-size:14px;
+  line-height:1.5;
+  color: var(--text);
+}
+.loc-note{
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.location_box .visual-btn {
+	margin-bottom: 4rem;
+}
+
+
+.location_box .visual-btn .tit {
+	color: #333;
+    font-weight: 700;
+    font-size: 35px;
+}
+
+.loc-map > div{
+  width:100%;
+  min-height: 600px;
+  border-radius: 14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#f7f8fb;
+}
+
+.root_daum_roughmap{
+  width:100% !important;
+  height:600px !important;
+}
+
+.root_daum_roughmap .wrap_controllers,
+.root_daum_roughmap .wrap_btn_roadview,
+.root_daum_roughmap .wrap_mapinfo,
+.root_daum_roughmap .wrap_roadview,
+.root_daum_roughmap .section_address{
+  display:none !important;
+}
+
+/* map empty */
+.map-empty{
+  width:100%;
+  min-height: 240px;
+  border-radius: 14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#f7f8fb;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color: var(--muted);
+  font-size: 19px;
+}
+
 
 @media all and (max-width: 1000px) {
     .location .map_box .root_daum_roughmap{height: 400px;}
@@ -269,6 +445,40 @@
 @media all and (max-width: 800px) {
     .location .location_box .location_item{padding-left: 70px;}
     .location .location_item .location_text{font-size: 20px;}
+    
+    .wayfind-tabs{
+	    display:grid;
+	    grid-template-columns: repeat(2, minmax(0, 1fr));
+	    gap: 8px;
+	    border-bottom: 0;
+	    background: transparent;
+	    backdrop-filter: none;
+	    padding: 10px 0 0;
+	    overflow: visible;
+	  }
+   .wayfind-tabs .tab{
+	    display:flex;
+	    align-items:center;
+	    justify-content:center;
+	    text-align:center;
+	    height:44px;
+	    padding: 0 8px;
+	    border:1px solid var(--line);
+	    border-radius: 12px;
+	    font-size: 13px;
+	    font-weight: 600;
+	    color: var(--muted);
+	    background:#fff;
+	    border-bottom: 1px solid var(--line);
+	    line-height:1.2;
+	    white-space: normal;
+	}
+	
+	.wayfind-tabs .tab.is-active{
+	    border-color:#111827;
+	    color:#111827;
+	    box-shadow: 0 2px 8px rgba(17,24,39,.08);
+	}
 }
 @media all and (max-width: 640px) {
     .location .map_box .root_daum_roughmap{height: 300px;}
@@ -280,6 +490,22 @@
     .location .location_box .location_item:last-child:before{top:-4px; left:6px;}
     .location .location_item .location_title{font-size: 20px; line-height:20px;}
     .location .location_item .location_text{height:auto; margin-top: 10px; font-size: 16px; line-height: 22px;}
+    
+    .wayfind-tabs .tab {
+    	font-size : 15px;
+    }
+    
+    .loc-map > div {
+    	min-height: 300px;
+    }
+    
+    .root_daum_roughmap {
+	    height: 300px !important;
+	}
+	
+	.location_box .visual-btn .tit {
+	    font-size: 28px;
+	}
 
 }
 /* 프로그램신청안내 .application*/
