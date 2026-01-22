@@ -113,7 +113,7 @@ function fn_search(param1){
 								<option value="COM_TITLE"  ${param.searchCondition == 'COM_TITLE' ? 'selected="selected"' : ''}>기관 명</option>
 								<option value="COM_INTRO"  ${param.searchCondition == 'COM_INTRO' ? 'selected="selected"' : ''}>기관 소개</option>
 							</select> 
-							<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
+							<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="100" placeholder="검색어 입력" />
 						</li>
 						<li class="search-btn">
 							<button type="button" onclick="fn_search('1');"><i class="fa fa-search"></i> 검색</button>

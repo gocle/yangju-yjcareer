@@ -88,7 +88,7 @@ function fn_detail( bcId , baId){
 					<option value="BA_TITLE" ${param.searchCondition == 'BA_TITLE' ? 'selected="selected"' : ''}>제목</option>
 					<option value="BA_CONTENT_HTML" ${param.searchCondition == 'BA_CONTENT_HTML' ? 'selected="selected"' : ''}>내용</option>
 				</select>
-				<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
+				<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="100" placeholder="검색어 입력" />
 			</li>
 			<li class="search-btn">
 				<button type="button" onclick="fn_search('1');"><i class="fa fa-search"></i> 검색</button>

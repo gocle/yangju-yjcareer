@@ -213,7 +213,7 @@ function fnCmdExcel() {
 						<option value="${item.codeCode }" <c:if test="${searchVo.searchEnrollStatusCd eq item.codeCode}">selected="selected"</c:if>>${item.codeName }</option>
 					</c:forEach>
 				</select>
-				<input type="text" style="width:300px" value="${searchVo.searchKeyword2}" name="searchKeyword2" id="searchKeyword2" maxlength="10" placeholder="검색어 입력" />
+				<input type="text" style="width:300px" value="${searchVo.searchKeyword2}" name="searchKeyword2" id="searchKeyword2" maxlength="100" placeholder="검색어 입력" />
 			</li>
 			<li class="search-btn">
 				<button type="button" onclick="fn_search('1');">

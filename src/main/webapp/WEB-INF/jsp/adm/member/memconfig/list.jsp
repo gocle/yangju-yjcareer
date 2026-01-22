@@ -203,7 +203,7 @@ function fn_admin_use(useYn) {
 									<option value="MEM_NAME"  ${param.searchCondition == 'MEM_NAME' ? 'selected="selected"' : ''}>이름</option>
 									<option value="MEM_ID"  ${param.searchCondition == 'MEM_ID' ? 'selected="selected"' : ''}>아이디</option>
 								</select>
-							<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
+							<input type="text" style="width:300px" value="${param.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="100" placeholder="검색어 입력" />
 							</li>
 							<li class="search-btn">
 								<button type="button" onclick="fn_search('1');"><i class="fa fa-search"></i> 검색</button>

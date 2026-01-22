@@ -18,7 +18,16 @@ function fn_search(pageIndex) {
 }
 
 function fnCmdList() {
-	$("#listForm").attr("action", "EnrollManageList.do");
+	var menuId = $("#menuId").val();
+	var reqUrl = "";
+	
+	if(menuId == "2026MENU0000362") {
+		reqUrl = "EnrollManageList.do";
+	} else {
+		reqUrl = "EnrollManageListC.do";
+	}
+	
+	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
 }
 
@@ -222,7 +231,7 @@ function fnCmdExcel() {
 						<option value="${item.codeCode }" <c:if test="${searchVo.searchEnrollStatusCd eq item.codeCode}">selected="selected"</c:if>>${item.codeName }</option>
 					</c:forEach>
 				</select>
-				<input type="text" style="width:300px" value="${searchVo.searchKeyword2}" name="searchKeyword2" id="searchKeyword2" maxlength="10" placeholder="검색어 입력" />
+				<input type="text" style="width:300px" value="${searchVo.searchKeyword2}" name="searchKeyword2" id="searchKeyword2" maxlength="100" placeholder="검색어 입력" />
 			</li>
 			<li class="search-btn">
 				<button type="button" onclick="fn_search('1');">

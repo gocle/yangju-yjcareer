@@ -149,15 +149,24 @@
                 <th scope="row">내용</th>
 				<td title="내용" class="bbs_content" style="white-space: pre-line;">
 				${result.baContentHtml}
-				<c:forEach var="fileVO" items="${fileList}" varStatus="status">
-					<c:if test="${fileVO.fileExtn eq 'mp4'}">
-						<br>
-						<video controls preload="auto" width="800">
-						  <source src="/yjcareer/fileStore/${fileVO.saveFileName}" type="video/mp4" />
-						  이 브라우저는 video 태그를 지원하지 않습니다.
-						</video>
-					</c:if>
-				</c:forEach>
+					<div class="photo_area clearfix">
+						<c:forEach var="fileVO" items="${fileList}" varStatus="status">
+							<c:if test="${fileVO.fileExtn eq 'mp4' and result.bcId ne 'review'}">
+								<br>
+								<video controls preload="auto" width="800">
+								  <source src="/yjcareer/fileStore/${fileVO.saveFileName}" type="video/mp4" />
+								  이 브라우저는 video 태그를 지원하지 않습니다.
+								</video>
+							</c:if>
+							<c:if test="${fileVO.fileExtn ne 'mp4' and result.bcId eq 'review' }">
+								<div class="photo_view">
+									<span class="photo_wrap">
+										<img src="/yjcareer/fileStore/${fileVO.saveFileName}" alt="${fileVO.orgFileName}">
+									</span>
+								</div>
+							</c:if>
+						</c:forEach>
+					</div>
 				</td>
             </tr>
             <tr>		

@@ -198,7 +198,7 @@ function fn_reply_update(index , brId, atchFileIdx){
 	
 	$("#reply_content"+index).val(data);
 	$("#reply_file"+index).val(atchFileIdx);
-	$("#replyFunc"+index).attr("action","${contextRoot}/staff/bbs/"+pathBcId+"/replyUpdate.do?menuId="+menuId);
+	$("#replyFunc"+index).attr("action","${contextRoot}/staff/bbs/"+pathBcId+"/replyUpdate.do");
 	$("#replyFunc"+index).attr("target","_self");
 	$("#replyFunc"+index).submit();	 
 }
@@ -210,7 +210,7 @@ function fn_reply_delete( brId ){
 	var menuId = $("#menuId").val();
 	
 	$("#replyId").val(brId);
-	$("#replyForm").attr("action", "${contextRoot}/staff/bbs/"+pathBcId+"/replyDelete.do?menuId="+menuId);
+	$("#replyForm").attr("action", "${contextRoot}/staff/bbs/"+pathBcId+"/replyDelete.do");
 	$("#replyForm").attr("target","_self");
 	$("#replyForm").submit();
 }

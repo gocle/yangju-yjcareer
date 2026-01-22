@@ -151,13 +151,6 @@
 							  이 브라우저는 video 태그를 지원하지 않습니다.
 							</video>
 						</c:if>
-						<c:if test="${fileVO.fileExtn ne 'mp4'}">
-							<div class="photo_view">
-								<span class="photo_wrap">
-									<img src="/yjcareer/fileStore/${fileVO.saveFileName}" alt="test 이미지1">
-								</span>
-							</div>
-						</c:if>
 					</c:forEach>
 				</div>
 				</td>
