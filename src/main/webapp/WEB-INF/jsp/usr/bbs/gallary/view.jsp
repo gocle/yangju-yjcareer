@@ -141,7 +141,8 @@
             <tr>		
                 <th scope="row">내용</th>
 				<td title="내용" class="bbs_content">
-					${result.baContentHtml}
+				${result.baContentHtml}
+				<div class="photo_area clearfix">
 					<c:forEach var="fileVO" items="${fileList}" varStatus="status">
 						<c:if test="${fileVO.fileExtn eq 'mp4'}">
 							<br>
@@ -150,7 +151,15 @@
 							  이 브라우저는 video 태그를 지원하지 않습니다.
 							</video>
 						</c:if>
+						<c:if test="${fileVO.fileExtn ne 'mp4'}">
+							<div class="photo_view">
+								<span class="photo_wrap">
+									<img src="/yjcareer/fileStore/${fileVO.saveFileName}" alt="test 이미지1">
+								</span>
+							</div>
+						</c:if>
 					</c:forEach>
+				</div>
 				</td>
             </tr>
 
