@@ -167,6 +167,8 @@ function fnCmdList() {
 		reqUrl = "EnrollManageList.do";
 	} else if(menuId == "2026MENU0000381") {
 		reqUrl = "EnrollManageListC.do";
+	} else {
+		reqUrl = "SubjSeqManageList.do";
 	}
 	
 	 $("#detailForm").attr("action", reqUrl);

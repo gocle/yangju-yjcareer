@@ -88,7 +88,7 @@ public class CompanyManageController {
         
         
 		model.addAttribute("companyManageVo", companyManageVo);
-		
+		model.addAttribute("menuId", companyManageVo.getMenuId());
 		returnPage = "/adm/company/list";
 		
 		return returnPage;
@@ -102,7 +102,7 @@ public class CompanyManageController {
 			ModelMap model) throws Exception {
 		
 		String returnPage = "";	
-		
+		model.addAttribute("menuId", companyManageVo.getMenuId());
 		returnPage = "/adm/company/form";
 		
 		return returnPage;
@@ -141,7 +141,7 @@ public class CompanyManageController {
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
 	
-		returnPage = "/adm/company/list.do";
+		returnPage = "/adm/company/list.do?menuId="+companyManageVo.getMenuId();
 		
 		return "redirect:"+returnPage;
 		
@@ -154,6 +154,7 @@ public class CompanyManageController {
 			ModelMap model) throws Exception {
 		
 		String returnPage = "";	
+		model.addAttribute("menuId", companyManageVo.getMenuId());
 		
 		companyManageVo = companyManageService.getBoardArticle(companyManageVo);
 		
@@ -201,7 +202,7 @@ public class CompanyManageController {
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
 	
-		returnPage = "/adm/company/list.do";
+		returnPage = "/adm/company/list.do?menuId="+companyManageVo.getMenuId();
 		
 		return "redirect:"+returnPage;
 		
@@ -240,7 +241,7 @@ public class CompanyManageController {
 		
 		redirectAttributes.addFlashAttribute("retMsg", retMsg);
 	
-		returnPage = "/adm/company/list.do";
+		returnPage = "/adm/company/list.do?menuId="+companyManageVo.getMenuId();
 		
 		return "redirect:"+returnPage;
 		

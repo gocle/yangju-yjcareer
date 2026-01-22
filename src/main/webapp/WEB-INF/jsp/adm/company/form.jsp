@@ -55,29 +55,8 @@ function fn_save(){
         return false; // 사용자가 [취소] 누르면 저장 안 함
     }
 	
-	/* var data =oEditors.getById["comIntro"].getIR();
-	var text = data.replace(/[<][^>]*[>]/gi, "");
-	if(text=="" && data.indexOf("img") <= 0){
-		alert("소개를 입력 하세요.");
-		oEditors.getById["comIntro"].exec("FOCUS"); 
-		return false;
-	} */
-	
-	var data = comIntroEditor.getData();
-	var text = data.replace(/[<][^>]*[>]/gi, "");
-
-	if (text.trim() === "" && data.indexOf("img") <= 0) {
-	    alert("소개를 입력 하세요.");
-	    comIntroEditor.focus();   // 포커스
-	    return false;
-	}
-
-	$("#comIntro").val(data);
-	
 	$("#form").attr("action", "/yjcareer/adm/company/insert.do");
-	
 	$("#form").attr("target","_self");
-	
 	$("#form").submit();
 	
 }
@@ -88,27 +67,6 @@ function fn_update() {
 	if (!confirm("수정하시겠습니까?")) {
         return false; // 사용자가 [취소] 누르면 저장 안 함
     }
-	
-	/* var data =oEditors.getById["comIntro"].getIR();
-	
-	var text = data.replace(/[<][^>]*[>]/gi, "");
-	
-	if(text=="" && data.indexOf("img") <= 0){
-		alert("내용을 입력 하세요.");
-		oEditors.getById["comIntro"].exec("FOCUS"); 
-		return false;
-	} */
-	
-	var data = comIntroEditor.getData();
-	var text = data.replace(/[<][^>]*[>]/gi, "");
-
-	if (text.trim() === "" && data.indexOf("img") <= 0) {
-	    alert("소개를 입력 하세요.");
-	    comIntroEditor.focus();   // 포커스
-	    return false;
-	}
-
-	$("#comIntro").val(data);
 	
 	var comId= "${companyManageVo.comId}";
 	
@@ -127,6 +85,17 @@ function validateForm() {
         return false;
     }
 
+	var data = comIntroEditor.getData();
+	var text = data.replace(/[<][^>]*[>]/gi, "");
+	
+	if (text.trim() === "" && data.indexOf("img") <= 0) {
+	    alert("기관소개를 입력해 주세요.");
+	    comIntroEditor.focus();   // 포커스
+	    return false;
+	}
+	
+	$("#comIntro").val(data);
+	
     return true;
 }
 
@@ -145,7 +114,7 @@ function fn_delete(){
 	
 	var comId= "${companyManageVo.comId}";
 	
-	$("#form").attr("action", "/yjcareer/adm/company/delete.do?menuId");
+	$("#form").attr("action", "/yjcareer/adm/company/delete.do");
 	
 	$("#form").attr("target","_self");
 	
@@ -209,8 +178,8 @@ function fn_goSearchDoroCodePop(){
 		<form id="form" name="form" method="post"
 			enctype="multipart/form-data">
 			<input type="hidden" id="comId" name="comId" value="${companyManageVo.comId}">
+			<input type="hidden" name="menuId" id="menuId" value="${menuId }" />
 			
-				<h3>기관 관리</h3>
 				<!-- 기관 관리 -->
 				<table class="detail">
 				  <colgroup>
@@ -221,13 +190,13 @@ function fn_goSearchDoroCodePop(){
 				  </colgroup>
 				  <tbody>
 					<tr>
-						<th>기관명</th>
+						<th>기관명<span style="color:red;"> *</span></th>
 						<td colspan="3">
 						<input type="text" style="width: 100%" name="comTitle" id="comTitle" value="${companyManageVo.comTitle}">
 						</td>
 					</tr>
 					<tr>
-						<th>기관소개</th>
+						<th>기관소개<span style="color:red;"> *</span></th>
 						<td colspan="3">
 						<textarea style="width: 100%" name="comIntro" id="comIntro">${companyManageVo.comIntro}</textarea>
 						</td>

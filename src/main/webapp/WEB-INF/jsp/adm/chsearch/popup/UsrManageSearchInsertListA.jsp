@@ -88,7 +88,7 @@ function fnEnrollUserAdd() {
 				
 					<li>
 						<label><i class="fa fa-angle-right"></i> 검색조건</label>
-						<input type="text" style="width:90%;" value="${searchVo.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="10" placeholder="검색어 입력" />
+						<input type="text" style="width:90%;" value="${searchVo.searchKeyword}" name="searchKeyword" id="searchKeyword" maxlength="30" placeholder="검색어 입력" />
 					</li>
 				</ul>
 				

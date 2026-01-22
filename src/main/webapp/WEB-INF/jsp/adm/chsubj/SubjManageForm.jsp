@@ -484,7 +484,7 @@ function fnCmdDelete() {
 	            </td>
 	            <th>중복신청 가능여부<span class="red"> *</span></th>
 	            <td>
-	            	<label><input type="radio" name="duplEnrollYn" value="Y" ${resultMap.duplEnrollYn eq 'Y'}/> 예</label>&nbsp;&nbsp;
+	            	<label><input type="radio" name="duplEnrollYn" value="Y" ${resultMap.duplEnrollYn eq 'Y' ? 'checked': ''}/> 예</label>&nbsp;&nbsp;
 		            <label><input type="radio" name="duplEnrollYn" value="N" ${resultMap.duplEnrollYn eq 'N' or empty resultMap.duplEnrollYn ? 'checked': '' }/> 아니오</label>
 	            </td>
           	</tr>

@@ -73,7 +73,7 @@ function fn_search(param1){
 	
 	$("#pageIndex").val( param1 );
 
-	var reqUrl = "/yjcareer/adm/company/list.do";
+	var reqUrl = "${contextRoot}/adm/company/list.do";
 	
 	$("#form").attr("action", reqUrl);
 	
@@ -86,7 +86,7 @@ function fn_search(param1){
 	 
 	 $("#comId").val( comId ); 
 
-	var reqUrl = "/yjcareer/adm/company/update.do?";
+	var reqUrl = "${contextRoot}/adm/company/update.do";
 	
 	$("#form").attr("action", reqUrl);
 	
@@ -95,15 +95,13 @@ function fn_search(param1){
 
 </script>
 
-
-
-
-				<section>
-
-  <form id="form" name="form" method="get" >
- <input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
-	<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex }" /> 	
-	<input type="hidden" id="comId" name="comId" value="" /> 
+<section>
+	<form id="form" name="form" method="get" >
+	 	<input type="hidden" id="pageSize" name="pageSize" value="${pageSize }" />
+		<input type="hidden" id="pageIndex" name="pageIndex" value="${pageIndex }" /> 	
+		<input type="hidden" id="comId" name="comId" value="" />
+		<input type="hidden" id="menuId" name="menuId" value="${menuId }" /> 
+	
 					<ul class="search-box">
 						<li>
 							<label><i class="fa fa-angle-right"></i> 검색조건</label>
@@ -161,7 +159,7 @@ function fn_search(param1){
 						</ul>  
 
 						<div class="text-right btn-area">
-							<a href="/yjcareer/adm/company/insert.do">등록</a>
+							<a href="${contextRoot}/adm/company/insert.do?menuId=${menuId}">등록</a>
 						</div>
 					</div>
 				</section>
