@@ -179,13 +179,13 @@
 								<span class="text">진로진학</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-5" name="searchCateCd" value="BB" ${searchVo.searchCateCd eq 'BB' ? 'checked' : ''}>
+							  <input type="radio" id="radio-5" name="searchCateCd" value="BBC" ${searchVo.searchCateCd eq 'BBC' ? 'checked' : ''}>
 							  <label for="radio-5" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">AI디지털</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-6" name="searchCateCd" value="BD" ${searchVo.searchCateCd eq 'BD' ? 'checked' : ''}>
+							  <input type="radio" id="radio-6" name="searchCateCd" value="BDE" ${searchVo.searchCateCd eq 'BDE' ? 'checked' : ''}>
 							  <label for="radio-6" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">돌봄</span>

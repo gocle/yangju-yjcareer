@@ -8,7 +8,17 @@
 		</if>
 		<if test="(searchCateCdList == null or searchCateCdList.size() == 0)
 		          and searchCateCd != null and searchCateCd != ''">
-		  	AND SS.CATE_CD = #{searchCateCd}
+		  	<choose>
+			    <when test="searchCateCd == 'BBC'">
+			      AND SS.CATE_CD IN ('BB', 'BC')
+			    </when>
+			    <when test="searchCateCd == 'BDE'">
+			      AND SS.CATE_CD IN ('BD', 'BE')
+			    </when>
+			    <otherwise>
+			      AND SS.CATE_CD = #{searchCateCd}
+			    </otherwise>
+		  </choose>
 		</if>
 		
 		<if test="searchCateCdList != null and searchCateCdList.size() > 0">
