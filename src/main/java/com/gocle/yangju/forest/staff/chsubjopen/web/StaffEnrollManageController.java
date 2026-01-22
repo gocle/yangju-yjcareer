@@ -176,6 +176,8 @@ public class StaffEnrollManageController {
 		CodeVO cvo = new CodeVO();
 		cvo.setCodeGroup("ENROLL_STATUS_CD");
 		model.addAttribute("enrollStatusList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("EDU_TARGET");
+		model.addAttribute("eduTargetList", adminCodeService.selectCodeList(cvo));
 		
 		return "/staff/chsubjopen/EnrollDetailManageListA";
 	}
@@ -212,6 +214,8 @@ public class StaffEnrollManageController {
 		CodeVO cvo = new CodeVO();
 		cvo.setCodeGroup("ENROLL_STATUS_CD");
 		model.addAttribute("enrollStatusList", adminCodeService.selectCodeList(cvo));
+		cvo.setCodeGroup("EDU_TARGET");
+		model.addAttribute("eduTargetList", adminCodeService.selectCodeList(cvo));
 		
 		return "/staff/chsubjopen/EnrollDetailManageList";
 	}

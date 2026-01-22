@@ -193,11 +193,13 @@ function fnCmdExcel() {
           		<tr>
 	            	<th>교육대상</th>
 	            	<td>
-		            	<label><input type="checkbox" id="eduTarget1" name="eduTarget1" value="1" <c:if test="${fn:contains(resultMap.eduTarget,'1')}">checked</c:if> disabled /> 초</label>&nbsp;&nbsp;
-		            	<label><input type="checkbox" id="eduTarget2" name="eduTarget2" value="2" <c:if test="${fn:contains(resultMap.eduTarget,'2')}">checked</c:if> disabled /> 중</label>&nbsp;&nbsp;
-		            	<label><input type="checkbox" id="eduTarget3" name="eduTarget3" value="3" <c:if test="${fn:contains(resultMap.eduTarget,'3')}">checked</c:if> disabled /> 고</label>&nbsp;&nbsp;
-		            	<label><input type="checkbox" id="eduTarget4" name="eduTarget4" value="4" <c:if test="${fn:contains(resultMap.eduTarget,'4')}">checked</c:if> disabled /> 학부모</label>&nbsp;&nbsp;
-		            	<label><input type="checkbox" id="eduTarget5" name="eduTarget5" value="5" <c:if test="${fn:contains(resultMap.eduTarget,'5')}">checked</c:if> disabled /> 성인</label>
+		            	<c:forEach var="code" items="${eduTargetList}">
+							<label>
+							<input type="checkbox" 
+				                   id="eduTarget${code.codeCode}" 
+				                   value="${code.codeCode}" 
+				                   ${fn:contains(resultMap.eduTarget, code.codeCode) ? 'checked' : ''} disabled /> ${code.codeName}</label>&nbsp;&nbsp;
+						</c:forEach>
 	            	</td>
 	            	<th>모집방법</th>
 	            	<td>

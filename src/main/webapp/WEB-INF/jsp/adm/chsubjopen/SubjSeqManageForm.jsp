@@ -158,7 +158,18 @@ function initEditor() {
 } 
 
 function fnCmdList() {
-	 $("#detailForm").attr("action", "SubjSeqManageList.do");
+	var reqUrl = "";
+	var menuId = $("#menuId").val();
+	
+	if(menuId == "2025MENU0000273") {
+		reqUrl = "SubjSeqManageList.do";
+	} else if(menuId == "2026MENU0000362") {
+		reqUrl = "EnrollManageList.do";
+	} else if(menuId == "2026MENU0000381") {
+		reqUrl = "EnrollManageListC.do";
+	}
+	
+	 $("#detailForm").attr("action", reqUrl);
 	 $("#detailForm").submit();
 }
 
@@ -445,7 +456,8 @@ function fnCmdSave() {
             var inputVal = $.trim($("#wtel").val());
             $("#tel option[value='ETC']").val(inputVal);
         }
-		
+		// 수강신청관리에서 수정 시 menuId 변경
+		$("#detailForm input[name=menuId]").val("2025MENU0000273");
 		$("#detailForm").attr("action", "SubjSeqManageUpdate.do");
 		$("#detailForm").submit();
 	}

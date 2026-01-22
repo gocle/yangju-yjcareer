@@ -44,8 +44,7 @@ function fn_search(pageIndex) {
 
 function fnCmdUpdateForm(seqCd) {
 	$("#seqCd").val(seqCd);
-	var menuId = $("#menuId").val();
-	var reqUrl = "${contextRoot}/adm/chsubjopen/SubjSeqManageForm.do?menuId="+menuId;
+	var reqUrl = "${contextRoot}/adm/chsubjopen/SubjSeqManageForm.do";
 	
 	$("#listForm").attr("action", reqUrl);
 	$("#listForm").submit();
