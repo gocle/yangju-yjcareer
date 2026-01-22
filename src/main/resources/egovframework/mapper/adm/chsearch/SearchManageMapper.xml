@@ -31,16 +31,11 @@
 		WHERE 1 = 1
 		    AND sg.sgr_cd = #{sgrCd}
 		    AND sg.use_yn = 'Y'
-		    <![CDATA[
 		    AND (
-		        (sg.sgr_cd <> 'B') 
-		        OR
-		        (sg.sgr_cd = 'B' AND (
-		            (cm.com_id = 12 AND sc.cate_cd = 'BA')
-		            OR 
-		            (cm.com_id <> 12) 
-		        ))
-		    )]]>
+		    	(cm.mem_type = 'STAFF' AND cm.com_id = 12 AND sg.sgr_cd = 'B' AND sc.cate_cd = 'BA')
+		    	OR
+		    	NOT (cm.mem_type = 'STAFF' AND cm.com_id = 12 AND sg.sgr_cd = 'B')
+		    )
 		ORDER BY sc.sort_order
 	</select>
 	
