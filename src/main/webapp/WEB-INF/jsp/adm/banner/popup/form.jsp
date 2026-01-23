@@ -322,16 +322,12 @@ function fn_regExp( param ){
 					<td>
 						<input type="text" style="width: 100%" name="bnLink" id="bnLink" value="${bannerResult.bnLink }">
 					</td>
-				</tr>
-				<!-- 미 정 -->
-				<!--
-				<tr>
-					<th>노출 영역</th>
+					<th>링크 새창여부</th>
 					<td>
-						<input type="text" style="width: 100%" name="bnDisplayType" id="bnDisplayType">
+						<label><input type="radio" name="bnNewWin" value="1" ${bannerResult.bnNewWin eq '1' or empty bannerResult.bnNewWin ? 'checked' : ''}/> 예</label>&nbsp;&nbsp;
+		            	<label><input type="radio" name="bnNewWin" value="0" ${bannerResult.bnNewWin eq '0' ? 'checked' : ''}/> 아니오</label>
 					</td>
 				</tr>
-				-->
 			</tbody>
 		</table>
 	</form>

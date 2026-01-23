@@ -314,8 +314,8 @@
 	        
 	        <c:if test="${not empty bn.bnLink}">
 		        <div class="layer_cont" style="width:${bn.bnWidth}px; height:${bn.bnHeight}px">
-		            <a href="${bn.bnLink}"
-		               <c:if test="${bn.bnNewWin eq 'Y'}">target="_blank"</c:if>
+		            <a href="${bn.bnLink}" style="display: block; width: 100%; text-decoration: none;"
+		               <c:if test="${bn.bnNewWin eq '1'}">target="_blank"</c:if>
 		               title="새창">
 		                ${bn.bnDescription}
 		            </a>
