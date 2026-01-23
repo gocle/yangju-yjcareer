@@ -683,7 +683,10 @@
 											<div class="notice_item top_item">
 												<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
 													<p class="notice_title">${row.baTitle }</p>
-													<p class="notice_date">${row.baRegdate }</p>
+													<p class="notice_date">
+														<fmt:parseDate value="${row.baRegdate}" var="parsedDate" pattern="yyyy.MM.dd" />
+														<fmt:formatDate value="${parsedDate}" pattern="yyyy-MM-dd" />
+													</p>
 												</a>
 											</div>
 											<c:set var="totalCount" value="${totalCount + 1}" />
