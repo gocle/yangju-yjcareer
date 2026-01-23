@@ -622,21 +622,21 @@
 	    text-align:center;
 	    height:44px;
 	    padding: 0 8px;
-	    border:1px solid var(--line);
+	    border:1px solid #545454;
 	    border-radius: 12px;
 	    font-size: 13px;
 	    font-weight: 600;
 	    color: var(--muted);
 	    background:#fff;
-	    border-bottom: 1px solid var(--line);
+	    border-bottom: 1px solid #545454;
 	    line-height:1.2;
 	    white-space: normal;
+	    
 	}
 	
 	.wayfind-tabs .tab.is-active{
-	    border-color:#111827;
-	    color:#111827;
-	    box-shadow: 0 2px 8px rgba(17,24,39,.08);
+	    color:#4c65d9;
+	    border : 1px solid #4c65d9
 	}
 }
 @media all and (max-width: 640px) {
