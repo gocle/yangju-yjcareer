@@ -1393,6 +1393,11 @@ input[type="number"] {
 		width : auto;
 	}
 	
+	.rowgroup3 .notice .notice_list .top_item .notice_anchor .notice_title:before {
+	    height: 24px;
+	    font-size: 13px;
+	}
+		
 	.bookmark {
 		width: 25px;
 		left: 20px;
