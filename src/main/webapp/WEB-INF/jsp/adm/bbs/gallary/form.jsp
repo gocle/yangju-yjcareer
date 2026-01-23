@@ -291,7 +291,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 
 				<c:if test="${boardArticleVO eq null}">
 					<tr>
-						<th>이미지 첨부</th>
+						<th>썸네일 이미지</th>
 						<td class="file">
 							<input type="file" class="input_file" id="file_thumbFileId1" name="file_thumbFileId" title="이미지 찾기" />
 							<c:choose>
@@ -299,7 +299,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 									<p style="color: red; font-size: 15px;">* 200 x 130 등록해주세요</p>
 								</c:when>
 								<c:otherwise>
-									<p style="color: red; font-size: 15px;">* 275 x 180 등록해주세요</p>
+									<b style="font-size:12px;">권장 사이즈: 952 × 360 px (최소 476 × 180 px)</b>
 								</c:otherwise>
 							</c:choose>
 						</td>
@@ -334,7 +334,7 @@ function fn_egov_updateFile(atchFileIdx,returnUrl){
 													<p style="color: red; font-size: 15px;">* 200 x 130 등록해주세요</p>
 												</c:when>
 												<c:otherwise>
-													<p style="color: red; font-size: 15px;">* 275 x 180 등록해주세요</p>
+													<b style="font-size:12px;">권장 사이즈: 952 × 360 px (최소 476 × 180 px)</b>
 												</c:otherwise>
 											</c:choose>
 											<br />

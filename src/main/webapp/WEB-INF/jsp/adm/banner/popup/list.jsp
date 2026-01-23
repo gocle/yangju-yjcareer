@@ -154,7 +154,7 @@ function closePop(bnId){
 		</dl> --%>
 		
 		
-		<div class="notice-popup" id="popup_${bnTypeList.bnId}" style="top: ${bnTypeList.bnTop}px; left: ${bnTypeList.bnLeft}px; width: ${bnTypeList.bnWidth}px; height: ${bnTypeList.bnHeight}px;">
+		<div class="notice-popup" id="popup_${bnTypeList.bnId}" style="top: ${bnTypeList.bnTop}px; left: ${bnTypeList.bnLeft}px; width: ${bnTypeList.bnWidth}px; height: ${bnTypeList.bnHeight}px; font-size:initial!important;">
 			<div>
 				<span id="popup_bnContent">${bnTypeList.bnDescription}</span>
 			</div>
