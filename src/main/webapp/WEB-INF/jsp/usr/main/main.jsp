@@ -680,7 +680,7 @@
 									
 									<c:forEach var="row" items="${topNoticeList}" varStatus="i" begin="0" end="4">
 										<c:if test="${totalCount < maxCount}">
-											<div class="notice_item">
+											<div class="notice_item top_item">
 												<a href="/yjcareer/usr/bbs/notice/detail.do?menuId=2025MENU0000262&baId=${row.baId }&baNotice=0" class="notice_anchor">
 													<p class="notice_title">${row.baTitle }</p>
 													<p class="notice_date">${row.baRegdate }</p>

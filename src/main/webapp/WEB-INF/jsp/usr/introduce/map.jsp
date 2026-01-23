@@ -35,17 +35,15 @@
           <section class="wayfind location">
 
             <nav class="wayfind-tabs" aria-label="센터 선택">
-              <a class="tab is-active" href="#loc-1">진로진학지원센터</a>
-              <a class="tab" href="#loc-2">동부권 AI디지털교실</a>
-              <a class="tab" href="#loc-3">동부권 거점돌봄교실</a>
-              <a class="tab" href="#loc-4">서부권 AI디지털교실</a>
-              <a class="tab" href="#loc-5">서부권 거점돌봄교실</a>
-              <a class="tab" href="#loc-6">양주고읍 LH14단지 자기주도학습센터</a>
+              <a class="tab is-active" href="#loc-1">꿈자람 제1센터</a>
+              <a class="tab" href="#loc-2">꿈자람 제2센터</a>
+              <a class="tab" href="#loc-3">꿈자람 제3센터</a>
+              <a class="tab" href="#loc-4">꿈자람 제4센터</a>
             </nav>
 
             <div class="wayfind-list">
 
-              <!-- 1. 진로진학지원센터 -->
+              <!-- 1. 꿈자람 제1센터 -->
               <article id="loc-1" class="loc-row">
                 <div class="loc-map">
                   <div
@@ -71,19 +69,7 @@
                     <p class="location_text">031-8082-7953~4</p>
                   </div>
                 </div>
-              </article>
-
-              <!-- 2. 동부권 AI디지털교실 -->
-              <article id="loc-2" class="loc-row">
-                <div class="loc-map">
-                  <div
-                    id="daumRoughmapContainer1769049523032"
-                    class="root_daum_roughmap root_daum_roughmap_landing roughmap"
-                    data-timestamp="1769049523032"
-                    data-key="gfjgogasegd"
-                  ></div>
-                </div>
-
+                
                 <div class="location_box">
                   <div class="visual-btn">
                     <span class="tit">동부권 AI디지털교실</span>
@@ -99,9 +85,54 @@
                     <p class="location_text">031-857-6501</p>
                   </div>
                 </div>
+                
               </article>
+              
+              <!-- 꿈자람 제2센터 -->
+              <article id="loc-2" class="loc-row">
+                <div class="loc-map">
+                  <div
+                    id="daumRoughmapContainer1769046160615"
+                    class="root_daum_roughmap root_daum_roughmap_landing roughmap"
+                    data-timestamp="1769046160615"
+                    data-key="g2r4idncy35"
+                  ></div>
+                </div>
 
-              <!-- 3. 동부권 거점돌봄교실 -->
+                <div class="location_box">
+                  <div class="visual-btn">
+                    <span class="tit">서부권 AI디지털교실</span>
+                  </div>
+                  
+                  <div class="location_item">
+                    <p class="location_title">주소</p>
+                    <p class="location_text">경기도 양주시 광적면 광적로 5, 1층</p>
+                  </div>
+
+                  <div class="location_item">
+                    <p class="location_title">전화번호</p>
+                    <p class="location_text">031-837-0955</p>
+                  </div>
+                </div>
+                
+                 <div class="location_box">
+                  <div class="visual-btn">
+                    <span class="tit">서부권 거점돌봄교실</span>
+                  </div>
+                  
+                  <div class="location_item">
+                    <p class="location_title">주소</p>
+                    <p class="location_text">경기도 양주시 광적면 광적로5, 1층</p>
+                  </div>
+
+                  <div class="location_item">
+                    <p class="location_title">전화번호</p>
+                    <p class="location_text">031-837-0892~3</p>
+                  </div>
+                </div>
+              </article>
+              
+			  <!-- 꿈자람 제3센터 -->
               <article id="loc-3" class="loc-row">
                 <div class="loc-map">
                   <div
@@ -129,70 +160,29 @@
                 </div>
               </article>
 
-              <!-- 4. 서부권 AI디지털교실 -->
+              <!-- 꿈자람 제4센터 -->
               <article id="loc-4" class="loc-row">
-                <div class="loc-map">
-                  <div
-                    id="daumRoughmapContainer1769046160615"
-                    class="root_daum_roughmap root_daum_roughmap_landing roughmap"
-                    data-timestamp="1769046160615"
-                    data-key="g2r4idncy35"
-                  ></div>
-                </div>
-
-                <div class="location_box">
-                  <div class="visual-btn">
-                    <span class="tit">서부권 AI디지털교실</span>
-                  </div>
-                  
-                  <div class="location_item">
-                    <p class="location_title">주소</p>
-                    <p class="location_text">경기도 양주시 광적면 광적로 5, 1층</p>
-                  </div>
-
-                  <div class="location_item">
-                    <p class="location_title">전화번호</p>
-                    <p class="location_text">031-837-0955</p>
-                  </div>
-                </div>
-              </article>
-
-              <!-- 5. 서부권 거점돌봄교실 -->
-              <article id="loc-5" class="loc-row">
-                <div class="loc-map">
-                  <div
-                    id="daumRoughmapContainer1769049589635"
-                    class="root_daum_roughmap root_daum_roughmap_landing roughmap"
-                    data-timestamp="1769049589635"
-                    data-key="gfji9287cav"
-                  ></div>
-                </div>
-
-                <div class="location_box">
-                  <div class="visual-btn">
-                    <span class="tit">서부권 거점돌봄교실</span>
-                  </div>
-                  
-                  <div class="location_item">
-                    <p class="location_title">주소</p>
-                    <p class="location_text">경기도 양주시 광적면 광적로5, 1층</p>
-                  </div>
-
-                  <div class="location_item">
-                    <p class="location_title">전화번호</p>
-                    <p class="location_text">031-837-0892~3</p>
-                  </div>
-                </div>
-              </article>
-
-              <!-- 6. 양주고읍 -->
-              <article id="loc-6" class="loc-row">
-              	<div class="loc-map">
+              	<!-- <div class="loc-map">
                   <div class="map-empty"><span>2026.03. ~ (개소예정)</span></div>
+                </div> -->
+                <div class="loc-map">
+                  <div
+                    id="daumRoughmapContainer1769141536347"
+                    class="root_daum_roughmap root_daum_roughmap_landing roughmap"
+                    data-timestamp="1769141536347"
+                    data-key="ghefsjdshnq"
+                  ></div>
                 </div>
                 <div class="location_box">
                   <div class="visual-btn">
                     <span class="tit">양주고읍 LH14단지 자기주도학습센터</span>
+                  </div>
+                  <div class="location_item">
+                    <p class="location_text">2026.03. ~ (개소예정)</p>
+                  </div>
+                  <div class="location_item" style="display: none;">
+                    <p class="location_title">주소</p>
+                    <p class="location_text">2026.03. ~ (개소예정)</p>
                   </div>
                 </div>
               </article>
