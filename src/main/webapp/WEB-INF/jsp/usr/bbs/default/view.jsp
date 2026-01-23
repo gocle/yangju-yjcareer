@@ -154,14 +154,14 @@
 							<c:if test="${fileVO.fileExtn eq 'mp4' and result.bcId ne 'review'}">
 								<br>
 								<video controls preload="auto" width="800">
-								  <source src="/yjcareer/fileStore/${fileVO.saveFileName}" type="video/mp4" />
+								  <source src="${contextRoot }/board/getAtchMovie.do?fileSn=${fileVO.atchFileIdx}" type="video/mp4" />
 								  이 브라우저는 video 태그를 지원하지 않습니다.
 								</video>
 							</c:if>
 							<c:if test="${fileVO.fileExtn ne 'mp4' and result.bcId eq 'review' }">
 								<div class="photo_view">
 									<span class="photo_wrap">
-										<img src="/yjcareer/fileStore/${fileVO.saveFileName}" alt="${fileVO.orgFileName}">
+										<img src="${contextRoot }/board/getAtchImage.do?fileSn=${fileVO.atchFileIdx}" alt="${fileVO.orgFileName}">
 									</span>
 								</div>
 							</c:if>

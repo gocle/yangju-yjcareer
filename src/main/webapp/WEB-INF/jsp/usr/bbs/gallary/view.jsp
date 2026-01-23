@@ -147,7 +147,7 @@
 						<c:if test="${fileVO.fileExtn eq 'mp4'}">
 							<br>
 							<video controls preload="auto" width="800">
-							  <source src="/yjcareer/fileStore/${fileVO.saveFileName}" type="video/mp4" />
+							 <source src="${contextRoot }/board/getAtchMovie.do?fileSn=${fileVO.atchFileIdx}" type="video/mp4" />
 							  이 브라우저는 video 태그를 지원하지 않습니다.
 							</video>
 						</c:if>

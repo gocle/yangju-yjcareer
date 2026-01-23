@@ -384,31 +384,31 @@
 								<div class="top">
 									<div class="visual-btn">
 										<span class="tit">진로진학지원센터</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-1" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 									<div class="visual-btn">
 										<span class="tit">동부권 AI디지털교실</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-2" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
 								<div class="middle">
 									<div class="visual-btn">
 										<span class="tit">동부권 거점돌봄교실</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-3" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 									<div class="visual-btn">
 										<span class="tit">서부권 AI디지털교실</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-4" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
 								<div class="bottom">
 									<div class="visual-btn">
 										<span class="tit">서부권 거점돌봄교실</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-5" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 									<div class="visual-btn dubble-btn">
 										<span class="tit dubble">양주고읍 LH14단지<br>자기주도학습센터</span>
-										<a href="#" target="_blank" title="새창열림"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
+										<a href="${contextRoot}/usr/introduce/map.do?menuId=2025MENU0000252#loc-6" target="_self" title="이동"><span><img src="/yjcareer/assets/site/yjcareer/images/main/phone_w.png"/></span></a>
 									</div>
 								</div>
 							</div>

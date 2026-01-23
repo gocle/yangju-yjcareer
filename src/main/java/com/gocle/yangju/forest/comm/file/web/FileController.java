@@ -2,6 +2,7 @@ package com.gocle.yangju.forest.comm.file.web;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -223,5 +224,161 @@ public class FileController {
 	    }
 	    
 	    return response;
+	}
+	
+	/**
+	 * 첨부파일 이미지 가져오기
+	 */
+	@RequestMapping("/board/getAtchImage.do")
+	public void getAtchImage(@RequestParam Map<String, Object> commandMap, HttpServletResponse response) throws Exception {
+		String fileSn = (String) commandMap.get("fileSn");
+		
+		FileVO atchFileVO = new FileVO();
+		atchFileVO.setAtchFileIdx(fileSn);
+		
+		FileVO fvo = fileService.getFile(atchFileVO);
+		
+		File file = null;
+		FileInputStream fis = null;
+
+		BufferedInputStream in = null;
+		ByteArrayOutputStream bStream = null;
+		
+		try {
+			 if(fvo != null){
+				 file = new File(fvo.getFileSavePath(), fvo.getSaveFileName());
+				 fis = new FileInputStream(file);
+				 in = new BufferedInputStream(fis);
+				 bStream = new ByteArrayOutputStream();
+				 
+				 int imgByte;
+				 
+				 while ((imgByte = in.read()) != -1) {
+					 bStream.write(imgByte);
+				 }
+				 String type = "image/jpeg";
+				 
+				 if(null != fvo.getOrgFileName() && fvo.getOrgFileName().split(".").length > 1) {
+					 if ("jpg".equals(fvo.getOrgFileName().split(".")[1].toLowerCase())) {
+						 type = "image/jpeg";
+					 } else {
+						 type = "image/" + fvo.getOrgFileName().split(".")[1].toLowerCase();
+					 }
+					 	 type = "image/" + fvo.getOrgFileName().split(".")[1].toLowerCase();
+					 }
+				    
+				 	response.setHeader("Content-Type", type);
+					response.setContentLength(bStream.size());
+					
+					bStream.writeTo(response.getOutputStream());
+
+					response.getOutputStream().flush();
+					response.getOutputStream().close();
+			 } else {
+				// 첨부파일 없을 경우
+			 }
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if (bStream != null) {
+				try {
+					bStream.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 첨부파일 동영상 가져오기
+	 */
+	@RequestMapping("/board/getAtchMovie.do")
+	public void getAtchMovie(@RequestParam Map<String, Object> commandMap, HttpServletResponse response) throws Exception {
+		String fileSn = (String) commandMap.get("fileSn");
+		
+		FileVO atchFileVO = new FileVO();
+		atchFileVO.setAtchFileIdx(fileSn);
+		
+		FileVO fvo = fileService.getFile(atchFileVO);
+		
+		File file = null;
+		FileInputStream fis = null;
+
+		BufferedInputStream in = null;
+		ByteArrayOutputStream bStream = null;
+		
+		try {
+			 if(fvo != null){
+				 file = new File(fvo.getFileSavePath(), fvo.getSaveFileName());
+				 fis = new FileInputStream(file);
+				 in = new BufferedInputStream(fis);
+				 bStream = new ByteArrayOutputStream();
+				 
+				 int imgByte;
+				 
+				 while ((imgByte = in.read()) != -1) {
+					 bStream.write(imgByte);
+				 }
+				 String type = "video/mp4";
+				 
+				 if(null != fvo.getOrgFileName() && fvo.getOrgFileName().split(".").length > 1) {
+					 if ("mp4".equals(fvo.getOrgFileName().split(".")[1].toLowerCase())) {
+						 type = "video/mp4";
+					 } else {
+						 type = "video/" + fvo.getOrgFileName().split(".")[1].toLowerCase();
+					 }
+					 	 type = "video/" + fvo.getOrgFileName().split(".")[1].toLowerCase();
+					 }
+				
+				 	response.setHeader("Content-Type", type);
+					response.setContentLength(bStream.size());
+					
+					bStream.writeTo(response.getOutputStream());
+
+					response.getOutputStream().flush();
+					response.getOutputStream().close();
+			 } else {
+				// 첨부파일 없을 경우
+			 }
+		} catch(Exception e){
+			e.printStackTrace();
+		} finally {
+			if (bStream != null) {
+				try {
+					bStream.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception ignore) {
+					System.out.println("IGNORE: " + ignore.getMessage());
+				}
+			}
+		}
 	}
 }
