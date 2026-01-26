@@ -12,21 +12,20 @@ function openLoginPopup() {
         data: { redirectUrl: currentUrl },
         dataType: 'json',
         success: function(data) {
-            if (!data || !data.encData) {
+            if (!data || !data.requestNo || !data.authUrl) {
                 alert('인증 요청 실패');
                 return;
             }
 
             var form = $('<form/>', {
                 method: 'post',
-                action: 'https://nice.checkplus.co.kr/CheckPlusSafeModel/checkplus.cb',
+                action: data.authUrl,
                 target: 'popupChk'
             }).appendTo('body');
 
-            $('<input/>', { type: 'hidden', name: 'm', value: 'checkplusService' }).appendTo(form);
-            $('<input/>', { type: 'hidden', name: 'EncodeData', value: data.encData }).appendTo(form);
+            $('<input/>', { type: 'hidden', name: 'requestNo', value: data.requestNo }).appendTo(form);
 
-            window.open('', 'popupChk', 'width=500,height=550,top=100,left=100,fullscreen=no,menubar=no,status=no,toolbar=no,titlebar=yes,location=no,scrollbar=no');
+            window.open('', 'popupChk', 'width=480, height=812, top=100, fullscreen=no, menubar=no, status=no,  titlebar=yes,location=no,toolbar=no,  scrollbar=no');
             form.submit();
             form.remove();
         },
