@@ -668,6 +668,33 @@
 	flex-direction: column;
 }
 
+
+.slick-arrow.is-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+  cursor: default;
+}
+
+.empty_inner {
+	height: 395px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.empty_inner img {
+	opacity: 0.5
+}
+
+.empty_title {
+	margin-top: 10px;
+}
+
+.empty_desc {
+	font-size: 16px;
+}
+
 .bookmark{
     position: absolute;
     left: 40px;
@@ -1425,14 +1452,7 @@ input[type="number"] {
 		position: absolute;
 		left: 52%;
 		transform: translateX(-5%);
-	}
-	
-	.rowgroup3 .program .counsel_control,.rowgroup3 .program .program_control {
 		bottom: -14rem;
-	}
-	
-	.rowgroup3 .program .event_control {
-		bottom: -12rem;
 	}
 	
 	.rowgroup3 .program .program-control-btn-area .btn_prev {
@@ -1533,12 +1553,9 @@ input[type="number"] {
 
 
 @media all and (max-width:600px) {
-	.rowgroup3 .program .counsel_control,.rowgroup3 .program .program_control {
+
+	.rowgroup3 .program .program-control-btn-area {
 		bottom: -11rem;
-	}
-	
-	.rowgroup3 .program .event_control {
-		bottom: -8rem;
 	}
 	
 	.rowgroup3 .program .program-control-btn-area .btn_prev {

@@ -106,57 +106,90 @@
 			noticeBtn1.addEventListener("change", updateNoticeTab);
 			noticeBtn2.addEventListener("change", updateNoticeTab);
 			
-			$(document).on('click', 'label[for^="counsel_"]', function () {
-			  const id = $(this).attr('for');
-				const $slider = $('.counsel_list'); 
+		    
+			function filterSlickList(option) {
+			  const {
+			    id,
+			    allId,
+			    itemSelector,
+			    typePrefix,
+			    sliderSelector,
+			    prevBtnSelector,
+			    nextBtnSelector
+			  } = option;
 
-			  if (id === 'counsel_all') {
-				$('.counsel_item').show();
+			  const $slider = $(sliderSelector);
+			  const $items = $(itemSelector);
+			  const $empty = $('#common_empty');
+			  const $prevBtn = $(prevBtnSelector);
+			  const $nextBtn = $(nextBtnSelector);
+
+			  if (id === allId) {
+			    $items.show();
 			  } else {
-				const typeNum = id.split('_')[1];
-				
-				$('.counsel_item').hide();
-				$('.counsel_item.type_' + typeNum).show();
+			    const typeNum = id.split('_')[1];
+			    $items.hide();
+			    $items.filter('.' + typePrefix + typeNum).show();
 			  }
-				
+
+			  const visibleCount = $items.filter(':visible').length;
+
+			  if (visibleCount === 0) {
+			    if (!$slider.find('#common_empty').length) {
+			      $slider.append($empty);
+			    }
+
+			    $empty.show();
+
+			    $prevBtn.addClass('is-disabled').prop('disabled', true);
+			    $nextBtn.addClass('is-disabled').prop('disabled', true);
+
+			  } else {
+			    $empty.hide();
+
+			    $prevBtn.removeClass('is-disabled').prop('disabled', false);
+			    $nextBtn.removeClass('is-disabled').prop('disabled', false);
+			  }
+
 			  $slider.slick('slickGoTo', 0);
 			  $slider.slick('setPosition');
-
-			});
+			}
+			
+			$(document).on('click', 'label[for^="counsel_"]', function () {
+				  filterSlickList({
+				    id: $(this).attr('for'),
+				    allId: 'counsel_all',
+				    itemSelector: '.counsel_item',
+				    typePrefix: 'type_',
+				    sliderSelector: '.counsel_list',
+				    prevBtnSelector: '.counsel_prev',
+				    nextBtnSelector: '.counsel_next'
+				  });
+				});
 			
 			$(document).on('click', 'label[for^="program_"]', function () {
-				const id = $(this).attr('for');
-				const $slider = $('.program_list');
-
-				if (id === 'program_all') {
-				  $('.program_item').show();
-				} else {
-				  const typeNum = id.split('_')[1];
-				  $('.program_item').hide();
-				  $('.program_item.p_type_' + typeNum).show();
-				}
-				
-				$slider.slick('slickGoTo', 0);
-				$slider.slick('setPosition');
-
-			  });
+				  filterSlickList({
+				    id: $(this).attr('for'),
+				    allId: 'program_all',
+				    itemSelector: '.program_item',
+				    typePrefix: 'p_type_',
+				    sliderSelector: '.program_list',
+				    prevBtnSelector: '.program_prev',
+				    nextBtnSelector: '.program_next'
+				  });
+				});
 			
 			$(document).on('click', 'label[for^="event_"]', function () {
-				const id = $(this).attr('for');
-				const $slider = $('.event_list');
-
-				if (id === 'event_all') {
-				  $('.event_item').show();
-				} else {
-				  const typeNum = id.split('_')[1];
-				  $('.event_item').hide();
-				  $('.event_item.e_type_' + typeNum).show();
-				}
-				
-				$slider.slick('slickGoTo', 0);
-				$slider.slick('setPosition');
-
-			  });
+				  filterSlickList({
+				    id: $(this).attr('for'),
+				    allId: 'event_all',
+				    itemSelector: '.event_item',
+				    typePrefix: 'e_type_',
+				    sliderSelector: '.event_list',
+				    prevBtnSelector: '.event_prev',
+				    nextBtnSelector: '.event_next'
+				  });
+				});
 			
 			
 			// 신청가기 탭 변경 url
@@ -650,6 +683,14 @@
 									</div>
 									<!-- /tab3-->
 							
+							</div>
+							
+							<div id="common_empty" style="display:none;">
+							  <div class="empty_inner">
+							  	<img src="${contextRoot}/assets/site/yjcareer/images/main/no-pro.png" alt="신청 가능 항목 없음">
+							    <p class="empty_title">현재 신청 가능한 항목이 없습니다.</p>
+							    <p class="empty_desc">선택한 조건에 해당하는 프로그램이 없습니다.</p>
+							  </div>
 							</div>
 							
 						</section>

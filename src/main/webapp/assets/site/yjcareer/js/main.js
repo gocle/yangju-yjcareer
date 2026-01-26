@@ -195,9 +195,6 @@
     $btnTab1.on('change', updateTab);
     $btnTab2.on('change', updateTab);
     $btnTab3.on('change', updateTab);
-
-
-
 	
 });
 
