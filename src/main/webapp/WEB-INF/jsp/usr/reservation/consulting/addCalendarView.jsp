@@ -303,6 +303,15 @@
 						
 			            // 오늘 날짜 표시
 			            markToday(inst);
+			            
+			            // undefined 제거
+			            var $eventList = $(".event-list");
+			            // 현재 event-list의 전체 텍스트
+			            var currentHtml = $eventList.html();
+			            
+			            if (currentHtml.indexOf("undefined") !== -1 || $eventList.find('[data-event-index]').length === 0) {
+		                   $eventList.html('<div class="event-empty"><p>선택한 날짜에 일정이 없습니다.</p></div>');
+		                }
 			    },
 		        error: function() {
 		            console.error("데이터 로드 실패");
