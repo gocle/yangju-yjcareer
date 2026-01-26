@@ -424,6 +424,108 @@ tr.calendar-body .calendar-day .day[disabled] {
     align-items: center;
 }
 
+.search_tab {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.chk-circle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  position: relative;
+  font-size: 19px;
+}
+
+/* 실제 checkbox 숨김 */
+.chk-circle input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+/* 동그란 UI */
+.chk-circle .chk-ui {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #333;
+  border-radius: 50%;
+  box-sizing: border-box;
+  position: relative;
+  transition: all .2s ease;
+  flex-shrink: 0;
+}
+
+/* 안쪽 점 */
+.chk-circle input:checked + .chk-ui::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 텍스트 */
+.chk-circle .chk-text {
+  white-space: nowrap;
+}
+
+.chk-circle:nth-child(1) .chk-ui {
+  border-radius: 0;
+}
+
+.chk-circle:nth-child(2) .chk-ui {
+  border-color: #4c65d9
+}
+
+.chk-circle:nth-child(3) .chk-ui {
+  border-color: #fd61a4;
+}
+
+.chk-circle:nth-child(4) .chk-ui {
+  border-color: #29daaa
+}
+
+.chk-circle:nth-child(5) .chk-ui {
+  border-color: #f4bf00;
+}
+
+/* 체크 시 */
+.chk-circle:nth-child(1) input:checked + .chk-ui {
+	background: url(../images/common/checkw.png) #333 no-repeat;
+	border-color: #333;
+  	background-size: contain;
+}
+	
+.chk-circle:nth-child(2) input:checked + .chk-ui {
+  background: url(../images/common/checkw.png) #4c65d9 no-repeat;
+  border-color: #4c65d9;
+  background-size: contain;
+}
+
+.chk-circle:nth-child(3) input:checked + .chk-ui {
+  background: url(../images/common/checkw.png) #fd61a4 no-repeat;
+  border-color: #fd61a4;
+  background-size: contain;
+}
+
+.chk-circle:nth-child(4) input:checked + .chk-ui {
+  background: url(../images/common/checkw.png) #29daaa no-repeat;
+  border-color: #29daaa;
+  background-size: contain;
+}
+
+.chk-circle:nth-child(5) input:checked + .chk-ui {
+  background: url(../images/common/checkw.png) #f4bf00 no-repeat;
+  border-color: #f4bf00;
+  background-size: contain;
+}
+
 .cal-label dd:before {
 	content: '';
 	width : 12px;
@@ -438,6 +540,18 @@ tr.calendar-body .calendar-day .day[disabled] {
 .cal-label dd:nth-child(3):before {background: #fd61a4}
 .cal-label dd:nth-child(4):before {background: #29daaa}
 .cal-label dd:nth-child(5):before {background: #f4bf00}
+
+
+@media screen and (max-width:600px) {
+	.chk-circle {
+	    display: inline-flex;
+	    align-items: center;
+	    gap: 6px;
+	    cursor: pointer;
+	    position: relative;
+	    font-size: 15px;
+	}
+}
 
 .calendar-events::-webkit-scrollbar {
     width: 5px;
@@ -927,6 +1041,22 @@ button.icon-button > span.chevron-arrow-right {
 		font-size: 15px;
 	}
 
+	.cal-bottom {
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 1rem 1rem 1rem 2rem;
+	}
+	
+	/* '전체' 체크박스를 감싸는 label만 100% 너비 차지 */
+    .search_tab .chk-circle:has(#cbx_chkAll) {
+        flex: 0 0 100%; /* 너비를 100%로 고정하여 한 줄 점유 */
+        margin-bottom: 5px; /* 나머지 버튼들과의 약간의 간격 */
+    }
+
+    /* 나머지 체크박스들은 내용만큼만 너비 차지 */
+    .search_tab .chk-circle {
+        flex: 0 0 auto;
+    }
 }
 
 @media screen and (max-width: 1000px) {

@@ -51,25 +51,60 @@
 				</article>
 			</main>
             <div id="contents">
+            	<form id="searchForm" name="searchForm" method="post" onsubmit="return false;">
 				<div class="calendar-nav">
 				  <button id="prevMonth" type="button">이전</button>
 				  <div class="top-date"></div>
 				  <button id="nextMonth" type="button">다음</button>
 				</div>
 				<div class="cal-bottom">
-					<dl class="cal-label">
+					<!-- <dl class="cal-label">
 						<dt>예약 안내</dt>
 						<dd>맞춤컨설팅</dd>
 						<dd>학습심리상담</dd>
 						<dd>수시·정시상담</dd>
 						<dd>면접컨설팅</dd>
-					</dl>
+					</dl> -->
+					
+					<div class="search_tab">
+						<label class="chk-circle">
+							<input type="checkbox" id="cbx_chkAll">
+							<span class="chk-ui"></span>
+							<span class="chk-text">전체</span>
+						</label>
+							      
+						<label class="chk-circle">
+							<input type="checkbox" name="searchCateCd" id="chk00" value="AA" ${searchVo.searchCateCd eq 'AA' ? 'checked' : '' }>
+							<span class="chk-ui"></span>
+							<span class="chk-text">맞춤컨설팅</span>
+						</label>
+						
+						<label class="chk-circle">
+							<input type="checkbox" name="searchCateCd" id="chk01" value="AB" ${searchVo.searchCateCd eq 'AB' ? 'checked' : '' }>
+							<span class="chk-ui"></span>
+							<span class="chk-text">학습심리상담</span>
+						</label>
+							
+						<label class="chk-circle">
+							<input type="checkbox" name="searchCateCd" id="chk02" value="AC" ${searchVo.searchCateCd eq 'AC' ? 'checked' : '' }>
+							<span class="chk-ui"></span>
+						    <span class="chk-text">수시·정시상담</span>
+						</label>
+							      
+						<label class="chk-circle">
+							<input type="checkbox" name="searchCateCd" id="chk03" value="AD" ${searchVo.searchCateCd eq 'AD' ? 'checked' : '' }>
+						    <span class="chk-ui"></span>
+						    <span class="chk-text">면접컨설팅</span>
+						</label>
+					</div>
+					
 					<c:if test="${not empty sessionScope.SESSION_DI_KEY}">
 					<div class="reservation_more">
 						<button class="reservation_more_btn" type="button" onclick="fnMyReservation();">나의 예약현황</button>
 					</div>
 					</c:if>
 				</div>
+				</form>
 				<div id="calendar"></div>
 			</div>        
 		</div>
@@ -178,12 +213,35 @@
 		let currentEvents = []; // 기존 달력에 표시된 이벤트
 		
 		function getConsulting(year, month) {
+			const selectedCates = $("input[name=searchCateCd]:checked").map(function(){
+		        return $(this).val();
+		    }).get();
+			
+			const $cal = $('#calendar');
+		    const inst = $cal[0].evoCalendar;
+		    
+		    // 전체 해제
+		    if (selectedCates.length == 0) {
+		        // 기존 이벤트 제거
+		        if (currentEvents.length > 0) {
+		            currentEvents.forEach(id => inst.removeCalendarEvent(id));
+		        }
+		        currentEvents = [];
+		        
+		        $cal.evoCalendar('addCalendarEvent', []);
+		        // undefined 제거
+		        $(".event-list").html('<div class="event-empty"><p>선택한 날짜에 일정이 없습니다.</p></div>');
+		        
+		        return;
+		    }
+			
 			$.ajax({
 			    url: '${contextRoot}/usr/reservation/selectConsultingList.do',
 			    type: 'GET',
 			    data: {
 		            year: year,
-		            month: month
+		            month: month,
+		            searchCateCd: selectedCates
 		        },
 			    success: function (result) {			    	
 			         const calendarEvents = [];
@@ -232,7 +290,7 @@
 
 			            // 기존 이벤트 제거
 			            if (currentEvents.length > 0) {
-			                currentEvents.forEach(id => inst.removeCalendarEvent(id));
+			            	currentEvents.forEach(id => inst.removeCalendarEvent(id));
 			            }
 
 			            // 새 이벤트 추가
@@ -242,10 +300,22 @@
 			            } else {
 			                currentEvents = [];
 			            }
-
+						
 			            // 오늘 날짜 표시
 			            markToday(inst);
-			    }
+			            
+			            // undefined 제거
+			            var $eventList = $(".event-list");
+			            // 현재 event-list의 전체 텍스트
+			            var currentHtml = $eventList.html();
+			            
+			            if (currentHtml.indexOf("undefined") !== -1 || $eventList.find('[data-event-index]').length === 0) {
+		                   $eventList.html('<div class="event-empty"><p>선택한 날짜에 일정이 없습니다.</p></div>');
+		                }
+			    },
+		        error: function() {
+		            console.error("데이터 로드 실패");
+		        }
 			});
 		}
 		
@@ -267,6 +337,42 @@
 			$("#listForm").attr("action", reqUrl);
 		    $("#listForm").submit();
 		}
+		
+		$(document).ready(function(){
+			const $form = $("#searchForm");
+			const $all = $("#cbx_chkAll");
+			const $items = $form.find("input[name=searchCateCd]").not("#cbx_chkAll");
+			 
+			function getCheckedCnt() {
+				return $items.filter(":checked").length;
+			}
+			
+			// 현재 달력의 인스턴스에서 연/월 가져오는 함수
+		    function refreshCalendar() {
+		        const inst = $('#calendar')[0].evoCalendar;
+		        const year = inst.$active.year;
+		        const month = inst.$active.month + 1; // 0~11 기반이므로 +1
+		        
+		        getConsulting(year, month);
+		    }
+			
+			// 전체 체크
+			$all.on("change", function () {
+				const isChecked = this.checked;
+				$items.prop("checked", isChecked);
+				refreshCalendar();
+			});
+			
+			// 개별 체크
+			$items.on("change", function () {
+				const total = $items.length;
+				const checked = getCheckedCnt();
+				$all.prop("checked", checked === total);
+				refreshCalendar();
+			});
+			
+			
+		});
 	</script>
    
     <script src="/yjcareer/assets/site/yjcareer/js/evo-calendar.js"></script>

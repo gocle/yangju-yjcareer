@@ -116,6 +116,17 @@ public class UserReservationServiceImpl extends EgovAbstractServiceImpl implemen
 	
 	@Override
 	public List<Map<String, Object>> selectConsultingList(EnrollManageVo enrollManageVo) throws Exception {
+		
+		String searchCateCd = enrollManageVo.getSearchCateCd();
+
+	    if (searchCateCd != null && !searchCateCd.trim().isEmpty()) {
+	        enrollManageVo.setSearchCateCdList(
+	            Arrays.asList(searchCateCd.split(","))
+	        );
+	    } else {
+	        enrollManageVo.setSearchCateCdList(null);
+	    }
+	    
 		return userReservationMapper.selectConsultingList(enrollManageVo);
 	}
 	

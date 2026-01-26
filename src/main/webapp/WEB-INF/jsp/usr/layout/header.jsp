@@ -119,9 +119,10 @@ function openLoginPopup() {
 						        </c:if>
 						
 						        <c:set var="key2" value="${m1.menuId}_${m1.menuDepth + 1}" />
+								<c:set var="separator1" value="${fn:endsWith(path1, '.do') ? '?' : '&'}" />
 						
 						        <li class="depth_item depth1_item n${st1.index + 1}">
-						          <a href="<c:url value='${path1}'/>?menuId=${m1.menuId}"
+						          <a href="<c:url value='${path1}'/>${separator1}menuId=${m1.menuId}"
 						             target="_self"
 						             class="depth_text depth1_text">
 						            <span>${m1.menuTitle}</span>
@@ -144,9 +145,9 @@ function openLoginPopup() {
 						                    <c:if test="${not fn:startsWith(path2,'/')}">
 						                      <c:set var="path2" value='/${path2}'/>
 						                    </c:if>
-						
+											<c:set var="separator2" value="${fn:endsWith(path2, '.do') ? '?' : '&'}" />
 						                    <li class="depth_item depth2_item">
-						                      <a href="<c:url value='${path2}'/>?menuId=${m2.menuId}"
+						                      <a href="<c:url value='${path2}'/>${separator2}menuId=${m2.menuId}"
 						                         target="_self"
 						                         class="depth_text depth2_text">
 						                        <span>${m2.menuTitle}</span>
@@ -165,9 +166,9 @@ function openLoginPopup() {
 						                              <c:if test="${not fn:startsWith(path3,'/')}">
 						                                <c:set var="path3" value='/${path3}'/>
 						                              </c:if>
-						
+													  <c:set var="separator3" value="${fn:endsWith(path3, '.do') ? '?' : '&'}" />
 						                              <li class="depth_item depth3_item">
-						                                <a href="<c:url value='${path3}'/>?menuId=${m3.menuId}"
+						                                <a href="<c:url value='${path3}'/>${separator3}menuId=${m3.menuId}"
 						                                   target="_self"
 						                                   class="depth_text depth3_text">
 						                                  ${m3.menuTitle}

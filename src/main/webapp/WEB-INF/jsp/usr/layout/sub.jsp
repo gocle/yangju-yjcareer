@@ -24,6 +24,7 @@
         <c:forEach var="menu" items="${listTopMenu}">
           <c:set var="menuPathList" value="${fn:split(menu.menuUrl, '@')}" />
           <li class="tab_item">
+          <c:set var="separator1" value="${fn:endsWith(menuPathList[0], '.do') ? '?' : '&'}" />
            <c:choose>
 			  <c:when test="${fn:startsWith(menuPathList[0], 'http')}">
 			    <a href="${menuPathList[0]}"
@@ -33,7 +34,7 @@
 			    </a>
 			  </c:when>
 			  <c:otherwise>
-			    <a href="/yjcareer/${menuPathList[0]}?menuId=${menuPathList[1]}"
+			    <a href="/yjcareer/${menuPathList[0]}${separator1}menuId=${menuPathList[1]}"
 			       target="_self">
 			      ${menu.menuTitle}
 			    </a>
@@ -61,6 +62,7 @@
         <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
           <c:forEach var="menu" items="${listSubMenu}">
             <li class="tab_item">
+            <c:set var="separator2" value="${fn:endsWith(menu.menuUrl, '.do') ? '?' : '&'}" />
               <c:choose>
 				  <c:when test="${fn:startsWith(menu.menuUrl, 'http')}">
 				    <a href="${menu.menuUrl}"
@@ -71,7 +73,7 @@
 				    </a>
 				  </c:when>
 				  <c:otherwise>
-				    <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+				    <a href="/yjcareer/${menu.menuUrl}${separator2}menuId=${menu.menuId}"
 				       target="_self"
 				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
 				      ${menu.menuTitle}
@@ -102,6 +104,7 @@
         <ul class="breadcrumbs_panel" id="bc-drop2" role="listbox">
           <c:forEach var="menu" items="${listSubMenu}">
             <li class="tab_item">
+            <c:set var="separator3" value="${fn:endsWith(menu.menuUrl, '.do') ? '?' : '&'}" />
               <c:choose>
 				  <c:when test="${fn:startsWith(menu.menuUrl, 'http')}">
 				    <a href="${menu.menuUrl}"
@@ -112,7 +115,7 @@
 				    </a>
 				  </c:when>
 				  <c:otherwise>
-				    <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+				    <a href="/yjcareer/${menu.menuUrl}${separator3}menuId=${menu.menuId}"
 				       target="_self"
 				       class="${menu.menuId eq menuVO.menuId ? 'active' : ''}">
 				      ${menu.menuTitle}
@@ -140,7 +143,7 @@
         <ul class="breadcrumbs_panel" id="bc-drop3" role="listbox">
           <c:forEach var="menu" items="${listSubSubMenu}">
             <li class="tab_item">
-              <a href="/yjcareer/${menu.menuUrl}?menuId=${menu.menuId}"
+              <a href="/yjcareer/${menu.menuUrl}${separator3}menuId=${menu.menuId}"
                  target="_self"
                  class="${menu.menuId eq menuInfo.menuId ? 'active' : ''}">
                 ${menu.menuTitle}
