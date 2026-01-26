@@ -58,11 +58,15 @@
 .bbs_search .ico_calenedar button,.ico_calenedar button{display:inline-block;width:20px;height:20px;font-size:0;}
 
 .bbs_search .listbox.con01 ul li:nth-child(odd) {
-	width: 38%
+	width: 60%
 }
 
 .bbs_search .listbox.con01 ul li:nth-child(even) {
-  	width : 60%;
+  	width : 38%;
+}
+
+.bbs_search .listbox.con01 ul li.list02 {
+  	width : 100%!important;
 }
 
 .event-search .listbox.con01 ul li:nth-child(odd) {

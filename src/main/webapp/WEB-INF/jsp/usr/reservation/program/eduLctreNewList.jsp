@@ -138,57 +138,44 @@
                 
 				<div class="listbox con01">
 					<ul class="clearfix bbs-search-flex">
-
 						<li class="list02">
-												
-							<div class="bbs-search-radio">
-						  		<span class="radio-label">장소</span>		
-						  
-							  <input type="radio" id="radio-0" name="searchEduPlace" value="" ${empty searchVo.searchEduPlace or searchVo.searchEduPlace eq '' ? 'checked' : ''}>
-							  <label for="radio-0" class="radio-btn">
-								<span class="icon"></span>
-								<span class="text">전체</span>
-							  </label>
-
-							  <input type="radio" id="radio-1" name="searchEduPlace" value="east" ${searchVo.searchEduPlace eq 'east' ? 'checked' : ''}>
-							  <label for="radio-1" class="radio-btn">
-								<span class="icon"></span>
-								<span class="text">동부권</span>
-							  </label>
-							  
-							  <input type="radio" id="radio-2" name="searchEduPlace" value="west" ${searchVo.searchEduPlace eq 'west' ? 'checked' : ''}>
-							  <label for="radio-2" class="radio-btn">
-								<span class="icon"></span>
-								<span class="text">서부권</span>
-							  </label>
-							</div>
-						</li>
-						<li class="list03">
 							<div class="bbs-search-radio">
 						  		<span class="radio-label">구분</span>		
 						  
-							  <input type="radio" id="radio-3" name="searchCateCd" value="" ${empty searchVo.searchCateCd or searchVo.searchCateCd eq '' ? 'checked' : ''}>
-							  <label for="radio-3" class="radio-btn">
+							  <input type="radio" id="radio-1" name="searchCateCd" value="" ${empty searchVo.searchCateCd or searchVo.searchCateCd eq '' ? 'checked' : ''}>
+							  <label for="radio-1" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">전체</span>
 							  </label>
 
-							  <input type="radio" id="radio-4" name="searchCateCd" value="BA" ${searchVo.searchCateCd eq 'BA' ? 'checked' : ''}>
-							  <label for="radio-4" class="radio-btn">
+							  <input type="radio" id="radio-2" name="searchCateCd" value="BA" ${searchVo.searchCateCd eq 'BA' ? 'checked' : ''}>
+							  <label for="radio-2" class="radio-btn">
 								<span class="icon"></span>
 								<span class="text">진로진학</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-5" name="searchCateCd" value="BBC" ${searchVo.searchCateCd eq 'BBC' ? 'checked' : ''}>
-							  <label for="radio-5" class="radio-btn">
+							  <input type="radio" id="radio-3" name="searchCateCd" value="BB" ${searchVo.searchCateCd eq 'BB' ? 'checked' : ''}>
+							  <label for="radio-3" class="radio-btn">
 								<span class="icon"></span>
-								<span class="text">AI디지털</span>
+								<span class="text">동부 AI디지털</span>
 							  </label>
 							  
-							  <input type="radio" id="radio-6" name="searchCateCd" value="BDE" ${searchVo.searchCateCd eq 'BDE' ? 'checked' : ''}>
+							  <input type="radio" id="radio-4" name="searchCateCd" value="BD" ${searchVo.searchCateCd eq 'BD' ? 'checked' : ''}>
+							  <label for="radio-4" class="radio-btn">
+								<span class="icon"></span>
+								<span class="text">동부 거점돌봄</span>
+							  </label>
+							  
+							  <input type="radio" id="radio-5" name="searchCateCd" value="BC" ${searchVo.searchCateCd eq 'BC' ? 'checked' : ''}>
+							  <label for="radio-5" class="radio-btn">
+								<span class="icon"></span>
+								<span class="text">서부 AI디지털</span>
+							  </label>
+							  
+							  <input type="radio" id="radio-6" name="searchCateCd" value="BE" ${searchVo.searchCateCd eq 'BE' ? 'checked' : ''}>
 							  <label for="radio-6" class="radio-btn">
 								<span class="icon"></span>
-								<span class="text">돌봄</span>
+								<span class="text">서부 거점돌봄</span>
 							  </label>
 							</div>
 						</li>
