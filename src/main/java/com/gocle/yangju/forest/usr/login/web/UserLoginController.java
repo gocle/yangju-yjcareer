@@ -273,6 +273,8 @@ public class UserLoginController {
 	    } else {
 	    	session.removeAttribute("transactionId");
 	        session.removeAttribute("requestNo");
+	        sMessage = "응답코드:"+intcResultResInfo.getReturnCode() + "응답메세지:"+intcResultResInfo.getResultMessage();
+	        
 	        System.out.println("응답코드:"+intcResultResInfo.getReturnCode());
 	        System.out.println("응답메세지:"+intcResultResInfo.getResultMessage());
 	    
