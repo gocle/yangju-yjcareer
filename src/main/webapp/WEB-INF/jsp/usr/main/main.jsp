@@ -197,11 +197,11 @@
 
 			function updateMoreLink() {
 			    if ($('#tabmenu1').is(':checked')) {
-			        $moreBtn.attr('href', '/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143'); // 1:1 상시상담
+			        $moreBtn.attr('href', '/yjcareer/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143&searchCateCd=AA'); // 1:1 상시상담
 			    } else if ($('#tabmenu2').is(':checked')) {
-			        $moreBtn.attr('href', '/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142'); // 꿈자람센터 프로그램
+			        $moreBtn.attr('href', '/yjcareer/usr/reservation/program/eduLctreNewList.do?menuId=2025MENU0000142&searchCateCd=BA'); // 꿈자람센터 프로그램
 			    } else {
-			    	$moreBtn.attr('href', '/yjcareer/usr/reservation/event/list.do?menuId=2025MENU0000144'); // 행사 및 강좌
+			    	$moreBtn.attr('href', '/yjcareer/usr/reservation/event/list.do?menuId=2025MENU0000144&searchCateCd=CD'); // 행사 및 강좌
 			    }
 			}
 
