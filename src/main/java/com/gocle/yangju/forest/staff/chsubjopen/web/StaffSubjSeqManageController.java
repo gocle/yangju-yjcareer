@@ -149,6 +149,7 @@ public class StaffSubjSeqManageController {
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList1", tFileList);
 		fvo.setThumbnailCrop("N");
+		fvo.setpId(searchVo.getSeqCd());
 		List<FileVO> fileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList", fileList);
 		
