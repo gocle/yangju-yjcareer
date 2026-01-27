@@ -52,12 +52,12 @@ public class MyPageCotroller {
 	public String myReservation(@ModelAttribute("myPageVo") MyPageVo myPageVo, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
 		String diKey = (String) session.getAttribute(Globals.DI_KEY);
 		String retMsg = "";
-		/*if(diKey == null) {
+		if(diKey == null) {
 			retMsg = "로그인이 필요한 서비스입니다.";
 			redirectAttributes.addFlashAttribute("retMsg", retMsg);
 			return "redirect:/usr/main.do";
-		}*/
-		diKey = "MC0GCCqGSIb3DQIJAyEAs53menG4XFbnSxXMrO+tXPqDvEcXLEo6Q/RCkWTA5Is=";
+		}
+		
 		myPageVo.setDiKey(diKey);
 		
 		int totalCount = myPageService.myReservationCnt(myPageVo);
@@ -90,12 +90,12 @@ public class MyPageCotroller {
 	public String myReservationView(@ModelAttribute("myPageVo") MyPageVo myPageVo, @ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
 		String diKey = (String) session.getAttribute(Globals.DI_KEY);
 		String retMsg = "";
-		/*if(diKey == null) {
+		if(diKey == null) {
 			retMsg = "로그인이 필요한 서비스입니다.";
 			redirectAttributes.addFlashAttribute("retMsg", retMsg);
 			return "redirect:/usr/main.do";
-		}*/
-		diKey = "MC0GCCqGSIb3DQIJAyEAs53menG4XFbnSxXMrO+tXPqDvEcXLEo6Q/RCkWTA5Is=";
+		}
+		
 		myPageVo.setDiKey(diKey);
 		myPageVo = myPageService.myReservationView(myPageVo);
 		
