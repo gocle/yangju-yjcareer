@@ -473,6 +473,28 @@ function fnCmdDelete() {
 	            </td>
           	</tr>
           	<tr>
+	            <th>첨부파일</th>
+	            <td colspan="3" class="file attach">
+	            	<c:if test="${resultMap eq null}">
+	            		<input type="file" class="input_file" id="file_atchFileId1" name="file_atchFileId" title="파일찾기" />
+	            	</c:if>
+	            	
+	            	<c:if test="${resultMap ne null}">
+	            		<c:forEach var="fileVO1" items="${fileList}" varStatus="status">
+		            		<c:if test="${fileVO1.thumbnailCrop eq 'N'}">
+		            			<span id="file${fileVO1.atchFileIdx}">
+									<a href="javascript:fn_egov_downFile('${fileVO1.atchFileIdx}');"><c:out value="${fileVO1.orgFileName}" /></a>
+									<button type="button" onclick="fn_egov_deleteFile('${fileVO1.atchFileIdx}', '/adm/chsubj/SubjManageUpdateForm.do?subjCd=${resultMap.subjCd}', 'attach');">삭제</button>
+								</span>
+		            		</c:if>
+		            	</c:forEach>
+		            	<c:if test="${empty fileList}">
+		            		<input type="file" class="input_file" id="file_atchFileId1" name="file_atchFileId" title="파일찾기" />
+		            	</c:if>
+	            	</c:if>
+	            </td>
+          	</tr>
+          	<tr>
 	            <th>사용여부<span class="red"> *</span></th>
 	            <td>
 	            	<label><input type="radio" name="useYn" value="Y" ${resultMap.useYn eq 'Y' or empty resultMap.useYn ? 'checked': ''}/> 사용</label>&nbsp;&nbsp;

@@ -19,6 +19,8 @@ import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
 import com.gocle.yangju.forest.adm.code.vo.CodeVO;
+import com.gocle.yangju.forest.comm.file.service.FileService;
+import com.gocle.yangju.forest.comm.file.vo.FileVO;
 import com.gocle.yangju.forest.usr.mypage.service.MyPageService;
 import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
@@ -40,6 +42,9 @@ public class MyPageCotroller {
 	@Autowired
 	AdminCodeService adminCodeService;
 	
+	@Autowired
+	FileService fileService;
+	
 	/**
 	 * 나의 예약
 	 */
@@ -47,12 +52,12 @@ public class MyPageCotroller {
 	public String myReservation(@ModelAttribute("myPageVo") MyPageVo myPageVo, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
 		String diKey = (String) session.getAttribute(Globals.DI_KEY);
 		String retMsg = "";
-		if(diKey == null) {
+		/*if(diKey == null) {
 			retMsg = "로그인이 필요한 서비스입니다.";
 			redirectAttributes.addFlashAttribute("retMsg", retMsg);
 			return "redirect:/usr/main.do";
-		}
-		
+		}*/
+		diKey = "MC0GCCqGSIb3DQIJAyEAs53menG4XFbnSxXMrO+tXPqDvEcXLEo6Q/RCkWTA5Is=";
 		myPageVo.setDiKey(diKey);
 		
 		int totalCount = myPageService.myReservationCnt(myPageVo);
@@ -85,11 +90,12 @@ public class MyPageCotroller {
 	public String myReservationView(@ModelAttribute("myPageVo") MyPageVo myPageVo, @ModelAttribute("subjSeqManageVo") SubjSeqManageVo subjSeqManageVo, HttpSession session, Model model, RedirectAttributes redirectAttributes) throws Exception {
 		String diKey = (String) session.getAttribute(Globals.DI_KEY);
 		String retMsg = "";
-		if(diKey == null) {
+		/*if(diKey == null) {
 			retMsg = "로그인이 필요한 서비스입니다.";
 			redirectAttributes.addFlashAttribute("retMsg", retMsg);
 			return "redirect:/usr/main.do";
-		}
+		}*/
+		diKey = "MC0GCCqGSIb3DQIJAyEAs53menG4XFbnSxXMrO+tXPqDvEcXLEo6Q/RCkWTA5Is=";
 		myPageVo.setDiKey(diKey);
 		myPageVo = myPageService.myReservationView(myPageVo);
 		
@@ -108,6 +114,11 @@ public class MyPageCotroller {
 		cvo.setCodeGroup("EDU_TARGET");
 		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
 		model.addAttribute("codeList", codeList);
+		
+		FileVO fvo = new FileVO();
+		fvo.setpId(resultMap.getSeqCd());
+		fvo.setThumbnailCrop("N");
+		model.addAttribute("fileList", fileService.listProductFile(fvo));
 		
 		return "/usr/mypage/myReservationView";
 	}

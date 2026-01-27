@@ -121,27 +121,40 @@ public class StaffSubjManageController {
 		loginInfo.putSessionToVo(subjManageVo);
 		
 		String memSeq = (String) session.getAttribute(Globals.MEM_SEQ);
+		String AtchFileUploadPath = "Globals.fileStorePath";
 		String ImgFileUploadPath = "Globals.thumbnailStorePath";
-	
-		if(null != multiRequest) {
-			if(multiRequest.getFiles("file_thumbFileId") != null) {
-				List<MultipartFile> tFileObj = multiRequest.getFiles("file_thumbFileId");
-				
-				if(tFileObj != null && !tFileObj.isEmpty() && !tFileObj.get(0).isEmpty()) {
-					String fileName = tFileObj.get(0).getOriginalFilename();
-					String ext = fileName.substring(fileName.lastIndexOf('.')+1).toLowerCase(Locale.ROOT);
-					if(!Arrays.asList("jpg", "jpeg", "png").contains(ext)) {
-						retMsg = "허용되지 않는 파일형식입니다.";
-						redirectAttributes.addFlashAttribute("retMsg", retMsg);
-						return "redirect:/staff/chsubj/SubjManageUpdateForm.do?subjCd="+subjManageVo.getSubjCd();
-					}else {
-						fileService.saveProductThumFile(tFileObj, subjManageVo.getSubjCd(), memSeq, ImgFileUploadPath, "Y");
-					}
+		
+		if(multiRequest.getFiles("file_thumbFileId") != null) {
+			List<MultipartFile> tFileObj = multiRequest.getFiles("file_thumbFileId");
+			
+			if(tFileObj != null && !tFileObj.isEmpty() && !tFileObj.get(0).isEmpty()) {
+				String fileName = tFileObj.get(0).getOriginalFilename();
+				String ext = fileName.substring(fileName.lastIndexOf('.')+1).toLowerCase(Locale.ROOT);
+				if(!Arrays.asList("jpg", "jpeg", "png").contains(ext)) {
+					retMsg = "허용되지 않는 파일형식입니다.";
+					redirectAttributes.addFlashAttribute("retMsg", retMsg);
+					return "redirect:/staff/chsubj/SubjManageUpdateForm.do?subjCd="+subjManageVo.getSubjCd();
 				}
 			}
 		}
 		
 		int result = subjManageService.insert(subjManageVo);
+		
+		if(null != multiRequest) {
+			if(multiRequest.getFiles("file_atchFileId") != null) {
+				List<MultipartFile> fileObj = multiRequest.getFiles("file_atchFileId");
+				if(fileObj != null && !fileObj.isEmpty() && !fileObj.get(0).isEmpty()) {
+					fileService.saveProductFile(fileObj, subjManageVo.getSubjCd(), memSeq, AtchFileUploadPath, "N");
+				}
+			}
+			
+			if(multiRequest.getFiles("file_thumbFileId") != null) {
+				List<MultipartFile> tFileObj = multiRequest.getFiles("file_thumbFileId");
+				if(tFileObj != null && !tFileObj.isEmpty() && !tFileObj.get(0).isEmpty()) {
+					fileService.saveProductThumFile(tFileObj, subjManageVo.getSubjCd(), memSeq, ImgFileUploadPath, "Y");
+				}
+			}
+		}
 		
 		if (result > 0) {
             retMsg = "등록되었습니다.";
@@ -176,6 +189,9 @@ public class StaffSubjManageController {
 		fvo.setThumbnailCrop("Y");
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList1", tFileList);
+		fvo.setThumbnailCrop("N");
+		List<FileVO> fileList = fileService.listProductFile(fvo);
+		model.addAttribute("fileList", fileList);
 		
 		CodeVO cvo = new CodeVO();
 		cvo.setCodeGroup("EDU_TARGET");
@@ -196,6 +212,7 @@ public class StaffSubjManageController {
 		loginInfo.putSessionToVo(subjManageVo);
 		
 		String memSeq = (String) session.getAttribute(Globals.MEM_SEQ);
+		String AtchFileUploadPath = "Globals.fileStorePath";
 		String ImgFileUploadPath = "Globals.thumbnailStorePath";
 	
 		if(null != multiRequest) {
@@ -209,14 +226,28 @@ public class StaffSubjManageController {
 						retMsg = "허용되지 않는 파일형식입니다.";
 						redirectAttributes.addFlashAttribute("retMsg", retMsg);
 						return "redirect:/staff/chsubj/SubjManageUpdateForm.do?subjCd="+subjManageVo.getSubjCd();
-					}else {
-						fileService.saveProductThumFile(tFileObj, subjManageVo.getSubjCd(), memSeq, ImgFileUploadPath, "Y");
 					}
 				}
 			}
 		}
 		
 		int result = subjManageService.update(subjManageVo);
+		
+		if(null != multiRequest) {
+			if(multiRequest.getFiles("file_atchFileId") != null) {
+				List<MultipartFile> fileObj = multiRequest.getFiles("file_atchFileId");
+				if(fileObj != null && !fileObj.isEmpty() && !fileObj.get(0).isEmpty()) {
+					fileService.saveProductFile(fileObj, subjManageVo.getSubjCd(), memSeq, AtchFileUploadPath, "N");
+				}
+			}
+			
+			if(multiRequest.getFiles("file_thumbFileId") != null) {
+				List<MultipartFile> tFileObj = multiRequest.getFiles("file_thumbFileId");
+				if(tFileObj != null && !tFileObj.isEmpty() && !tFileObj.get(0).isEmpty()) {
+					fileService.saveProductThumFile(tFileObj, subjManageVo.getSubjCd(), memSeq, ImgFileUploadPath, "Y");
+				}
+			}
+		}
 		
 		if (result > 0) {
             retMsg = "수정되었습니다.";

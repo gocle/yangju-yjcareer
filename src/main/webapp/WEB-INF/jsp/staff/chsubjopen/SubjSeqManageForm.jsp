@@ -572,7 +572,7 @@ function fnCmdDelete() {
 		            		<c:if test="${fileVO1.thumbnailCrop eq 'Y'}">
 		            			<span id="file${fileVO1.atchFileIdx}">
 									<a href="javascript:fn_egov_downFile('${fileVO1.atchFileIdx}');"><c:out value="${fileVO1.orgFileName}" /></a>
-									<button type="button" onclick="fn_egov_deleteFile('${fileVO1.atchFileIdx}', '/staff/chsubjopen/SubjManageForm.do?seqCd=${resultMap.seqCd}', 'thumb');">삭제</button>
+									<button type="button" onclick="fn_egov_deleteFile('${fileVO1.atchFileIdx}', '/staff/chsubjopen/SubjSeqManageForm.do?seqCd=${resultMap.seqCd}', 'thumb');">삭제</button>
 								</span>
 		            		</c:if>
 		            	</c:forEach>
@@ -688,6 +688,28 @@ function fnCmdDelete() {
 	            <th>유의사항</th>
 	            <td colspan="3">
 	            	<textarea style="width:100%" name="subjDesc" id="subjDesc" maxlength="100">${resultMap.subjDesc}</textarea>
+	            </td>
+          	</tr>
+          	<tr>
+	            <th>첨부파일</th>
+	            <td colspan="3" class="file attach">
+	            	<c:if test="${resultMap eq null}">
+	            		<input type="file" class="input_file" id="file_atchFileId1" name="file_atchFileId" title="파일찾기" />
+	            	</c:if>
+	            	
+	            	<c:if test="${resultMap ne null}">
+	            		<c:forEach var="fileVO1" items="${fileList}" varStatus="status">
+		            		<c:if test="${fileVO1.thumbnailCrop eq 'N'}">
+		            			<span id="file${fileVO1.atchFileIdx}">
+									<a href="javascript:fn_egov_downFile('${fileVO1.atchFileIdx}');"><c:out value="${fileVO1.orgFileName}" /></a>
+									<button type="button" onclick="fn_egov_deleteFile('${fileVO1.atchFileIdx}', '/adm/chsubjopen/SubjManageForm.do?seqCd=${resultMap.seqCd}', 'attach');">삭제</button>
+								</span>
+		            		</c:if>
+		            	</c:forEach>
+		            	<c:if test="${empty fileList}">
+		            		<input type="file" class="input_file" id="file_atchFileId1" name="file_atchFileId" title="파일찾기" />
+		            	</c:if>
+	            	</c:if>
 	            </td>
           	</tr>
           	<tr>
