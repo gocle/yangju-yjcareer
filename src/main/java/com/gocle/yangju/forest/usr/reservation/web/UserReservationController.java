@@ -669,6 +669,11 @@ public class UserReservationController {
 		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
 		model.addAttribute("codeList", codeList);
 		
+		FileVO fvo = new FileVO();
+		fvo.setpId(resultMap.getSeqCd());
+		fvo.setThumbnailCrop("N");
+		model.addAttribute("fileList", fileService.listProductFile(fvo));
+		
 		return "/usr/reservation/eduLctreWebView";
 	}
 	
@@ -761,6 +766,11 @@ public class UserReservationController {
 		cvo.setCodeGroup("EDU_TARGET");
 		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
 		model.addAttribute("codeList", codeList);
+		
+		FileVO fvo = new FileVO();
+		fvo.setpId(resultMap.getSeqCd());
+		fvo.setThumbnailCrop("N");
+		model.addAttribute("fileList", fileService.listProductFile(fvo));
 		
 		return "/usr/reservation/addEduApplcntWebView";
 	}

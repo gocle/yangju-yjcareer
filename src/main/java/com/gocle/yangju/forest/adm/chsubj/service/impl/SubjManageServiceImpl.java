@@ -60,6 +60,15 @@ public class SubjManageServiceImpl extends EgovAbstractServiceImpl implements Su
 				fileService.deleteFile(tFile);
 			}
 		}
+		
+		fvo.setThumbnailCrop("N");
+		List<FileVO> fileList = fileService.listProductFile(fvo);
+		if(fileList != null && !fileList.isEmpty()) {
+			for(FileVO file : fileList) {
+				fileService.deleteFile(file);
+			}
+		}
+		
 		return subjManageMapper.delete(subjManageVo);
 	}
 	

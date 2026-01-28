@@ -14,7 +14,19 @@
 function fnCalendarView() {
 	window.location.href = "${contextRoot}/usr/reservation/consulting/addCalendarView.do?menuId=2025MENU0000143";
 }
+
+//파일 다운로드
+function fn_egov_downFile(atchFileIdx){
+	window.open("${contextRoot}/board/FileDown.do?atchFileIdx="+atchFileIdx);
+}
 </script>
+
+<style>
+.file_view {display:inline-block;height:22px;line-height:22px;margin-left:5px;padding-left:8px;border:1px solid #686868;background:#686868;color:#fff!important;font-size:0.8em;vertical-align: middle}
+.file_view:after{display:inline-block;width:20px;height:22px;margin:0 0 1px 10px;background:#fff url("/yjcareer/assets/common/images/board/bbs_icon.png") no-repeat -95px -46px;vertical-align:top; content:'';}
+.file_down {display:inline-block;height:22px;line-height:22px;margin-left:5px;padding-left:8px;border:1px solid #686868;background:#686868;color:#fff!important;font-size:0.8em;vertical-align: middle}
+.file_down:after{display:inline-block;width:20px;height:20px;margin:0 0 1px 10px;background:#fff url("/yjcareer/assets/common/images/board/down_icon.png") no-repeat center center;vertical-align:top; content:'';}
+</style>
 
 <c:import url="/usr/menu/header.do" />
 
@@ -292,6 +304,15 @@ function fnCalendarView() {
 				<li class="clearfix nonfloat">
 					<em>강의계획서</em>
 					<p>${resultMap.subjPlan }</p>
+				</li>
+				<li class="clearfix">
+					<em>첨부파일</em>
+					<c:forEach var="fileVO" items="${fileList}" varStatus="status">
+						<p>
+							<span><img src="/yjcareer/assets/common/images/board/file/ico_jpg.gif" alt="jpg파일첨부" />&nbsp;<c:out value="${fileVO.orgFileName}" /></span>
+							<a href="javascript:fn_egov_downFile('${fileVO.atchFileIdx}');" title="파일 다운로드" class="file_down">다운로드</a>
+						</p>
+					</c:forEach>
 				</li>
 			</ul>
 		</div>

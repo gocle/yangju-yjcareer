@@ -19,6 +19,8 @@ import com.gocle.yangju.forest.adm.chsubjopen.vo.EnrollManageVo;
 import com.gocle.yangju.forest.adm.chsubjopen.vo.SubjSeqManageVo;
 import com.gocle.yangju.forest.adm.code.service.AdminCodeService;
 import com.gocle.yangju.forest.adm.code.vo.CodeVO;
+import com.gocle.yangju.forest.comm.file.service.FileService;
+import com.gocle.yangju.forest.comm.file.vo.FileVO;
 import com.gocle.yangju.forest.usr.mypage.service.MyPageService;
 import com.gocle.yangju.forest.usr.mypage.vo.MyPageVo;
 import com.gocle.yangju.forest.usr.reservation.service.UserReservationService;
@@ -39,6 +41,9 @@ public class MyPageCotroller {
 	
 	@Autowired
 	AdminCodeService adminCodeService;
+	
+	@Autowired
+	FileService fileService;
 	
 	/**
 	 * 나의 예약
@@ -90,6 +95,7 @@ public class MyPageCotroller {
 			redirectAttributes.addFlashAttribute("retMsg", retMsg);
 			return "redirect:/usr/main.do";
 		}
+		
 		myPageVo.setDiKey(diKey);
 		myPageVo = myPageService.myReservationView(myPageVo);
 		
@@ -108,6 +114,11 @@ public class MyPageCotroller {
 		cvo.setCodeGroup("EDU_TARGET");
 		List<CodeVO> codeList = adminCodeService.selectCodeList(cvo);
 		model.addAttribute("codeList", codeList);
+		
+		FileVO fvo = new FileVO();
+		fvo.setpId(resultMap.getSeqCd());
+		fvo.setThumbnailCrop("N");
+		model.addAttribute("fileList", fileService.listProductFile(fvo));
 		
 		return "/usr/mypage/myReservationView";
 	}

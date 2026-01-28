@@ -46,6 +46,9 @@ public class SubjSeqManageServiceImpl extends EgovAbstractServiceImpl implements
 		fvo.setpId(subjSeqManageVo.getSubjCd());
 		fvo.setThumbnailCrop("Y");
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
+		// 과정마스터에 등록된 첨부파일
+		fvo.setThumbnailCrop("N");
+		List<FileVO> fileList = fileService.listProductFile(fvo);
 
 		for(int i=0;i<subjSeqManageVo.getSubjNms().length;i++) {
 			if(subjSeqManageVo.getSubjNms()[i] != "" && subjSeqManageVo.getSessionNms()[i] != ""
@@ -60,6 +63,13 @@ public class SubjSeqManageServiceImpl extends EgovAbstractServiceImpl implements
 						tFile.setFileSn(0);
 					}
 					fileService.insertProductFile(tFileList, subjSeqManageVo.getSeqCd(), subjSeqManageVo.getSessionMemSeq(), "Y");
+				}
+				
+				if(fileList != null && !fileList.isEmpty()) {
+					for(FileVO file : fileList) {
+						file.setFileSn(0);
+					}
+					fileService.insertProductFile(fileList, subjSeqManageVo.getSeqCd(), subjSeqManageVo.getSessionMemSeq(), "N");
 				}
 				
 				subjSeqManageVo.setSubjNm(subjSeqManageVo.getSubjNms()[i]);
@@ -93,6 +103,13 @@ public class SubjSeqManageServiceImpl extends EgovAbstractServiceImpl implements
 		if(tFileList != null && !tFileList.isEmpty()) {
 			for(FileVO tFile : tFileList) {
 				fileService.deleteFile(tFile);
+			}
+		}
+		fvo.setThumbnailCrop("N");
+		List<FileVO> fileList = fileService.listProductFile(fvo);
+		if(fileList != null && !fileList.isEmpty()) {
+			for(FileVO file : fileList) {
+				fileService.deleteFile(file);
 			}
 		}
 		return subjSeqManageMapper.delete(subjSeqManageVo);

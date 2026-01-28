@@ -133,6 +133,10 @@ public class SubjSeqManageController {
 		fvo.setThumbnailCrop("Y");
 		List<FileVO> tFileList = fileService.listProductFile(fvo);
 		model.addAttribute("fileList1", tFileList);
+		fvo.setThumbnailCrop("N");
+		fvo.setpId(searchVo.getSeqCd());
+		List<FileVO> fileList = fileService.listProductFile(fvo);
+		model.addAttribute("fileList", fileList);
 		
 		CodeVO cvo = new CodeVO();
 		cvo.setCodeGroup("EDU_TARGET");
@@ -152,6 +156,7 @@ public class SubjSeqManageController {
 		LoginInfo loginInfo = new LoginInfo();
 		loginInfo.putSessionToVo(subjSeqManageVo);
 		
+		String AtchFileUploadPath = "Globals.fileStorePath";
 		String ImgFileUploadPath = "Globals.thumbnailStorePath";
 		
 		if(null != multiRequest) {
@@ -164,15 +169,29 @@ public class SubjSeqManageController {
 					if(!Arrays.asList("jpg", "jpeg", "png").contains(ext)) {
 						retMsg = "허용되지 않는 파일형식입니다.";
 						redirectAttributes.addFlashAttribute("retMsg", retMsg);
-						return "redirect:/adm/chsubjopen/SubjManageForm.do?seqCd="+subjSeqManageVo.getSeqCd();
-					}else {
-						fileService.saveProductThumFile(tFileObj, subjSeqManageVo.getSeqCd(), subjSeqManageVo.getSessionMemSeq(), ImgFileUploadPath, "Y");
+						return "redirect:/adm/chsubjopen/SubjSeqManageForm.do?seqCd="+subjSeqManageVo.getSeqCd();
 					}
 				}
 			}
 		}
 		
 		int result = subjSeqManageService.update(subjSeqManageVo);
+		
+		if(null != multiRequest) {
+			if(multiRequest.getFiles("file_atchFileId") != null) {
+				List<MultipartFile> fileObj = multiRequest.getFiles("file_atchFileId");
+				if(fileObj != null && !fileObj.isEmpty() && !fileObj.get(0).isEmpty()) {
+					fileService.saveProductFile(fileObj, subjSeqManageVo.getSeqCd(), subjSeqManageVo.getSessionMemSeq(), AtchFileUploadPath, "N");
+				}
+			}
+			
+			if(multiRequest.getFiles("file_thumbFileId") != null) {
+				List<MultipartFile> tFileObj = multiRequest.getFiles("file_thumbFileId");
+				if(tFileObj != null && !tFileObj.isEmpty() && !tFileObj.get(0).isEmpty()) {
+					fileService.saveProductThumFile(tFileObj, subjSeqManageVo.getSeqCd(), subjSeqManageVo.getSessionMemSeq(), ImgFileUploadPath, "Y");
+				}
+			}
+		}
 		
 		if (result > 0) {
             retMsg = "수정되었습니다.";
