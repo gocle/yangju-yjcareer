@@ -38,6 +38,7 @@ public class UserLoginController {
 	
 	private static final String CLIENT_ID = EgovProperties.getProperty("Globals.clientId");
 	private static final String CLIENT_SECRET = EgovProperties.getProperty("Globals.clientSecret");
+	private static final String CALLBACK_URL = "/yjcareer/usr/login/successAuth.do";
 	
 	/**
 	 * 본인인증 팝업 호출
@@ -123,7 +124,7 @@ public class UserLoginController {
 		intcUrlReqInfo.setApiDomain("https://auth.niceid.co.kr");
 		intcUrlReqInfo.setClientId(CLIENT_ID);
 		intcUrlReqInfo.setClientSecret(CLIENT_SECRET);
-		intcUrlReqInfo.setResultUrl(baseUrl + redirectUrl);
+		intcUrlReqInfo.setResultUrl(baseUrl + CALLBACK_URL);
 		intcUrlReqInfo.setSvcTypes(Arrays.asList("M"));
 		
 		// 선택 항목
@@ -143,11 +144,12 @@ public class UserLoginController {
 		if ("0000".equals(intcUrlResInfo.getReturnCode())) {
 //		    System.out.println("응답코드:"+intcUrlResInfo.getReturnCode());
 //		    System.out.println("응답메세지:"+intcUrlResInfo.getResultMessage());
-//		    System.out.println("요청고유번호:"+intcUrlResInfo.getRequestNo());
-//		    System.out.println("트랜잭션아이디:"+intcUrlResInfo.getTransactionId());
+		    System.out.println("요청고유번호:"+intcUrlResInfo.getRequestNo());
+		    System.out.println("트랜잭션아이디:"+intcUrlResInfo.getTransactionId());
 //		    System.out.println("인증요청 URL:"+intcUrlResInfo.getAuthUrl());
 			session.setAttribute("transactionId", intcUrlResInfo.getTransactionId());
 			session.setAttribute("requestNo", intcUrlResInfo.getRequestNo());
+			session.setAttribute("redirectUrl", redirectUrl);
 		} else {
 		    System.out.println("응답코드:"+intcUrlResInfo.getReturnCode());
 		    System.out.println("응답메세지:"+intcUrlResInfo.getResultMessage());
@@ -184,6 +186,8 @@ public class UserLoginController {
 		String transactionId = (String) session.getAttribute("transactionId");
 		String requestNo = (String) session.getAttribute("requestNo");
 		
+		System.out.println("요청고유번호:"+ requestNo);
+	    System.out.println("트랜잭션아이디:"+ transactionId);
 		if (requestNo == null || transactionId == null) {
 	        throw new IllegalStateException("인증 세션 정보 없음");
 	    }
@@ -271,8 +275,6 @@ public class UserLoginController {
 				userLoginService.insertUser(loginVO);
 			}
 	    } else {
-	    	session.removeAttribute("transactionId");
-	        session.removeAttribute("requestNo");
 	        sMessage = "응답코드:"+intcResultResInfo.getReturnCode() + "응답메세지:"+intcResultResInfo.getResultMessage();
 	        
 	        System.out.println("응답코드:"+intcResultResInfo.getReturnCode());
@@ -281,14 +283,17 @@ public class UserLoginController {
 	    }
 
         // 인증 전 접근 URL
-        String redirectUrl = request.getParameter("redirectUrl");
+	    String redirectUrl = (String) session.getAttribute("redirectUrl");
         if (redirectUrl == null || redirectUrl.isEmpty()) {
             redirectUrl = "/usr/main.do";
         }
         
         model.addAttribute("message", sMessage);
         model.addAttribute("redirectUrl", redirectUrl);
-
+        session.removeAttribute("redirectUrl");
+        session.removeAttribute("transactionId");
+        session.removeAttribute("requestNo");
+        
         return "usr/main/authSuccess";
     }
 	
